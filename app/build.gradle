@@ -1,0 +1,156 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
+    defaultConfig {
+        applicationId "com.quduo.welfareshop"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+        flavorDimensions "versionCode"
+    }
+    productFlavors {
+        NNY_1004 {
+            manifestPlaceholders = [CHANNEL_ID: "1004"]
+        }
+        NNY_1001 {
+            manifestPlaceholders = [CHANNEL_ID: "1001"]
+        }
+        NNY_1002 {
+            manifestPlaceholders = [CHANNEL_ID: "1002"]
+        }
+        NNY_1003 {
+            manifestPlaceholders = [CHANNEL_ID: "1003"]
+        }
+        NNY_1005 {
+            manifestPlaceholders = [CHANNEL_ID: "1005"]
+        }
+        NNY_1006 {
+            manifestPlaceholders = [CHANNEL_ID: "1006"]
+        }
+        NNY_1007 {
+            manifestPlaceholders = [CHANNEL_ID: "1007"]
+        }
+        NNY_1008 {
+            manifestPlaceholders = [CHANNEL_ID: "1008"]
+        }
+        NNY_1009 {
+            manifestPlaceholders = [CHANNEL_ID: "1009"]
+        }
+        NNY_1010 {
+            manifestPlaceholders = [CHANNEL_ID: "1010"]
+        }
+        NNY_1011 {
+            manifestPlaceholders = [CHANNEL_ID: "1011"]
+        }
+        NNY_1012 {
+            manifestPlaceholders = [CHANNEL_ID: "1012"]
+        }
+        NNY_1013 {
+            manifestPlaceholders = [CHANNEL_ID: "1013"]
+        }
+        NNY_1014 {
+            manifestPlaceholders = [CHANNEL_ID: "1014"]
+        }
+        NNY_1015 {
+            manifestPlaceholders = [CHANNEL_ID: "1015"]
+        }
+        NNY_1016 {
+            manifestPlaceholders = [CHANNEL_ID: "1016"]
+        }
+        NNY_1017 {
+            manifestPlaceholders = [CHANNEL_ID: "1017"]
+        }
+        NNY_1018 {
+            manifestPlaceholders = [CHANNEL_ID: "1018"]
+        }
+        NNY_1019 {
+            manifestPlaceholders = [CHANNEL_ID: "1019"]
+        }
+        NNY_1020 {
+            manifestPlaceholders = [CHANNEL_ID: "1020"]
+        }
+        NNY_1021 {
+            manifestPlaceholders = [CHANNEL_ID: "1021"]
+        }
+        NNY_1022 {
+            manifestPlaceholders = [CHANNEL_ID: "1022"]
+        }
+        NNY_1023 {
+            manifestPlaceholders = [CHANNEL_ID: "1023"]
+        }
+        NNY_1024 {
+            manifestPlaceholders = [CHANNEL_ID: "1024"]
+        }
+        NNY_1025 {
+            manifestPlaceholders = [CHANNEL_ID: "1025"]
+        }
+        NNY_1026 {
+            manifestPlaceholders = [CHANNEL_ID: "1026"]
+        }
+        NNY_1027 {
+            manifestPlaceholders = [CHANNEL_ID: "1027"]
+        }
+    }
+    signingConfigs {
+        release {
+            storeFile file('WelfareShop.jks')
+            storePassword '123456'
+            keyAlias '1'
+            keyPassword '123456'
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
+    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def flavorFlag = "${variant.productFlavors.get(0).name}"
+            def file_pre = flavorFlag.replace("NNY", "lottery")
+            outputFileName = "../../${file_pre}_${defaultConfig.versionCode}.apk"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.0.2'
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.android.support:support-vector-drawable:27.0.2'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    compile 'me.yokeyword:fragmentation:1.1.10'
+    compile 'me.yokeyword:fragmentation-swipeback:1.1.10'
+    compile 'me.yokeyword:eventbus-activity-scope:1.1.0'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'me.weyye.hipermission:library:1.0.7'
+    compile 'com.blankj:utilcode:1.9.12'
+    compile project(':loadmore')
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    //okhttp
+    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile 'com.squareup.okio:okio:1.13.0'
+    compile 'com.lzy.net:okgo:3.0.4'
+    //json解析
+    compile 'com.google.code.gson:gson:2.8.1'
+    //banner
+    compile 'com.youth.banner:banner:1.4.9'
+    //垂直跑马灯
+    compile 'com.github.sun-sky:Marquee:1.0.0'
+    //adapter
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
+    //图片加载
+    compile 'com.sunfusheng:glideimageview:1.2.0'
+    //验证码输入框
+    implementation 'com.jacktuotuo.customview:verificationcodeview:1.0.2'
+    //对话框
+    compile 'com.github.hss01248:DialogUtil:1.2.6'
+
+}

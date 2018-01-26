@@ -1,0 +1,11 @@
+<resources>
+
+    <!--Default Style-->
+    <style name="DefaultSmartStyle">
+        <item name="loading_layout">@layout/status_loading_layout</item>
+        <item name="none_content">@layout/status_none_layout</item>
+        <item name="network_content">@layout/status_no_network_layout</item>
+        <item name="failed_content">@layout/status_fail_layout</item>
+    </style>
+</resources>
+
