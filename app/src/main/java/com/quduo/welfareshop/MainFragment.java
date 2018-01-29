@@ -100,11 +100,11 @@ public class MainFragment extends SupportFragment {
 
     private void initView() {
         bottomBar
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottombar_index_d, R.drawable.ic_bottombar_index_s, getString(R.string.tab_welfare)))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottombar_discover_d, R.drawable.ic_bottombar_discover_s, getString(R.string.tab_limit)))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottombar_wincode_d, R.drawable.ic_bottombar_wincode_s, getString(R.string.tab_shop)))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottombar_mine_d, R.drawable.ic_bottombar_mine_s, getString(R.string.tab_encyc)))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_bottombar_mine_d, R.drawable.ic_bottombar_mine_s, getString(R.string.tab_mine)));
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_welfare_d, R.drawable.ic_tab_welfare_s, getString(R.string.tab_welfare)))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_limit_d, R.drawable.ic_tab_limit_s, getString(R.string.tab_limit)))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_shop_d, R.drawable.ic_tab_shop_s, getString(R.string.tab_shop)))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_indiana_d, R.drawable.ic_tab_indiana_s, getString(R.string.tab_indiana)))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_mine_d, R.drawable.ic_tab_mine_s, getString(R.string.tab_mine)));
 
 
         bottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {

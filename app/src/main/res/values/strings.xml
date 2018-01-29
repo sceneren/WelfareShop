@@ -7,6 +7,7 @@
     <string name="tab_shop">性趣商城</string>
     <string name="tab_encyc">性趣百科</string>
     <string name="tab_mine">我的</string>
+    <string name="tab_indiana">积分夺宝</string>
 
     <!--重启-->
     <string name="recovery_dialog_tips">提示</string>

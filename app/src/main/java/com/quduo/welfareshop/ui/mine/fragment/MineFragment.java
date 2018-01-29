@@ -40,13 +40,7 @@ import butterknife.Unbinder;
  */
 
 public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> implements IMineView {
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.toolbar_title)
-    TextView toolbarTitle;
     Unbinder unbinder;
-    @BindView(R.id.read)
-    Button read;
 
     public static MineFragment newInstance() {
         Bundle args = new Bundle();
@@ -71,7 +65,6 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     @Override
     public void initToolBar() {
         super.initToolBar();
-        toolbarTitle.setText("我的");
     }
 
     @Override
@@ -102,7 +95,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     }
 
     /*小说*/
-    @OnClick(R.id.read)
+    @OnClick(R.id.unlock_all)
     public void onClickRead() {
         List<BookList> allBooks = DataSupport.findAll(BookList.class);
         if (allBooks.size() > 0) {

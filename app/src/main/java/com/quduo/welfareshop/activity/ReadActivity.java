@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -44,6 +45,7 @@ import com.quduo.welfareshop.widgets.PageWidget;
 import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -320,6 +322,7 @@ public class ReadActivity extends BaseActivity {
 
     }
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -350,6 +353,7 @@ public class ReadActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
         pageFactory.clear();
         bookpage = null;
         unregisterReceiver(myReceiver);
