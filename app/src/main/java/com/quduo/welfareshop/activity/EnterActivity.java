@@ -2,14 +2,13 @@ package com.quduo.welfareshop.activity;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.BaseActivity;
+import com.quduo.welfareshop.util.ResourceUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +20,13 @@ import me.weyye.hipermission.PermissionItem;
 public class EnterActivity extends BaseActivity {
     private long beginTime = 0;
     private static final long MIN_SHOW_TIME = 3 * 1000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter);
         beginTime = System.currentTimeMillis();
-        MyApplication.getInstance().setResourceId(getResouyceId());
+        MyApplication.getInstance().setResourceId(ResourceUtil.getResouyceId(EnterActivity.this));
         applyExternalStorage();
     }
 
@@ -64,30 +64,6 @@ public class EnterActivity extends BaseActivity {
 
                     }
                 });
-    }
-
-    /**
-     * Case By:获取渠道
-     * Author: scene on 2017/5/19 10:46
-     */
-    private String getResouyceId() {
-        String resultData = "";
-        try {
-            PackageManager packageManager = getPackageManager();
-            if (packageManager != null) {
-                ApplicationInfo applicationInfo = packageManager.getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
-                if (applicationInfo != null) {
-                    if (applicationInfo.metaData != null) {
-                        int str = applicationInfo.metaData.getInt("CHANNEL", 1001);
-                        resultData = String.valueOf(str);
-                    }
-                }
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return resultData;
     }
 
     private void toMainActivity() {

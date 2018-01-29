@@ -1,9 +1,9 @@
 package com.quduo.welfareshop;
 
 import android.app.Activity;
-import android.app.Application;
 import android.os.Bundle;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.Utils;
 import com.bumptech.glide.MemoryCategory;
 import com.hss01248.dialog.ActivityStackManager;
@@ -17,7 +17,12 @@ import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.quduo.welfareshop.Exception.core.Recovery;
 import com.quduo.welfareshop.activity.MainActivity;
+import com.quduo.welfareshop.config.Config;
+import com.quduo.welfareshop.util.PageFactory;
+import com.quduo.welfareshop.util.ResourceUtil;
 import com.sunfusheng.glideimageview.progress.GlideApp;
+
+import org.litepal.LitePalApplication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +36,7 @@ import wiki.scene.loadmore.utils.PtrLocalDisplay;
  * application
  * Created by scene on 2016/7/1.
  */
-public class MyApplication extends Application {
+public class MyApplication extends LitePalApplication {
 
     //记录当前栈里所有activity
     private List<Activity> activities = new ArrayList<>();
@@ -58,7 +63,12 @@ public class MyApplication extends Application {
         initOKhttp();
         //初始化dialog
         initDialog();
+        //初始化数据库
+        LitePalApplication.initialize(this);
+        Config.createConfig(this);
+        PageFactory.createPageFactory(this);
     }
+
 
     //初始化dialog
     private void initDialog() {
@@ -177,6 +187,9 @@ public class MyApplication extends Application {
     }
 
     public String getResourceId() {
+        if (StringUtils.isTrimEmpty(resourceId)) {
+            resourceId = ResourceUtil.getResouyceId(getApplicationContext());
+        }
         return resourceId;
     }
 

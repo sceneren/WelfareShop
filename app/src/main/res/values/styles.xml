@@ -22,7 +22,12 @@
         <!--多点触控，在无需多点触控的页面上，可以选择关闭-->
         <item name="android:splitMotionEvents">false</item>
     </style>
-
+    <style name="AppTheme.ReadActivityTheme">
+        <item name="colorPrimary">@color/read_dialog_bg</item>
+        <item name="colorPrimaryDark">@color/read_dialog_bg</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
     <style name="AppTheme.FullScreen" parent="AppTheme.NoActionBar">
         <item name="android:windowFullscreen">true</item>
     </style>
@@ -54,5 +59,45 @@
 
     <style name="tab_appearance">
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="text_style">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="setting_dialog_button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/button_bg</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="setting_dialog_iv">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="com.quduo.welfareshop:border_width">2dp</item>
+        <item name="com.quduo.welfareshop:border_color">@color/read_dialog_button_select</item>
+    </style>
+
+    <style name="setting_dialog" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/read_dialog_bg</item>
+        <item name="colorPrimaryDark">@color/read_dialog_bg</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@color/transparent1</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <!--<item name="android:windowAnimationStyle">@style/dialog_animation</item>-->
     </style>
 </resources>
