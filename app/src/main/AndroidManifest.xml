@@ -39,7 +39,11 @@
         <activity
             android:name=".activity.ReadActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.ReadActivityTheme"></activity>
+            android:theme="@style/AppTheme.ReadActivityTheme"/>
+        <activity
+            android:name=".activity.MarkActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.ReadActivityTheme"/>
     </application>
 
 </manifest>

@@ -578,8 +578,8 @@ public class ReadActivity extends BaseActivity {
                 }
                 break;
             case R.id.tv_directory:
-//                Intent intent = new Intent(ReadActivity.this, MarkActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(ReadActivity.this, MarkActivity.class);
+                startActivity(intent);
                 break;
             case R.id.tv_dayornight:
                 changeDayOrNight();
