@@ -2,7 +2,6 @@ package com.quduo.welfareshop.ui.mine.fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -10,20 +9,21 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.ReadActivity;
 import com.quduo.welfareshop.db.BookList;
 import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
 import com.quduo.welfareshop.ui.mine.presenter.MinePresenter;
 import com.quduo.welfareshop.ui.mine.view.IMineView;
+import com.quduo.welfareshop.ui.read.listener.OnSaveData2DBListener;
 import com.quduo.welfareshop.util.FileUtils;
+import com.quduo.welfareshop.util.ReaderUtil;
 
 import org.litepal.crud.DataSupport;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -115,60 +115,28 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
             }
             ReadActivity.openBook(bookList, _mActivity);
         } else {
-            List<BookList> bookLists = new ArrayList<BookList>();
             BookList bookList = new BookList();
-            String bookName = FileUtils.getFileName(Environment.getExternalStorageDirectory().getPath() + File.separator + "396993.txt");
+            final String bookName = FileUtils.getFileName(Environment.getExternalStorageDirectory().getPath() + File.separator + "396993.txt");
             bookList.setBookname(bookName);
             bookList.setBookpath(Environment.getExternalStorageDirectory().getPath() + File.separator + "396993.txt");
-            bookLists.add(bookList);
-            SaveBookToSqlLiteTask mSaveBookToSqlLiteTask = new SaveBookToSqlLiteTask();
-            mSaveBookToSqlLiteTask.execute(bookLists);
-        }
-
-    }
-
-    private class SaveBookToSqlLiteTask extends AsyncTask<List<BookList>, Void, Integer> {
-        private static final int FAIL = 0;
-        private static final int SUCCESS = 1;
-        private static final int REPEAT = 2;
-        private BookList repeatBookList;
-
-        @Override
-        protected Integer doInBackground(List<BookList>... params) {
-            List<BookList> bookLists = params[0];
-            for (BookList bookList : bookLists) {
-                List<BookList> books = DataSupport.where("bookpath = ?", bookList.getBookpath()).find(BookList.class);
-                if (books.size() > 0) {
-                    repeatBookList = bookList;
-                    return REPEAT;
+            ReaderUtil.addBook2DB(bookList, new OnSaveData2DBListener() {
+                @Override
+                public void onSaveSuccess() {
+                    ToastUtils.showShort("导入书本成功");
                 }
-            }
-            try {
-                DataSupport.saveAll(bookLists);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return FAIL;
-            }
-            return SUCCESS;
+
+                @Override
+                public void onSaveFail() {
+                    ToastUtils.showShort("由于一些原因添加书本失败");
+                }
+
+                @Override
+                public void onSaveRepeat() {
+                    ToastUtils.showShort("书本" + bookName + "重复了");
+                }
+            });
         }
 
-        @Override
-        protected void onPostExecute(Integer result) {
-            super.onPostExecute(result);
-            String msg = "";
-            switch (result) {
-                case FAIL:
-                    msg = "由于一些原因添加书本失败";
-                    break;
-                case SUCCESS:
-                    msg = "导入书本成功";
-                    break;
-                case REPEAT:
-                    msg = "书本" + repeatBookList.getBookname() + "重复了";
-                    break;
-            }
-
-            Toast.makeText(getActivity().getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
-        }
     }
+
 }

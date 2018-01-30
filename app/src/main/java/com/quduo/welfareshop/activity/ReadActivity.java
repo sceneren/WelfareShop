@@ -423,7 +423,7 @@ public class ReadActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public static boolean openBook(final BookList bookList, Activity context) {
+    public static void openBook(final BookList bookList, Activity context) {
         if (bookList == null) {
             throw new NullPointerException("BookList can not be null");
         }
@@ -433,7 +433,6 @@ public class ReadActivity extends BaseActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
         context.startActivity(intent);
-        return true;
     }
 
     /**
