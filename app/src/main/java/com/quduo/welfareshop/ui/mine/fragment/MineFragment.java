@@ -7,12 +7,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.quduo.welfareshop.R;
@@ -29,7 +26,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -99,7 +95,6 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     public void onClickRead() {
         List<BookList> allBooks = DataSupport.findAll(BookList.class);
         if (allBooks.size() > 0) {
-            String bookname = allBooks.get(0).getBookname();
             final BookList bookList = allBooks.get(0);
             bookList.setId(allBooks.get(0).getId());
             final String path = bookList.getBookpath();

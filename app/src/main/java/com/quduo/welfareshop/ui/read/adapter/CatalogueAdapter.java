@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.config.Config;
 import com.quduo.welfareshop.db.BookCatalogue;
+import com.quduo.welfareshop.util.CatalogUtil;
 
 import java.util.List;
 
@@ -19,13 +20,12 @@ public class CatalogueAdapter extends BaseAdapter {
     private Context mContext;
     private List<BookCatalogue> bookCatalogueList;
     private Typeface typeface;
-    private Config config;
     private int currentCharter = 0;
 
     public CatalogueAdapter(Context context, List<BookCatalogue> bookCatalogueList) {
         mContext = context;
         this.bookCatalogueList = bookCatalogueList;
-        config = config.getInstance();
+        Config config = Config.getInstance();
         typeface = config.getTypeface();
     }
 
@@ -55,7 +55,7 @@ public class CatalogueAdapter extends BaseAdapter {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = inflater.inflate(R.layout.cataloguelistview_item, null);
-            viewHolder.catalogue_tv = (TextView) convertView.findViewById(R.id.catalogue_tv);
+            viewHolder.catalogue_tv = convertView.findViewById(R.id.catalogue_tv);
             viewHolder.catalogue_tv.setTypeface(typeface);
             convertView.setTag(viewHolder);
         } else {
@@ -66,8 +66,9 @@ public class CatalogueAdapter extends BaseAdapter {
         } else {
             viewHolder.catalogue_tv.setTextColor(mContext.getResources().getColor(R.color.read_textColor));
         }
-        viewHolder.catalogue_tv.setText(bookCatalogueList.get(position).getBookCatalogue());
-        //Log.d("catalogue",bookCatalogueList.get(position).getBookCatalogue());
+        String catalogueName = bookCatalogueList.get(position).getBookCatalogue().trim();
+        catalogueName = CatalogUtil.replaceBlank(catalogueName);
+        viewHolder.catalogue_tv.setText(catalogueName);
         return convertView;
     }
 

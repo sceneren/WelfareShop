@@ -13,7 +13,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
@@ -32,6 +31,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.BaseActivity;
 import com.quduo.welfareshop.config.Config;
@@ -44,17 +44,12 @@ import com.quduo.welfareshop.util.PageFactory;
 import com.quduo.welfareshop.widgets.PageWidget;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -105,7 +100,6 @@ public class ReadActivity extends BaseActivity {
     Unbinder unbinder;
 
     private Config config;
-    private BookList bookList;
     private PageFactory pageFactory;
     // popwindow是否显示
     private Boolean isShow = false;
@@ -120,11 +114,11 @@ public class ReadActivity extends BaseActivity {
     private BroadcastReceiver myReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(Intent.ACTION_BATTERY_CHANGED)) {
+            if (Objects.equals(intent.getAction(), Intent.ACTION_BATTERY_CHANGED)) {
                 Log.e(TAG, Intent.ACTION_BATTERY_CHANGED);
                 int level = intent.getIntExtra("level", 0);
                 pageFactory.updateBattery(level);
-            } else if (intent.getAction().equals(Intent.ACTION_TIME_TICK)) {
+            } else if (Objects.equals(intent.getAction(), Intent.ACTION_TIME_TICK)) {
                 Log.e(TAG, Intent.ACTION_TIME_TICK);
                 pageFactory.updateTime();
             }
@@ -177,7 +171,7 @@ public class ReadActivity extends BaseActivity {
         }
         //获取intent中的携带的信息
         Intent intent = getIntent();
-        bookList = (BookList) intent.getSerializableExtra(EXTRA_BOOK);
+        BookList bookList = (BookList) intent.getSerializableExtra(EXTRA_BOOK);
 
         bookpage.setPageMode(config.getPageMode());
         pageFactory.setPageWidget(bookpage);
@@ -214,6 +208,7 @@ public class ReadActivity extends BaseActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 pageFactory.changeProgress(pro);
+                hideProgress();
             }
         });
 
@@ -291,15 +286,11 @@ public class ReadActivity extends BaseActivity {
                     return false;
                 }
                 if (pageFactory.getCurrentCharter() > 20) {
-                    Toast.makeText(ReadActivity.this, "要会员才能看", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showShort("要会员才能看");
                     return false;
                 }
                 pageFactory.prePage();
-                if (pageFactory.isfirstPage()) {
-                    return false;
-                }
-
-                return true;
+                return !pageFactory.isfirstPage();
             }
 
             @Override
@@ -309,14 +300,11 @@ public class ReadActivity extends BaseActivity {
                     return false;
                 }
                 if (pageFactory.getCurrentCharter() >= 20) {
-                    Toast.makeText(ReadActivity.this, "要会员才能看", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showShort("要会员才能看");
                     return false;
                 }
                 pageFactory.nextPage();
-                if (pageFactory.islastPage()) {
-                    return false;
-                }
-                return true;
+                return !pageFactory.islastPage();
             }
 
             @Override
@@ -435,7 +423,6 @@ public class ReadActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     public static boolean openBook(final BookList bookList, Activity context) {
         if (bookList == null) {
             throw new NullPointerException("BookList can not be null");
@@ -485,7 +472,12 @@ public class ReadActivity extends BaseActivity {
 
     //隐藏书本进度
     public void hideProgress() {
-        rl_progress.setVisibility(View.GONE);
+        rl_progress.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                rl_progress.setVisibility(View.GONE);
+            }
+        },500);
     }
 
     public void initDayOrNight() {
@@ -513,7 +505,7 @@ public class ReadActivity extends BaseActivity {
     private void setProgress(float progress) {
         DecimalFormat decimalFormat = new DecimalFormat("00.00");//构造方法的字符格式这里如果小数不足2位,会以0补足.
         String p = decimalFormat.format(progress * 100.0);//format 返回的是字符串
-        tv_progress.setText(p + "%");
+        tv_progress.setText(String.format("%s%%", p));
     }
 
     public void setSeekBarProgress(float progress) {
@@ -531,20 +523,16 @@ public class ReadActivity extends BaseActivity {
         } else {
             showSystemUI();
 
-            Animation bottomAnim = AnimationUtils.loadAnimation(this, R.anim.dialog_enter);
             Animation topAnim = AnimationUtils.loadAnimation(this, R.anim.dialog_top_enter);
             rl_bottom.startAnimation(topAnim);
             appbar.startAnimation(topAnim);
-//        ll_top.startAnimation(topAnim);
             rl_bottom.setVisibility(View.VISIBLE);
-//        ll_top.setVisibility(View.VISIBLE);
             appbar.setVisibility(View.VISIBLE);
         }
     }
 
     private void hideReadSetting() {
         isShow = false;
-        Animation bottomAnim = AnimationUtils.loadAnimation(this, R.anim.dialog_exit);
         Animation topAnim = AnimationUtils.loadAnimation(this, R.anim.dialog_top_exit);
         if (rl_bottom.getVisibility() == View.VISIBLE) {
             rl_bottom.startAnimation(topAnim);
@@ -555,10 +543,8 @@ public class ReadActivity extends BaseActivity {
         if (rl_read_bottom.getVisibility() == View.VISIBLE) {
             rl_read_bottom.startAnimation(topAnim);
         }
-//        ll_top.startAnimation(topAnim);
         rl_bottom.setVisibility(View.GONE);
         rl_read_bottom.setVisibility(View.GONE);
-//        ll_top.setVisibility(View.GONE);
         appbar.setVisibility(View.GONE);
         hideSystemUI();
     }

@@ -85,7 +85,8 @@ public class MarkAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if (onClickDeleteMarkListener != null) {
-                    onClickDeleteMarkListener.onClickDeleteMark(viewHolder, position);
+                    viewHolder.swipe.quickClose();
+                    onClickDeleteMarkListener.onClickDeleteMark( position);
                 }
             }
         });
@@ -106,7 +107,7 @@ public class MarkAdapter extends BaseAdapter {
 
 
     public interface OnClickDeleteMarkListener {
-        void onClickDeleteMark(MarkViewHolder holder, int position);
+        void onClickDeleteMark(int position);
 
         void onClickItemLayout(int position);
     }
