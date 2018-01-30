@@ -8,9 +8,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
-
 
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.db.BookMarks;
@@ -69,19 +67,13 @@ public class BookMarkFragment extends SupportFragment {
         bookMarksList = DataSupport.where("bookpath = ?", bookpath).find(BookMarks.class);
         markAdapter = new MarkAdapter(getActivity(), bookMarksList);
         lv_bookmark.setAdapter(markAdapter);
+
     }
 
     private void initListener() {
-        lv_bookmark.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        markAdapter.setOnClickDeleteMarkListener(new MarkAdapter.OnClickDeleteMarkListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                pageFactory.changeChapter(bookMarksList.get(position).getBegin());
-                getActivity().finish();
-            }
-        });
-        lv_bookmark.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+            public void onClickDeleteMark(final MarkAdapter.MarkViewHolder viewHolder, final int position) {
                 new AlertDialog.Builder(getActivity())
                         .setTitle("提示")
                         .setMessage("是否删除书签？")
@@ -94,13 +86,30 @@ public class BookMarkFragment extends SupportFragment {
                         .setPositiveButton("删除", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                DataSupport.delete(BookMarks.class, bookMarksList.get(position).getId());
-                                bookMarksList.clear();
-                                bookMarksList.addAll(DataSupport.where("bookpath = ?", bookpath).find(BookMarks.class));
-                                markAdapter.notifyDataSetChanged();
+                                try {
+                                    DataSupport.delete(BookMarks.class, bookMarksList.get(position).getId());
+                                    bookMarksList.clear();
+                                    bookMarksList.addAll(DataSupport.where("bookpath = ?", bookpath).find(BookMarks.class));
+                                    markAdapter.notifyDataSetChanged();
+                                    viewHolder.swipe.quickClose();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
                             }
                         }).setCancelable(true).show();
-                return false;
+            }
+
+            @Override
+            public void onClickItemLayout(int position) {
+                try {
+                    pageFactory.changeChapter(bookMarksList.get(position).getBegin());
+                    if (getActivity() != null) {
+                        getActivity().finish();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

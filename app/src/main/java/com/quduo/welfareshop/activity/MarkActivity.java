@@ -5,22 +5,19 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.mcxtzhang.swipemenulib.CstViewPager;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.adapter.MyPagerAdapter;
 import com.quduo.welfareshop.base.BaseActivity;
 import com.quduo.welfareshop.config.Config;
-import com.quduo.welfareshop.db.BookCatalogue;
 import com.quduo.welfareshop.util.FileUtils;
 import com.quduo.welfareshop.util.PageFactory;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,7 +36,7 @@ public class MarkActivity extends BaseActivity {
     @BindView(R.id.tabs)
     PagerSlidingTabStrip tabs;
     @BindView(R.id.pager)
-    ViewPager pager;
+    CstViewPager pager;
     Unbinder unbinder;
 
 //    @BindView(R.id.lv_catalogue)
@@ -48,14 +45,13 @@ public class MarkActivity extends BaseActivity {
     private PageFactory pageFactory;
     private Config config;
     private Typeface typeface;
-    private ArrayList<BookCatalogue> catalogueList = new ArrayList<>();
     private DisplayMetrics dm;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mark);
-        unbinder= ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
         initData();
     }
 

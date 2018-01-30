@@ -33,7 +33,7 @@
             android:layout_height="48dip"
             android:background="@color/white" />
 
-        <android.support.v4.view.ViewPager
+        <com.mcxtzhang.swipemenulib.CstViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
