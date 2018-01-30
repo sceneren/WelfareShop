@@ -10,7 +10,7 @@ import android.widget.FrameLayout;
 
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.event.TabSelectedEvent;
-import com.quduo.welfareshop.ui.encyc.fragment.EncycFragment;
+import com.quduo.welfareshop.ui.indiana.fragment.IndianaFragment;
 import com.quduo.welfareshop.ui.limit.fragment.LimitFragment;
 import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
 import com.quduo.welfareshop.ui.shop.fragment.ShopFragment;
@@ -72,13 +72,13 @@ public class MainFragment extends SupportFragment {
         tabNames.add(getString(R.string.tab_welfare));
         tabNames.add(getString(R.string.tab_limit));
         tabNames.add(getString(R.string.tab_shop));
-        tabNames.add(getString(R.string.tab_encyc));
+        tabNames.add(getString(R.string.tab_indiana));
         tabNames.add(getString(R.string.tab_mine));
         if (firstFragment == null) {
             mFragments[FIRST] = WelfareFragment.newInstance();
             mFragments[SECOND] = LimitFragment.newInstance();
             mFragments[THIRD] = ShopFragment.newInstance();
-            mFragments[FOUR] = EncycFragment.newInstance();
+            mFragments[FOUR] = IndianaFragment.newInstance();
             mFragments[FIVE] = MineFragment.newInstance();
 
             loadMultipleRootFragment(R.id.fl_tab_container, FIRST,
@@ -92,7 +92,7 @@ public class MainFragment extends SupportFragment {
             mFragments[FIRST] = firstFragment;
             mFragments[SECOND] = findChildFragment(LimitFragment.class);
             mFragments[THIRD] = findChildFragment(ShopFragment.class);
-            mFragments[FOUR] = findChildFragment(EncycFragment.class);
+            mFragments[FOUR] = findChildFragment(IndianaFragment.class);
             mFragments[FIVE] = findChildFragment(MineFragment.class);
         }
         initView();

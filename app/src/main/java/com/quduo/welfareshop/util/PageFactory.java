@@ -300,8 +300,12 @@ public class PageFactory {
                 @Override
                 public void run() {
                     super.run();
-                    values.put("begin", currentPage.getBegin());
-                    DataSupport.update(BookList.class, values, bookList.getId());
+                    try {
+                        values.put("begin", currentPage.getBegin());
+                        DataSupport.update(BookList.class, values, bookList.getId());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }.start();
         }

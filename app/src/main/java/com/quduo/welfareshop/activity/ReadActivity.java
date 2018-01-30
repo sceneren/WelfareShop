@@ -13,6 +13,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
@@ -42,10 +43,14 @@ import com.quduo.welfareshop.util.BrightnessUtil;
 import com.quduo.welfareshop.util.PageFactory;
 import com.quduo.welfareshop.widgets.PageWidget;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -404,16 +409,16 @@ public class ReadActivity extends BaseActivity {
                     Toast.makeText(ReadActivity.this, "该书签已存在", Toast.LENGTH_SHORT).show();
                 } else {
                     BookMarks bookMarks = new BookMarks();
-                    String word = "";
+                    StringBuilder word = new StringBuilder();
                     for (String line : pageFactory.getCurrentPage().getLines()) {
-                        word += line;
+                        word.append(line);
                     }
                     try {
-                        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm ss");
-                        String time = sf.format(new Date());
+                        DateTime dateTime = new DateTime();
+                        String time = dateTime.toString("yyyy-MM-dd HH:mm ss");
                         bookMarks.setTime(time);
                         bookMarks.setBegin(pageFactory.getCurrentPage().getBegin());
-                        bookMarks.setText(word);
+                        bookMarks.setText(word.toString());
                         bookMarks.setBookpath(pageFactory.getBookPath());
                         bookMarks.save();
 
