@@ -3,7 +3,7 @@ package com.quduo.welfareshop.util;
 import android.content.Context;
 import android.widget.ImageView;
 
-import com.sunfusheng.glideimageview.GlideImageLoader;
+import com.quduo.welfareshop.base.GlideApp;
 import com.youth.banner.loader.ImageLoader;
 
 /**
@@ -16,6 +16,6 @@ public class BannerImageLoader extends ImageLoader {
     public void displayImage(Context context, Object path, ImageView imageView) {
         //Glide 加载图片简单用法
         //Glide.with(context).load(path).into(imageView);
-        GlideImageLoader.create(imageView).loadImage((String) path, 0);
+        GlideApp.with(context).load(path).into(imageView);
     }
 }

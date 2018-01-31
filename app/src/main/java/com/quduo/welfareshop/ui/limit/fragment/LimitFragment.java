@@ -7,18 +7,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
 import com.quduo.welfareshop.ui.limit.presenter.LimitPresenter;
 import com.quduo.welfareshop.ui.limit.view.ILimitView;
-import com.quduo.welfareshop.ui.welfare.presenter.WelfarePresenter;
-import com.quduo.welfareshop.ui.welfare.view.IWelfareView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import jp.wasabeef.glide.transformations.BlurTransformation;
+
+import static com.quduo.welfareshop.base.GlideOptions.bitmapTransform;
 
 /**
  * 限制级主界面
@@ -31,6 +34,8 @@ public class LimitFragment extends BaseMainMvpFragment<ILimitView, LimitPresente
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
     Unbinder unbinder;
+    @BindView(R.id.image)
+    ImageView image;
 
     public static LimitFragment newInstance() {
         Bundle args = new Bundle();
@@ -56,6 +61,19 @@ public class LimitFragment extends BaseMainMvpFragment<ILimitView, LimitPresente
     public void initToolBar() {
         super.initToolBar();
         toolbarTitle.setText("限制级");
+    }
+
+    @Override
+    public void initView() {
+        super.initView();
+
+        String url="http://e.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg";
+        GlideApp.with(this)
+                .load(url)
+                .placeholder(R.drawable.ic_agreement)
+                .fitCenter()
+                .apply(bitmapTransform(new BlurTransformation(30)))
+                .into(image);
     }
 
     @Override

@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.Utils;
-import com.bumptech.glide.MemoryCategory;
 import com.hss01248.dialog.ActivityStackManager;
 import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
@@ -20,7 +19,6 @@ import com.quduo.welfareshop.activity.MainActivity;
 import com.quduo.welfareshop.config.Config;
 import com.quduo.welfareshop.util.PageFactory;
 import com.quduo.welfareshop.util.ResourceUtil;
-import com.sunfusheng.glideimageview.progress.GlideApp;
 
 import org.litepal.LitePal;
 import org.litepal.LitePalApplication;
@@ -228,7 +226,7 @@ public class MyApplication extends LitePalApplication {
                 .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE)   //全局统一缓存时间，默认永不过期，可以不传
                 .setRetryCount(0);                         //全局统一超时重连次数，默认为三次，那么最差的情况会请求4次(一次原始请求，三次重连请求)，不需要可以设置为0
         //初始化Glide
-        //Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(builder.build()));
-        GlideApp.get(this).setMemoryCategory(MemoryCategory.HIGH);
+//        GlideApp.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(builder.build()));
+//        GlideApp.get(this).setMemoryCategory(MemoryCategory.HIGH);
     }
 }
