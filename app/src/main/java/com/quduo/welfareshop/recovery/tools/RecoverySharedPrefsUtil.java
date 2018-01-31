@@ -1,27 +1,28 @@
-package com.quduo.welfareshop.Exception.tools;
+package com.quduo.welfareshop.recovery.tools;
 
-import com.quduo.welfareshop.Exception.core.CrashData;
-import com.quduo.welfareshop.Exception.core.Recovery;
-import com.quduo.welfareshop.Exception.exception.RecoveryException;
+
+import com.quduo.welfareshop.recovery.core.CrashData;
+import com.quduo.welfareshop.recovery.core.Recovery;
+import com.quduo.welfareshop.recovery.exception.RecoveryException;
 
 /**
- * Created by zhengxiaoyong on 2016/9/29.
+ * Created by zhengxiaoyong on 16/8/27.
  */
-public class RecoverySilentSharedPrefsUtil {
+public class RecoverySharedPrefsUtil {
 
-    private static final long DEFAULT_TIME_INTERVAL = 30 * 1000;
+    private static final long DEFAULT_TIME_INTERVAL = 60 * 1000;
 
-    private static final int DEFAULT_MAX_COUNT = 2;
+    private static final int DEFAULT_MAX_COUNT = 3;
 
-    private static final String SHARED_PREFS_NAME = "recovery_silent_info";
+    private static final String SHARED_PREFS_NAME = "recovery_info";
 
     private static final String CRASH_COUNT = "crash_count";
 
     private static final String CRASH_TIME = "crash_time";
 
-    private static final String SHOULD_CLEAR_APP_AND_NOT_RESTART = "should_clear_app_and_not_restart";
+    private static final String SHOULD_RESTART_APP = "should_restart_app";
 
-    private RecoverySilentSharedPrefsUtil() {
+    private RecoverySharedPrefsUtil() {
         throw new RecoveryException("Stub!");
     }
 
@@ -68,12 +69,12 @@ public class RecoverySilentSharedPrefsUtil {
         SharedPreferencesCompat.newBuilder(Recovery.getInstance().getContext(), SHARED_PREFS_NAME)
                 .put(CRASH_COUNT, String.valueOf(data.crashCount))
                 .put(CRASH_TIME, String.valueOf(data.crashTime))
-                .put(SHOULD_CLEAR_APP_AND_NOT_RESTART, String.valueOf(data.shouldRestart))
+                .put(SHOULD_RESTART_APP, String.valueOf(data.shouldRestart))
                 .apply();
     }
 
-    public static boolean shouldClearAppNotRestart() {
-        return Boolean.parseBoolean(get(SHOULD_CLEAR_APP_AND_NOT_RESTART, String.valueOf(false)));
+    public static boolean shouldRestartApp() {
+        return Boolean.parseBoolean(get(SHOULD_RESTART_APP, String.valueOf(false)));
     }
 
     public static void clear() {
@@ -87,4 +88,5 @@ public class RecoverySilentSharedPrefsUtil {
     private static String get(String key, String defValue) {
         return SharedPreferencesCompat.get(Recovery.getInstance().getContext(), SHARED_PREFS_NAME, key, defValue);
     }
+
 }

@@ -14,7 +14,7 @@ import com.lzy.okgo.cookie.CookieJarImpl;
 import com.lzy.okgo.cookie.store.MemoryCookieStore;
 import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
-import com.quduo.welfareshop.Exception.core.Recovery;
+import com.quduo.welfareshop.recovery.core.Recovery;
 import com.quduo.welfareshop.activity.MainActivity;
 import com.quduo.welfareshop.config.Config;
 import com.quduo.welfareshop.util.PageFactory;

@@ -1,8 +1,8 @@
-package com.quduo.welfareshop.Exception.tools;
+package com.quduo.welfareshop.recovery.tools;
 
 import android.text.TextUtils;
 
-import com.quduo.welfareshop.Exception.exception.ReflectException;
+import com.quduo.welfareshop.recovery.exception.ReflectException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

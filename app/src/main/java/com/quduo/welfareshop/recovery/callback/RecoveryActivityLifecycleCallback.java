@@ -1,4 +1,4 @@
-package com.quduo.welfareshop.Exception.callback;
+package com.quduo.welfareshop.recovery.callback;
 
 import android.app.Activity;
 import android.app.Application;
@@ -7,10 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 
-import com.quduo.welfareshop.Exception.core.Recovery;
-import com.quduo.welfareshop.Exception.core.Recovery1Activity;
-import com.quduo.welfareshop.Exception.core.RecoveryStore;
-import com.quduo.welfareshop.Exception.tools.Reflect;
+import com.quduo.welfareshop.recovery.core.Recovery;
+import com.quduo.welfareshop.recovery.core.Recovery1Activity;
+import com.quduo.welfareshop.recovery.core.RecoveryStore;
+import com.quduo.welfareshop.recovery.tools.Reflect;
 
 
 /**

@@ -1,11 +1,11 @@
-package com.quduo.welfareshop.Exception.core;
+package com.quduo.welfareshop.recovery.core;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
 
-import com.quduo.welfareshop.Exception.tools.RecoveryLog;
-import com.quduo.welfareshop.Exception.tools.RecoveryUtil;
+import com.quduo.welfareshop.recovery.tools.RecoveryLog;
+import com.quduo.welfareshop.recovery.tools.RecoveryUtil;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

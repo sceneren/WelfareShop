@@ -1,4 +1,4 @@
-package com.quduo.welfareshop.Exception.core;
+package com.quduo.welfareshop.recovery.core;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,8 @@ import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
-import com.quduo.welfareshop.Exception.tools.RecoverySharedPrefsUtil;
-import com.quduo.welfareshop.Exception.tools.RecoveryUtil;
+import com.quduo.welfareshop.recovery.tools.RecoverySharedPrefsUtil;
+import com.quduo.welfareshop.recovery.tools.RecoveryUtil;
 
 import java.util.ArrayList;
 

@@ -1,15 +1,15 @@
-package com.quduo.welfareshop.Exception.core;
+package com.quduo.welfareshop.recovery.core;
 
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 
-import com.quduo.welfareshop.Exception.callback.RecoveryActivityLifecycleCallback;
-import com.quduo.welfareshop.Exception.callback.RecoveryCallback;
-import com.quduo.welfareshop.Exception.exception.RecoveryException;
-import com.quduo.welfareshop.Exception.tools.RecoveryLog;
-import com.quduo.welfareshop.Exception.tools.RecoveryUtil;
+import com.quduo.welfareshop.recovery.callback.RecoveryActivityLifecycleCallback;
+import com.quduo.welfareshop.recovery.callback.RecoveryCallback;
+import com.quduo.welfareshop.recovery.exception.RecoveryException;
+import com.quduo.welfareshop.recovery.tools.RecoveryLog;
+import com.quduo.welfareshop.recovery.tools.RecoveryUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;

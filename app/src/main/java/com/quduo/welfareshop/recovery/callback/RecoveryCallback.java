@@ -1,4 +1,4 @@
-package com.quduo.welfareshop.Exception.callback;
+package com.quduo.welfareshop.recovery.callback;
 
 /**
  * Created by zhengxiaoyong on 16/8/29.

@@ -1,13 +1,13 @@
-package com.quduo.welfareshop.Exception.core;
+package com.quduo.welfareshop.recovery.core;
 
 import android.content.Intent;
 import android.text.TextUtils;
 
-import com.quduo.welfareshop.Exception.callback.RecoveryCallback;
-import com.quduo.welfareshop.Exception.tools.DefaultHandlerUtil;
-import com.quduo.welfareshop.Exception.tools.RecoverySharedPrefsUtil;
-import com.quduo.welfareshop.Exception.tools.RecoverySilentSharedPrefsUtil;
-import com.quduo.welfareshop.Exception.tools.RecoveryUtil;
+import com.quduo.welfareshop.recovery.callback.RecoveryCallback;
+import com.quduo.welfareshop.recovery.tools.DefaultHandlerUtil;
+import com.quduo.welfareshop.recovery.tools.RecoverySharedPrefsUtil;
+import com.quduo.welfareshop.recovery.tools.RecoverySilentSharedPrefsUtil;
+import com.quduo.welfareshop.recovery.tools.RecoveryUtil;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

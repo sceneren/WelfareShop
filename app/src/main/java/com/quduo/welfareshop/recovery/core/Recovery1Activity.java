@@ -1,4 +1,4 @@
-package com.quduo.welfareshop.Exception.core;
+package com.quduo.welfareshop.recovery.core;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,9 +15,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.quduo.welfareshop.Exception.tools.RecoverySharedPrefsUtil;
-import com.quduo.welfareshop.Exception.tools.RecoveryUtil;
-import com.quduo.welfareshop.Exception.tools.Reflect;
+import com.quduo.welfareshop.recovery.tools.RecoverySharedPrefsUtil;
+import com.quduo.welfareshop.recovery.tools.RecoveryUtil;
+import com.quduo.welfareshop.recovery.tools.Reflect;
 import com.quduo.welfareshop.R;
 
 import java.io.File;

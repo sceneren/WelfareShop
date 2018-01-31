@@ -1,4 +1,4 @@
-package com.quduo.welfareshop.Exception.exception;
+package com.quduo.welfareshop.recovery.exception;
 
 /**
  * Created by zhengxiaoyong on 16/8/28.

@@ -1,4 +1,4 @@
-package com.quduo.welfareshop.Exception.core;
+package com.quduo.welfareshop.recovery.core;
 
 import java.io.Serializable;
 

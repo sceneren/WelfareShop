@@ -31,19 +31,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Exception.core.Recovery1Activity" />
-        <activity android:name=".Exception.core.RecoveryActivity" />
+        <activity android:name=".recovery.core.Recovery1Activity"
+            android:label="@string/app_name"/>
+        <activity android:name=".recovery.core.RecoveryActivity"
+            android:label="@string/app_name"/>
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ReadActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.ReadActivityTheme"/>
+            android:theme="@style/AppTheme.ReadActivityTheme" />
         <activity
             android:name=".activity.MarkActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.ReadActivityTheme"/>
+            android:theme="@style/AppTheme.ReadActivityTheme" />
     </application>
 
 </manifest>

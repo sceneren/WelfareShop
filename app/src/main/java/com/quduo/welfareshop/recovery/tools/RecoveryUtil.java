@@ -1,4 +1,4 @@
-package com.quduo.welfareshop.Exception.tools;
+package com.quduo.welfareshop.recovery.tools;
 
 import android.app.ActivityManager;
 import android.app.Application;
@@ -9,9 +9,9 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Environment;
 
-import com.quduo.welfareshop.Exception.core.Recovery;
-import com.quduo.welfareshop.Exception.exception.RecoveryException;
-import com.quduo.welfareshop.Exception.exception.ReflectException;
+import com.quduo.welfareshop.recovery.core.Recovery;
+import com.quduo.welfareshop.recovery.exception.RecoveryException;
+import com.quduo.welfareshop.recovery.exception.ReflectException;
 
 import java.io.File;
 import java.util.List;

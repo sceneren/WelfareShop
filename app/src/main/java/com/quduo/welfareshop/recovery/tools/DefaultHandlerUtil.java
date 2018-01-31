@@ -1,7 +1,7 @@
-package com.quduo.welfareshop.Exception.tools;
+package com.quduo.welfareshop.recovery.tools;
 
 
-import com.quduo.welfareshop.Exception.exception.RecoveryException;
+import com.quduo.welfareshop.recovery.exception.RecoveryException;
 
 /**
  * Created by zgxiaoyong on 16/8/28.

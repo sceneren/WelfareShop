@@ -1,17 +1,17 @@
-package com.quduo.welfareshop.Exception.core;
+package com.quduo.welfareshop.recovery.core;
 
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 
-import com.quduo.welfareshop.Exception.tools.RecoverySilentSharedPrefsUtil;
-import com.quduo.welfareshop.Exception.tools.RecoveryUtil;
+import com.quduo.welfareshop.recovery.tools.RecoverySilentSharedPrefsUtil;
+import com.quduo.welfareshop.recovery.tools.RecoveryUtil;
 
 import java.util.ArrayList;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-import static com.quduo.welfareshop.Exception.core.Recovery1Activity.RECOVERY_MODE_ACTIVE;
+import static com.quduo.welfareshop.recovery.core.Recovery1Activity.RECOVERY_MODE_ACTIVE;
 
 /**
  * Created by zhengxiaoyong on 16/8/29.
