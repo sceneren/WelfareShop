@@ -22,6 +22,7 @@ import com.quduo.welfareshop.util.PageFactory;
 import com.quduo.welfareshop.util.ResourceUtil;
 import com.sunfusheng.glideimageview.progress.GlideApp;
 
+import org.litepal.LitePal;
 import org.litepal.LitePalApplication;
 
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class MyApplication extends LitePalApplication {
         //初始化dialog
         initDialog();
         //初始化数据库
-        LitePalApplication.initialize(this);
+        LitePal.initialize(this);
         Config.createConfig(this);
         PageFactory.createPageFactory(this);
     }
