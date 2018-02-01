@@ -5,5 +5,5 @@
     android:background="@color/bg_color"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar" />
+    <include layout="@layout/toolbar_menu" />
 </LinearLayout>

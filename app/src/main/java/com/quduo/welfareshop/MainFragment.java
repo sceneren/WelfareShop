@@ -10,9 +10,9 @@ import android.widget.FrameLayout;
 
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.event.TabSelectedEvent;
-import com.quduo.welfareshop.ui.indiana.fragment.IndianaFragment;
+import com.quduo.welfareshop.ui.friend.fragment.FriendFragment;
 import com.quduo.welfareshop.ui.limit.fragment.LimitFragment;
-import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
+import com.quduo.welfareshop.ui.red.fragment.RedFragment;
 import com.quduo.welfareshop.ui.shop.fragment.ShopFragment;
 import com.quduo.welfareshop.ui.welfare.fragment.WelfareFragment;
 import com.quduo.welfareshop.widgets.bottombar.BottomBar;
@@ -72,14 +72,14 @@ public class MainFragment extends SupportFragment {
         tabNames.add(getString(R.string.tab_welfare));
         tabNames.add(getString(R.string.tab_limit));
         tabNames.add(getString(R.string.tab_shop));
-        tabNames.add(getString(R.string.tab_indiana));
-        tabNames.add(getString(R.string.tab_mine));
+        tabNames.add(getString(R.string.tab_red));
+        tabNames.add(getString(R.string.tab_friend));
         if (firstFragment == null) {
             mFragments[FIRST] = WelfareFragment.newInstance();
             mFragments[SECOND] = LimitFragment.newInstance();
             mFragments[THIRD] = ShopFragment.newInstance();
-            mFragments[FOUR] = IndianaFragment.newInstance();
-            mFragments[FIVE] = MineFragment.newInstance();
+            mFragments[FOUR] = RedFragment.newInstance();
+            mFragments[FIVE] = FriendFragment.newInstance();
 
             loadMultipleRootFragment(R.id.fl_tab_container, FIRST,
                     mFragments[FIRST],
@@ -92,20 +92,19 @@ public class MainFragment extends SupportFragment {
             mFragments[FIRST] = firstFragment;
             mFragments[SECOND] = findChildFragment(LimitFragment.class);
             mFragments[THIRD] = findChildFragment(ShopFragment.class);
-            mFragments[FOUR] = findChildFragment(IndianaFragment.class);
-            mFragments[FIVE] = findChildFragment(MineFragment.class);
+            mFragments[FOUR] = findChildFragment(RedFragment.class);
+            mFragments[FIVE] = findChildFragment(FriendFragment.class);
         }
         initView();
     }
 
     private void initView() {
         bottomBar
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_welfare_d, R.drawable.ic_tab_welfare_s, getString(R.string.tab_welfare)))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_limit_d, R.drawable.ic_tab_limit_s, getString(R.string.tab_limit)))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_shop_d, R.drawable.ic_tab_shop_s, getString(R.string.tab_shop)))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_indiana_d, R.drawable.ic_tab_indiana_s, getString(R.string.tab_indiana)))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_mine_d, R.drawable.ic_tab_mine_s, getString(R.string.tab_mine)));
-
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_welfare_d, R.drawable.ic_tab_welfare_s, tabNames.get(FIRST)))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_limit_d, R.drawable.ic_tab_limit_s, tabNames.get(SECOND)))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_shop_d, R.drawable.ic_tab_shop_s, tabNames.get(THIRD)))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_red_d, R.drawable.ic_tab_red_s, tabNames.get(FOUR)))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_friend_d, R.drawable.ic_tab_friend_s, tabNames.get(FIVE)));
 
         bottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override
