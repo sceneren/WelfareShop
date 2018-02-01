@@ -152,7 +152,7 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:4.5.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
     implementation 'jp.wasabeef:glide-transformations:3.1.0'
-    compile "com.github.bumptech.glide:okhttp3-integration:4.5.0"
+    compile 'com.github.bumptech.glide:okhttp3-integration:4.5.0'
     // If you want to use the GPU Filters
     implementation 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
     //验证码输入框
@@ -168,4 +168,12 @@ dependencies {
     compile 'joda-time:joda-time:2.9.9'
     //侧滑删除
     compile 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
+    implementation files('libs/umeng-common-1.4.3.jar')
+    implementation files('libs/umerror_android_1.0.0.jar')
+    implementation files('libs/umeng_social_api.jar')
+    implementation files('libs/umeng_social_net.jar')
+    implementation files('libs/umeng_social_tool.jar')
+    implementation files('libs/SocialSDK_QQ_Simplify.jar')
+    implementation files('libs/SocialSDK_WeChat_Simplify.jar')
+    implementation files('libs/SocialSDK_Sina_Simplify.jar')
 }

@@ -22,12 +22,14 @@
         <!--多点触控，在无需多点触控的页面上，可以选择关闭-->
         <item name="android:splitMotionEvents">false</item>
     </style>
+
     <style name="AppTheme.ReadActivityTheme">
         <item name="colorPrimary">@color/read_dialog_bg</item>
         <item name="colorPrimaryDark">@color/read_dialog_bg</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="AppTheme.FullScreen" parent="AppTheme.NoActionBar">
         <item name="android:windowFullscreen">true</item>
     </style>
@@ -99,5 +101,14 @@
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:backgroundDimEnabled">false</item>
         <!--<item name="android:windowAnimationStyle">@style/dialog_animation</item>-->
+    </style>
+
+    <style name="PermissionDefaultStyle">
+        <item name="PermissionTitleColor">#737373</item>
+        <item name="PermissionMsgColor">#737373</item>
+        <item name="PermissionItemTextColor">@color/theme_color</item>
+        <item name="PermissionButtonBackground">@drawable/btn_theme</item>
+        <item name="PermissionBackround">@drawable/shape_bg_white</item>
+        <item name="PermissionButtonTextColor">@android:color/white</item>
     </style>
 </resources>

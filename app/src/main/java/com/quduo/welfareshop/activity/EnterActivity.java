@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
@@ -34,21 +35,29 @@ public class EnterActivity extends BaseActivity {
     private void applyExternalStorage() {
         List<PermissionItem> permissons = new ArrayList<>();
         permissons.add(new PermissionItem(Manifest.permission.READ_EXTERNAL_STORAGE, "内部存储权限", R.drawable.permission_ic_storage));
+        permissons.add(new PermissionItem(Manifest.permission.READ_PHONE_STATE, "手机唯一标识", R.drawable.permission_ic_phone));
         HiPermission.create(EnterActivity.this)
                 .title("权限申请")
-                .style(R.style.PermissionDefaultNormalStyle)
                 .permissions(permissons)
+                .msg("为了正常使用" + getString(R.string.app_name) + ",我们需要这些权限")
+                .animStyle(R.style.PermissionAnimScale)
+                .style(R.style.PermissionDefaultStyle)
+                .filterColor(ContextCompat.getColor(EnterActivity.this, R.color.theme_color))
                 .checkMutiPermission(new PermissionCallback() {
                     @Override
                     public void onClose() {
                         if (!HiPermission.checkPermission(EnterActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                             MyApplication.getInstance().exit();
                         }
+                        if (!HiPermission.checkPermission(EnterActivity.this, Manifest.permission.READ_PHONE_STATE)) {
+                            MyApplication.getInstance().exit();
+                        }
                     }
 
                     @Override
                     public void onFinish() {
-                        if (HiPermission.checkPermission(EnterActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                        if (HiPermission.checkPermission(EnterActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                                && HiPermission.checkPermission(EnterActivity.this, Manifest.permission.READ_PHONE_STATE)) {
                             toMainActivity();
                         } else {
                             MyApplication.getInstance().exit();

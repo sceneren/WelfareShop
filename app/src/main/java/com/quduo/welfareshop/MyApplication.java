@@ -14,11 +14,12 @@ import com.lzy.okgo.cookie.CookieJarImpl;
 import com.lzy.okgo.cookie.store.MemoryCookieStore;
 import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
-import com.quduo.welfareshop.recovery.core.Recovery;
 import com.quduo.welfareshop.activity.MainActivity;
 import com.quduo.welfareshop.config.Config;
+import com.quduo.welfareshop.recovery.core.Recovery;
 import com.quduo.welfareshop.util.PageFactory;
 import com.quduo.welfareshop.util.ResourceUtil;
+import com.umeng.commonsdk.UMConfigure;
 
 import org.litepal.LitePal;
 import org.litepal.LitePalApplication;
@@ -66,6 +67,9 @@ public class MyApplication extends LitePalApplication {
         LitePal.initialize(this);
         Config.createConfig(this);
         PageFactory.createPageFactory(this);
+        //初始化友盟统计
+        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, null);
+        UMConfigure.setLogEnabled(true);
     }
 
 
