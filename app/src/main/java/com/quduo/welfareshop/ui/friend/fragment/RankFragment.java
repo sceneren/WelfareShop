@@ -1,4 +1,4 @@
-package com.quduo.welfareshop.ui.welfare.fragment;
+package com.quduo.welfareshop.ui.friend.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,18 +9,19 @@ import android.view.ViewGroup;
 
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
-import com.quduo.welfareshop.ui.welfare.presenter.GalleryPresenter;
-import com.quduo.welfareshop.ui.welfare.view.IGalleryView;
+import com.quduo.welfareshop.ui.friend.presenter.RankPresenter;
+import com.quduo.welfareshop.ui.friend.view.IRankView;
 
 /**
  * Author:scene
- * Time:2018/1/25  12:06
- * Description:美女图库
+ * Time:2018/2/1 17:11
+ * Description:人气榜
  */
-public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresenter> implements IGalleryView {
-    public static GalleryFragment newInstance() {
+
+public class RankFragment extends BaseMvpFragment<IRankView, RankPresenter> implements IRankView {
+    public static RankFragment newInstance() {
         Bundle args = new Bundle();
-        GalleryFragment fragment = new GalleryFragment();
+        RankFragment fragment = new RankFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -28,9 +29,10 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_gallery, container, false);
+        View view = inflater.inflate(R.layout.fragment_friend_rank, container, false);
         return view;
     }
+
 
     @Override
     public void showLoadingPage() {
@@ -48,7 +50,7 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
     }
 
     @Override
-    public GalleryPresenter initPresenter() {
-        return new GalleryPresenter(this);
+    public RankPresenter initPresenter() {
+        return new RankPresenter(this);
     }
 }

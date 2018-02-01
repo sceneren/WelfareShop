@@ -6,4 +6,20 @@
 
     <include layout="@layout/toolbar_menu" />
 
+    <com.lhh.apst.library.CustomPagerSlidingTabStrip
+        android:id="@+id/tabs"
+        style="@style/pagertab_style"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:fillViewport="false" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#CDCDCD" />
+
+    <com.quduo.welfareshop.widgets.APSTSViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>
