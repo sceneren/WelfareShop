@@ -14,7 +14,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.ReadActivity;
 import com.quduo.welfareshop.db.BookList;
-import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
+import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.mine.presenter.MinePresenter;
 import com.quduo.welfareshop.ui.mine.view.IMineView;
 import com.quduo.welfareshop.ui.read.listener.OnSaveData2DBListener;
@@ -35,7 +35,7 @@ import butterknife.Unbinder;
  * Created by scene on 2018/1/25.
  */
 
-public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> implements IMineView {
+public class MineFragment extends BaseBackMvpFragment<IMineView, MinePresenter> implements IMineView {
     Unbinder unbinder;
 
     public static MineFragment newInstance() {
@@ -50,7 +50,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mine, container, false);
         unbinder = ButterKnife.bind(this, view);
-        return view;
+        return attachToSwipeBack(view);
     }
 
     @Override
@@ -58,10 +58,6 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
         super.onLazyInitView(savedInstanceState);
     }
 
-    @Override
-    public void initToolBar() {
-        super.initToolBar();
-    }
 
     @Override
     public void showLoadingPage() {
@@ -137,6 +133,11 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
             });
         }
 
+    }
+
+    @OnClick(R.id.toolbar_back)
+    public void onClickToolbarBack(){
+        _mActivity.onBackPressed();
     }
 
 }

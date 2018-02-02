@@ -12,12 +12,17 @@ import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
 import com.quduo.welfareshop.ui.limit.presenter.LimitPresenter;
 import com.quduo.welfareshop.ui.limit.view.ILimitView;
+import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
@@ -100,5 +105,10 @@ public class LimitFragment extends BaseMainMvpFragment<ILimitView, LimitPresente
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.toolbar_image_menu)
+    public void onClickToolBarImageMenu() {
+        EventBus.getDefault().post(new StartBrotherEvent(MineFragment.newInstance()));
     }
 }

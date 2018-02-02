@@ -10,12 +10,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
+import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
 import com.quduo.welfareshop.ui.shop.presenter.ShopPresenter;
 import com.quduo.welfareshop.ui.shop.view.IShopView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -80,5 +85,9 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+    @OnClick(R.id.toolbar_image_menu)
+    public void onClickToolBarImageMenu() {
+        EventBus.getDefault().post(new StartBrotherEvent(MineFragment.newInstance()));
     }
 }

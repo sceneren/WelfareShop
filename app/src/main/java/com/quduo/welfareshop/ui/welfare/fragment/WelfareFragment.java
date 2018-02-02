@@ -14,15 +14,20 @@ import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.BaseViewPagerAdapter;
+import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
+import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
 import com.quduo.welfareshop.ui.welfare.presenter.WelfarePresenter;
 import com.quduo.welfareshop.ui.welfare.view.IWelfareView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -109,5 +114,10 @@ public class WelfareFragment extends BaseMainMvpFragment<IWelfareView, WelfarePr
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.toolbar_image_menu)
+    public void onClickToolBarImageMenu() {
+        EventBus.getDefault().post(new StartBrotherEvent(MineFragment.newInstance()));
     }
 }

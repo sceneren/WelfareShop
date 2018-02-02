@@ -13,17 +13,22 @@ import android.widget.TextView;
 
 import com.lhh.apst.library.CustomPagerSlidingTabStrip;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
 import com.quduo.welfareshop.ui.friend.adapter.FriendPagerAdapter;
 import com.quduo.welfareshop.ui.friend.presenter.FriendPresenter;
 import com.quduo.welfareshop.ui.friend.view.IFriendView;
+import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
 import com.quduo.welfareshop.widgets.APSTSViewPager;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -109,5 +114,10 @@ public class FriendFragment extends BaseMainMvpFragment<IFriendView, FriendPrese
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.toolbar_image_menu)
+    public void onClickToolBarImageMenu() {
+        EventBus.getDefault().post(new StartBrotherEvent(MineFragment.newInstance()));
     }
 }

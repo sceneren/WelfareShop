@@ -9,24 +9,27 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="46dp"
-        android:background="@color/theme_color">
+        android:background="@color/toolbar_color">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/toolbar_back"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_toolbar_back" />
+
+        <ImageView
+            android:layout_width="46dp"
             android:layout_height="46dp"
             android:layout_alignParentRight="true"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="设置"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_16" />
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_toolbar_setting" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/theme_color"
+        android:background="@color/toolbar_color"
         android:orientation="horizontal">
 
         <com.quduo.welfareshop.widgets.CircleImageView
@@ -70,10 +73,44 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="99"
-                    android:textColor="@color/red_text_color"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/sp_12" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ID:"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="99"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:text="粉丝:"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="99"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_12" />
+            </LinearLayout>
         </LinearLayout>
 
         <TextView
@@ -94,21 +131,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/theme_color"
+        android:background="@color/toolbar_color"
         android:gravity="center_vertical"
         android:paddingBottom="15dp"
         android:paddingLeft="10dp"
         android:paddingTop="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_white_stroke_corner_2dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="用户动态"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -116,6 +143,7 @@
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_marginRight="@dimen/dp_10"
             android:ellipsize="end"
+            android:gravity="center_horizontal"
             android:lines="1"
             android:text="恭喜XXX购买商品获赠老司机秘籍，解锁全部栏目"
             android:textColor="@color/white"
@@ -218,7 +246,8 @@
                 android:padding="@dimen/dp_10"
                 android:text="我的夺宝"
                 android:textColor="@color/title_text_color"
-                android:textSize="@dimen/sp_14" />
+                android:textSize="@dimen/sp_14"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -226,7 +255,8 @@
                 android:layout_marginTop="1dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:padding="@dimen/dp_10">
+                android:padding="@dimen/dp_10"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -342,10 +372,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
                 android:layout_marginTop="1dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:layout_marginBottom="30dp"
                 android:padding="@dimen/dp_10">
 
                 <TextView
@@ -364,9 +394,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawablePadding="15dp"
-                    android:drawableTop="@drawable/ic_clear_cache"
+                    android:drawableTop="@drawable/ic_receiver_info"
                     android:gravity="center_horizontal"
-                    android:text="清理缓存"
+                    android:text="收货信息"
                     android:textColor="#666666"
                     android:textSize="@dimen/sp_12" />
 
@@ -375,11 +405,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawablePadding="15dp"
-                    android:drawableTop="@drawable/ic_receiver_info"
+                    android:drawableTop="@drawable/ic_clear_cache"
                     android:gravity="center_horizontal"
-                    android:text="收货信息"
+                    android:text="清理缓存"
                     android:textColor="#666666"
                     android:textSize="@dimen/sp_12" />
+
 
                 <TextView
                     android:layout_width="match_parent"
