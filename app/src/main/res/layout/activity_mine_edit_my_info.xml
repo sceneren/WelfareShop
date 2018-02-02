@@ -198,7 +198,7 @@
                         android:maxLines="1"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_default_avatar"
-                        android:text="1992-8-8"
+                        android:text="1999-8-8"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
 
