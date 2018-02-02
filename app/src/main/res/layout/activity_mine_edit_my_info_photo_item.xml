@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.quduo.welfareshop.widgets.CustomHeightRoundedImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:custom_base="horizontal"
+        app:custom_sriv_left_bottom_corner_radius="5dp"
+        app:custom_sriv_left_top_corner_radius="5dp"
+        app:custom_sriv_right_bottom_corner_radius="5dp"
+        app:custom_sriv_right_top_corner_radius="5dp" />
+
+    <ImageView
+        android:id="@+id/delete"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/umeng_socialize_delete" />
+</RelativeLayout>

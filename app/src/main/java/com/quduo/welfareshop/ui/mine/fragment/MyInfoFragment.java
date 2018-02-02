@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.mine.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import com.quduo.welfareshop.ui.mine.view.IMyInfoView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -74,11 +76,17 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
 
     }
 
-
     @Override
     public MyInfoPresenter initPresenter() {
         return new MyInfoPresenter(this);
     }
+
+    @OnClick(R.id.toolbar_text)
+    public void onClickEdit() {
+        startActivity(new Intent(_mActivity, EditMyInfoActivity.class));
+        _mActivity.overridePendingTransition(R.anim.h_fragment_enter,R.anim.h_fragment_exit);
+    }
+
 
     @Override
     public void onDestroyView() {

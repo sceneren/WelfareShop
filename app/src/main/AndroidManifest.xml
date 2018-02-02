@@ -53,6 +53,10 @@
             android:name=".activity.MarkActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.ReadActivityTheme" />
+        <activity
+            android:name=".ui.mine.fragment.EditMyInfoActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar.SwipeBack" />
 
         <!--##############友盟开始###################-->
         <meta-data

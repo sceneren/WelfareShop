@@ -2,6 +2,8 @@ package com.quduo.welfareshop.mvp;
 
 import android.os.Bundle;
 
+import com.quduo.welfareshop.R;
+
 import me.yokeyword.fragmentation_swipeback.SwipeBackActivity;
 
 /**
@@ -37,4 +39,10 @@ public abstract class BaseMvpActivity<V, T extends BasePresenter<V>> extends Swi
 
     // 实例化presenter
     public abstract T initPresenter();
+
+    @Override
+    public void onBackPressedSupport() {
+        super.onBackPressedSupport();
+        overridePendingTransition(R.anim.h_fragment_enter,R.anim.h_fragment_exit);
+    }
 }
