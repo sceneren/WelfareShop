@@ -33,6 +33,10 @@ public class FollowFragment extends BaseMvpFragment<IFollowView, FollowPresenter
         return view;
     }
 
+    @Override
+    public void initView() {
+
+    }
 
     @Override
     public void showLoadingPage() {

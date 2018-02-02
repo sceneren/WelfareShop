@@ -33,6 +33,11 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
     }
 
     @Override
+    public void initView() {
+
+    }
+
+    @Override
     public void showLoadingPage() {
 
     }

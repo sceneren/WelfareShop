@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background_tab_pressed">#6633B5E5</color>
+    <color name="red">#E43F3E</color>
+    <declare-styleable name="AdvancedPagerSlidingTabStrip"><attr format="color" name="apTabIndicatorColor"/><attr format="color" name="apTabUnderlineColor"/><attr format="color" name="apTabDividerColor"/><attr format="color" name="apTabTextSelectColor"/><attr format="dimension" name="apTabIndicatorHeight"/><attr format="dimension" name="apTabUnderlineHeight"/><attr format="dimension" name="apTabDividerPadding"/><attr format="dimension" name="apTabPaddingLeftRight"/><attr format="dimension" name="apTabPaddingTopBottom"/><attr format="dimension" name="apTabScrollOffset"/><attr format="reference" name="apTabBackground"/><attr format="boolean" name="apTabShouldExpand"/><attr format="boolean" name="apTabTextAllCaps"/><attr format="enum" name="apTabDrawMode">
+            <enum name="normal" value="0"/>
+            <enum name="text" value="1"/>
+        </attr></declare-styleable>
+    <dimen name="psts_dot_linelayout_h">23dp</dimen>
+    <dimen name="psts_dot_m_right">9dp</dimen>
+    <dimen name="psts_dot_m_top">7dp</dimen>
+    <dimen name="psts_dot_m_tv_right">8dp</dimen>
+    <dimen name="psts_dot_txt_size">10sp</dimen>
+    <dimen name="psts_dot_wh">10dp</dimen>
+    <dimen name="psts_indicator_circle">4dp</dimen>
+    <item name="id_tab_txt" type="id">888</item>
+    <item name="tag_position" type="id"/>
+</resources>

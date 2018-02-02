@@ -1,6 +1,7 @@
 package com.quduo.welfareshop.mvp;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -18,6 +19,14 @@ public abstract class BaseMvpFragment<V, T extends BasePresenter<V>> extends Sup
         super.onCreate(savedInstanceState);
         presenter = initPresenter();
     }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        initView();
+    }
+
+    public abstract void initView();
 
     @Override
     public void onResume() {

@@ -33,6 +33,10 @@ public class RankFragment extends BaseMvpFragment<IRankView, RankPresenter> impl
         return view;
     }
 
+    @Override
+    public void initView() {
+
+    }
 
     @Override
     public void showLoadingPage() {

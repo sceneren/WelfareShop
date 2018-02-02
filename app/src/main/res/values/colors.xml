@@ -21,7 +21,7 @@
     <color name="content_text_color">#606060</color>
     <color name="des_text_color">#999999</color>
 
-    <color name="bg_color">#F5F5F7</color>
+    <color name="bg_color">#F9F9F9</color>
 
     <!-- Reader Color -->
     <color name="reader_default_bg_toolbar">#CC000000</color>

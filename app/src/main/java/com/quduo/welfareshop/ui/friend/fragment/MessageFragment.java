@@ -33,6 +33,10 @@ public class MessageFragment extends BaseMvpFragment<IMessageView, MessagePresen
         return view;
     }
 
+    @Override
+    public void initView() {
+
+    }
 
     @Override
     public void showLoadingPage() {

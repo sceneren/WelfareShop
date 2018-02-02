@@ -1,0 +1,33 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml:1:1-7:12
+INJECTED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml:1:1-7:12
+INJECTED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml:1:1-7:12
+INJECTED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml:1:1-7:12
+INJECTED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml:1:1-7:12
+INJECTED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml:1:1-7:12
+INJECTED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml:1:1-7:12
+	package
+		ADDED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml:2:5-35
+		INJECTED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml
+		INJECTED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml
+	android:versionName
+		ADDED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml:4:5-32
+		INJECTED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml
+		INJECTED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml:1:11-69
+	android:versionCode
+		ADDED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml:3:5-31
+		INJECTED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml
+		INJECTED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml
+application
+ADDED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml:5:5-6:19
+uses-sdk
+INJECTED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml
+INJECTED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml
+		ADDED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml
+		INJECTED from C:\Users\scene\Desktop\workspace\WelfareShop\Library\AndroidManifest.xml

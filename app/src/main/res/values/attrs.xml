@@ -14,4 +14,34 @@
         <attr name="border_width" format="dimension" />
         <attr name="border_color" format="color" />
     </declare-styleable>
+
+    <!--圆角的ImageView-->
+    <declare-styleable name="SelectableRoundedImageView">
+        <attr name="sriv_left_top_corner_radius" format="dimension" />
+        <attr name="sriv_right_top_corner_radius" format="dimension" />
+        <attr name="sriv_left_bottom_corner_radius" format="dimension" />
+        <attr name="sriv_right_bottom_corner_radius" format="dimension" />
+        <attr name="sriv_border_width" format="dimension" />
+        <attr name="sriv_border_color" format="color" />
+        <attr name="sriv_oval" format="boolean" />
+        <attr name="android:scaleType" />
+    </declare-styleable>
+
+    <!--圆角和自定义宽高比-->
+    <declare-styleable name="CustomHeightRoundedImageView">
+        <attr name="custom_sriv_left_top_corner_radius" format="dimension" />
+        <attr name="custom_sriv_right_top_corner_radius" format="dimension" />
+        <attr name="custom_sriv_left_bottom_corner_radius" format="dimension" />
+        <attr name="custom_sriv_right_bottom_corner_radius" format="dimension" />
+        <attr name="custom_sriv_border_width" format="dimension" />
+        <attr name="custom_sriv_border_color" format="color" />
+        <attr name="custom_sriv_oval" format="boolean" />
+        <attr name="android:scaleType" />
+        <attr name="custom_vertical_weight" format="integer" />
+        <attr name="custom_horizontal_weight" format="integer" />
+        <attr name="custom_base" format="enum">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
+    </declare-styleable>
 </resources>
