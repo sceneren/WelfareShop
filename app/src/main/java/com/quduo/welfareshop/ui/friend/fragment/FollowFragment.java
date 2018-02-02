@@ -61,7 +61,6 @@ public class FollowFragment extends BaseMvpFragment<IFollowView, FollowPresenter
     @Override
     public void initView() {
         showContentPage();
-        showContentPage();
         ptrLayout.setLastUpdateTimeRelateObject(this);
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override

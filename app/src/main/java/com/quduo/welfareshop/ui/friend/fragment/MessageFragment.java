@@ -61,7 +61,6 @@ public class MessageFragment extends BaseMvpFragment<IMessageView, MessagePresen
     @Override
     public void initView() {
         showContentPage();
-        showContentPage();
         ptrLayout.setLastUpdateTimeRelateObject(this);
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
