@@ -33,12 +33,9 @@ public abstract class BaseBackMvpFragment<V, T extends BasePresenter<V>> extends
         initView();
     }
 
-    public void initToolbar() {
+    public abstract void initToolbar();
 
-    }
-
-    public void initView() {
-    }
+    public abstract void initView();
 
 
     @Override

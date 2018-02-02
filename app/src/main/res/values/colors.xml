@@ -11,6 +11,7 @@
     <color name="main_tab_unselect_color">#606060</color>
     <color name="list_item_divider">#cccccc</color>
     <color name="toolbar_color">#F13C5D</color>
+    <color name="toolbar_color_white">#F6F5F5</color>
     <color name="black">#000000</color>
     <color name="transparent1">#00000000</color>
 

@@ -58,6 +58,15 @@ public class MineFragment extends BaseBackMvpFragment<IMineView, MinePresenter> 
         super.onLazyInitView(savedInstanceState);
     }
 
+    @Override
+    public void initToolbar() {
+
+    }
+
+    @Override
+    public void initView() {
+
+    }
 
     @Override
     public void showLoadingPage() {
@@ -136,8 +145,13 @@ public class MineFragment extends BaseBackMvpFragment<IMineView, MinePresenter> 
     }
 
     @OnClick(R.id.toolbar_back)
-    public void onClickToolbarBack(){
+    public void onClickToolbarBack() {
         _mActivity.onBackPressed();
+    }
+
+    @OnClick(R.id.avatar)
+    public void onClickAvatar() {
+        start(MyInfoFragment.newInstance());
     }
 
 }

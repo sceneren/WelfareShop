@@ -31,4 +31,14 @@ public class BaseBackFragment extends SwipeBackFragment {
             }
         });
     }
+
+    protected void initToolbarNav(Toolbar toolbar, boolean isWhiteToolbar) {
+        toolbar.setNavigationIcon(R.drawable.ic_toolbar_back_black);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                _mActivity.onBackPressed();
+            }
+        });
+    }
 }

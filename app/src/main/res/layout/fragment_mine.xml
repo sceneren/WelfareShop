@@ -38,7 +38,7 @@
             android:layout_height="70dp"
             android:layout_marginLeft="@dimen/dp_10"
             android:scaleType="centerCrop"
-            android:src="@drawable/paper" />
+            android:src="@drawable/ic_default_avatar" />
 
         <LinearLayout
             android:layout_width="match_parent"
