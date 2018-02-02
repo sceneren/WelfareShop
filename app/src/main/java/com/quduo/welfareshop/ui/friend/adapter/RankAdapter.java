@@ -8,18 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.SizeUtils;
-import com.bumptech.glide.request.RequestOptions;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
-import com.quduo.welfareshop.widgets.MultiImageView;
+import com.w4lle.library.NineGridlayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * Author:scene
@@ -53,7 +50,8 @@ public class RankAdapter extends RecyclerView.Adapter {
         for (int i = 0; i < (position + 1); i++) {
             imageList.add(url);
         }
-        viewHolder.multiImageView.setList(imageList);
+        NineGridImageAdapter imageAdapter = new NineGridImageAdapter(context, imageList);
+        viewHolder.imageLayout.setAdapter(imageAdapter);
     }
 
     @Override
@@ -70,8 +68,8 @@ public class RankAdapter extends RecyclerView.Adapter {
         ImageView sex;
         @BindView(R.id.age)
         TextView age;
-        @BindView(R.id.multiImageView)
-        MultiImageView multiImageView;
+        @BindView(R.id.image_layout)
+        NineGridlayout imageLayout;
 
         FriendRankViewHolder(View view) {
             super(view);

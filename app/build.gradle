@@ -180,4 +180,6 @@ dependencies {
     implementation files('libs/SocialSDK_Sina_Simplify.jar')
     //自定义的tablayout
     compile project(':Library')
+    //九宫格
+    compile 'com.w4lle.library:NineLayout:1.0.0'
 }

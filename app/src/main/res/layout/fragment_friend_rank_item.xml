@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical"
     android:padding="@dimen/dp_10">
@@ -14,12 +14,12 @@
 
         <com.quduo.welfareshop.widgets.CustomHeightRoundedImageView
             android:id="@+id/avatar"
-            app:custom_sriv_right_top_corner_radius="5dp"
-            app:custom_sriv_left_top_corner_radius="5dp"
-            app:custom_sriv_left_bottom_corner_radius="5dp"
-            app:custom_sriv_right_bottom_corner_radius="5dp"
             android:layout_width="40dp"
-            android:layout_height="40dp" />
+            android:layout_height="40dp"
+            app:custom_sriv_left_bottom_corner_radius="5dp"
+            app:custom_sriv_left_top_corner_radius="5dp"
+            app:custom_sriv_right_bottom_corner_radius="5dp"
+            app:custom_sriv_right_top_corner_radius="5dp" />
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -85,9 +85,9 @@
             android:textSize="12sp" />
     </LinearLayout>
 
-    <com.quduo.welfareshop.widgets.MultiImageView
-        android:id="@+id/multiImageView"
-        android:layout_marginTop="@dimen/dp_10"
+    <com.w4lle.library.NineGridlayout
+        android:id="@+id/image_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10" />
 </LinearLayout>
