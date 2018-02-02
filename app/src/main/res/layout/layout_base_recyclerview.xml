@@ -2,8 +2,7 @@
 <wiki.scene.loadmore.StatusViewLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/status_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg_color">
+    android:layout_height="match_parent">
 
     <wiki.scene.loadmore.PtrClassicFrameLayout
         android:id="@+id/ptr_layout"
