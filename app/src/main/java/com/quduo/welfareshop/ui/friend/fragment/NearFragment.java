@@ -12,11 +12,14 @@ import android.widget.ImageView;
 
 import com.blankj.utilcode.util.SizeUtils;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.itemDecoration.GridSpacingItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.friend.adapter.NearAdapter;
 import com.quduo.welfareshop.ui.friend.presenter.NearPresenter;
 import com.quduo.welfareshop.ui.friend.view.INearView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,7 @@ import wiki.scene.loadmore.PtrClassicFrameLayout;
 import wiki.scene.loadmore.PtrDefaultHandler;
 import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
+import wiki.scene.loadmore.recyclerview.RecyclerAdapterWithHF;
 
 /**
  * Author:scene
@@ -98,7 +102,14 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, SizeUtils.dp2px(10), true));
-        recyclerView.setAdapter(new NearAdapter(getContext(), list));
+        RecyclerAdapterWithHF mAdapter = new RecyclerAdapterWithHF(new NearAdapter(getContext(), list));
+        recyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new RecyclerAdapterWithHF.OnItemClickListener() {
+            @Override
+            public void onItemClick(RecyclerAdapterWithHF adapter, RecyclerView.ViewHolder vh, int position) {
+                EventBus.getDefault().post(new StartBrotherEvent(OtherInfoFragment.newInstance(2)));
+            }
+        });
 
     }
 

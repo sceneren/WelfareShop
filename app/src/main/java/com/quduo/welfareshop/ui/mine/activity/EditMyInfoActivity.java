@@ -11,6 +11,9 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bigkoo.pickerview.OptionsPickerView;
+import com.bigkoo.pickerview.TimePickerView;
+import com.blankj.utilcode.util.StringUtils;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.event.EditMyInfoEvent;
@@ -26,8 +29,12 @@ import com.yuyh.library.imgsel.config.ISListConfig;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.joda.time.DateTime;
+import org.joda.time.Instant;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -78,10 +85,12 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
     TextView phoneNum;
     Unbinder unbinder;
 
-    private List<String> list = new ArrayList<>();
+    private List<String> sexList = null;
     private EditInfoPhotoAdapter adapter;
 
     private boolean hasInitChoosePhoto = false;
+
+    private List<String> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +112,6 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
             }
         });
     }
-
 
     private void initView() {
         adapter = new EditInfoPhotoAdapter(EditMyInfoActivity.this, list);
@@ -240,6 +248,70 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
         EventBus.getDefault().unregister(this);
         super.onDestroy();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.sex)
+    public void onClickSex() {
+        String sexStr = sex.getText().toString().trim();
+        chooseSex(sexStr);
+    }
+
+    private void chooseSex(String sexStr) {
+        if (sexList == null) {
+            sexList = new ArrayList<>();
+            sexList.add("男");
+            sexList.add("女");
+            sexList.add("保密");
+        }
+        OptionsPickerView optionsPickerView = new OptionsPickerView.Builder(EditMyInfoActivity.this, new OptionsPickerView.OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                sex.setText(sexList.get(options1));
+            }
+        }).build();
+        optionsPickerView.setPicker(sexList);
+        switch (sexStr) {
+            case "男":
+                optionsPickerView.setSelectOptions(0);
+                break;
+            case "女":
+                optionsPickerView.setSelectOptions(1);
+                break;
+            default:
+                optionsPickerView.setSelectOptions(2);
+                break;
+        }
+        optionsPickerView.show();
+    }
+
+    @OnClick(R.id.birthday)
+    public void onClickBirthDay() {
+        String birthDayStr = birthday.getText().toString().trim();
+        long birthDayMillis;
+        if (StringUtils.isEmpty(birthDayStr)) {
+            birthDayMillis = new Instant().getMillis();
+        } else {
+            birthDayMillis = new Instant(birthDayStr).getMillis();
+        }
+        chooseBirthDay(birthDayMillis);
+    }
+
+    private void chooseBirthDay(long birthDayMillis) {
+        TimePickerView pvTime = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date, View v) {
+                //选中事件回调
+                DateTime dateTime = new DateTime(date);
+                birthday.setText(dateTime.toString("yyyy-MM-dd"));
+            }
+        })
+                .setRange(1990, 2017)
+                .setType(new boolean[]{true, true, true, false, false, false})
+                .setLabel("", "", "", "", "", "").build();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(birthDayMillis);
+        pvTime.setDate(calendar);
+        pvTime.show();
     }
 
 }

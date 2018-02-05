@@ -156,7 +156,7 @@
                         android:maxLines="1"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_default_avatar"
-                        android:text="男"
+                        android:text="保密"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
 
@@ -198,7 +198,6 @@
                         android:maxLines="1"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_default_avatar"
-                        android:text="1999-8-8"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
 
@@ -332,11 +331,13 @@
                         android:textSize="@dimen/sp_14" />
 
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:background="@color/lineColor" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -372,11 +373,13 @@
                         android:textSize="@dimen/sp_14" />
 
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:background="@color/lineColor" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -412,11 +415,13 @@
                         android:textSize="@dimen/sp_14" />
 
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:background="@color/lineColor" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
