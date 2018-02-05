@@ -310,6 +310,7 @@
                 android:horizontalSpacing="@dimen/dp_10"
                 android:numColumns="3"
                 android:padding="@dimen/dp_10"
+                android:listSelector="@color/transparent1"
                 android:verticalSpacing="@dimen/dp_10"
                 android:visibility="gone" />
 

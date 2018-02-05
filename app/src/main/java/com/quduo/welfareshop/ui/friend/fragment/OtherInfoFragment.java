@@ -11,9 +11,13 @@ import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
+import com.quduo.welfareshop.ui.friend.adapter.OtherInfoImageAdapter;
 import com.quduo.welfareshop.ui.friend.presenter.OtherInfoPresenter;
 import com.quduo.welfareshop.ui.friend.view.IOtherInfoView;
 import com.quduo.welfareshop.widgets.CustomeGridView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -87,7 +91,14 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
 
     @Override
     public void initView() {
-
+        List<String> list = new ArrayList<>();
+        list.add("");
+        list.add("");
+        list.add("");
+        OtherInfoImageAdapter adapter = new OtherInfoImageAdapter(getContext(), list);
+        photoGridView.setAdapter(adapter);
+        photoGridView.setVisibility(View.VISIBLE);
+        noPhoto.setVisibility(View.GONE);
     }
 
     @Override
