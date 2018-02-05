@@ -13,6 +13,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:paddingTop="2dp"
+        android:lines="1"
         android:layout_marginRight="3dp"
         android:layout_marginLeft="3dp"
         android:text="LINHOMHOM"
