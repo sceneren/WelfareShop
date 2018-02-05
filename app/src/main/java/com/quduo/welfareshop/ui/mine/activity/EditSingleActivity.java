@@ -1,0 +1,102 @@
+package com.quduo.welfareshop.ui.mine.activity;
+
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.TextView;
+
+import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
+import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.event.EditMyInfoEvent;
+import com.quduo.welfareshop.mvp.BaseMvpActivity;
+import com.quduo.welfareshop.ui.mine.presenter.EditSinglePresenter;
+import com.quduo.welfareshop.ui.mine.view.IEditSingleView;
+import com.quduo.welfareshop.widgets.ClearEditText;
+
+import org.greenrobot.eventbus.EventBus;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+
+/**
+ * Author:scene
+ * Time:2018/2/5 9:40
+ * Description:文本单项修改
+ */
+
+public class EditSingleActivity extends BaseMvpActivity<IEditSingleView, EditSinglePresenter> implements IEditSingleView {
+    public static final String ARG_TITLE = "title";
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.toolbar_title)
+    TextView toolbarTitle;
+    @BindView(R.id.toolbar_text)
+    TextView toolbarText;
+    @BindView(R.id.content)
+    ClearEditText content;
+    Unbinder unbinder;
+
+    private String title;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_edit_single);
+        unbinder = ButterKnife.bind(this);
+        initView();
+    }
+
+    private void initView() {
+        toolbarText.setText("保存");
+        title = getIntent().getStringExtra(ARG_TITLE);
+        toolbarTitle.setText(title);
+        toolbar.setNavigationIcon(R.drawable.ic_toolbar_back_black);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+    }
+
+    @Override
+    public void showLoadingPage() {
+
+    }
+
+    @Override
+    public void showContentPage() {
+
+    }
+
+    @Override
+    public void showErrorPage() {
+
+    }
+
+    @Override
+    public EditSinglePresenter initPresenter() {
+        return new EditSinglePresenter(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+    }
+
+    @OnClick(R.id.toolbar_text)
+    public void onClickSave() {
+        String contentStr = content.getText().toString().trim();
+        if (StringUtils.isEmpty(contentStr)) {
+            ToastUtils.showShort("请输入" + title);
+            return;
+        }
+        EditMyInfoEvent event = new EditMyInfoEvent(title, contentStr);
+        EventBus.getDefault().post(event);
+        onBackPressed();
+    }
+}

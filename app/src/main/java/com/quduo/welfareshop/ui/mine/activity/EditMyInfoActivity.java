@@ -1,4 +1,4 @@
-package com.quduo.welfareshop.ui.mine.fragment;
+package com.quduo.welfareshop.ui.mine.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.event.EditMyInfoEvent;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.mine.adapter.EditInfoPhotoAdapter;
 import com.quduo.welfareshop.ui.mine.presenter.EditMyInfoPresenter;
@@ -23,11 +24,16 @@ import com.yuyh.library.imgsel.ISNav;
 import com.yuyh.library.imgsel.common.ImageLoader;
 import com.yuyh.library.imgsel.config.ISListConfig;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * Author:scene
@@ -70,6 +76,8 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
     TextView wechatNum;
     @BindView(R.id.phone_num)
     TextView phoneNum;
+    Unbinder unbinder;
+
     private List<String> list = new ArrayList<>();
     private EditInfoPhotoAdapter adapter;
 
@@ -79,7 +87,8 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mine_edit_my_info);
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         initToolbar();
         initView();
     }
@@ -102,7 +111,7 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
         photoGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (list.size() < 9 && position == 0) {
+                if (list.size() < 9) {
                     if (position == 0) {
                         //添加图片
                         if (!hasInitChoosePhoto) {
@@ -206,4 +215,31 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
         // 跳转到图片选择器
         ISNav.getInstance().toListActivity(this, config, REQUEST_LIST_CODE);
     }
+
+
+    @OnClick(R.id.nickname)
+    public void onClick() {
+        Intent intent = new Intent(EditMyInfoActivity.this, EditSingleActivity.class);
+        intent.putExtra(EditSingleActivity.ARG_TITLE, "昵称");
+        startActivity(intent);
+    }
+
+    @Subscribe
+    public void onUpdateSuccess(EditMyInfoEvent event) {
+        if (event == null) {
+            return;
+        }
+        if (event.getTitle().equals("昵称")) {
+            nickname.setText(event.getContent());
+        }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+        unbinder.unbind();
+    }
+
 }

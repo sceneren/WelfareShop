@@ -9,6 +9,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.quduo.welfareshop.R;
+
 
 /**
  * 带删除功能的editText
@@ -38,7 +40,7 @@ public class ClearEditText extends AppCompatEditText implements View.OnFocusChan
     private void init() {
         mClearDrawable = getCompoundDrawables()[2];
         if (mClearDrawable == null) {
-            mClearDrawable = getResources().getDrawable(android.R.drawable.ic_input_delete);
+            mClearDrawable = getResources().getDrawable(R.drawable.ic_edittext_delete);
         }
         mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth(), mClearDrawable.getIntrinsicHeight());
         // 默认设置隐藏图标

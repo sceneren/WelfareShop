@@ -55,7 +55,11 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.ReadActivityTheme" />
         <activity
-            android:name=".ui.mine.fragment.EditMyInfoActivity"
+            android:name=".ui.mine.activity.EditMyInfoActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar.SwipeBack" />
+        <activity
+            android:name=".ui.mine.activity.EditSingleActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar.SwipeBack" />
 

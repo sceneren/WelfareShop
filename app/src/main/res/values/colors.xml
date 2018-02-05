@@ -49,4 +49,6 @@
     <color name="read_font_4">#627176</color>
 
     <color name="lineColor">#60d3d3d3</color>
+
+    <color name="line_color">#CDCDCD</color>
 </resources>

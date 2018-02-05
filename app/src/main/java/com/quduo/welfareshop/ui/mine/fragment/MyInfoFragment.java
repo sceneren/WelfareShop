@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
+import com.quduo.welfareshop.ui.mine.activity.EditMyInfoActivity;
 import com.quduo.welfareshop.ui.mine.presenter.MyInfoPresenter;
 import com.quduo.welfareshop.ui.mine.view.IMyInfoView;
 

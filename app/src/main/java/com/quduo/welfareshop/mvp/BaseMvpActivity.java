@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.mvp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.quduo.welfareshop.R;
@@ -43,6 +44,18 @@ public abstract class BaseMvpActivity<V, T extends BasePresenter<V>> extends Swi
     @Override
     public void onBackPressedSupport() {
         super.onBackPressedSupport();
-        overridePendingTransition(R.anim.h_fragment_enter,R.anim.h_fragment_exit);
+        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+    }
+
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+    }
+
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        super.startActivityForResult(intent, requestCode);
+        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }
 }
