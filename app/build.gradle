@@ -182,4 +182,8 @@ dependencies {
     compile project(':Library')
     //九宫格
     compile 'com.w4lle.library:NineLayout:1.0.0'
+    //图片选择
+    compile 'com.yuyh.imgsel:library:2.0.2'
+    //图片压缩
+    compile 'me.shaohui.advancedluban:library:1.3.5'
 }

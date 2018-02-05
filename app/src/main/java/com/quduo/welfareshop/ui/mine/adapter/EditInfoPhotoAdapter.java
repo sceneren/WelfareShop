@@ -35,7 +35,7 @@ public class EditInfoPhotoAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list.size();
+        return list.size() >= 9 ? list.size() : (list.size() + 1);
     }
 
     @Override
@@ -59,18 +59,27 @@ public class EditInfoPhotoAdapter extends BaseAdapter {
         } else {
             holder = (PhotoViewHolder) convertView.getTag();
         }
-        if (list.size() < 9 && position == 0) {
-            holder.image.setImageResource(R.drawable.ic_add_photo);
-            holder.delete.setVisibility(View.GONE);
+        if (list.size() < 9) {
+            if (position == 0) {
+                holder.image.setImageResource(R.drawable.ic_add_photo);
+                holder.delete.setVisibility(View.GONE);
+            } else {
+                holder.delete.setVisibility(View.VISIBLE);
+                GlideApp.with(context)
+                        .asBitmap()
+                        .centerCrop()
+                        .load(list.get(position - 1))
+                        .into(holder.image);
+            }
         } else {
             holder.delete.setVisibility(View.VISIBLE);
-            String url = "http://e.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg";
             GlideApp.with(context)
                     .asBitmap()
                     .centerCrop()
-                    .load(url)
+                    .load(list.get(position))
                     .into(holder.image);
         }
+
 
         return convertView;
     }
