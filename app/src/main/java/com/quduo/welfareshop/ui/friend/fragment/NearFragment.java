@@ -107,7 +107,7 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
         mAdapter.setOnItemClickListener(new RecyclerAdapterWithHF.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerAdapterWithHF adapter, RecyclerView.ViewHolder vh, int position) {
-                EventBus.getDefault().post(new StartBrotherEvent(OtherInfoFragment.newInstance(2)));
+                EventBus.getDefault().post(new StartBrotherEvent(OtherInfoFragment.newInstance(position + 1)));
             }
         });
 

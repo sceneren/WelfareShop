@@ -16,6 +16,7 @@ import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.quduo.welfareshop.activity.MainActivity;
 import com.quduo.welfareshop.config.Config;
+import com.quduo.welfareshop.greendao.GreenDaoManager;
 import com.quduo.welfareshop.recovery.core.Recovery;
 import com.quduo.welfareshop.util.PageFactory;
 import com.quduo.welfareshop.util.ResourceUtil;
@@ -70,6 +71,9 @@ public class MyApplication extends LitePalApplication {
         //初始化友盟统计
         UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, null);
         UMConfigure.setLogEnabled(true);
+        //初始化数据库
+        //初始化greendao
+        GreenDaoManager.getInstance();
     }
 
 

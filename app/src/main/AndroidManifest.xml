@@ -62,6 +62,10 @@
             android:name=".ui.mine.activity.EditSingleActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar.SwipeBack" />
+        <activity
+            android:name=".ui.friend.activity.ChatActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar.SwipeBack" />
 
         <!--##############友盟开始###################-->
         <meta-data

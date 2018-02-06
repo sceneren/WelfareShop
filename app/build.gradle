@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 27
@@ -116,6 +117,11 @@ android {
             outputFileName = "../../${file_pre}_${defaultConfig.versionCode}.apk"
         }
     }
+    greendao {
+        schemaVersion 1//<--数据库的版本，用于升级时候进行更改
+        daoPackage 'com.quduo.welfareshop.greendao.gen'//这个是生成DAOs、DaoMaster、DaoSession代码保存的包名,默认为entities所在包名
+        targetGenDir 'src/main/java'//生成DAOs、DaoMaster、DaoSession的目录。默认为build/generated/source/greendao
+    }
 }
 
 dependencies {
@@ -188,4 +194,7 @@ dependencies {
     compile 'me.shaohui.advancedluban:library:1.3.5'
     //选择器
     compile 'com.contrarywind:Android-PickerView:3.2.7'
+    //greenDao数据库
+    compile 'org.greenrobot:greendao:3.2.2'
+
 }
