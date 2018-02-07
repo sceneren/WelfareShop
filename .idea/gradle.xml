@@ -10,6 +10,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Library" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/emoticonkeyboard" />
+            <option value="$PROJECT_DIR$/libselecter" />
             <option value="$PROJECT_DIR$/loadmore" />
           </set>
         </option>

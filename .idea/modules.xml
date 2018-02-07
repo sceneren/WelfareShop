@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/Library/Library.iml" filepath="$PROJECT_DIR$/Library/Library.iml" />
       <module fileurl="file://$PROJECT_DIR$/WelfareShop.iml" filepath="$PROJECT_DIR$/WelfareShop.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/emoticonkeyboard/emoticonkeyboard.iml" filepath="$PROJECT_DIR$/emoticonkeyboard/emoticonkeyboard.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libselecter/libselecter.iml" filepath="$PROJECT_DIR$/libselecter/libselecter.iml" />
       <module fileurl="file://$PROJECT_DIR$/loadmore/loadmore.iml" filepath="$PROJECT_DIR$/loadmore/loadmore.iml" />
     </modules>
   </component>

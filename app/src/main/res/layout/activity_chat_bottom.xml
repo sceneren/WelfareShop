@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#F5F5F6"
     android:orientation="vertical">
 
     <View
@@ -12,53 +13,102 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#F5F5F6"
-        android:padding="@dimen/dp_10">
+        android:orientation="horizontal"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp">
 
+        <!-- 语音/文字切换-->
         <ImageView
-            android:id="@+id/btn_audio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/btn_voice_or_text"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
             android:src="@drawable/ic_chat_bottom_audio" />
 
-        <EditText
-            android:id="@+id/edit_content"
+        <!--语音输入-->
+        <Button
+            android:id="@+id/btn_voice"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_toLeftOf="@+id/rl_multi_and_send"
+            android:layout_toRightOf="@+id/btn_voice_or_text"
+            android:background="@drawable/btn_voice"
+            android:text="@string/btn_text_speak"
+            android:textColor="#727272"
+            android:visibility="gone" />
+
+        <!--输入框-->
+        <sj.keyboard.widget.EmoticonsEditText
+            android:id="@+id/et_chat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
-            android:layout_toLeftOf="@+id/btn_emoji"
-            android:layout_toRightOf="@+id/btn_audio"
-            android:background="@drawable/bg_chat_edittext_s"
-            android:lines="1"
-            android:maxHeight="90dp"
-            android:paddingBottom="@dimen/dp_10"
-            android:paddingTop="@dimen/dp_10"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text=""
-            android:textColor="@color/title_text_color"
-            android:textSize="15sp" />
-
-        <ImageView
-            android:id="@+id/btn_emoji"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/btn_image"
+            android:layout_toLeftOf="@+id/btn_face"
+            android:layout_toRightOf="@+id/btn_voice_or_text"
+            android:background="@drawable/bg_chat_edittext_s"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center_vertical"
+            android:hint="点击输入文字"
+            android:lineSpacingExtra="4dp"
+            android:maxLines="4"
+            android:minHeight="40dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textSize="16sp" />
+
+        <!--表情-->
+        <ImageView
+            android:id="@+id/btn_face"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/rl_multi_and_send"
             android:src="@drawable/ic_chat_bottom_emoji" />
 
-        <ImageView
-            android:id="@+id/btn_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <RelativeLayout
+            android:id="@+id/rl_multi_and_send"
+            android:layout_width="58dp"
+            android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_chat_bottom_image" />
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal">
 
+            <!--apps 功能-->
+            <ImageView
+                android:id="@+id/btn_multimedia"
+                android:layout_width="34dp"
+                android:layout_height="28dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_chat_bottom_image" />
+
+            <!--发送-->
+            <Button
+                android:id="@+id/btn_send"
+                android:layout_width="46dp"
+                android:layout_height="34dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/btn_send_bg_disable"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/btn_text_send"
+                android:textColor="@color/btn_send_textcolor"
+                android:textSize="12sp"
+                android:visibility="gone" />
+        </RelativeLayout>
     </RelativeLayout>
 
+    <sj.keyboard.widget.FuncLayout
+        android:id="@+id/ly_kvml"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:visibility="gone" />
 </LinearLayout>

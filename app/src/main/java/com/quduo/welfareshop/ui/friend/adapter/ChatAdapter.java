@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.friend.entity.ChatMessageInfo;
+import com.quduo.welfareshop.ui.friend.userdef.QqUtils;
 import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 
 import org.joda.time.DateTime;
@@ -59,7 +60,7 @@ public class ChatAdapter extends RecyclerView.Adapter {
         if (getItemViewType(position) == TYPE_TEXT) {
             if (holder != null && holder instanceof TextViewHolder) {
                 TextViewHolder textViewHolder = (TextViewHolder) holder;
-                textViewHolder.content.setText(chatMessageInfo.getMessageContent());
+                QqUtils.spannableEmoticonFilter(textViewHolder.content, chatMessageInfo.getMessageContent());
                 String url = "http://e.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg";
                 GlideApp.with(context)
                         .asBitmap()

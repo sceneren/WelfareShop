@@ -1,1 +1,1 @@
-include ':app', ':loadmore', ':Library'
+include ':app', ':loadmore', ':Library',':emoticonkeyboard', ':libselecter'

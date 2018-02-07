@@ -1,7 +1,9 @@
 package com.quduo.welfareshop;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.Utils;
@@ -15,12 +17,15 @@ import com.lzy.okgo.cookie.store.MemoryCookieStore;
 import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.quduo.welfareshop.activity.MainActivity;
+import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.config.Config;
 import com.quduo.welfareshop.greendao.GreenDaoManager;
 import com.quduo.welfareshop.recovery.core.Recovery;
 import com.quduo.welfareshop.util.PageFactory;
 import com.quduo.welfareshop.util.ResourceUtil;
 import com.umeng.commonsdk.UMConfigure;
+import com.quduo.libselecter.ISNav;
+import com.quduo.libselecter.common.ImageLoader;
 
 import org.litepal.LitePal;
 import org.litepal.LitePalApplication;
@@ -74,8 +79,18 @@ public class MyApplication extends LitePalApplication {
         //初始化数据库
         //初始化greendao
         GreenDaoManager.getInstance();
+        initPhotoImageLoader();
     }
 
+    // 自定义图片加载器
+    private void initPhotoImageLoader() {
+        ISNav.getInstance().init(new ImageLoader() {
+            @Override
+            public void displayImage(Context context, String path, ImageView imageView) {
+                GlideApp.with(context).load(path).into(imageView);
+            }
+        });
+    }
 
     //初始化dialog
     private void initDialog() {

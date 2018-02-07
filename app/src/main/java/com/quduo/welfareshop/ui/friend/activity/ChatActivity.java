@@ -1,6 +1,5 @@
 package com.quduo.welfareshop.ui.friend.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,10 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
-import android.text.TextWatcher;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,11 +19,15 @@ import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.friend.adapter.ChatAdapter;
 import com.quduo.welfareshop.ui.friend.entity.ChatMessageInfo;
 import com.quduo.welfareshop.ui.friend.presenter.ChatPresenter;
+import com.quduo.welfareshop.ui.friend.userdef.QqUtils;
+import com.quduo.welfareshop.ui.friend.userdef.SimpleUserDefAppsGridView;
+import com.quduo.welfareshop.ui.friend.userdef.SimpleUserdefEmoticonsKeyBoard;
 import com.quduo.welfareshop.ui.friend.view.IChatView;
+import com.quduo.welfareshop.util.EmojiConstants;
 import com.quduo.welfareshop.util.ImageSelectorUtil;
+import com.quduo.welfareshop.util.SimpleCommonUtils;
 import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
-import com.yuyh.library.imgsel.ISNav;
-import com.yuyh.library.imgsel.common.ImageLoader;
+import com.sj.emoji.EmojiBean;
 
 import org.greenrobot.eventbus.EventBus;
 import org.joda.time.Instant;
@@ -38,6 +39,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import sj.keyboard.data.EmoticonEntity;
+import sj.keyboard.interfaces.EmoticonClickListener;
+import sj.keyboard.widget.EmoticonsEditText;
+import sj.keyboard.widget.FuncLayout;
 import wiki.scene.loadmore.PtrClassicFrameLayout;
 import wiki.scene.loadmore.PtrDefaultHandler;
 import wiki.scene.loadmore.PtrFrameLayout;
@@ -48,10 +53,13 @@ import wiki.scene.loadmore.recyclerview.RecyclerAdapterWithHF;
  * Time:2018/2/5 16:40
  * Description:聊天
  */
-public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> implements IChatView {
+public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> implements IChatView, FuncLayout.OnFuncKeyBoardListener {
 
     private static final int REQUEST_GALLERY_CODE = 10002;
+    private static final int REQUEST_CAMERA_CODE = 10001;
 
+    @BindView(R.id.ek_bar)
+    SimpleUserdefEmoticonsKeyBoard ekBar;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
@@ -69,14 +77,6 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
     RelativeLayout followLayout;
     @BindView(R.id.follow)
     TextView follow;
-    @BindView(R.id.btn_audio)
-    ImageView btnAudio;
-    @BindView(R.id.edit_content)
-    EditText editContent;
-    @BindView(R.id.btn_emoji)
-    ImageView btnEmoji;
-    @BindView(R.id.btn_image)
-    ImageView btnImage;
     private int otherId = 0;
     private String otherNickName;
     private boolean isFollow = false;
@@ -84,9 +84,6 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
 
     private RecyclerAdapterWithHF mAdapter;
     private List<ChatMessageInfo> messageList;
-
-    private boolean hasSend = false;
-    private boolean hasInitChoosePhoto = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,7 +95,7 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
         isFollow = getIntent().getBooleanExtra("IS_FOLLOW", false);
         initToolbar();
         initView();
-        presenter.getAllMessage(false);
+        presenter.getAllMessage(false, true);
     }
 
     private void initToolbar() {
@@ -113,6 +110,8 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
     }
 
     private void initView() {
+        initEmoticonsKeyBoardBar();
+
         followLayout.setVisibility(isFollow ? View.GONE : View.VISIBLE);
         othersNickname.setText(otherNickName);
         String url = "http://e.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg";
@@ -125,7 +124,7 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                presenter.getAllMessage(true);
+                presenter.getAllMessage(true, false);
                 ptrLayout.refreshComplete();
             }
         });
@@ -134,32 +133,85 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
         mAdapter = new RecyclerAdapterWithHF(chatAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(ChatActivity.this));
         recyclerView.setAdapter(mAdapter);
-
-        //初始化底部输入栏
-        editContent.addTextChangedListener(new TextWatcher() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (editContent.getText().toString().length() > 0) {
-                    btnImage.setImageResource(R.drawable.ic_chat_bottom_send);
-                    hasSend = true;
-                } else {
-                    btnImage.setImageResource(R.drawable.ic_chat_bottom_image);
-                    hasSend = false;
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                switch (newState) {
+                    case RecyclerView.SCROLL_STATE_DRAGGING:
+                        ekBar.reset();
+                        break;
                 }
+            }
+        });
+    }
+
+
+    private void initEmoticonsKeyBoardBar() {
+        QqUtils.initEmoticonsEditText(ekBar.getEtChat());
+        ekBar.setAdapter(QqUtils.getCommonAdapter(this, emoticonClickListener));
+        ekBar.addOnFuncKeyBoardListener(this);
+
+        SimpleUserDefAppsGridView simpleUserDefAppsGridView = new SimpleUserDefAppsGridView(this);
+        simpleUserDefAppsGridView.setOnClickItemListener(new SimpleUserDefAppsGridView.OnClickItemListener() {
+            @Override
+            public void onClickCamera() {
+                ImageSelectorUtil.openCamera(ChatActivity.this, REQUEST_CAMERA_CODE);
+            }
+
+            @Override
+            public void onClickGrallery() {
+                ImageSelectorUtil.openImageList(ChatActivity.this, 9, REQUEST_GALLERY_CODE);
+            }
+        });
+        ekBar.addFuncView(simpleUserDefAppsGridView);
+        ekBar.getEtChat().setOnSizeChangedListener(new EmoticonsEditText.OnSizeChangedListener() {
+            @Override
+            public void onSizeChanged(int w, int h, int oldw, int oldh) {
+                scrollToBottom();
+            }
+        });
+        ekBar.getBtnSend().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSendBtnClick(ekBar.getEtChat().getText().toString());
+                ekBar.getEtChat().setText("");
             }
         });
 
     }
+
+    EmoticonClickListener emoticonClickListener = new EmoticonClickListener() {
+        @Override
+        public void onEmoticonClick(Object o, int actionType, boolean isDelBtn) {
+
+            if (isDelBtn) {
+                SimpleCommonUtils.delClick(ekBar.getEtChat());
+            } else {
+                if (o == null) {
+                    return;
+                }
+                if (actionType == EmojiConstants.EMOTICON_CLICK_BIGIMAGE) {
+                    if (o instanceof EmoticonEntity) {
+                        onSendImage(((EmoticonEntity) o).getIconUri());
+                    }
+                } else {
+                    String content = null;
+                    if (o instanceof EmojiBean) {
+                        content = ((EmojiBean) o).emoji;
+                    } else if (o instanceof EmoticonEntity) {
+                        content = ((EmoticonEntity) o).getContent();
+                    }
+
+                    if (TextUtils.isEmpty(content)) {
+                        return;
+                    }
+                    int index = ekBar.getEtChat().getSelectionStart();
+                    Editable editable = ekBar.getEtChat().getText();
+                    editable.insert(index, content);
+                }
+            }
+        }
+    };
 
     @Override
     public void showLoadingPage() {
@@ -207,15 +259,9 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
             this.messageList.clear();
             this.messageList.addAll(list);
             mAdapter.notifyDataSetChanged();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public String getEditContentStr() {
-        return editContent.getText().toString();
     }
 
     @Override
@@ -224,10 +270,14 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
     }
 
     @Override
-    public void moveToBottom() {
+    public void moveToBottom(boolean isFirstEnter) {
         try {
             if (messageList.size() > 0) {
-                recyclerView.smoothScrollToPosition(messageList.size() - 1);
+                if (isFirstEnter) {
+                    recyclerView.scrollToPosition(messageList.size() - 1);
+                } else {
+                    recyclerView.smoothScrollToPosition(messageList.size() - 1);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -240,42 +290,6 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
         followLayout.setVisibility(View.GONE);
     }
 
-    @OnClick(R.id.btn_image)
-    public void onClickBtnImage() {
-        if (hasSend) {
-            //发送消息
-            ChatMessageInfo chatMessageInfo = new ChatMessageInfo();
-            chatMessageInfo.setOtherUserId(otherId);
-            chatMessageInfo.setOtherNickName(otherNickName);
-            chatMessageInfo.setMessageType(0);
-            chatMessageInfo.setMessageContent(editContent.getText().toString());
-            Instant instant = new Instant();
-            chatMessageInfo.setTime(instant.getMillis());
-            chatMessageInfo.setAudioTime(0);
-            presenter.sendMessage(chatMessageInfo);
-            messageList.add(chatMessageInfo);
-            mAdapter.notifyItemInserted(messageList.size() - 1);
-            editContent.setText("");
-            recyclerView.smoothScrollToPosition(messageList.size() - 1);
-        } else {
-            //添加图片
-            if (!hasInitChoosePhoto) {
-                initPhotoImageLoader();
-            }
-            ImageSelectorUtil.openImageList(ChatActivity.this, 9, REQUEST_GALLERY_CODE);
-        }
-    }
-
-    // 自定义图片加载器
-    private void initPhotoImageLoader() {
-        ISNav.getInstance().init(new ImageLoader() {
-            @Override
-            public void displayImage(Context context, String path, ImageView imageView) {
-                GlideApp.with(context).load(path).into(imageView);
-            }
-        });
-        hasInitChoosePhoto = true;
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -296,6 +310,71 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
             }
             mAdapter.notifyItemInserted(messageList.size() - 1);
             recyclerView.smoothScrollToPosition(messageList.size() - 1);
+        } else if (requestCode == REQUEST_CAMERA_CODE && resultCode == RESULT_OK && data != null) {
+            String path = data.getStringExtra("result"); // 图片地址
+            ChatMessageInfo chatMessageInfo = new ChatMessageInfo();
+            chatMessageInfo.setOtherUserId(otherId);
+            chatMessageInfo.setOtherNickName(otherNickName);
+            chatMessageInfo.setMessageType(1);
+            chatMessageInfo.setMessageContent(path);
+            Instant instant = new Instant();
+            chatMessageInfo.setTime(instant.getMillis());
+            chatMessageInfo.setAudioTime(0);
+            presenter.sendMessage(chatMessageInfo);
+            messageList.add(chatMessageInfo);
+            mAdapter.notifyItemInserted(messageList.size() - 1);
+            recyclerView.smoothScrollToPosition(messageList.size() - 1);
         }
+    }
+
+
+    @Override
+    public void OnFuncPop(int height) {
+
+    }
+
+    @Override
+    public void OnFuncClose() {
+
+    }
+
+    private void onSendBtnClick(String msg) {
+        if (!TextUtils.isEmpty(msg)) {
+            //发送消息
+            ChatMessageInfo chatMessageInfo = new ChatMessageInfo();
+            chatMessageInfo.setOtherUserId(otherId);
+            chatMessageInfo.setOtherNickName(otherNickName);
+            chatMessageInfo.setMessageType(0);
+            chatMessageInfo.setMessageContent(msg);
+            Instant instant = new Instant();
+            chatMessageInfo.setTime(instant.getMillis());
+            chatMessageInfo.setAudioTime(0);
+            presenter.sendMessage(chatMessageInfo);
+            messageList.add(chatMessageInfo);
+            mAdapter.notifyItemInserted(messageList.size() - 1);
+            scrollToBottom();
+        }
+    }
+
+    private void scrollToBottom() {
+        recyclerView.requestLayout();
+        recyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                recyclerView.smoothScrollToPosition(messageList.size() - 1);
+            }
+        });
+    }
+
+    private void onSendImage(String image) {
+        if (!TextUtils.isEmpty(image)) {
+            scrollToBottom();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        ekBar.reset();
     }
 }

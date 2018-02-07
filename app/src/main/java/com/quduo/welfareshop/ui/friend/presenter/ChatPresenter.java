@@ -21,13 +21,13 @@ public class ChatPresenter extends BasePresenter<IChatView> {
         this.model = new ChatModel();
     }
 
-    public void getAllMessage(boolean isRefresh) {
+    public void getAllMessage(boolean isRefresh,boolean isFirstEnter) {
         try {
             List<ChatMessageInfo> list = model.getAllMessage(this.mView.getOtherUserId());
             mView.refreshComplete();
             mView.updateRecyclerView(list);
             if(!isRefresh){
-                mView.moveToBottom();
+                mView.moveToBottom(isFirstEnter);
             }
         } catch (Exception e) {
             e.printStackTrace();

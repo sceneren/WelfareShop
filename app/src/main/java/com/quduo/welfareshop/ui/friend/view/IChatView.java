@@ -17,9 +17,7 @@ public interface IChatView extends BaseView {
 
     void updateRecyclerView(List<ChatMessageInfo> list);
 
-    String getEditContentStr();
-
     String getOtherNickName();
 
-    void moveToBottom();
+    void moveToBottom(boolean isFirstEnter);
 }

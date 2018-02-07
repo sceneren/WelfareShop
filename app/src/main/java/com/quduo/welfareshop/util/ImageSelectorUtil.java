@@ -5,8 +5,9 @@ import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 
 import com.quduo.welfareshop.R;
-import com.yuyh.library.imgsel.ISNav;
-import com.yuyh.library.imgsel.config.ISListConfig;
+import com.quduo.libselecter.ISNav;
+import com.quduo.libselecter.config.ISCameraConfig;
+import com.quduo.libselecter.config.ISListConfig;
 
 /**
  * Author:scene
@@ -46,5 +47,10 @@ public class ImageSelectorUtil {
                 .build();
         // 跳转到图片选择器
         ISNav.getInstance().toListActivity(activity, config, requestCode);
+    }
+
+    public static void openCamera(Activity activity, int requestCode) {
+        ISCameraConfig config = new ISCameraConfig.Builder().needCrop(false).build();
+        ISNav.getInstance().toCameraActivity(activity, config, requestCode);
     }
 }
