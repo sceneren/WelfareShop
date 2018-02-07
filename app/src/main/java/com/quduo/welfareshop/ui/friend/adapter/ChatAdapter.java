@@ -134,14 +134,16 @@ public class ChatAdapter extends RecyclerView.Adapter {
             audioViewHolder.time.setText(dateTime.toString("yyyy-MM-dd HH:mm", Locale.CHINESE));
             audioViewHolder.audioTime.setText(String.format("%s″", chatMessageInfo.getAudioTime()));
 
-            AnimationDrawable animationDrawable;
             audioViewHolder.audioImage.setId(position);
             if (position == voicePlayPosition) {
-                audioViewHolder.audioImage.setBackgroundResource(R.drawable.ic_audio_item_voice_3);
                 audioViewHolder.audioImage.setBackgroundResource(R.drawable.voice_play_send);
-                animationDrawable = (AnimationDrawable) audioViewHolder.audioImage
-                        .getBackground();
-                animationDrawable.start();
+                audioViewHolder.audioImage.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        AnimationDrawable animationDrawable = (AnimationDrawable) audioViewHolder.audioImage.getBackground();
+                        animationDrawable.start();
+                    }
+                }, 50);
             } else {
                 audioViewHolder.audioImage.setBackgroundResource(R.drawable.ic_audio_item_voice_3);
             }
@@ -149,22 +151,35 @@ public class ChatAdapter extends RecyclerView.Adapter {
             audioViewHolder.audioLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    audioViewHolder.audioImage.setBackgroundResource(R.drawable.ic_audio_item_voice_3);
-                    stopPlayVoice();
-                    voicePlayPosition = audioViewHolder.audioImage.getId();
-                    AnimationDrawable drawable;
-                    audioViewHolder.audioImage.setBackgroundResource(R.drawable.voice_play_send);
-                    drawable = (AnimationDrawable) audioViewHolder.audioImage.getBackground();
-                    drawable.start();
-                    String voicePath = chatMessageInfo.getMessageContent() == null ? "" : chatMessageInfo.getMessageContent();
-                    MediaManager.playSound(voicePath, new MediaPlayer.OnCompletionListener() {
+                    //如果点击的是正在播放的语音就停止
+                    if (voicePlayPosition == audioViewHolder.audioImage.getId()) {
+                        audioViewHolder.audioImage.setBackgroundResource(R.drawable.ic_audio_item_voice_3);
+                        stopPlayVoice();
+                    } else {
+                        audioViewHolder.audioImage.setBackgroundResource(R.drawable.ic_audio_item_voice_3);
+                        stopPlayVoice();
+                        voicePlayPosition = audioViewHolder.audioImage.getId();
+                        audioViewHolder.audioImage.setBackgroundResource(R.drawable.voice_play_send);
+                        audioViewHolder.audioImage.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                AnimationDrawable drawable = (AnimationDrawable) audioViewHolder.audioImage.getBackground();
+                                drawable.start();
+                            }
+                        }, 50);
 
-                        @Override
-                        public void onCompletion(MediaPlayer mp) {
-                            voicePlayPosition = -1;
-                            audioViewHolder.audioImage.setBackgroundResource(R.drawable.ic_audio_item_voice_3);
-                        }
-                    });
+                        String voicePath = chatMessageInfo.getMessageContent() == null ? "" : chatMessageInfo.getMessageContent();
+                        MediaManager.playSound(voicePath, new MediaPlayer.OnCompletionListener() {
+
+                            @Override
+                            public void onCompletion(MediaPlayer mp) {
+                                voicePlayPosition = -1;
+                                audioViewHolder.audioImage.setBackgroundResource(R.drawable.ic_audio_item_voice_3);
+                            }
+                        });
+                    }
+
+
                 }
             });
         }

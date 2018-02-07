@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
-                android:src="@drawable/ic_audio_item_voice_3" />
+                android:background="@drawable/ic_audio_item_voice_3" />
         </LinearLayout>
 
     </RelativeLayout>
