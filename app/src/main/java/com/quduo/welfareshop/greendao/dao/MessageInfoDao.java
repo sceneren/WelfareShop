@@ -1,9 +1,11 @@
 package com.quduo.welfareshop.greendao.dao;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.quduo.welfareshop.greendao.GreenDaoManager;
 import com.quduo.welfareshop.greendao.gen.ChatMessageInfoDao;
 import com.quduo.welfareshop.ui.friend.entity.ChatMessageInfo;
 
+import org.greenrobot.greendao.internal.SqlUtils;
 import org.greenrobot.greendao.query.Query;
 
 import java.util.List;
@@ -178,6 +180,11 @@ public class MessageInfoDao {
 
     public List<ChatMessageInfo> querySession() {
         return getChatMessageInfoDao().queryRaw("group by OTHER_USER_ID order by time desc ");
+    }
+
+    public void deleteSession(String otherId) {
+        String sql = "DELETE FROM " + ChatMessageInfoDao.TABLENAME + " WHERE " + ChatMessageInfoDao.TABLENAME + ".OTHER_USER_ID = " + otherId;
+        getChatMessageInfoDao().getDatabase().execSQL(sql);
     }
 
     public ChatMessageInfoDao getChatMessageInfoDao() {

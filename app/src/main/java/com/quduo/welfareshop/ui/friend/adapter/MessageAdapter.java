@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
@@ -27,10 +29,15 @@ import butterknife.ButterKnife;
 public class MessageAdapter extends RecyclerView.Adapter {
     private Context context;
     private List<ChatMessageInfo> list;
+    private OnClickMessageItemListener onClickMessageItemListener;
 
     public MessageAdapter(Context context, List<ChatMessageInfo> list) {
         this.context = context;
         this.list = list;
+    }
+
+    public void setOnClickMessageItemListener(OnClickMessageItemListener onClickMessageItemListener) {
+        this.onClickMessageItemListener = onClickMessageItemListener;
     }
 
     @Override
@@ -39,7 +46,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ChatMessageInfo info = list.get(position);
         MessageViewHolder viewHolder = (MessageViewHolder) holder;
         GlideApp.with(context)
@@ -56,6 +63,22 @@ public class MessageAdapter extends RecyclerView.Adapter {
             viewHolder.message.setText("【语音】");
         }
         viewHolder.time.setText(Time2StringUtils.millisDistanceCurrent(info.getTime()));
+        viewHolder.contentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onClickMessageItemListener != null) {
+                    onClickMessageItemListener.onClickContent(position);
+                }
+            }
+        });
+        viewHolder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onClickMessageItemListener != null) {
+                    onClickMessageItemListener.onClickDelete(position);
+                }
+            }
+        });
     }
 
     @Override
@@ -72,10 +95,20 @@ public class MessageAdapter extends RecyclerView.Adapter {
         TextView message;
         @BindView(R.id.time)
         TextView time;
+        @BindView(R.id.content_layout)
+        LinearLayout contentLayout;
+        @BindView(R.id.delete)
+        TextView delete;
 
         MessageViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+    public interface OnClickMessageItemListener {
+        void onClickContent(int position);
+
+        void onClickDelete(int position);
     }
 }

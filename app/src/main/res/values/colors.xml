@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#F13C5D</color>
-    <color name="colorPrimaryDark">#F13C5D</color>
-    <color name="colorAccent">#F13C5D</color>
+    <color name="colorPrimary">#FF8EAF</color>
+    <color name="colorPrimaryDark">#FF8EAF</color>
+    <color name="colorAccent">#FF8EAF</color>
 
     <color name="white">#FFFFFF</color>
 
@@ -10,7 +10,7 @@
     <color name="main_tab_select_color">#FF8EAF</color>
     <color name="main_tab_unselect_color">#606060</color>
     <color name="list_item_divider">#cccccc</color>
-    <color name="toolbar_color">#F13C5D</color>
+    <color name="toolbar_color">#FF8EAF</color>
     <color name="toolbar_color_white">#F6F5F5</color>
     <color name="black">#000000</color>
     <color name="transparent1">#00000000</color>

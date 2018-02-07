@@ -25,4 +25,12 @@ public class MessagePresenter extends BasePresenter<IMessageView> {
             e.printStackTrace();
         }
     }
+
+    public void deleteSession(String otherId) {
+        try {
+            model.deleteSession(otherId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -34,7 +34,6 @@ import wiki.scene.loadmore.PtrClassicFrameLayout;
 import wiki.scene.loadmore.PtrDefaultHandler;
 import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
-import wiki.scene.loadmore.recyclerview.RecyclerAdapterWithHF;
 
 /**
  * Author:scene
@@ -51,8 +50,11 @@ public class MessageFragment extends BaseMvpFragment<IMessageView, MessagePresen
     StatusViewLayout statusView;
     Unbinder unbinder;
 
-    private RecyclerAdapterWithHF mAdapter;
+    private MessageAdapter adapter;
     private List<ChatMessageInfo> list;
+
+    public MessageFragment() {
+    }
 
     public static MessageFragment newInstance() {
         Bundle args = new Bundle();
@@ -87,14 +89,10 @@ public class MessageFragment extends BaseMvpFragment<IMessageView, MessagePresen
         });
 
         list = new ArrayList<>();
-        mAdapter = new RecyclerAdapterWithHF(new MessageAdapter(getContext(), list));
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new SpacesItemDecoration(SizeUtils.dp2px(1)));
-        recyclerView.setAdapter(mAdapter);
-        mAdapter.setOnItemClickListener(new RecyclerAdapterWithHF.OnItemClickListener() {
+        adapter = new MessageAdapter(getContext(), list);
+        adapter.setOnClickMessageItemListener(new MessageAdapter.OnClickMessageItemListener() {
             @Override
-            public void onItemClick(RecyclerAdapterWithHF adapter, RecyclerView.ViewHolder vh, int position) {
+            public void onClickContent(int position) {
                 Intent intent = new Intent(_mActivity, ChatActivity.class);
                 intent.putExtra("ID", list.get(position).getOtherUserId());
                 intent.putExtra("NICKNAME", list.get(position).getOtherNickName());
@@ -103,7 +101,18 @@ public class MessageFragment extends BaseMvpFragment<IMessageView, MessagePresen
                 startActivity(intent);
                 _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
             }
+
+            @Override
+            public void onClickDelete(int position) {
+                presenter.deleteSession(list.get(position).getOtherUserId());
+                list.remove(position);
+                adapter.notifyDataSetChanged();
+            }
         });
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new SpacesItemDecoration(SizeUtils.dp2px(1)));
+        recyclerView.setAdapter(adapter);
         presenter.getAllSeesion();
     }
 
@@ -151,7 +160,7 @@ public class MessageFragment extends BaseMvpFragment<IMessageView, MessagePresen
         try {
             EventBus.getDefault().unregister(this);
             list.clear();
-            mAdapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
             recyclerView.setAdapter(null);
         } catch (Exception e) {
             e.printStackTrace();
@@ -166,7 +175,7 @@ public class MessageFragment extends BaseMvpFragment<IMessageView, MessagePresen
             ptrLayout.refreshComplete();
             this.list.clear();
             this.list.addAll(list);
-            mAdapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();
         }

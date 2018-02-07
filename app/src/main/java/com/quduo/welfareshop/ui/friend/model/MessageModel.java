@@ -21,4 +21,12 @@ public class MessageModel {
             return new ArrayList<>();
         }
     }
+
+    public void deleteSession(String otherId) {
+        try {
+            MessageInfoDao.getInstance().deleteSession(otherId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
