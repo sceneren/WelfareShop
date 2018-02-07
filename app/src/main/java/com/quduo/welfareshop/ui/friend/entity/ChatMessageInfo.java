@@ -21,10 +21,10 @@ public class ChatMessageInfo {
     //messageContent 文本内容或者图片语音文件的路径
     private String messageContent;
     private long time;
-    private int audioTime;
-    @Generated(hash = 2035679109)
+    private float audioTime;
+    @Generated(hash = 876969007)
     public ChatMessageInfo(Long id, long otherUserId, String otherNickName,
-            int messageType, String messageContent, long time, int audioTime) {
+            int messageType, String messageContent, long time, float audioTime) {
         this.id = id;
         this.otherUserId = otherUserId;
         this.otherNickName = otherNickName;
@@ -72,12 +72,13 @@ public class ChatMessageInfo {
     public void setTime(long time) {
         this.time = time;
     }
-    public int getAudioTime() {
+    public float getAudioTime() {
         return this.audioTime;
     }
-    public void setAudioTime(int audioTime) {
+    public void setAudioTime(float audioTime) {
         this.audioTime = audioTime;
     }
+    
    
     
 }

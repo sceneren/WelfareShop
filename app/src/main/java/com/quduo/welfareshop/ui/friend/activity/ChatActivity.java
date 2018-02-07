@@ -17,6 +17,7 @@ import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.event.FollowEvent;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.friend.adapter.ChatAdapter;
+import com.quduo.welfareshop.ui.friend.audio.AudioRecordButton;
 import com.quduo.welfareshop.ui.friend.entity.ChatMessageInfo;
 import com.quduo.welfareshop.ui.friend.presenter.ChatPresenter;
 import com.quduo.welfareshop.ui.friend.userdef.QqUtils;
@@ -177,6 +178,30 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
                 ekBar.getEtChat().setText("");
             }
         });
+        if (ekBar.getBtnVoice() instanceof AudioRecordButton) {
+            ((AudioRecordButton)ekBar.getBtnVoice()).setAudioFinishRecorderListener(new AudioRecordButton.AudioFinishRecorderListener() {
+                @Override
+                public void onStart() {
+
+                }
+
+                @Override
+                public void onFinished(float seconds, String filePath) {
+                    ChatMessageInfo chatMessageInfo = new ChatMessageInfo();
+                    chatMessageInfo.setOtherUserId(otherId);
+                    chatMessageInfo.setOtherNickName(otherNickName);
+                    chatMessageInfo.setMessageType(2);
+                    chatMessageInfo.setMessageContent(filePath);
+                    Instant instant = new Instant();
+                    chatMessageInfo.setTime(instant.getMillis());
+                    chatMessageInfo.setAudioTime(seconds);
+                    presenter.sendMessage(chatMessageInfo);
+                    messageList.add(chatMessageInfo);
+                    mAdapter.notifyItemInserted(messageList.size() - 1);
+                    recyclerView.smoothScrollToPosition(messageList.size() - 1);
+                }
+            });
+        }
 
     }
 

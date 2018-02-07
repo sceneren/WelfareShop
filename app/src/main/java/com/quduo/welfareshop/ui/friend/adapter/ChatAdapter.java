@@ -125,7 +125,7 @@ public class ChatAdapter extends RecyclerView.Adapter {
             }
             DateTime dateTime = new DateTime(chatMessageInfo.getTime());
             audioViewHolder.time.setText(dateTime.toString("yyyy-MM-dd HH:mm", Locale.CHINESE));
-            audioViewHolder.audioTime.setText(String.format("%d″", chatMessageInfo.getAudioTime()));
+            audioViewHolder.audioTime.setText(String.format("%s″", chatMessageInfo.getAudioTime()));
         }
     }
 

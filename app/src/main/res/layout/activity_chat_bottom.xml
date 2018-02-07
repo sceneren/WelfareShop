@@ -27,7 +27,7 @@
             android:src="@drawable/ic_chat_bottom_audio" />
 
         <!--语音输入-->
-        <Button
+        <com.quduo.welfareshop.ui.friend.audio.AudioRecordButton
             android:id="@+id/btn_voice"
             android:layout_width="match_parent"
             android:layout_height="34dp"
