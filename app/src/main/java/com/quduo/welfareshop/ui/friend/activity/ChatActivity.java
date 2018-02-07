@@ -82,9 +82,10 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
     private String otherNickName;
     private boolean isFollow = false;
 
-
+    private ChatAdapter chatAdapter;
     private RecyclerAdapterWithHF mAdapter;
     private List<ChatMessageInfo> messageList;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -130,7 +131,8 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
             }
         });
         messageList = new ArrayList<>();
-        ChatAdapter chatAdapter = new ChatAdapter(ChatActivity.this, messageList);
+        chatAdapter = new ChatAdapter(ChatActivity.this, messageList);
+
         mAdapter = new RecyclerAdapterWithHF(chatAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(ChatActivity.this));
         recyclerView.setAdapter(mAdapter);
@@ -179,10 +181,10 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
             }
         });
         if (ekBar.getBtnVoice() instanceof AudioRecordButton) {
-            ((AudioRecordButton)ekBar.getBtnVoice()).setAudioFinishRecorderListener(new AudioRecordButton.AudioFinishRecorderListener() {
+            ((AudioRecordButton) ekBar.getBtnVoice()).setAudioFinishRecorderListener(new AudioRecordButton.AudioFinishRecorderListener() {
                 @Override
                 public void onStart() {
-
+                    chatAdapter.stopPlayVoice();
                 }
 
                 @Override
@@ -256,12 +258,6 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
     @Override
     public ChatPresenter initPresenter() {
         return new ChatPresenter(this);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unbinder.unbind();
     }
 
     @Override
@@ -402,4 +398,18 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
         super.onPause();
         ekBar.reset();
     }
+
+    @Override
+    protected void onDestroy() {
+        try {
+            messageList.clear();
+            mAdapter.notifyDataSetChanged();
+            recyclerView.setAdapter(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        super.onDestroy();
+        unbinder.unbind();
+    }
+
 }

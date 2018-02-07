@@ -1,15 +1,20 @@
 package com.quduo.welfareshop.ui.friend.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.ui.friend.audio.MediaManager;
 import com.quduo.welfareshop.ui.friend.entity.ChatMessageInfo;
 import com.quduo.welfareshop.ui.friend.userdef.QqUtils;
 import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
@@ -36,6 +41,8 @@ public class ChatAdapter extends RecyclerView.Adapter {
     private Context context;
     private List<ChatMessageInfo> list;
 
+    private int voicePlayPosition = -1;
+
     public ChatAdapter(Context context, List<ChatMessageInfo> list) {
         this.context = context;
         this.list = list;
@@ -55,8 +62,8 @@ public class ChatAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ChatMessageInfo chatMessageInfo = list.get(position);
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        final ChatMessageInfo chatMessageInfo = list.get(position);
         if (getItemViewType(position) == TYPE_TEXT) {
             if (holder != null && holder instanceof TextViewHolder) {
                 TextViewHolder textViewHolder = (TextViewHolder) holder;
@@ -106,7 +113,7 @@ public class ChatAdapter extends RecyclerView.Adapter {
             DateTime dateTime = new DateTime(chatMessageInfo.getTime());
             imageViewHolder.time.setText(dateTime.toString("yyyy-MM-dd HH:mm"));
         } else {
-            AudioViewHolder audioViewHolder = (AudioViewHolder) holder;
+            final AudioViewHolder audioViewHolder = (AudioViewHolder) holder;
             String url = "http://e.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg";
             GlideApp.with(context)
                     .asBitmap()
@@ -126,6 +133,40 @@ public class ChatAdapter extends RecyclerView.Adapter {
             DateTime dateTime = new DateTime(chatMessageInfo.getTime());
             audioViewHolder.time.setText(dateTime.toString("yyyy-MM-dd HH:mm", Locale.CHINESE));
             audioViewHolder.audioTime.setText(String.format("%s″", chatMessageInfo.getAudioTime()));
+
+            AnimationDrawable animationDrawable;
+            audioViewHolder.audioImage.setId(position);
+            if (position == voicePlayPosition) {
+                audioViewHolder.audioImage.setBackgroundResource(R.drawable.ic_audio_item_voice_3);
+                audioViewHolder.audioImage.setBackgroundResource(R.drawable.voice_play_send);
+                animationDrawable = (AnimationDrawable) audioViewHolder.audioImage
+                        .getBackground();
+                animationDrawable.start();
+            } else {
+                audioViewHolder.audioImage.setBackgroundResource(R.drawable.ic_audio_item_voice_3);
+            }
+
+            audioViewHolder.audioLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    audioViewHolder.audioImage.setBackgroundResource(R.drawable.ic_audio_item_voice_3);
+                    stopPlayVoice();
+                    voicePlayPosition = audioViewHolder.audioImage.getId();
+                    AnimationDrawable drawable;
+                    audioViewHolder.audioImage.setBackgroundResource(R.drawable.voice_play_send);
+                    drawable = (AnimationDrawable) audioViewHolder.audioImage.getBackground();
+                    drawable.start();
+                    String voicePath = chatMessageInfo.getMessageContent() == null ? "" : chatMessageInfo.getMessageContent();
+                    MediaManager.playSound(voicePath, new MediaPlayer.OnCompletionListener() {
+
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            voicePlayPosition = -1;
+                            audioViewHolder.audioImage.setBackgroundResource(R.drawable.ic_audio_item_voice_3);
+                        }
+                    });
+                }
+            });
         }
     }
 
@@ -137,6 +178,17 @@ public class ChatAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         return list.get(position).getMessageType();
+    }
+
+    public void stopPlayVoice() {
+        if (voicePlayPosition != -1) {
+            View voicePlay = ((Activity) context).findViewById(voicePlayPosition);
+            if (voicePlay != null) {
+                voicePlay.setBackgroundResource(R.drawable.ic_audio_item_voice_3);
+            }
+            MediaManager.pause();
+            voicePlayPosition = -1;
+        }
     }
 
     class TextViewHolder extends RecyclerView.ViewHolder {
@@ -176,6 +228,8 @@ public class ChatAdapter extends RecyclerView.Adapter {
         TextView audioTime;
         @BindView(R.id.audio_image)
         ImageView audioImage;
+        @BindView(R.id.audio_layout)
+        LinearLayout audioLayout;
 
         AudioViewHolder(View view) {
             super(view);

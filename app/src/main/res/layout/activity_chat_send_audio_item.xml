@@ -38,11 +38,14 @@
             app:sriv_right_bottom_corner_radius="360dp"
             app:sriv_right_top_corner_radius="360dp" />
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/audio_layout"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dp_10"
+            android:orientation="horizontal"
+            android:gravity="right|center_vertical"
             android:layout_toLeftOf="@+id/mine_avatar"
             android:background="@drawable/bg_chat_radio">
 
@@ -50,9 +53,7 @@
                 android:id="@+id/audio_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
-                android:layout_toLeftOf="@+id/audio_image"
                 android:text="7″"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_12" />
@@ -61,11 +62,9 @@
                 android:id="@+id/audio_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
                 android:layout_marginRight="15dp"
                 android:src="@drawable/ic_audio_item_voice_3" />
-        </RelativeLayout>
+        </LinearLayout>
 
     </RelativeLayout>
 

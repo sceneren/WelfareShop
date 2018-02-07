@@ -1,19 +1,27 @@
 package com.quduo.welfareshop.ui.friend.audio;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.quduo.welfareshop.R;
 
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import me.weyye.hipermission.HiPermission;
+import me.weyye.hipermission.PermissionCallback;
+import me.weyye.hipermission.PermissionItem;
 
 public class AudioRecordButton extends android.support.v7.widget.AppCompatButton implements AudioManager.AudioStageListener {
     private static final int STATE_NORMAL = 1;
@@ -38,11 +46,10 @@ public class AudioRecordButton extends android.support.v7.widget.AppCompatButton
             // TODO Auto-generated method stub
             switch (msg.what) {
                 case AudioManager.MSG_ERROR_AUDIO_RECORD:
-                    Toast.makeText(getContext(), "录音权限被屏蔽或者录音设备损坏！\n请在设置中检查是否开启权限！",
-                            Toast.LENGTH_SHORT).show();
                     mDialogManager.dimissDialog();
                     mAudioManager.cancel();
                     reset();
+                    applyExternalStorage();
                     break;
                 default:
                     break;
@@ -50,6 +57,45 @@ public class AudioRecordButton extends android.support.v7.widget.AppCompatButton
         }
 
     };
+
+
+    //申请内部存储权限
+    private void applyExternalStorage() {
+        List<PermissionItem> permissons = new ArrayList<>();
+        permissons.add(new PermissionItem(Manifest.permission.RECORD_AUDIO, "录音", R.drawable.permission_ic_camera));
+        HiPermission.create(getContext())
+                .title("权限申请")
+                .permissions(permissons)
+                .msg("为了正常使用语音功能，我们需要录音权限")
+                .animStyle(R.style.PermissionAnimScale)
+                .style(R.style.PermissionDefaultStyle)
+                .filterColor(ContextCompat.getColor(getContext(), R.color.theme_color))
+                .checkMutiPermission(new PermissionCallback() {
+                    @Override
+                    public void onClose() {
+                        if (!HiPermission.checkPermission(getContext(), Manifest.permission.RECORD_AUDIO)) {
+                            ToastUtils.showShort("录音权限被屏蔽或者录音设备损坏！\n请在设置中检查是否开启权限！");
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        if (!HiPermission.checkPermission(getContext(), Manifest.permission.RECORD_AUDIO)) {
+                            ToastUtils.showShort("录音权限被屏蔽或者录音设备损坏！\n请在设置中检查是否开启权限！");
+                        }
+                    }
+
+                    @Override
+                    public void onDeny(String permission, int position) {
+                    }
+
+                    @Override
+                    public void onGuarantee(String permission, int position) {
+
+                    }
+                });
+    }
+
 
     /**
      * 先实现两个参数的构造方法，布局会默认引用这个构造方法， 用一个 构造参数的构造方法来引用这个方法 * @param context
