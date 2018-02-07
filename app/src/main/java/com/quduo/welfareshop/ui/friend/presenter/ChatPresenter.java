@@ -1,9 +1,12 @@
 package com.quduo.welfareshop.ui.friend.presenter;
 
+import com.quduo.welfareshop.event.UpdateSessionEvent;
 import com.quduo.welfareshop.mvp.BasePresenter;
 import com.quduo.welfareshop.ui.friend.entity.ChatMessageInfo;
 import com.quduo.welfareshop.ui.friend.model.ChatModel;
 import com.quduo.welfareshop.ui.friend.view.IChatView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -21,12 +24,12 @@ public class ChatPresenter extends BasePresenter<IChatView> {
         this.model = new ChatModel();
     }
 
-    public void getAllMessage(boolean isRefresh,boolean isFirstEnter) {
+    public void getAllMessage(boolean isRefresh, boolean isFirstEnter) {
         try {
             List<ChatMessageInfo> list = model.getAllMessage(this.mView.getOtherUserId());
             mView.refreshComplete();
             mView.updateRecyclerView(list);
-            if(!isRefresh){
+            if (!isRefresh) {
                 mView.moveToBottom(isFirstEnter);
             }
         } catch (Exception e) {
@@ -37,6 +40,7 @@ public class ChatPresenter extends BasePresenter<IChatView> {
     public void sendMessage(ChatMessageInfo chatMessageInfo) {
         try {
             model.sendTextMessage(chatMessageInfo);
+            EventBus.getDefault().post(new UpdateSessionEvent());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.ui.friend.entity.ChatMessageInfo;
+import com.quduo.welfareshop.ui.friend.userdef.QqUtils;
+import com.quduo.welfareshop.util.Time2StringUtils;
 import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 
 import java.util.List;
@@ -23,9 +26,9 @@ import butterknife.ButterKnife;
  */
 public class MessageAdapter extends RecyclerView.Adapter {
     private Context context;
-    private List<String> list;
+    private List<ChatMessageInfo> list;
 
-    public MessageAdapter(Context context, List<String> list) {
+    public MessageAdapter(Context context, List<ChatMessageInfo> list) {
         this.context = context;
         this.list = list;
     }
@@ -37,13 +40,22 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        ChatMessageInfo info = list.get(position);
         MessageViewHolder viewHolder = (MessageViewHolder) holder;
-        String url = "http://e.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg";
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
-                .load(url)
+                .load(info.getOtherAvatar())
                 .into(viewHolder.avatar);
+        viewHolder.nickname.setText(info.getOtherNickName());
+        if (info.getMessageType() == 0) {
+            QqUtils.spannableEmoticonFilter(viewHolder.message, info.getMessageContent());
+        } else if (info.getMessageType() == 1) {
+            viewHolder.message.setText("【图片】");
+        } else {
+            viewHolder.message.setText("【语音】");
+        }
+        viewHolder.time.setText(Time2StringUtils.millisDistanceCurrent(info.getTime()));
     }
 
     @Override

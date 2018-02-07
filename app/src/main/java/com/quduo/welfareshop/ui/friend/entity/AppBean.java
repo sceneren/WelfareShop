@@ -1,5 +1,8 @@
 package com.quduo.welfareshop.ui.friend.entity;
 
+/**
+ * 聊天底部加号出来的东西
+ */
 public class AppBean {
 
     private int id;

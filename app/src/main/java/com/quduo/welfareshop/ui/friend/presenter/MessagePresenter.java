@@ -17,4 +17,12 @@ public class MessagePresenter extends BasePresenter<IMessageView> {
         this.mView = view;
         model = new MessageModel();
     }
+
+    public void getAllSeesion() {
+        try {
+            mView.getAllSessionInfoSuccess(model.getAllSeesion());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -55,11 +55,11 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
     TextView sendMessage;
     @BindView(R.id.follow)
     TextView follow;
-    private int otherUserId = 0;
+    private String otherUserId;
 
-    public static OtherInfoFragment newInstance(int otherUserId) {
+    public static OtherInfoFragment newInstance(String otherUserId) {
         Bundle args = new Bundle();
-        args.putInt(ARG_ID, otherUserId);
+        args.putString(ARG_ID, otherUserId);
         OtherInfoFragment fragment = new OtherInfoFragment();
         fragment.setArguments(args);
         return fragment;
@@ -70,7 +70,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         if (getArguments() != null) {
-            otherUserId = getArguments().getInt(ARG_ID, 0);
+            otherUserId = getArguments().getString(ARG_ID);
         }
     }
 
@@ -130,10 +130,11 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
     public void onClickSendMessage() {
         Intent intent = new Intent(_mActivity, ChatActivity.class);
         intent.putExtra("ID", otherUserId);
-        intent.putExtra("NICKNAME", "小周");
+        intent.putExtra("NICKNAME", "小周" + otherUserId);
         intent.putExtra("IS_FOLLOW", !follow.getText().toString().equals("关注"));
+        intent.putExtra("OTHERAVATAR", "http://e.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg");
         startActivity(intent);
-        _mActivity.overridePendingTransition(R.anim.h_fragment_enter,R.anim.h_fragment_exit);
+        _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }
 
     @OnClick(R.id.follow)

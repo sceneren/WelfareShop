@@ -11,7 +11,7 @@ import java.util.List;
  * Description:聊天
  */
 public interface IChatView extends BaseView {
-    long getOtherUserId();
+    String getOtherUserId();
 
     void refreshComplete();
 

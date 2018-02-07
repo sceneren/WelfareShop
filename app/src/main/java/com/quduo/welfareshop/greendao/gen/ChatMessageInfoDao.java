@@ -25,12 +25,13 @@ public class ChatMessageInfoDao extends AbstractDao<ChatMessageInfo, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property OtherUserId = new Property(1, long.class, "otherUserId", false, "OTHER_USER_ID");
+        public final static Property OtherUserId = new Property(1, String.class, "otherUserId", false, "OTHER_USER_ID");
         public final static Property OtherNickName = new Property(2, String.class, "otherNickName", false, "OTHER_NICK_NAME");
-        public final static Property MessageType = new Property(3, int.class, "messageType", false, "MESSAGE_TYPE");
-        public final static Property MessageContent = new Property(4, String.class, "messageContent", false, "MESSAGE_CONTENT");
-        public final static Property Time = new Property(5, long.class, "time", false, "TIME");
-        public final static Property AudioTime = new Property(6, float.class, "audioTime", false, "AUDIO_TIME");
+        public final static Property OtherAvatar = new Property(3, String.class, "otherAvatar", false, "OTHER_AVATAR");
+        public final static Property MessageType = new Property(4, int.class, "messageType", false, "MESSAGE_TYPE");
+        public final static Property MessageContent = new Property(5, String.class, "messageContent", false, "MESSAGE_CONTENT");
+        public final static Property Time = new Property(6, long.class, "time", false, "TIME");
+        public final static Property AudioTime = new Property(7, float.class, "audioTime", false, "AUDIO_TIME");
     }
 
 
@@ -47,12 +48,13 @@ public class ChatMessageInfoDao extends AbstractDao<ChatMessageInfo, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"CHAT_MESSAGE_INFO\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"OTHER_USER_ID\" INTEGER NOT NULL ," + // 1: otherUserId
+                "\"OTHER_USER_ID\" TEXT," + // 1: otherUserId
                 "\"OTHER_NICK_NAME\" TEXT," + // 2: otherNickName
-                "\"MESSAGE_TYPE\" INTEGER NOT NULL ," + // 3: messageType
-                "\"MESSAGE_CONTENT\" TEXT," + // 4: messageContent
-                "\"TIME\" INTEGER NOT NULL ," + // 5: time
-                "\"AUDIO_TIME\" REAL NOT NULL );"); // 6: audioTime
+                "\"OTHER_AVATAR\" TEXT," + // 3: otherAvatar
+                "\"MESSAGE_TYPE\" INTEGER NOT NULL ," + // 4: messageType
+                "\"MESSAGE_CONTENT\" TEXT," + // 5: messageContent
+                "\"TIME\" INTEGER NOT NULL ," + // 6: time
+                "\"AUDIO_TIME\" REAL NOT NULL );"); // 7: audioTime
     }
 
     /** Drops the underlying database table. */
@@ -69,20 +71,29 @@ public class ChatMessageInfoDao extends AbstractDao<ChatMessageInfo, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindLong(2, entity.getOtherUserId());
+ 
+        String otherUserId = entity.getOtherUserId();
+        if (otherUserId != null) {
+            stmt.bindString(2, otherUserId);
+        }
  
         String otherNickName = entity.getOtherNickName();
         if (otherNickName != null) {
             stmt.bindString(3, otherNickName);
         }
-        stmt.bindLong(4, entity.getMessageType());
+ 
+        String otherAvatar = entity.getOtherAvatar();
+        if (otherAvatar != null) {
+            stmt.bindString(4, otherAvatar);
+        }
+        stmt.bindLong(5, entity.getMessageType());
  
         String messageContent = entity.getMessageContent();
         if (messageContent != null) {
-            stmt.bindString(5, messageContent);
+            stmt.bindString(6, messageContent);
         }
-        stmt.bindLong(6, entity.getTime());
-        stmt.bindDouble(7, entity.getAudioTime());
+        stmt.bindLong(7, entity.getTime());
+        stmt.bindDouble(8, entity.getAudioTime());
     }
 
     @Override
@@ -93,20 +104,29 @@ public class ChatMessageInfoDao extends AbstractDao<ChatMessageInfo, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindLong(2, entity.getOtherUserId());
+ 
+        String otherUserId = entity.getOtherUserId();
+        if (otherUserId != null) {
+            stmt.bindString(2, otherUserId);
+        }
  
         String otherNickName = entity.getOtherNickName();
         if (otherNickName != null) {
             stmt.bindString(3, otherNickName);
         }
-        stmt.bindLong(4, entity.getMessageType());
+ 
+        String otherAvatar = entity.getOtherAvatar();
+        if (otherAvatar != null) {
+            stmt.bindString(4, otherAvatar);
+        }
+        stmt.bindLong(5, entity.getMessageType());
  
         String messageContent = entity.getMessageContent();
         if (messageContent != null) {
-            stmt.bindString(5, messageContent);
+            stmt.bindString(6, messageContent);
         }
-        stmt.bindLong(6, entity.getTime());
-        stmt.bindDouble(7, entity.getAudioTime());
+        stmt.bindLong(7, entity.getTime());
+        stmt.bindDouble(8, entity.getAudioTime());
     }
 
     @Override
@@ -118,12 +138,13 @@ public class ChatMessageInfoDao extends AbstractDao<ChatMessageInfo, Long> {
     public ChatMessageInfo readEntity(Cursor cursor, int offset) {
         ChatMessageInfo entity = new ChatMessageInfo( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.getLong(offset + 1), // otherUserId
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // otherUserId
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // otherNickName
-            cursor.getInt(offset + 3), // messageType
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // messageContent
-            cursor.getLong(offset + 5), // time
-            cursor.getFloat(offset + 6) // audioTime
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // otherAvatar
+            cursor.getInt(offset + 4), // messageType
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // messageContent
+            cursor.getLong(offset + 6), // time
+            cursor.getFloat(offset + 7) // audioTime
         );
         return entity;
     }
@@ -131,12 +152,13 @@ public class ChatMessageInfoDao extends AbstractDao<ChatMessageInfo, Long> {
     @Override
     public void readEntity(Cursor cursor, ChatMessageInfo entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setOtherUserId(cursor.getLong(offset + 1));
+        entity.setOtherUserId(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setOtherNickName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setMessageType(cursor.getInt(offset + 3));
-        entity.setMessageContent(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setTime(cursor.getLong(offset + 5));
-        entity.setAudioTime(cursor.getFloat(offset + 6));
+        entity.setOtherAvatar(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setMessageType(cursor.getInt(offset + 4));
+        entity.setMessageContent(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setTime(cursor.getLong(offset + 6));
+        entity.setAudioTime(cursor.getFloat(offset + 7));
      }
     
     @Override

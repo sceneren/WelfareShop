@@ -78,8 +78,9 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
     RelativeLayout followLayout;
     @BindView(R.id.follow)
     TextView follow;
-    private int otherId = 0;
+    private String otherId;
     private String otherNickName;
+    private String otherAvatar;
     private boolean isFollow = false;
 
     private ChatAdapter chatAdapter;
@@ -92,8 +93,9 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         unbinder = ButterKnife.bind(this);
-        otherId = getIntent().getIntExtra("ID", 0);
+        otherId = getIntent().getStringExtra("ID");
         otherNickName = getIntent().getStringExtra("NICKNAME");
+        otherAvatar = getIntent().getStringExtra("OTHERAVATAR");
         isFollow = getIntent().getBooleanExtra("IS_FOLLOW", false);
         initToolbar();
         initView();
@@ -116,11 +118,10 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
 
         followLayout.setVisibility(isFollow ? View.GONE : View.VISIBLE);
         othersNickname.setText(otherNickName);
-        String url = "http://e.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg";
         GlideApp.with(ChatActivity.this)
                 .asBitmap()
                 .centerCrop()
-                .load(url)
+                .load(otherAvatar)
                 .into(othersAvatar);
 
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
@@ -192,11 +193,13 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
                     ChatMessageInfo chatMessageInfo = new ChatMessageInfo();
                     chatMessageInfo.setOtherUserId(otherId);
                     chatMessageInfo.setOtherNickName(otherNickName);
+                    chatMessageInfo.setOtherAvatar(otherAvatar);
                     chatMessageInfo.setMessageType(2);
                     chatMessageInfo.setMessageContent(filePath);
                     Instant instant = new Instant();
                     chatMessageInfo.setTime(instant.getMillis());
                     chatMessageInfo.setAudioTime(seconds);
+
                     presenter.sendMessage(chatMessageInfo);
                     messageList.add(chatMessageInfo);
                     mAdapter.notifyItemInserted(messageList.size() - 1);
@@ -261,7 +264,7 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
     }
 
     @Override
-    public long getOtherUserId() {
+    public String getOtherUserId() {
         return otherId;
     }
 
@@ -321,11 +324,13 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
                 ChatMessageInfo chatMessageInfo = new ChatMessageInfo();
                 chatMessageInfo.setOtherUserId(otherId);
                 chatMessageInfo.setOtherNickName(otherNickName);
+                chatMessageInfo.setOtherAvatar(otherAvatar);
                 chatMessageInfo.setMessageType(1);
                 chatMessageInfo.setMessageContent(path);
                 Instant instant = new Instant();
                 chatMessageInfo.setTime(instant.getMillis());
                 chatMessageInfo.setAudioTime(0);
+
                 presenter.sendMessage(chatMessageInfo);
                 messageList.add(chatMessageInfo);
             }
@@ -336,11 +341,14 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
             ChatMessageInfo chatMessageInfo = new ChatMessageInfo();
             chatMessageInfo.setOtherUserId(otherId);
             chatMessageInfo.setOtherNickName(otherNickName);
+            chatMessageInfo.setOtherAvatar(otherAvatar);
             chatMessageInfo.setMessageType(1);
             chatMessageInfo.setMessageContent(path);
             Instant instant = new Instant();
             chatMessageInfo.setTime(instant.getMillis());
             chatMessageInfo.setAudioTime(0);
+
+
             presenter.sendMessage(chatMessageInfo);
             messageList.add(chatMessageInfo);
             mAdapter.notifyItemInserted(messageList.size() - 1);
@@ -365,11 +373,13 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
             ChatMessageInfo chatMessageInfo = new ChatMessageInfo();
             chatMessageInfo.setOtherUserId(otherId);
             chatMessageInfo.setOtherNickName(otherNickName);
+            chatMessageInfo.setOtherAvatar(otherAvatar);
             chatMessageInfo.setMessageType(0);
             chatMessageInfo.setMessageContent(msg);
             Instant instant = new Instant();
             chatMessageInfo.setTime(instant.getMillis());
             chatMessageInfo.setAudioTime(0);
+
             presenter.sendMessage(chatMessageInfo);
             messageList.add(chatMessageInfo);
             mAdapter.notifyItemInserted(messageList.size() - 1);

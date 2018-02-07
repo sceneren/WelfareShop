@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.friend.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,11 +12,17 @@ import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.SizeUtils;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.event.UpdateSessionEvent;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
+import com.quduo.welfareshop.ui.friend.activity.ChatActivity;
 import com.quduo.welfareshop.ui.friend.adapter.MessageAdapter;
+import com.quduo.welfareshop.ui.friend.entity.ChatMessageInfo;
 import com.quduo.welfareshop.ui.friend.presenter.MessagePresenter;
 import com.quduo.welfareshop.ui.friend.view.IMessageView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +34,7 @@ import wiki.scene.loadmore.PtrClassicFrameLayout;
 import wiki.scene.loadmore.PtrDefaultHandler;
 import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
+import wiki.scene.loadmore.recyclerview.RecyclerAdapterWithHF;
 
 /**
  * Author:scene
@@ -43,11 +51,20 @@ public class MessageFragment extends BaseMvpFragment<IMessageView, MessagePresen
     StatusViewLayout statusView;
     Unbinder unbinder;
 
+    private RecyclerAdapterWithHF mAdapter;
+    private List<ChatMessageInfo> list;
+
     public static MessageFragment newInstance() {
         Bundle args = new Bundle();
         MessageFragment fragment = new MessageFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
 
     @Nullable
@@ -65,35 +82,29 @@ public class MessageFragment extends BaseMvpFragment<IMessageView, MessagePresen
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                ptrLayout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            ptrLayout.refreshComplete();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, 2000);
+                presenter.getAllSeesion();
             }
         });
 
+        list = new ArrayList<>();
+        mAdapter = new RecyclerAdapterWithHF(new MessageAdapter(getContext(), list));
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new SpacesItemDecoration(SizeUtils.dp2px(1)));
-
-        List<String> list = new ArrayList<>();
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        recyclerView.setAdapter(new MessageAdapter(getContext(), list));
+        recyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new RecyclerAdapterWithHF.OnItemClickListener() {
+            @Override
+            public void onItemClick(RecyclerAdapterWithHF adapter, RecyclerView.ViewHolder vh, int position) {
+                Intent intent = new Intent(_mActivity, ChatActivity.class);
+                intent.putExtra("ID", list.get(position).getOtherUserId());
+                intent.putExtra("NICKNAME", list.get(position).getOtherNickName());
+                intent.putExtra("IS_FOLLOW", true);
+                intent.putExtra("OTHERAVATAR", list.get(position).getOtherAvatar());
+                startActivity(intent);
+                _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+            }
+        });
+        presenter.getAllSeesion();
     }
 
     @Override
@@ -137,7 +148,36 @@ public class MessageFragment extends BaseMvpFragment<IMessageView, MessagePresen
 
     @Override
     public void onDestroyView() {
+        try {
+            EventBus.getDefault().unregister(this);
+            list.clear();
+            mAdapter.notifyDataSetChanged();
+            recyclerView.setAdapter(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void getAllSessionInfoSuccess(List<ChatMessageInfo> list) {
+        try {
+            ptrLayout.refreshComplete();
+            this.list.clear();
+            this.list.addAll(list);
+            mAdapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void updateSession(UpdateSessionEvent event) {
+        try {
+            presenter.getAllSeesion();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

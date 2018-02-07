@@ -151,7 +151,7 @@ public class MessageInfoDao {
      * @param id
      * @return
      */
-    public List<ChatMessageInfo> queryUserByUserId(long id) {
+    public List<ChatMessageInfo> queryUserByUserId(String id) {
         Query<ChatMessageInfo> build = null;
         try {
             build = getChatMessageInfoDao().queryBuilder()
@@ -174,6 +174,10 @@ public class MessageInfoDao {
      */
     public List<ChatMessageInfo> queryMessageInfoByParams(String where, String... param) {
         return getChatMessageInfoDao().queryRaw(where, param);
+    }
+
+    public List<ChatMessageInfo> querySession() {
+        return getChatMessageInfoDao().queryRaw("group by OTHER_USER_ID order by time desc ");
     }
 
     public ChatMessageInfoDao getChatMessageInfoDao() {

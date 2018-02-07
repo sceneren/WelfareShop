@@ -101,13 +101,13 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
         list.add("xxxxxxxxxxx");
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, SizeUtils.dp2px(10), true));
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, SizeUtils.dp2px(5), true));
         RecyclerAdapterWithHF mAdapter = new RecyclerAdapterWithHF(new NearAdapter(getContext(), list));
         recyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(new RecyclerAdapterWithHF.OnItemClickListener() {
             @Override
             public void onItemClick(RecyclerAdapterWithHF adapter, RecyclerView.ViewHolder vh, int position) {
-                EventBus.getDefault().post(new StartBrotherEvent(OtherInfoFragment.newInstance(position + 1)));
+                EventBus.getDefault().post(new StartBrotherEvent(OtherInfoFragment.newInstance(String.valueOf(position + 1))));
             }
         });
 
