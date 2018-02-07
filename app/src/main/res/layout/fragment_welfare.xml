@@ -12,11 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/white"
-        app:tabIndicatorColor="#FF0000"
+        app:tabIndicatorColor="@color/theme_color"
         app:tabMode="fixed"
-        app:tabSelectedTextColor="#FF0000"
+        app:tabSelectedTextColor="@color/theme_color"
         app:tabTextAppearance="@style/tab_appearance"
-        app:tabTextColor="#272727" />
+        app:tabTextColor="@color/des_text_color" />
 
     <View
         android:layout_width="match_parent"
