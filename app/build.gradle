@@ -143,7 +143,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     //okhttp
-    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile 'com.squareup.okhttp3:okhttp:3.9.1'
     compile 'com.squareup.okio:okio:1.13.0'
     compile 'com.lzy.net:okgo:3.0.4'
     //json解析
@@ -199,4 +199,6 @@ dependencies {
     //自定义聊天底部
     implementation project(':emoticonkeyboard')
     compile 'com.github.w446108264:AndroidEmoji:1.0.0'
+
+    compile 'com.github.jdsjlzx:LRecyclerView:1.5.0'
 }
