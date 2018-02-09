@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.quduo.welfareshop.widgets.RatioImageView
+            android:id="@+id/baseimage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:base="horizontal"
+            app:horizontal_weight="16"
+            app:vertical_weight="9" />
+
+        <cn.jzvd.JZVideoPlayerStandard
+            android:id="@+id/video_player"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/baseimage"
+            android:layout_alignLeft="@+id/baseimage"
+            android:layout_alignRight="@+id/baseimage"
+            android:layout_alignTop="@+id/baseimage" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/play_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_video_play_number"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="播放:36544"
+            android:textColor="@color/content_text_color"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/follow_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:drawableLeft="@drawable/ic_video_follow_number"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="收藏:36544"
+            android:textColor="@color/content_text_color"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/zan_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:drawableLeft="@drawable/ic_video_zan_number"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="点赞:36544"
+            android:textColor="@color/content_text_color"
+            android:textSize="10sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/btn_zan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_video_zan_d" />
+
+        <ImageView
+            android:id="@+id/btn_follow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:src="@drawable/ic_video_follow_d" />
+    </LinearLayout>
+</LinearLayout>

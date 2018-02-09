@@ -3,6 +3,7 @@ package com.quduo.welfareshop;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.multidex.MultiDex;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.StringUtils;
@@ -52,9 +53,16 @@ public class MyApplication extends LitePalApplication {
     private String resourceId;
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
+
+    @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
+
         //初始化异常管理工具
         Recovery.getInstance()
                 .debug(true)//关闭后 在错误统一管理页面不显示异常数据

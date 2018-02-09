@@ -29,6 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import cn.jzvd.JZVideoPlayer;
 
 /**
  * 福利主界面
@@ -78,7 +79,7 @@ public class WelfareFragment extends BaseMainMvpFragment<IWelfareView, WelfarePr
         String tabTitle[] = {"美女图库", "美女视频", "午夜影院", "小爽文"};
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(GalleryFragment.newInstance());
-        fragmentList.add(GalleryFragment.newInstance());
+        fragmentList.add(SmallVideoFragment.newInstance());
         fragmentList.add(GalleryFragment.newInstance());
         fragmentList.add(GalleryFragment.newInstance());
         tab.addTab(tab.newTab().setText(tabTitle[0]));
@@ -119,5 +120,27 @@ public class WelfareFragment extends BaseMainMvpFragment<IWelfareView, WelfarePr
     @OnClick(R.id.toolbar_image_menu)
     public void onClickToolBarImageMenu() {
         EventBus.getDefault().post(new StartBrotherEvent(MineFragment.newInstance()));
+    }
+
+    @Override
+    public boolean onBackPressedSupport() {
+        try {
+            if (JZVideoPlayer.backPress()) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return super.onBackPressedSupport();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        try {
+            JZVideoPlayer.releaseAllVideos();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

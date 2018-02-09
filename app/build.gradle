@@ -13,6 +13,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         flavorDimensions "versionCode"
+        multiDexEnabled true
     }
     productFlavors {
         NNY_1004 {
@@ -199,6 +200,8 @@ dependencies {
     //自定义聊天底部
     implementation project(':emoticonkeyboard')
     compile 'com.github.w446108264:AndroidEmoji:1.0.0'
-
+    //上下拉的recyclerview
     compile 'com.github.jdsjlzx:LRecyclerView:1.5.0'
+    //播放器
+    compile 'cn.jzvd:jiaozivideoplayer:6.2.7'
 }
