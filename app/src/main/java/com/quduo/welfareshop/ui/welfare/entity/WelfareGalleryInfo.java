@@ -10,6 +10,7 @@ public class WelfareGalleryInfo {
     private String url;
     private int picWidth;
     private int picHeight;
+    private String title;
 
     public String getUrl() {
         return url;
@@ -33,5 +34,13 @@ public class WelfareGalleryInfo {
 
     public void setPicHeight(int picHeight) {
         this.picHeight = picHeight;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

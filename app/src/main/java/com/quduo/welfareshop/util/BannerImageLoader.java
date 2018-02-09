@@ -15,6 +15,11 @@ public class BannerImageLoader extends ImageLoader {
     @Override
     public void displayImage(Context context, Object path, ImageView imageView) {
         //Glide 加载图片简单用法
-        GlideApp.with(context).load(path).into(imageView);
+        //GlideApp.with(context).load(path).into(imageView);
+        GlideApp.with(context)
+                .asBitmap()
+                .centerCrop()
+                .load((String) path)
+                .into(imageView);
     }
 }

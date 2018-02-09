@@ -60,10 +60,8 @@ public class GalleryAdapter extends RecyclerView.Adapter {
                 .asBitmap()
                 .centerCrop()
                 .load(list.get(position).getUrl())
-                //.override(width, height)
                 .into(viewHolder.image);
-        //loadImage(list.get(position).getUrl(), viewHolder.image);
-
+        viewHolder.name.setText(info.getTitle());
         if (position % 2 == 0) {
             viewHolder.tagBg.setColorFilter(Color.parseColor("#FEA0CA"));
         } else {
