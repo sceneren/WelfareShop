@@ -22,7 +22,6 @@
                 android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 app:sriv_left_top_corner_radius="@dimen/dp_10"
                 app:sriv_right_top_corner_radius="@dimen/dp_10" />
 
@@ -108,7 +107,7 @@
                     android:lines="1"
                     android:text="点击:1669"
                     android:textColor="#B999FE"
-                    android:textSize="10sp" />
+                    android:textSize="8sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -135,7 +134,7 @@
                     android:lines="1"
                     android:text="收藏:1669"
                     android:textColor="#FF4B8E"
-                    android:textSize="10sp" />
+                    android:textSize="8sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
