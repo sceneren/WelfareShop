@@ -6,7 +6,9 @@ import com.quduo.welfareshop.base.BaseActivity;
 import com.umeng.socialize.UMShareAPI;
 
 /**
- * Created by scene on 2018/2/1.
+ * Author:scene
+ * Time:2018/2/22 12:01
+ * Description:登录
  */
 
 public class LoginActivity extends BaseActivity {

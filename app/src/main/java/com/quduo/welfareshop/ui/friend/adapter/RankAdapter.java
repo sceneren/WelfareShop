@@ -1,6 +1,7 @@
 package com.quduo.welfareshop.ui.friend.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.activity.PreviewImageActivity;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 import com.w4lle.library.NineGridlayout;
@@ -47,11 +49,20 @@ public class RankAdapter extends RecyclerView.Adapter {
                 .centerCrop()
                 .load(url)
                 .into(viewHolder.avatar);
-        List<String> imageList = new ArrayList<>();
+        final ArrayList<String> imageList = new ArrayList<>();
         for (int i = 0; i < (position + 1); i++) {
             imageList.add(url);
         }
         NineGridImageAdapter imageAdapter = new NineGridImageAdapter(context, imageList);
+        viewHolder.imageLayout.setOnItemClickListerner(new NineGridlayout.OnItemClickListerner() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(context, PreviewImageActivity.class);
+                intent.putExtra(PreviewImageActivity.ARG_URLS, imageList);
+                intent.putExtra(PreviewImageActivity.ARG_POSITION, position);
+                context.startActivity(intent);
+            }
+        });
         viewHolder.imageLayout.setAdapter(imageAdapter);
     }
 

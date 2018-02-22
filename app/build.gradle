@@ -204,4 +204,6 @@ dependencies {
     compile 'com.github.jdsjlzx:LRecyclerView:1.5.0'
     //播放器
     compile 'cn.jzvd:jiaozivideoplayer:6.2.7'
+    //查看大图
+    implementation 'com.github.chrisbanes:PhotoView:2.1.3'
 }

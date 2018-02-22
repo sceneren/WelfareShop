@@ -10,7 +10,9 @@ import com.quduo.welfareshop.ui.read.CatalogFragment;
 
 
 /**
- * Created by Administrator on 2016/1/12.
+ * Author:scene
+ * Time:2018/2/22 12:33
+ * Description:书签目录的viewpager
  */
 public class MyPagerAdapter extends FragmentPagerAdapter {
     private CatalogFragment catalogueFragment;

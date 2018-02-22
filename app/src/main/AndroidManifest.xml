@@ -33,6 +33,7 @@
 
         <activity
             android:name=".activity.EnterActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,10 +43,12 @@
         </activity>
         <activity
             android:name=".recovery.core.Recovery1Activity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".recovery.core.RecoveryActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -53,22 +56,32 @@
         <activity
             android:name=".activity.ReadActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ReadActivityTheme" />
         <activity
             android:name=".activity.MarkActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ReadActivityTheme" />
         <activity
             android:name=".ui.mine.activity.EditMyInfoActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.SwipeBack" />
         <activity
             android:name=".ui.mine.activity.EditSingleActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.SwipeBack" />
         <activity
             android:name=".ui.friend.activity.ChatActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.SwipeBack" />
+        <activity
+            android:name=".activity.PreviewImageActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.SwipeBack" />
 
         <!--##############友盟开始###################-->
@@ -85,7 +98,7 @@
             android:exported="false"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <activity
             android:name="com.sina.weibo.sdk.share.WbShareTransActivity"

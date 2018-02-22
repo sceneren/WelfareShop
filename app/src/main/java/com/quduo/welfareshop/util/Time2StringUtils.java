@@ -45,7 +45,7 @@ public class Time2StringUtils {
             return String.format(Locale.getDefault(), "%d小时前", distanceMillis / TimeConstants.HOUR);
         } else {
             DateTime dateTime = new DateTime(millis);
-            return dateTime.toString("HH-mm");
+            return dateTime.toString("yyyy-MM-dd");
         }
 
     }

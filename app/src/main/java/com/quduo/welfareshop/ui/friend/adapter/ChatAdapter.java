@@ -2,6 +2,7 @@ package com.quduo.welfareshop.ui.friend.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.activity.PreviewImageActivity;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.friend.audio.MediaManager;
 import com.quduo.welfareshop.ui.friend.entity.ChatMessageInfo;
@@ -21,6 +23,7 @@ import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -78,7 +81,7 @@ public class ChatAdapter extends RecyclerView.Adapter {
                     textViewHolder.time.setVisibility(View.VISIBLE);
                 } else {
                     //2条消息间隔5分钟才显示时间戳
-                    if (Math.abs(list.get(position - 1).getTime() - chatMessageInfo.getTime()) > 300000) {
+                    if (Math.abs(list.get(position - 1).getTime() - chatMessageInfo.getTime()) > 120000) {
                         textViewHolder.time.setVisibility(View.VISIBLE);
                     } else {
                         textViewHolder.time.setVisibility(View.GONE);
@@ -100,11 +103,21 @@ public class ChatAdapter extends RecyclerView.Adapter {
                     .centerCrop()
                     .load(chatMessageInfo.getMessageContent())
                     .into(imageViewHolder.image);
+            imageViewHolder.image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, PreviewImageActivity.class);
+                    ArrayList<String> imageUrls = new ArrayList<>();
+                    imageUrls.add(chatMessageInfo.getMessageContent());
+                    intent.putExtra(PreviewImageActivity.ARG_URLS, imageUrls);
+                    context.startActivity(intent);
+                }
+            });
             if (position == 0) {
                 imageViewHolder.time.setVisibility(View.VISIBLE);
             } else {
                 //2条消息间隔5分钟才显示时间戳
-                if (Math.abs(list.get(position - 1).getTime() - chatMessageInfo.getTime()) > 300000) {
+                if (Math.abs(list.get(position - 1).getTime() - chatMessageInfo.getTime()) > 120000) {
                     imageViewHolder.time.setVisibility(View.VISIBLE);
                 } else {
                     imageViewHolder.time.setVisibility(View.GONE);
@@ -124,7 +137,7 @@ public class ChatAdapter extends RecyclerView.Adapter {
                 audioViewHolder.time.setVisibility(View.VISIBLE);
             } else {
                 //2条消息间隔5分钟才显示时间戳
-                if (Math.abs(list.get(position - 1).getTime() - chatMessageInfo.getTime()) > 300000) {
+                if (Math.abs(list.get(position - 1).getTime() - chatMessageInfo.getTime()) > 120000) {
                     audioViewHolder.time.setVisibility(View.VISIBLE);
                 } else {
                     audioViewHolder.time.setVisibility(View.GONE);
