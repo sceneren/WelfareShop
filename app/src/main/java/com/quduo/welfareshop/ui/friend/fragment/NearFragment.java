@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.SizeUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.itemDecoration.GridSpacingItemDecoration;
@@ -26,6 +27,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.loadmore.PtrClassicFrameLayout;
 import wiki.scene.loadmore.PtrDefaultHandler;
@@ -138,6 +140,11 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @OnClick(R.id.friend_screen)
+    public void onClickFriendScreen() {
+        ToastUtils.showShort("点击筛选");
     }
 
     @Override
