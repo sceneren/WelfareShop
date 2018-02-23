@@ -220,7 +220,6 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
         typeGridAdapter = new GalleryTypeGridAdapter(getContext(), typeGridList);
         typeGridView.setAdapter(typeGridAdapter);
         mAdapter.addHeaderView(headerView);
-        banner.start();
     }
 
     private void bindHeaderView() {
@@ -305,25 +304,4 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
         unbinder.unbind();
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        try {
-//            if (bannerList != null && bannerList.size() > 0) {
-//                banner.startAutoPlay();
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//        try {
-//            banner.stopAutoPlay();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 }

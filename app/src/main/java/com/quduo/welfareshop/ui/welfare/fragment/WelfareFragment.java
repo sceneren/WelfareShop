@@ -80,7 +80,7 @@ public class WelfareFragment extends BaseMainMvpFragment<IWelfareView, WelfarePr
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(GalleryFragment.newInstance());
         fragmentList.add(SmallVideoFragment.newInstance());
-        fragmentList.add(GalleryFragment.newInstance());
+        fragmentList.add(BeautyVideoFragment.newInstance());
         fragmentList.add(GalleryFragment.newInstance());
         fragmentList.add(GalleryFragment.newInstance());
         tab.addTab(tab.newTab().setText(tabTitle[0]));
