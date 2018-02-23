@@ -1,11 +1,9 @@
 package com.quduo.welfareshop.greendao.dao;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.quduo.welfareshop.greendao.GreenDaoManager;
 import com.quduo.welfareshop.greendao.gen.ChatMessageInfoDao;
 import com.quduo.welfareshop.ui.friend.entity.ChatMessageInfo;
 
-import org.greenrobot.greendao.internal.SqlUtils;
 import org.greenrobot.greendao.query.Query;
 
 import java.util.List;
@@ -150,14 +148,16 @@ public class MessageInfoDao {
     /**
      * 根据id查询 以时间降序排列
      *
-     * @param id
+     * @param userId
+     * @param otherUserId
      * @return
      */
-    public List<ChatMessageInfo> queryUserByUserId(String id) {
+    public List<ChatMessageInfo> queryUserByUserId(String userId, String otherUserId) {
         Query<ChatMessageInfo> build = null;
         try {
             build = getChatMessageInfoDao().queryBuilder()
-                    .where(ChatMessageInfoDao.Properties.OtherUserId.eq(id))
+                    .where(ChatMessageInfoDao.Properties.OtherUserId.eq(otherUserId))
+                    .where(ChatMessageInfoDao.Properties.UserId.eq(userId))
                     .orderAsc(ChatMessageInfoDao.Properties.Time)
                     .build();
         } catch (Exception e) {
@@ -177,13 +177,18 @@ public class MessageInfoDao {
     public List<ChatMessageInfo> queryMessageInfoByParams(String where, String... param) {
         return getChatMessageInfoDao().queryRaw(where, param);
     }
-
-    public List<ChatMessageInfo> querySession() {
-        return getChatMessageInfoDao().queryRaw("group by OTHER_USER_ID order by time desc ");
+    /**
+    *Author:scene
+    *Time:2018/2/23 14:14
+    *Description:获取用户的所有的会话列表
+    */
+    public List<ChatMessageInfo> querySession(String userId) {
+        //select * from CHAT_MESSAGE_INFO where USER_ID = '10001' group by OTHER_USER_ID  order by time desc
+        return getChatMessageInfoDao().queryRaw("WHERE USER_ID = " + userId + " group by OTHER_USER_ID order by time desc ");
     }
 
-    public void deleteSession(String otherId) {
-        String sql = "DELETE FROM " + ChatMessageInfoDao.TABLENAME + " WHERE " + ChatMessageInfoDao.TABLENAME + ".OTHER_USER_ID = " + otherId;
+    public void deleteSession(String userId, String otherId) {
+        String sql = "DELETE FROM " + ChatMessageInfoDao.TABLENAME + " WHERE ( " + ChatMessageInfoDao.TABLENAME + ".OTHER_USER_ID = " + otherId + " AND " + ChatMessageInfoDao.TABLENAME + ".USER_ID = " + userId + " )";
         getChatMessageInfoDao().getDatabase().execSQL(sql);
     }
 

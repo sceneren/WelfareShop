@@ -11,8 +11,8 @@ import java.util.List;
  * Description:聊天
  */
 public class ChatModel {
-    public List<ChatMessageInfo> getAllMessage(String othersUserId) {
-        return MessageInfoDao.getInstance().queryUserByUserId(othersUserId);
+    public List<ChatMessageInfo> getAllMessage(String userId,String othersUserId) {
+        return MessageInfoDao.getInstance().queryUserByUserId(userId,othersUserId);
     }
 
     public void sendTextMessage(ChatMessageInfo chatMessageInfo) {

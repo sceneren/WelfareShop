@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.SizeUtils;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.UpdateSessionEvent;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
@@ -104,7 +105,7 @@ public class MessageFragment extends BaseMvpFragment<IMessageView, MessagePresen
 
             @Override
             public void onClickDelete(int position) {
-                presenter.deleteSession(list.get(position).getOtherUserId());
+                presenter.deleteSession(AppConfig.userId, list.get(position).getOtherUserId());
                 list.remove(position);
                 adapter.notifyDataSetChanged();
             }

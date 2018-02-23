@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.FollowEvent;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.friend.adapter.ChatAdapter;
@@ -191,6 +192,7 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
                 @Override
                 public void onFinished(float seconds, String filePath) {
                     ChatMessageInfo chatMessageInfo = new ChatMessageInfo();
+                    chatMessageInfo.setUserId(AppConfig.userId);
                     chatMessageInfo.setOtherUserId(otherId);
                     chatMessageInfo.setOtherNickName(otherNickName);
                     chatMessageInfo.setOtherAvatar(otherAvatar);
@@ -322,6 +324,7 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
             List<String> pathList = data.getStringArrayListExtra("result");
             for (String path : pathList) {
                 ChatMessageInfo chatMessageInfo = new ChatMessageInfo();
+                chatMessageInfo.setUserId(AppConfig.userId);
                 chatMessageInfo.setOtherUserId(otherId);
                 chatMessageInfo.setOtherNickName(otherNickName);
                 chatMessageInfo.setOtherAvatar(otherAvatar);
@@ -339,6 +342,7 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
         } else if (requestCode == REQUEST_CAMERA_CODE && resultCode == RESULT_OK && data != null) {
             String path = data.getStringExtra("result"); // 图片地址
             ChatMessageInfo chatMessageInfo = new ChatMessageInfo();
+            chatMessageInfo.setUserId(AppConfig.userId);
             chatMessageInfo.setOtherUserId(otherId);
             chatMessageInfo.setOtherNickName(otherNickName);
             chatMessageInfo.setOtherAvatar(otherAvatar);
@@ -371,6 +375,7 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
         if (!TextUtils.isEmpty(msg)) {
             //发送消息
             ChatMessageInfo chatMessageInfo = new ChatMessageInfo();
+            chatMessageInfo.setUserId(AppConfig.userId);
             chatMessageInfo.setOtherUserId(otherId);
             chatMessageInfo.setOtherNickName(otherNickName);
             chatMessageInfo.setOtherAvatar(otherAvatar);

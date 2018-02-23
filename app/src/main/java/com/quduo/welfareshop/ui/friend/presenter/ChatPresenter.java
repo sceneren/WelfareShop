@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.friend.presenter;
 
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.UpdateSessionEvent;
 import com.quduo.welfareshop.mvp.BasePresenter;
 import com.quduo.welfareshop.ui.friend.entity.ChatMessageInfo;
@@ -26,7 +27,7 @@ public class ChatPresenter extends BasePresenter<IChatView> {
 
     public void getAllMessage(boolean isRefresh, boolean isFirstEnter) {
         try {
-            List<ChatMessageInfo> list = model.getAllMessage(this.mView.getOtherUserId());
+            List<ChatMessageInfo> list = model.getAllMessage(AppConfig.userId,this.mView.getOtherUserId());
             mView.refreshComplete();
             mView.updateRecyclerView(list);
             if (!isRefresh) {

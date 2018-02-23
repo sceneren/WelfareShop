@@ -14,6 +14,7 @@ import org.greenrobot.greendao.annotation.Id;
 public class ChatMessageInfo {
     @Id(autoincrement = true)
     private Long id;
+    private String userId;
     private String otherUserId;
     private String otherNickName;
     private String otherAvatar;
@@ -23,11 +24,12 @@ public class ChatMessageInfo {
     private String messageContent;
     private long time;
     private float audioTime;
-    @Generated(hash = 1894518625)
-    public ChatMessageInfo(Long id, String otherUserId, String otherNickName,
-            String otherAvatar, int messageType, String messageContent, long time,
-            float audioTime) {
+    @Generated(hash = 1653669665)
+    public ChatMessageInfo(Long id, String userId, String otherUserId,
+            String otherNickName, String otherAvatar, int messageType,
+            String messageContent, long time, float audioTime) {
         this.id = id;
+        this.userId = userId;
         this.otherUserId = otherUserId;
         this.otherNickName = otherNickName;
         this.otherAvatar = otherAvatar;
@@ -86,6 +88,12 @@ public class ChatMessageInfo {
     }
     public void setAudioTime(float audioTime) {
         this.audioTime = audioTime;
+    }
+    public String getUserId() {
+        return this.userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
    
 }

@@ -13,18 +13,18 @@ import java.util.List;
  */
 
 public class MessageModel {
-    public List<ChatMessageInfo> getAllSeesion() {
+    public List<ChatMessageInfo> getAllSeesion(String userId) {
         try {
-            return MessageInfoDao.getInstance().querySession();
+            return MessageInfoDao.getInstance().querySession(userId);
         } catch (Exception e) {
             e.printStackTrace();
             return new ArrayList<>();
         }
     }
 
-    public void deleteSession(String otherId) {
+    public void deleteSession(String userId, String otherId) {
         try {
-            MessageInfoDao.getInstance().deleteSession(otherId);
+            MessageInfoDao.getInstance().deleteSession(userId, otherId);
         } catch (Exception e) {
             e.printStackTrace();
         }

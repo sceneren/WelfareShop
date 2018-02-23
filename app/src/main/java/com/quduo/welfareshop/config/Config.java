@@ -91,8 +91,7 @@ public class Config {
     }
 
     public String getTypefacePath(){
-        String path = sp.getString(FONT_TYPE_KEY,FONTTYPE_QIHEI);
-        return path;
+        return sp.getString(FONT_TYPE_KEY,FONTTYPE_QIHEI);
     }
 
     public Typeface getTypeface(String typeFacePath){
