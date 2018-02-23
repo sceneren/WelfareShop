@@ -13,7 +13,7 @@
         android:layout_height="45dp"
         android:background="@color/white"
         app:tabIndicatorColor="@color/theme_color"
-        app:tabMode="fixed"
+        app:tabMode="scrollable"
         app:tabSelectedTextColor="@color/theme_color"
         app:tabTextAppearance="@style/tab_appearance"
         app:tabTextColor="@color/des_text_color" />

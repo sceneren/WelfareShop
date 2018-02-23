@@ -76,19 +76,41 @@ public class WelfareFragment extends BaseMainMvpFragment<IWelfareView, WelfarePr
     @Override
     public void initView() {
         super.initView();
-        String tabTitle[] = {"美女图库", "美女视频", "午夜影院", "小爽文"};
+        String tabTitle[] = {"美女图库","小视频", "美女视频", "午夜影院", "小爽文"};
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(GalleryFragment.newInstance());
         fragmentList.add(SmallVideoFragment.newInstance());
+        fragmentList.add(GalleryFragment.newInstance());
         fragmentList.add(GalleryFragment.newInstance());
         fragmentList.add(GalleryFragment.newInstance());
         tab.addTab(tab.newTab().setText(tabTitle[0]));
         tab.addTab(tab.newTab().setText(tabTitle[1]));
         tab.addTab(tab.newTab().setText(tabTitle[2]));
         tab.addTab(tab.newTab().setText(tabTitle[3]));
+        tab.addTab(tab.newTab().setText(tabTitle[4]));
         viewPager.setAdapter(new BaseViewPagerAdapter(getChildFragmentManager(), tabTitle, fragmentList));
-        viewPager.setOffscreenPageLimit(4);
+        viewPager.setOffscreenPageLimit(5);
         tab.setupWithViewPager(viewPager);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                try {
+                    JZVideoPlayer.releaseAllVideos();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override

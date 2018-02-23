@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.quduo.welfareshop.R;
@@ -28,6 +29,7 @@ import butterknife.Unbinder;
 import cn.jzvd.JZMediaManager;
 import cn.jzvd.JZUtils;
 import cn.jzvd.JZVideoPlayer;
+import cn.jzvd.JZVideoPlayerManager;
 import wiki.scene.loadmore.StatusViewLayout;
 
 /**
@@ -194,8 +196,5 @@ public class SmallVideoFragment extends BaseMvpFragment<ISmallVideoView, SmallVi
         super.onDestroyView();
         unbinder.unbind();
     }
-
-
-
 
 }
