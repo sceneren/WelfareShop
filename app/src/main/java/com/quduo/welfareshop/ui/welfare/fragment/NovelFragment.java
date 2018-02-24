@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.SizeUtils;
+import com.github.jdsjlzx.interfaces.OnRefreshListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.google.gson.Gson;
@@ -122,8 +123,19 @@ public class NovelFragment extends BaseMvpFragment<INovelView, NovelPresenter> i
         NovelAdapter adapter = new NovelAdapter(getContext(), list);
         mAdapter = new LRecyclerViewAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.addItemDecoration(new SpacesItemDecoration(SizeUtils.dp2px(10)));
+        //recyclerView.addItemDecoration(new SpacesItemDecoration(SizeUtils.dp2px(10)));
         recyclerView.setAdapter(mAdapter);
+        recyclerView.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                recyclerView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        recyclerView.refreshComplete(1);
+                    }
+                },10000);
+            }
+        });
     }
 
     private void initHeaderView() {

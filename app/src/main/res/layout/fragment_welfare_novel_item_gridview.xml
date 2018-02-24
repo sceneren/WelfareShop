@@ -9,6 +9,7 @@
     android:background="@color/white"
     android:listSelector="@color/transparent1"
     android:numColumns="3"
+    android:layout_marginTop="@dimen/dp_10"
     android:padding="@dimen/dp_10"
     android:orientation="vertical"
     android:verticalSpacing="@dimen/dp_10" />

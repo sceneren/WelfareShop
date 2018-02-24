@@ -46,7 +46,10 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:lines="1"
-        android:padding="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:paddingBottom="5dp"
         android:text="我和他保持着联系我和他保持着联系我和他保持着联系我和他保持着联系"
         android:textColor="@color/content_text_color"
         android:textSize="@dimen/sp_14" />
