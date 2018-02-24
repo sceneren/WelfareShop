@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 
 import com.quduo.welfareshop.R;
@@ -29,9 +30,15 @@ public class NovelAdapter extends RecyclerView.Adapter {
     private Context context;
     private List<NovelModelInfo> list;
 
+    private OnNovelItemClickListener onNovelItemClickListener;
+
     public NovelAdapter(Context context, List<NovelModelInfo> list) {
         this.context = context;
         this.list = list;
+    }
+
+    public void setOnNovelItemClickListener(OnNovelItemClickListener onNovelItemClickListener) {
+        this.onNovelItemClickListener = onNovelItemClickListener;
     }
 
     @Override
@@ -47,16 +54,32 @@ public class NovelAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         NovelModelInfo info = list.get(position);
         if (holder instanceof NovelListViewHolder) {
             NovelListViewHolder listViewHolder = (NovelListViewHolder) holder;
             NovelListAdapter listAdapter = new NovelListAdapter(context, info.getList());
             listViewHolder.listView.setAdapter(listAdapter);
+            listViewHolder.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int childPosition, long id) {
+                    if (onNovelItemClickListener != null) {
+                        onNovelItemClickListener.onClickNovel(position, childPosition);
+                    }
+                }
+            });
         } else if (holder instanceof NovelGridViewHolder) {
             NovelGridViewHolder gridViewHolder = (NovelGridViewHolder) holder;
             NovelGridAdapter gridAdapter = new NovelGridAdapter(context, info.getList());
             gridViewHolder.gridView.setAdapter(gridAdapter);
+            gridViewHolder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int childPosition, long id) {
+                    if (onNovelItemClickListener != null) {
+                        onNovelItemClickListener.onClickNovel(position, childPosition);
+                    }
+                }
+            });
         } else {
             NovelAdViewHolder adViewHolder = (NovelAdViewHolder) holder;
             adViewHolder.layoutAd.setOnClickListener(new View.OnClickListener() {
@@ -106,5 +129,9 @@ public class NovelAdapter extends RecyclerView.Adapter {
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+    public interface OnNovelItemClickListener {
+        void onClickNovel(int position, int childPosition);
     }
 }
