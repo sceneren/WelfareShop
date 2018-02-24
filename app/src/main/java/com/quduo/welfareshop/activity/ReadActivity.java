@@ -31,7 +31,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.BaseActivity;
 import com.quduo.welfareshop.config.Config;
@@ -285,10 +284,10 @@ public class ReadActivity extends BaseActivity {
                 if (isShow || isSpeaking) {
                     return false;
                 }
-                if (pageFactory.getCurrentCharter() > 20) {
-                    ToastUtils.showShort("要会员才能看");
-                    return false;
-                }
+//                if (pageFactory.getCurrentCharter() > 20) {
+//                    ToastUtils.showShort("要会员才能看");
+//                    return false;
+//                }
                 pageFactory.prePage();
                 return !pageFactory.isfirstPage();
             }
@@ -299,10 +298,10 @@ public class ReadActivity extends BaseActivity {
                 if (isShow || isSpeaking) {
                     return false;
                 }
-                if (pageFactory.getCurrentCharter() >= 20) {
-                    ToastUtils.showShort("要会员才能看");
-                    return false;
-                }
+//                if (pageFactory.getCurrentCharter() >= 20) {
+//                    ToastUtils.showShort("要会员才能看");
+//                    return false;
+//                }
                 pageFactory.nextPage();
                 return !pageFactory.islastPage();
             }
@@ -476,7 +475,7 @@ public class ReadActivity extends BaseActivity {
             public void run() {
                 rl_progress.setVisibility(View.GONE);
             }
-        },500);
+        }, 500);
     }
 
     public void initDayOrNight() {
@@ -556,16 +555,12 @@ public class ReadActivity extends BaseActivity {
             case R.id.rl_progress:
                 break;
             case R.id.tv_pre:
-                if (pageFactory.getCurrentCharter() < 21) {
-                    pageFactory.preChapter();
-                }
+                pageFactory.preChapter();
                 break;
             case R.id.sb_progress:
                 break;
             case R.id.tv_next:
-                if (pageFactory.getCurrentCharter() < 20) {
-                    pageFactory.nextChapter();
-                }
+                pageFactory.nextChapter();
                 break;
             case R.id.tv_directory:
                 Intent intent = new Intent(ReadActivity.this, MarkActivity.class);
