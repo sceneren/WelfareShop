@@ -17,6 +17,7 @@ import com.quduo.welfareshop.base.BaseViewPagerAdapter;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
 import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
+import com.quduo.welfareshop.ui.welfare.adapter.NovelAdapter;
 import com.quduo.welfareshop.ui.welfare.presenter.WelfarePresenter;
 import com.quduo.welfareshop.ui.welfare.view.IWelfareView;
 
@@ -82,7 +83,7 @@ public class WelfareFragment extends BaseMainMvpFragment<IWelfareView, WelfarePr
         fragmentList.add(SmallVideoFragment.newInstance());
         fragmentList.add(BeautyVideoFragment.newInstance());
         fragmentList.add(MidNightVideoFragment.newInstance());
-        fragmentList.add(GalleryFragment.newInstance());
+        fragmentList.add(NovelFragment.newInstance());
         tab.addTab(tab.newTab().setText(tabTitle[0]));
         tab.addTab(tab.newTab().setText(tabTitle[1]));
         tab.addTab(tab.newTab().setText(tabTitle[2]));

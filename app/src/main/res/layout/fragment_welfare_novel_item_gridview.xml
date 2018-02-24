@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.quduo.welfareshop.widgets.CustomeGridView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gridView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="#F9F9F9"
+    android:dividerHeight="@dimen/dp_10"
+    android:horizontalSpacing="@dimen/dp_10"
+    android:background="@color/white"
+    android:listSelector="@color/transparent1"
+    android:numColumns="3"
+    android:padding="@dimen/dp_10"
+    android:orientation="vertical"
+    android:verticalSpacing="@dimen/dp_10" />
+

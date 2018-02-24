@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:lines="1"
+        android:padding="@dimen/dp_10"
+        android:text="我的小姨子"
+        android:textColor="@color/title_text_color"
+        android:textSize="@dimen/sp_16" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.quduo.welfareshop.widgets.RatioImageView
+            android:id="@+id/baseimage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:base="horizontal"
+            app:horizontal_weight="1080"
+            app:vertical_weight="480" />
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/baseimage"
+            android:layout_alignLeft="@+id/baseimage"
+            android:layout_alignRight="@+id/baseimage"
+            android:layout_alignTop="@+id/baseimage" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/des"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:lines="1"
+        android:padding="@dimen/dp_10"
+        android:text="我和他保持着联系我和他保持着联系我和他保持着联系我和他保持着联系"
+        android:textColor="@color/content_text_color"
+        android:textSize="@dimen/sp_14" />
+
+    <TextView
+        android:id="@+id/read_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:drawableLeft="@drawable/ic_novel_read_num"
+        android:drawablePadding="5dp"
+        android:gravity="center"
+        android:text="阅读:123456"
+        android:textColor="@color/des_text_color"
+        android:textSize="10sp" />
+</LinearLayout>
