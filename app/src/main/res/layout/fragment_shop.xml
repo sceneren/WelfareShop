@@ -6,4 +6,20 @@
     android:orientation="vertical">
 
     <include layout="@layout/toolbar_menu" />
+
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/fragment_shop_header"/>
+    </ScrollView>
+    <com.github.jdsjlzx.recyclerview.LRecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>
