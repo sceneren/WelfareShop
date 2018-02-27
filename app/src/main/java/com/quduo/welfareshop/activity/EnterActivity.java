@@ -36,6 +36,7 @@ public class EnterActivity extends BaseActivity {
         List<PermissionItem> permissons = new ArrayList<>();
         permissons.add(new PermissionItem(Manifest.permission.READ_EXTERNAL_STORAGE, "内部存储权限", R.drawable.permission_ic_storage));
         permissons.add(new PermissionItem(Manifest.permission.READ_PHONE_STATE, "手机唯一标识", R.drawable.permission_ic_phone));
+        permissons.add(new PermissionItem(Manifest.permission.ACCESS_FINE_LOCATION, "位置信息", R.drawable.permission_ic_location));
         HiPermission.create(EnterActivity.this)
                 .title("权限申请")
                 .permissions(permissons)

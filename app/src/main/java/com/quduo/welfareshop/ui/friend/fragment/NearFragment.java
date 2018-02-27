@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.activity.MainActivity;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.itemDecoration.GridSpacingItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
@@ -85,8 +86,16 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
                 }, 2000);
             }
         });
+        if (_mActivity instanceof MainActivity) {
+            if (((MainActivity) _mActivity).latitude != 0) {
+                showContentPage();
+            } else {
+                showNoLocationPage();
+            }
+        } else {
+            showNoLocationPage();
+        }
 
-        showContentPage();
         List<String> list = new ArrayList<>();
         list.add("xxxxxxxxxxx");
         list.add("xxxxxxxxxxx");
@@ -128,6 +137,14 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
     public void showContentPage() {
         try {
             statusView.showContent();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showNoLocationPage() {
+        try {
+            statusView.showNetError();
         } catch (Exception e) {
             e.printStackTrace();
         }

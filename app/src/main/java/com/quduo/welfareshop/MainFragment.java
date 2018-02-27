@@ -119,6 +119,7 @@ public class MainFragment extends SupportFragment {
 
             @Override
             public void onTabReselected(int position) {
+
             }
         });
     }
@@ -139,4 +140,5 @@ public class MainFragment extends SupportFragment {
         super.onDestroyView();
         unbinder.unbind();
     }
+
 }

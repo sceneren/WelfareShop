@@ -1,6 +1,8 @@
 package com.quduo.welfareshop.ui.friend.fragment;
 
+import android.Manifest;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,9 +13,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.lhh.apst.library.CustomPagerSlidingTabStrip;
+import com.quduo.welfareshop.MainFragment;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.event.StartBrotherEvent;
+import com.quduo.welfareshop.event.TabSelectedEvent;
 import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
 import com.quduo.welfareshop.ui.friend.adapter.FriendPagerAdapter;
 import com.quduo.welfareshop.ui.friend.presenter.FriendPresenter;
@@ -30,6 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import me.weyye.hipermission.HiPermission;
 
 /**
  * Author:scene
@@ -50,6 +56,7 @@ public class FriendFragment extends BaseMainMvpFragment<IFriendView, FriendPrese
     CustomPagerSlidingTabStrip tabs;
     @BindView(R.id.viewPager)
     APSTSViewPager viewPager;
+
 
     public static FriendFragment newInstance() {
         Bundle args = new Bundle();
@@ -75,20 +82,40 @@ public class FriendFragment extends BaseMainMvpFragment<IFriendView, FriendPrese
     @Override
     public void initView() {
         super.initView();
-        List<String> tabTitle = new ArrayList<>();
-        tabTitle.add("附近的人");
-        tabTitle.add("人气榜");
-        tabTitle.add("我的关注");
-        tabTitle.add("消息");
-        List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(NearFragment.newInstance());
-        fragmentList.add(RankFragment.newInstance());
-        fragmentList.add(FollowFragment.newInstance());
-        fragmentList.add(MessageFragment.newInstance());
-        viewPager.setNoFocus(true);
-        viewPager.setOffscreenPageLimit(tabTitle.size());
-        viewPager.setAdapter(new FriendPagerAdapter(getContext(), getChildFragmentManager(), fragmentList, tabTitle));
-        tabs.setViewPager(viewPager);
+        if (HiPermission.checkPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)) {
+            initFragment();
+        } else {
+            //applyLocationPermission();
+            ToastUtils.showShort("请先开启定位权限");
+            EventBus.getDefault().post(new TabSelectedEvent(0));
+        }
+    }
+
+
+    private void initFragment() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (getParentFragment() instanceof MainFragment) {
+                    List<String> tabTitle = new ArrayList<>();
+                    tabTitle.add("附近的人");
+                    tabTitle.add("人气榜");
+                    tabTitle.add("我的关注");
+                    tabTitle.add("消息");
+                    List<Fragment> fragmentList = new ArrayList<>();
+                    fragmentList.add(NearFragment.newInstance());
+                    fragmentList.add(RankFragment.newInstance());
+                    fragmentList.add(FollowFragment.newInstance());
+                    fragmentList.add(MessageFragment.newInstance());
+                    viewPager.setNoFocus(true);
+                    viewPager.setOffscreenPageLimit(tabTitle.size());
+                    viewPager.setAdapter(new FriendPagerAdapter(getContext(), getChildFragmentManager(), fragmentList, tabTitle));
+                    tabs.setViewPager(viewPager);
+                }
+
+            }
+        }, 2000);
+
     }
 
     @Override
@@ -121,4 +148,6 @@ public class FriendFragment extends BaseMainMvpFragment<IFriendView, FriendPrese
     public void onClickToolBarImageMenu() {
         EventBus.getDefault().post(new StartBrotherEvent(MineFragment.newInstance()));
     }
+
+
 }

@@ -132,6 +132,16 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!--##############友盟结束###################-->
+        <!--#######百度地图定位开始########-->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="pB1oaPdSIChjfSp3dvTuuhaQx2Wd6SQc" />
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+        <!--########百度地图定位介绍#######-->
+
     </application>
 
 </manifest>
