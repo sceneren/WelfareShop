@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
  * Description:附近的人
  */
 
-public class NearAdapter extends RecyclerView.Adapter {
+public class NearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private List<String> list;
 
