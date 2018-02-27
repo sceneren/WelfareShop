@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingBottom="@dimen/dp_10">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:lines="1"
+        android:text="第一章   天上掉下个小姨子"
+        android:textColor="@color/content_text_color"
+        android:textSize="@dimen/sp_12" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="免费"
+        android:textColor="@color/content_text_color"
+        android:textSize="12sp" />
+</LinearLayout>

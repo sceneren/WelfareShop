@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/baseimage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/bg_novel_detail_header" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/baseimage"
+            android:layout_alignTop="@+id/baseimage"
+            android:background="#88000000" />
+
+        <TextView
+            android:id="@+id/title_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/jz_back_normal"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_10"
+            android:text="返回"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16" />
+
+        <ImageView
+            android:id="@+id/cover_image"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/baseimage"
+            android:layout_below="@+id/title_back"
+            android:layout_margin="@dimen/dp_10" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title_back"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_toRightOf="@+id/cover_image"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="我的小姨子"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_16" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="69992人读过"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_12" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="评分:7.8"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_12" />
+
+            <LinearLayout
+                android:id="@+id/tag_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_theme_corner_2dp"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="2dp"
+                    android:text="香艳"
+                    android:textColor="@color/white"
+                    android:textSize="10sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="#F9F9F9" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="简介"
+            android:textColor="@color/title_text_color"
+            android:textSize="@dimen/sp_16" />
+
+        <TextView
+            android:id="@+id/des"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:text="这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="#F9F9F9" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dp_10"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="目录"
+            android:textColor="@color/title_text_color"
+            android:textSize="@dimen/sp_16" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="#F9F9F9" />
+    </LinearLayout>
+</LinearLayout>

@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.ToastUtils;
-import com.github.jdsjlzx.interfaces.OnItemClickListener;
 import com.github.jdsjlzx.interfaces.OnRefreshListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
@@ -21,6 +20,7 @@ import com.google.gson.reflect.TypeToken;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.ReadActivity;
 import com.quduo.welfareshop.db.BookList;
+import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.read.listener.OnSaveData2DBListener;
 import com.quduo.welfareshop.ui.welfare.adapter.NovelAdapter;
@@ -34,6 +34,7 @@ import com.quduo.welfareshop.util.ReaderUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
+import org.greenrobot.eventbus.EventBus;
 import org.litepal.crud.DataSupport;
 
 import java.io.File;
@@ -133,7 +134,7 @@ public class NovelFragment extends BaseMvpFragment<INovelView, NovelPresenter> i
         adapter.setOnNovelItemClickListener(new NovelAdapter.OnNovelItemClickListener() {
             @Override
             public void onClickNovel(int position, int childPosition) {
-                onClickRead();
+                EventBus.getDefault().post(new StartBrotherEvent(NovelDetailFragment.newInstance(1)));
             }
         });
         mAdapter = new LRecyclerViewAdapter(adapter);
@@ -209,51 +210,4 @@ public class NovelFragment extends BaseMvpFragment<INovelView, NovelPresenter> i
         unbinder.unbind();
     }
 
-
-    private void onClickRead() {
-        List<BookList> allBooks = DataSupport.findAll(BookList.class);
-        if (allBooks.size() > 0) {
-            final BookList bookList = allBooks.get(0);
-            bookList.setId(allBooks.get(0).getId());
-            final String path = bookList.getBookpath();
-            File file = new File(path);
-            if (!file.exists()) {
-                new AlertDialog.Builder(_mActivity)
-                        .setTitle(getString(R.string.app_name))
-                        .setMessage(path + "文件不存在,是否删除该书本？")
-                        .setPositiveButton("删除", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //数据库删除书籍
-                                DataSupport.deleteAll(BookList.class, "bookpath = ?", path);
-
-                            }
-                        }).setCancelable(true).show();
-                return;
-            }
-            ReadActivity.openBook(bookList, _mActivity);
-        } else {
-            BookList bookList = new BookList();
-            final String bookName = FileUtils.getFileName(Environment.getExternalStorageDirectory().getPath() + File.separator + "396993.txt");
-            bookList.setBookname(bookName);
-            bookList.setBookpath(Environment.getExternalStorageDirectory().getPath() + File.separator + "396993.txt");
-            ReaderUtil.addBook2DB(bookList, new OnSaveData2DBListener() {
-                @Override
-                public void onSaveSuccess() {
-                    ToastUtils.showShort("导入书本成功");
-                }
-
-                @Override
-                public void onSaveFail() {
-                    ToastUtils.showShort("由于一些原因添加书本失败");
-                }
-
-                @Override
-                public void onSaveRepeat() {
-                    ToastUtils.showShort("书本" + bookName + "重复了");
-                }
-            });
-        }
-
-    }
 }

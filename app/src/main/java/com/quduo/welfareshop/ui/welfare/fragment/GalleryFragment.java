@@ -188,9 +188,9 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
         galleryList.add(info15);
 
         WelfareGalleryInfo info16 = new WelfareGalleryInfo();
-        info16.setUrl("http://img5.zdface.com/006yCHQygy1fisoanab2vj30jg0t6dk0.jpg");
-        info16.setPicWidth(690);
-        info16.setPicHeight(1035);
+        info16.setUrl("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1519640437382&di=f26aa168fd77bdb855b3b69cc9a61e78&imgtype=0&src=http%3A%2F%2Fimage.tianjimedia.com%2FuploadImages%2F2015%2F153%2F33%2FX2PGS3F9U748.jpg");
+        info16.setPicWidth(728);
+        info16.setPicHeight(1066);
         info16.setTitle("标题16");
         galleryList.add(info16);
 
