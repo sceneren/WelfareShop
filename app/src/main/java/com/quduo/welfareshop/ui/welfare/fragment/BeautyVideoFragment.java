@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.welfare.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
+import com.quduo.welfareshop.ui.welfare.activity.VideoDetailActivity;
 import com.quduo.welfareshop.ui.welfare.adapter.BeautyVideoAdapter;
 import com.quduo.welfareshop.ui.welfare.entity.VideoModelInfo;
 import com.quduo.welfareshop.ui.welfare.entity.WelfareGalleryInfo;
@@ -121,6 +123,13 @@ public class BeautyVideoFragment extends BaseMvpFragment<IBeautyVideoView, Beaut
         Gson gson = new Gson();
         list = gson.fromJson(jsonStr, listType);
         BeautyVideoAdapter adapter = new BeautyVideoAdapter(getContext(), list);
+        adapter.setOnItemClickVideoListener(new BeautyVideoAdapter.OnItemClickVideoListener() {
+            @Override
+            public void onItemClickVideo(int position, int position1,int position2) {
+                //list.get(position).getList().get(position1).getList().get(position)
+                startActivity(new Intent(getContext(), VideoDetailActivity.class));
+            }
+        });
         mAdapter = new LRecyclerViewAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mAdapter);

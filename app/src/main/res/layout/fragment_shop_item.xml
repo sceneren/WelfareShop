@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -15,21 +16,23 @@
         <com.quduo.welfareshop.widgets.RatioImageView
             android:id="@+id/baseimage"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:base="horizontal"
+            app:horizontal_weight="1"
+            app:vertical_weight="1" />
 
         <ImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignBottom="@+id/baseimage"
-            android:src="#FF0000" />
+            android:layout_alignBottom="@+id/baseimage" />
 
         <TextView
+            android:id="@+id/btn_buy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="291dp"
             android:background="@drawable/btn_shop_buy"
             android:gravity="center"
             android:paddingBottom="@dimen/dp_10"

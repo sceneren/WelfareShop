@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 
 import com.quduo.welfareshop.R;
@@ -25,11 +26,16 @@ public class BeautyVideoItemAdapter extends BaseAdapter {
     private Context context;
     private List<VideoTypeInfo> list;
     private LayoutInflater inflater;
+    private OnItemClickItemVideoListener onItemClickItemVideoListener;
 
     public BeautyVideoItemAdapter(Context context, List<VideoTypeInfo> list) {
         this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
+    }
+
+    public void setOnItemClickItemVideoListener(OnItemClickItemVideoListener onItemClickItemVideoListener) {
+        this.onItemClickItemVideoListener = onItemClickItemVideoListener;
     }
 
     @Override
@@ -48,7 +54,7 @@ public class BeautyVideoItemAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         BeautyVideoItemViewHolder holder;
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.fragment_welfare_beauty_video_item_item, parent, false);
@@ -79,6 +85,14 @@ public class BeautyVideoItemAdapter extends BaseAdapter {
             BeautyVideoShu2Adapter adapter = new BeautyVideoShu2Adapter(context, info.getList());
             holder.gridView.setAdapter(adapter);
         }
+        holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int childPosition, long id) {
+                if(onItemClickItemVideoListener!=null){
+                    onItemClickItemVideoListener.onItemClickItemVideo(position,childPosition);
+                }
+            }
+        });
         return convertView;
     }
 
@@ -89,5 +103,9 @@ public class BeautyVideoItemAdapter extends BaseAdapter {
         BeautyVideoItemViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
+    }
+
+    public interface OnItemClickItemVideoListener{
+        void onItemClickItemVideo(int position,int childPosition);
     }
 }

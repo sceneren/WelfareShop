@@ -1,0 +1,36 @@
+[
+  {
+    "type": 2,
+    "list": [
+      {
+        "title": "视频2",
+        "imageUrl": "http://pic.yesky.com/uploadImages/2015/131/58/62KPG7ZYL453.jpg"
+      },
+      {
+        "title": "视频3",
+        "imageUrl": "http://pic.yesky.com/uploadImages/2015/131/58/62KPG7ZYL453.jpg"
+      }
+    ]
+  },
+  {
+    "type": 1,
+    "list": [
+      {
+        "title": "视频2",
+        "imageUrl": "http://pic.yesky.com/uploadImages/2015/131/58/62KPG7ZYL453.jpg"
+      },
+      {
+        "title": "视频3",
+        "imageUrl": "http://pic.yesky.com/uploadImages/2015/131/58/62KPG7ZYL453.jpg"
+      },
+      {
+        "title": "视频2",
+        "imageUrl": "http://pic.yesky.com/uploadImages/2015/131/58/62KPG7ZYL453.jpg"
+      },
+      {
+        "title": "视频3",
+        "imageUrl": "http://pic.yesky.com/uploadImages/2015/131/58/62KPG7ZYL453.jpg"
+      }
+    ]
+  }
+]

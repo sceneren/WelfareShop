@@ -129,6 +129,10 @@
 
     <style name="AppTheme.NoActionBar.SwipeBack">
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:activityOpenEnterAnimation">@anim/h_fragment_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/h_fragment_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/h_fragment_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/h_fragment_exit</item>
     </style>
 
     <style name="Theme_audioDialog" parent="@android:style/Theme.Dialog">

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
-import com.quduo.welfareshop.ui.welfare.entity.VideoInfo;
 import com.quduo.welfareshop.ui.welfare.entity.VideoModelInfo;
 import com.quduo.welfareshop.widgets.CustomListView;
 
@@ -27,9 +26,15 @@ public class BeautyVideoAdapter extends RecyclerView.Adapter<BeautyVideoAdapter.
     private Context context;
     private List<VideoModelInfo> list;
 
+    private OnItemClickVideoListener onItemClickVideoListener;
+
     public BeautyVideoAdapter(Context context, List<VideoModelInfo> list) {
         this.context = context;
         this.list = list;
+    }
+
+    public void setOnItemClickVideoListener(OnItemClickVideoListener onItemClickVideoListener) {
+        this.onItemClickVideoListener = onItemClickVideoListener;
     }
 
     @Override
@@ -38,10 +43,19 @@ public class BeautyVideoAdapter extends RecyclerView.Adapter<BeautyVideoAdapter.
     }
 
     @Override
-    public void onBindViewHolder(BeautyVideoAdapter.BeautyVideoViewHolder holder, int position) {
-        BeautyVideoItemAdapter itemAdapter=new BeautyVideoItemAdapter(context,list.get(position).getList());
+    public void onBindViewHolder(BeautyVideoAdapter.BeautyVideoViewHolder holder, final int position) {
+        BeautyVideoItemAdapter itemAdapter = new BeautyVideoItemAdapter(context, list.get(position).getList());
         holder.listView.setAdapter(itemAdapter);
         holder.title.setText(list.get(position).getTitle());
+        itemAdapter.setOnItemClickItemVideoListener(new BeautyVideoItemAdapter.OnItemClickItemVideoListener() {
+            @Override
+            public void onItemClickItemVideo(int position1, int position2) {
+                if (onItemClickVideoListener != null) {
+                    onItemClickVideoListener.onItemClickVideo(position, position1, position2);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -60,5 +74,9 @@ public class BeautyVideoAdapter extends RecyclerView.Adapter<BeautyVideoAdapter.
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+    public interface OnItemClickVideoListener {
+        void onItemClickVideo(int position, int position1, int position2);
     }
 }
