@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.shop.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SizeUtils;
+import com.github.jdsjlzx.interfaces.OnItemClickListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.quduo.welfareshop.R;
@@ -18,6 +20,7 @@ import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
 import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
+import com.quduo.welfareshop.ui.shop.activity.GoodsDetailActivity;
 import com.quduo.welfareshop.ui.shop.adapter.ShopAdapter;
 import com.quduo.welfareshop.ui.shop.presenter.ShopPresenter;
 import com.quduo.welfareshop.ui.shop.view.IShopView;
@@ -93,6 +96,12 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
         recyclerView.addItemDecoration(new SpacesItemDecoration(SizeUtils.dp2px(2)));
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLoadMoreEnabled(false);
+        mAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                startActivity(new Intent(getContext(), GoodsDetailActivity.class));
+            }
+        });
     }
 
     private void initHeaderView() {
