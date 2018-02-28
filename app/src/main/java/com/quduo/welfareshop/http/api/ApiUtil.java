@@ -18,14 +18,6 @@ public class ApiUtil {
     private static final String SIGN_KEY = "045448f765b0c0592563123a2652fb63";
     public static final String API_PRE = "http://192.168.0.88:8082/";
 
-    public static final String GET_CODE = "common/code";
-    public static final String GET_CODE_TAG = "common/code";
-
-    //获取所有的时时彩信息
-    public static final String SSC_ALL="cqssc/info/all";
-    public static final String SSC_ALL_TAG="cqssc/info/all";
-
-
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19
@@ -34,6 +26,7 @@ public class ApiUtil {
         HashMap<String, String> params = new HashMap<>();
         long timestamp = NetTimeUtils.getWebsiteDatetime();
         params.put("resource_id", MyApplication.getInstance().getResourceId());
+        params.put("uuid", MyApplication.getInstance().getImei());
         params.put("timestamp", timestamp + "");
         params.put("signature", getSign(timestamp + ""));
         params.put("app_type", "1");
@@ -46,6 +39,6 @@ public class ApiUtil {
      * Author: scene on 2017/5/19 13:19
      */
     private static String getSign(String timestamp) {
-        return MD5Util.string2Md5(MD5Util.string2Md5(1 + MyApplication.getInstance().getResourceId() + timestamp + AppUtils.getAppVersionCode(), "UTF-8") + SIGN_KEY, "UTF-8");
+        return MD5Util.string2Md5(MD5Util.string2Md5(MyApplication.getInstance().getResourceId() + 1 + MyApplication.getInstance().getResourceId() + timestamp + AppUtils.getAppVersionCode(), "UTF-8") + SIGN_KEY, "UTF-8");
     }
 }

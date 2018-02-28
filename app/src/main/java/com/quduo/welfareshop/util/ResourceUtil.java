@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 
+import com.blankj.utilcode.util.PhoneUtils;
+import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.StringUtils;
+
 /**
  * Author:scene
  * Time:2018/1/26 13:17
@@ -32,5 +36,46 @@ public class ResourceUtil {
             e.printStackTrace();
         }
         return resultData;
+    }
+
+    //获取手机的IMEI
+    public static String getImei() {
+        //先获取SP里面是否存了IMEI
+        String imei = SPUtils.getInstance().getString("IMEI", "");
+        //没存就通过系统获取IMEI
+        if (StringUtils.isTrimEmpty(imei)) {
+            imei = PhoneUtils.getIMEI();
+            //系统获取IMEI失败，就自动生成一个IMEI
+            if (StringUtils.isTrimEmpty(imei)) {
+                imei = createRandomUUID(false, 32);
+                SPUtils.getInstance().put("IMEI", imei);
+            }
+        }
+        return imei;
+    }
+
+    private static String createRandomUUID(boolean numberFlag, int length) {
+        String retStr;
+        String strTable = numberFlag ? "1234567890" : "1234567890abcdefghijkmnpqrstuvwxyz";
+        int len = strTable.length();
+        boolean bDone = true;
+        do {
+            retStr = "";
+            int count = 0;
+            for (int i = 0; i < length; i++) {
+                double dblR = Math.random() * len;
+                int intR = (int) Math.floor(dblR);
+                char c = strTable.charAt(intR);
+                if (('0' <= c) && (c <= '9')) {
+                    count++;
+                }
+                retStr += strTable.charAt(intR);
+            }
+            if (count >= 20) {
+                bDone = false;
+            }
+        } while (bDone);
+
+        return retStr;
     }
 }

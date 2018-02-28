@@ -17,6 +17,8 @@ import com.lzy.okgo.cookie.CookieJarImpl;
 import com.lzy.okgo.cookie.store.MemoryCookieStore;
 import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
+import com.quduo.libselecter.ISNav;
+import com.quduo.libselecter.common.ImageLoader;
 import com.quduo.welfareshop.activity.MainActivity;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.config.Config;
@@ -25,8 +27,6 @@ import com.quduo.welfareshop.recovery.core.Recovery;
 import com.quduo.welfareshop.util.PageFactory;
 import com.quduo.welfareshop.util.ResourceUtil;
 import com.umeng.commonsdk.UMConfigure;
-import com.quduo.libselecter.ISNav;
-import com.quduo.libselecter.common.ImageLoader;
 
 import org.litepal.LitePal;
 import org.litepal.LitePalApplication;
@@ -49,8 +49,10 @@ public class MyApplication extends LitePalApplication {
     private List<Activity> activities = new ArrayList<>();
     //记录需要一次性关闭的页面
     private List<Activity> activitys = new ArrayList<>();
-
+    //资源Id
     private String resourceId;
+    //imei
+    private String imei;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -225,6 +227,17 @@ public class MyApplication extends LitePalApplication {
 
     public void setResourceId(String resourceId) {
         this.resourceId = resourceId;
+    }
+
+    public String getImei() {
+        if (StringUtils.isTrimEmpty(imei)) {
+            imei = ResourceUtil.getImei();
+        }
+        return imei;
+    }
+
+    public void setImei(String imei) {
+        this.imei = imei;
     }
 
     /**
