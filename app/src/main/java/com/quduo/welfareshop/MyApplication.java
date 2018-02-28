@@ -21,6 +21,8 @@ import com.quduo.libselecter.ISNav;
 import com.quduo.libselecter.common.ImageLoader;
 import com.quduo.welfareshop.activity.MainActivity;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.bean.ConfigInfo;
+import com.quduo.welfareshop.bean.UserInfo;
 import com.quduo.welfareshop.config.Config;
 import com.quduo.welfareshop.greendao.GreenDaoManager;
 import com.quduo.welfareshop.recovery.core.Recovery;
@@ -53,6 +55,10 @@ public class MyApplication extends LitePalApplication {
     private String resourceId;
     //imei
     private String imei;
+    //配置信息
+    private ConfigInfo configInfo;
+    //用户信息
+    private UserInfo userInfo;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -236,8 +242,20 @@ public class MyApplication extends LitePalApplication {
         return imei;
     }
 
-    public void setImei(String imei) {
-        this.imei = imei;
+    public ConfigInfo getConfigInfo() {
+        return configInfo;
+    }
+
+    public void setConfigInfo(ConfigInfo configInfo) {
+        this.configInfo = configInfo;
+    }
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
     }
 
     /**

@@ -6,9 +6,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 
+import com.blankj.utilcode.util.ToastUtils;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.Response;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.BaseActivity;
+import com.quduo.welfareshop.bean.LoginInfo;
+import com.quduo.welfareshop.http.api.ApiUtil;
+import com.quduo.welfareshop.http.base.LzyResponse;
+import com.quduo.welfareshop.http.callback.JsonCallback;
 import com.quduo.welfareshop.util.ResourceUtil;
 
 import java.util.ArrayList;
@@ -59,7 +66,7 @@ public class EnterActivity extends BaseActivity {
                     public void onFinish() {
                         if (HiPermission.checkPermission(EnterActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
                                 && HiPermission.checkPermission(EnterActivity.this, Manifest.permission.READ_PHONE_STATE)) {
-                            toMainActivity();
+                            login();
                         } else {
                             MyApplication.getInstance().exit();
                         }
@@ -72,6 +79,41 @@ public class EnterActivity extends BaseActivity {
                     @Override
                     public void onGuarantee(String permission, int position) {
 
+                    }
+                });
+    }
+
+    private void login() {
+        OkGo.<LzyResponse<LoginInfo>>post(ApiUtil.API_PRE + ApiUtil.LOGIN)
+                .tag(ApiUtil.LOGIN_TAG)
+                .execute(new JsonCallback<LzyResponse<LoginInfo>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<LoginInfo>> response) {
+                        try {
+                            LoginInfo loginInfo = response.body().data;
+                            if (loginInfo != null) {
+                                MyApplication.getInstance().setConfigInfo(loginInfo.getConfig());
+                                MyApplication.getInstance().setUserInfo(loginInfo.getUser_info());
+                                toMainActivity();
+                            } else {
+                                ToastUtils.showShort("网络连接异常，请检查网络");
+                                MyApplication.getInstance().exit();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<LoginInfo>> response) {
+                        super.onError(response);
+                        try {
+                            ToastUtils.showShort("网络连接异常，请检查网络");
+                            MyApplication.getInstance().exit();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }

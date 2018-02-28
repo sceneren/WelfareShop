@@ -9,5 +9,6 @@ package com.quduo.welfareshop.http.base;
 public class LzyResponse<T> {
     public int code;
     public String message;
+    public boolean status;
     public T data;
 }

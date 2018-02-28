@@ -16,7 +16,11 @@ import java.util.HashMap;
 
 public class ApiUtil {
     private static final String SIGN_KEY = "045448f765b0c0592563123a2652fb63";
-    public static final String API_PRE = "http://192.168.0.88:8082/";
+    public static final String API_PRE = "http://192.168.0.88:9091/";
+
+    public static final String LOGIN = "user/login";
+    public static final String LOGIN_TAG = "user/login";
+
 
     /**
      * Case By:创建参数基础信息
@@ -39,6 +43,6 @@ public class ApiUtil {
      * Author: scene on 2017/5/19 13:19
      */
     private static String getSign(String timestamp) {
-        return MD5Util.string2Md5(MD5Util.string2Md5(MyApplication.getInstance().getResourceId() + 1 + MyApplication.getInstance().getResourceId() + timestamp + AppUtils.getAppVersionCode(), "UTF-8") + SIGN_KEY, "UTF-8");
+        return MD5Util.string2Md5(MD5Util.string2Md5(MyApplication.getInstance().getImei() + 1 + MyApplication.getInstance().getResourceId() + timestamp + AppUtils.getAppVersionCode(), "UTF-8") + SIGN_KEY, "UTF-8");
     }
 }
