@@ -20,4 +20,20 @@
         android:divider="@color/transparent1"
         android:dividerHeight="@dimen/dp_10"
         android:listSelector="@color/transparent1" />
+
+    <TextView
+        android:id="@+id/more_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_more_video"
+        android:paddingBottom="@dimen/dp_10"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp"
+        android:paddingTop="@dimen/dp_10"
+        android:text="观看更多"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16" />
 </LinearLayout>
