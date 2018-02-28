@@ -1,6 +1,7 @@
 package com.quduo.welfareshop.ui.shop.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.loadmore.PtrClassicFrameLayout;
 import wiki.scene.loadmore.PtrDefaultHandler;
@@ -167,5 +169,10 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.see_all_comment)
+    public void onClickSeeAllComment() {
+        startActivity(new Intent(GoodsDetailActivity.this, GoodsCommentActivity.class));
     }
 }
