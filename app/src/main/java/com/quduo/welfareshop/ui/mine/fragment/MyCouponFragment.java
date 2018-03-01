@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,14 +12,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SizeUtils;
-import com.github.jdsjlzx.recyclerview.LRecyclerView;
-import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.mine.adapter.MyCouponAdapter;
 import com.quduo.welfareshop.ui.mine.presenter.MyCouponPresenter;
 import com.quduo.welfareshop.ui.mine.view.IMyCouponView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,18 +37,21 @@ import wiki.scene.loadmore.StatusViewLayout;
  */
 
 public class MyCouponFragment extends BaseBackMvpFragment<IMyCouponView, MyCouponPresenter> implements IMyCouponView {
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
     @BindView(R.id.recyclerView)
-    LRecyclerView recyclerView;
+    RecyclerView recyclerView;
+    @BindView(R.id.refresh_layout)
+    SmartRefreshLayout refreshLayout;
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
     Unbinder unbinder;
 
     private List<String> list;
-    private LRecyclerViewAdapter mAdapter;
+    private MyCouponAdapter adapter;
 
     public static MyCouponFragment newInstance() {
         Bundle args = new Bundle();
@@ -110,18 +115,24 @@ public class MyCouponFragment extends BaseBackMvpFragment<IMyCouponView, MyCoupo
     }
 
     private void initRecyclerView() {
+        refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(final RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(2000);
+            }
+        });
         list = new ArrayList<>();
         list.add("");
         list.add("");
         list.add("");
         list.add("");
         list.add("");
-        MyCouponAdapter adapter = new MyCouponAdapter(getContext(), list);
-        mAdapter = new LRecyclerViewAdapter(adapter);
+        adapter = new MyCouponAdapter(getContext(), list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new SpacesItemDecoration(SizeUtils.dp2px(10), true, true));
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setLoadMoreEnabled(false);
+        recyclerView.setAdapter(adapter);
+
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,14 +12,15 @@ import android.view.ViewGroup;
 
 import com.arjinmc.recyclerviewdecoration.RecyclerViewItemDecoration;
 import com.blankj.utilcode.util.SizeUtils;
-import com.github.jdsjlzx.recyclerview.LRecyclerView;
-import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.mine.adapter.MyFollowImageAdapter;
 import com.quduo.welfareshop.ui.mine.presenter.MyFollowImagePresenter;
 import com.quduo.welfareshop.ui.mine.view.IMyFollowImageView;
 import com.quduo.welfareshop.ui.welfare.entity.WelfareGalleryInfo;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,13 +39,15 @@ import wiki.scene.loadmore.StatusViewLayout;
 public class MyFollowImageFragment extends BaseMvpFragment<IMyFollowImageView, MyFollowImagePresenter> implements IMyFollowImageView {
 
     @BindView(R.id.recyclerView)
-    LRecyclerView recyclerView;
+    RecyclerView recyclerView;
+    @BindView(R.id.refresh_layout)
+    SmartRefreshLayout refreshLayout;
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
     Unbinder unbinder;
 
     private List<WelfareGalleryInfo> galleryList;
-    private LRecyclerViewAdapter mAdapter;
+    private MyFollowImageAdapter adapter;
 
     public static MyFollowImageFragment newInstance() {
         Bundle args = new Bundle();
@@ -102,6 +106,15 @@ public class MyFollowImageFragment extends BaseMvpFragment<IMyFollowImageView, M
 
 
     private void initRecyclerView() {
+
+        refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(2000);
+            }
+        });
+
         galleryList = new ArrayList<>();
 
         WelfareGalleryInfo info1 = new WelfareGalleryInfo();
@@ -216,8 +229,7 @@ public class MyFollowImageFragment extends BaseMvpFragment<IMyFollowImageView, M
         info16.setTitle("标题16");
         galleryList.add(info16);
 
-        MyFollowImageAdapter adapter = new MyFollowImageAdapter(getContext(), galleryList);
-        mAdapter = new LRecyclerViewAdapter(adapter);
+        adapter = new MyFollowImageAdapter(getContext(), galleryList);
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         //防止item位置互换
@@ -233,8 +245,7 @@ public class MyFollowImageFragment extends BaseMvpFragment<IMyFollowImageView, M
         builder.gridLeftVisible(true); //控制左边边框
         builder.gridRightVisible(true); //控制右边边框
         recyclerView.addItemDecoration(builder.create());
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setLoadMoreEnabled(false);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override

@@ -4,17 +4,19 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.jdsjlzx.recyclerview.LRecyclerView;
-import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.mine.adapter.MyFollowVideoAdapter;
 import com.quduo.welfareshop.ui.mine.presenter.MyFollowVideoPresenter;
 import com.quduo.welfareshop.ui.mine.view.IMyFollowVideoView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +34,15 @@ import wiki.scene.loadmore.StatusViewLayout;
 
 public class MyFollowVideoFragment extends BaseMvpFragment<IMyFollowVideoView, MyFollowVideoPresenter> implements IMyFollowVideoView {
     @BindView(R.id.recyclerView)
-    LRecyclerView recyclerView;
+    RecyclerView recyclerView;
+    @BindView(R.id.refresh_layout)
+    SmartRefreshLayout refreshLayout;
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
     Unbinder unbinder;
 
     private List<String> list;
-    private LRecyclerViewAdapter mAdapter;
+    private MyFollowVideoAdapter adapter;
 
     public static MyFollowVideoFragment newInstance() {
         Bundle args = new Bundle();
@@ -95,19 +99,25 @@ public class MyFollowVideoFragment extends BaseMvpFragment<IMyFollowVideoView, M
         initRecyclerView();
     }
 
-    private void initRecyclerView(){
-        list=new ArrayList<>();
+    private void initRecyclerView() {
+        refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(2000);
+            }
+        });
+
+        list = new ArrayList<>();
         list.add("");
         list.add("");
         list.add("");
         list.add("");
         list.add("");
         list.add("");
-        MyFollowVideoAdapter adapter=new MyFollowVideoAdapter(getContext(),list);
-        mAdapter=new LRecyclerViewAdapter(adapter);
+        adapter = new MyFollowVideoAdapter(getContext(), list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setLoadMoreEnabled(false);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override

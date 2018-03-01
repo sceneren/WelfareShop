@@ -4,13 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.SizeUtils;
-import com.github.jdsjlzx.recyclerview.LRecyclerView;
-import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
@@ -18,6 +17,9 @@ import com.quduo.welfareshop.ui.mine.adapter.MyOrderChildAdapter;
 import com.quduo.welfareshop.ui.mine.entity.OrderInfo;
 import com.quduo.welfareshop.ui.mine.presenter.MyOrderChildPresenter;
 import com.quduo.welfareshop.ui.mine.view.IMyOrderChildView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,15 +37,18 @@ import wiki.scene.loadmore.StatusViewLayout;
 
 public class MyOrderChildFragment extends BaseMvpFragment<IMyOrderChildView, MyOrderChildPresenter> implements IMyOrderChildView {
     private static final String ARG_TYPE = "arg_type";
+
     @BindView(R.id.recyclerView)
-    LRecyclerView recyclerView;
+    RecyclerView recyclerView;
+    @BindView(R.id.refresh_layout)
+    SmartRefreshLayout refreshLayout;
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
     Unbinder unbinder;
 
     private int type = 0;
     private List<OrderInfo> list;
-    private LRecyclerViewAdapter mAdapter;
+    private MyOrderChildAdapter adapter;
 
     public static MyOrderChildFragment newInstance(int type) {
         Bundle args = new Bundle();
@@ -110,6 +115,13 @@ public class MyOrderChildFragment extends BaseMvpFragment<IMyOrderChildView, MyO
     }
 
     public void initRecyclerView() {
+        refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(2000);
+            }
+        });
         list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             OrderInfo orderInfo = new OrderInfo();
@@ -117,12 +129,10 @@ public class MyOrderChildFragment extends BaseMvpFragment<IMyOrderChildView, MyO
             orderInfo.setGoods_name("商品名称" + i);
             list.add(orderInfo);
         }
-        MyOrderChildAdapter adapter = new MyOrderChildAdapter(getContext(), list);
-        mAdapter = new LRecyclerViewAdapter(adapter);
+        adapter = new MyOrderChildAdapter(getContext(), list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new SpacesItemDecoration(SizeUtils.dp2px(10), true, false));
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setLoadMoreEnabled(false);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -134,9 +144,9 @@ public class MyOrderChildFragment extends BaseMvpFragment<IMyOrderChildView, MyO
     public void onDestroyView() {
         try {
             list.clear();
-            mAdapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
             recyclerView.setAdapter(null);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         super.onDestroyView();

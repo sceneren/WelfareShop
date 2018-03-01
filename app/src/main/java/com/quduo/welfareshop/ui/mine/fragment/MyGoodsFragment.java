@@ -4,19 +4,22 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.github.jdsjlzx.recyclerview.LRecyclerView;
-import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.mine.adapter.MyGoodsAdapter;
 import com.quduo.welfareshop.ui.mine.presenter.MyGoodsPresenter;
 import com.quduo.welfareshop.ui.mine.view.IMyGoodsView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,14 +40,16 @@ public class MyGoodsFragment extends BaseBackMvpFragment<IMyGoodsView, MyGoodsPr
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
+    @BindView(R.id.refresh_layout)
+    SmartRefreshLayout refreshLayout;
     @BindView(R.id.recyclerView)
-    LRecyclerView recyclerView;
+    RecyclerView recyclerView;
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
     Unbinder unbinder;
 
     private List<String> list;
-    private LRecyclerViewAdapter mAdapter;
+    private MyGoodsAdapter adapter;
 
     public static MyGoodsFragment newInstance() {
         Bundle args = new Bundle();
@@ -108,6 +113,13 @@ public class MyGoodsFragment extends BaseBackMvpFragment<IMyGoodsView, MyGoodsPr
     }
 
     private void initRecyclerView() {
+        refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(final RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(5000);
+            }
+        });
         list = new ArrayList<>();
         list.add("");
         list.add("");
@@ -118,11 +130,9 @@ public class MyGoodsFragment extends BaseBackMvpFragment<IMyGoodsView, MyGoodsPr
         list.add("");
         list.add("");
         list.add("");
-        MyGoodsAdapter adapter = new MyGoodsAdapter(getContext(), list);
-        mAdapter = new LRecyclerViewAdapter(adapter);
+        adapter = new MyGoodsAdapter(getContext(), list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setLoadMoreEnabled(false);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override

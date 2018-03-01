@@ -242,4 +242,6 @@ dependencies {
     implementation files('libs/BaiduLBS_Android.jar')
     //分割线
     compile 'com.arjinmc.android:recyclerviewdecoration:2.3.3'
+    //刷新
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
 }
