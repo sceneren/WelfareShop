@@ -249,6 +249,7 @@
                 android:background="#F6F6F5" />
 
             <TextView
+                android:id="@+id/my_video"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -269,6 +270,7 @@
                 android:background="#F6F6F5" />
 
             <TextView
+                android:id="@+id/my_photo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -289,6 +291,7 @@
                 android:background="#F6F6F5" />
 
             <TextView
+                android:id="@+id/my_novel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
