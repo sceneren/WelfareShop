@@ -4,20 +4,19 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.blankj.utilcode.util.SizeUtils;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.quduo.welfareshop.R;
-import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
-import com.quduo.welfareshop.mvp.BaseMvpFragment;
-import com.quduo.welfareshop.ui.mine.adapter.MyOrderChildAdapter;
-import com.quduo.welfareshop.ui.mine.entity.OrderInfo;
-import com.quduo.welfareshop.ui.mine.presenter.MyOrderChildPresenter;
-import com.quduo.welfareshop.ui.mine.view.IMyOrderChildView;
+import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
+import com.quduo.welfareshop.ui.mine.adapter.MyGoodsAdapter;
+import com.quduo.welfareshop.ui.mine.presenter.MyGoodsPresenter;
+import com.quduo.welfareshop.ui.mine.view.IMyGoodsView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,26 +28,27 @@ import wiki.scene.loadmore.StatusViewLayout;
 
 /**
  * Author:scene
- * Time:2018/2/28 18:08
- * Description:订单子界面
+ * Time:2018/3/1 10:40
+ * Description:收藏的商品
  */
 
-public class MyOrderChildFragment extends BaseMvpFragment<IMyOrderChildView, MyOrderChildPresenter> implements IMyOrderChildView {
-    private static final String ARG_TYPE = "arg_type";
+public class MyGoodsFragment extends BaseBackMvpFragment<IMyGoodsView, MyGoodsPresenter> implements IMyGoodsView {
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.toolbar_title)
+    TextView toolbarTitle;
     @BindView(R.id.recyclerView)
     LRecyclerView recyclerView;
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
     Unbinder unbinder;
 
-    private int type = 0;
-    private List<OrderInfo> list;
+    private List<String> list;
     private LRecyclerViewAdapter mAdapter;
 
-    public static MyOrderChildFragment newInstance(int type) {
+    public static MyGoodsFragment newInstance() {
         Bundle args = new Bundle();
-        args.putInt(ARG_TYPE, type);
-        MyOrderChildFragment fragment = new MyOrderChildFragment();
+        MyGoodsFragment fragment = new MyGoodsFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,17 +56,9 @@ public class MyOrderChildFragment extends BaseMvpFragment<IMyOrderChildView, MyO
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_order_child, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_goods, container, false);
         unbinder = ButterKnife.bind(this, view);
-        return view;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            type = getArguments().getInt(ARG_TYPE, 0);
-        }
+        return attachToSwipeBack(view);
     }
 
     @Override
@@ -104,41 +96,42 @@ public class MyOrderChildFragment extends BaseMvpFragment<IMyOrderChildView, MyO
     };
 
     @Override
+    public void initToolbar() {
+        toolbarTitle.setText("收藏的商品");
+        initToolbarNav(toolbar, true);
+    }
+
+    @Override
     public void initView() {
         showContentPage();
         initRecyclerView();
     }
 
-    public void initRecyclerView() {
+    private void initRecyclerView() {
         list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            OrderInfo orderInfo = new OrderInfo();
-            orderInfo.setType(type);
-            orderInfo.setGoods_name("商品名称" + i);
-            list.add(orderInfo);
-        }
-        MyOrderChildAdapter adapter = new MyOrderChildAdapter(getContext(), list);
+        list.add("");
+        list.add("");
+        list.add("");
+        list.add("");
+        list.add("");
+        list.add("");
+        list.add("");
+        list.add("");
+        list.add("");
+        MyGoodsAdapter adapter = new MyGoodsAdapter(getContext(), list);
         mAdapter = new LRecyclerViewAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.addItemDecoration(new SpacesItemDecoration(SizeUtils.dp2px(10), true, false));
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLoadMoreEnabled(false);
     }
 
     @Override
-    public MyOrderChildPresenter initPresenter() {
-        return new MyOrderChildPresenter(this);
+    public MyGoodsPresenter initPresenter() {
+        return new MyGoodsPresenter(this);
     }
 
     @Override
     public void onDestroyView() {
-        try {
-            list.clear();
-            mAdapter.notifyDataSetChanged();
-            recyclerView.setAdapter(null);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
         super.onDestroyView();
         unbinder.unbind();
     }

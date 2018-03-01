@@ -1,30 +1,16 @@
 package com.quduo.welfareshop.ui.mine.fragment;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.quduo.welfareshop.R;
-import com.quduo.welfareshop.activity.ReadActivity;
-import com.quduo.welfareshop.db.BookList;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.mine.presenter.MinePresenter;
 import com.quduo.welfareshop.ui.mine.view.IMineView;
-import com.quduo.welfareshop.ui.read.listener.OnSaveData2DBListener;
-import com.quduo.welfareshop.util.FileUtils;
-import com.quduo.welfareshop.util.ReaderUtil;
-
-import org.litepal.crud.DataSupport;
-
-import java.io.File;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -108,6 +94,11 @@ public class MineFragment extends BaseBackMvpFragment<IMineView, MinePresenter> 
     @OnClick(R.id.my_order)
     public void onClickMyOrder() {
         start(MyOrderFragment.newInstance());
+    }
+
+    @OnClick(R.id.my_follow_goods)
+    public void onClickMyFollowGoods() {
+        start(MyGoodsFragment.newInstance());
     }
 
 }
