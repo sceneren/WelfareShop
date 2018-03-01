@@ -121,4 +121,9 @@ public class MineFragment extends BaseBackMvpFragment<IMineView, MinePresenter> 
         start(MyCouponFragment.newInstance());
     }
 
+    @OnClick(R.id.my_receiver)
+    public void onClickMyReceiver() {
+        start(MyReceiverFragment.newInstance());
+    }
+
 }
