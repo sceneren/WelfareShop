@@ -105,4 +105,9 @@ public class MineFragment extends BaseBackMvpFragment<IMineView, MinePresenter> 
         start(MyInfoFragment.newInstance());
     }
 
+    @OnClick(R.id.my_order)
+    public void onClickMyOrder() {
+        start(MyOrderFragment.newInstance());
+    }
+
 }
