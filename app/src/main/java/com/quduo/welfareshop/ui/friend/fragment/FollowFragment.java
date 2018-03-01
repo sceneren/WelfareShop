@@ -16,6 +16,9 @@ import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.friend.adapter.FollowAdapter;
 import com.quduo.welfareshop.ui.friend.presenter.FollowPresenter;
 import com.quduo.welfareshop.ui.friend.view.IFollowView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +26,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import wiki.scene.loadmore.PtrClassicFrameLayout;
-import wiki.scene.loadmore.PtrDefaultHandler;
-import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
 
 /**
@@ -35,13 +35,13 @@ import wiki.scene.loadmore.StatusViewLayout;
  */
 
 public class FollowFragment extends BaseMvpFragment<IFollowView, FollowPresenter> implements IFollowView {
+    Unbinder unbinder;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @BindView(R.id.ptr_layout)
-    PtrClassicFrameLayout ptrLayout;
+    @BindView(R.id.refresh_layout)
+    SmartRefreshLayout refreshLayout;
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
-    Unbinder unbinder;
 
     public static FollowFragment newInstance() {
         Bundle args = new Bundle();
@@ -61,20 +61,12 @@ public class FollowFragment extends BaseMvpFragment<IFollowView, FollowPresenter
     @Override
     public void initView() {
         showContentPage();
-        ptrLayout.setLastUpdateTimeRelateObject(this);
-        ptrLayout.setPtrHandler(new PtrDefaultHandler() {
+        showContentPage();
+        refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefreshBegin(PtrFrameLayout frame) {
-                ptrLayout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            ptrLayout.refreshComplete();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, 2000);
+            public void onRefresh(RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(2000);
             }
         });
 

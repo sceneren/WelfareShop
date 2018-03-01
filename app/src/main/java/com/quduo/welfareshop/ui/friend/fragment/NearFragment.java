@@ -20,6 +20,9 @@ import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.friend.adapter.NearAdapter;
 import com.quduo.welfareshop.ui.friend.presenter.NearPresenter;
 import com.quduo.welfareshop.ui.friend.view.INearView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -30,7 +33,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import wiki.scene.loadmore.PtrClassicFrameLayout;
 import wiki.scene.loadmore.PtrDefaultHandler;
 import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
@@ -43,13 +45,13 @@ import wiki.scene.loadmore.recyclerview.RecyclerAdapterWithHF;
  */
 
 public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> implements INearView {
+    Unbinder unbinder;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @BindView(R.id.ptr_layout)
-    PtrClassicFrameLayout ptrLayout;
+    @BindView(R.id.refresh_layout)
+    SmartRefreshLayout refreshLayout;
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
-    Unbinder unbinder;
     @BindView(R.id.friend_screen)
     ImageView friendScreen;
 
@@ -70,20 +72,11 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
 
     @Override
     public void initView() {
-        ptrLayout.setLastUpdateTimeRelateObject(this);
-        ptrLayout.setPtrHandler(new PtrDefaultHandler() {
+        refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefreshBegin(PtrFrameLayout frame) {
-                ptrLayout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            ptrLayout.refreshComplete();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, 2000);
+            public void onRefresh(RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(2000);
             }
         });
         if (_mActivity instanceof MainActivity) {

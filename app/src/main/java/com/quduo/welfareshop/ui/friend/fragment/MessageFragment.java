@@ -21,6 +21,9 @@ import com.quduo.welfareshop.ui.friend.adapter.MessageAdapter;
 import com.quduo.welfareshop.ui.friend.entity.ChatMessageInfo;
 import com.quduo.welfareshop.ui.friend.presenter.MessagePresenter;
 import com.quduo.welfareshop.ui.friend.view.IMessageView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -31,9 +34,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import wiki.scene.loadmore.PtrClassicFrameLayout;
-import wiki.scene.loadmore.PtrDefaultHandler;
-import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
 
 /**
@@ -43,13 +43,13 @@ import wiki.scene.loadmore.StatusViewLayout;
  */
 
 public class MessageFragment extends BaseMvpFragment<IMessageView, MessagePresenter> implements IMessageView {
+    Unbinder unbinder;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @BindView(R.id.ptr_layout)
-    PtrClassicFrameLayout ptrLayout;
+    @BindView(R.id.refresh_layout)
+    SmartRefreshLayout refreshLayout;
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
-    Unbinder unbinder;
 
     private MessageAdapter adapter;
     private List<ChatMessageInfo> list;
@@ -81,10 +81,10 @@ public class MessageFragment extends BaseMvpFragment<IMessageView, MessagePresen
     @Override
     public void initView() {
         showContentPage();
-        ptrLayout.setLastUpdateTimeRelateObject(this);
-        ptrLayout.setPtrHandler(new PtrDefaultHandler() {
+        refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefreshBegin(PtrFrameLayout frame) {
+            public void onRefresh(RefreshLayout refreshLayout) {
                 presenter.getAllSeesion();
             }
         });
@@ -173,7 +173,7 @@ public class MessageFragment extends BaseMvpFragment<IMessageView, MessagePresen
     @Override
     public void getAllSessionInfoSuccess(List<ChatMessageInfo> list) {
         try {
-            ptrLayout.refreshComplete();
+            refreshLayout.finishRefresh();
             this.list.clear();
             this.list.addAll(list);
             adapter.notifyDataSetChanged();
