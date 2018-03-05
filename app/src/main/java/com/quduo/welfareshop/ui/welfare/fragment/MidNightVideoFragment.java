@@ -4,17 +4,19 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.jdsjlzx.recyclerview.LRecyclerView;
-import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.welfare.adapter.MidnightVideoAdapter;
 import com.quduo.welfareshop.ui.welfare.presenter.MidNightVideoPresenter;
 import com.quduo.welfareshop.ui.welfare.view.IMidNightVideoView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +33,16 @@ import wiki.scene.loadmore.StatusViewLayout;
  */
 public class MidNightVideoFragment extends BaseMvpFragment<IMidNightVideoView, MidNightVideoPresenter> implements IMidNightVideoView {
 
+    Unbinder unbinder;
     @BindView(R.id.recyclerView)
-    LRecyclerView recyclerView;
+    RecyclerView recyclerView;
+    @BindView(R.id.refresh_layout)
+    SmartRefreshLayout refreshLayout;
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
-    Unbinder unbinder;
 
     private List<String> list;
-    private LRecyclerViewAdapter mAdapter;
+    private MidnightVideoAdapter adapter;
 
     public static MidNightVideoFragment newInstance() {
         Bundle args = new Bundle();
@@ -97,6 +101,13 @@ public class MidNightVideoFragment extends BaseMvpFragment<IMidNightVideoView, M
     }
 
     private void initRecyclerView() {
+        refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(2000);
+            }
+        });
         list = new ArrayList<>();
         list.add("");
         list.add("");
@@ -106,15 +117,14 @@ public class MidNightVideoFragment extends BaseMvpFragment<IMidNightVideoView, M
         list.add("");
         list.add("");
         list.add("");
-        MidnightVideoAdapter adapter = new MidnightVideoAdapter(getContext(), list);
-        mAdapter = new LRecyclerViewAdapter(adapter);
+        adapter = new MidnightVideoAdapter(getContext(), list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(adapter);
     }
 
     private void initFooterView() {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_bottom_more_content, null);
-        mAdapter.addFooterView(view);
+        adapter.addFooterView(view);
     }
 
     @Override

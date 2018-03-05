@@ -1,13 +1,13 @@
 package com.quduo.welfareshop.ui.welfare.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.util.MultiTypeDelegate;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.ui.welfare.entity.NovelModelInfo;
 import com.quduo.welfareshop.widgets.CustomListView;
@@ -24,17 +24,27 @@ import butterknife.ButterKnife;
  * Description:小爽文
  */
 
-public class NovelAdapter extends RecyclerView.Adapter {
+public class NovelAdapter extends BaseQuickAdapter<NovelModelInfo, BaseViewHolder> {
     private static final int TYPE_LIST = 0;
     private static final int TYPE_GRID = 1;
     private Context context;
-    private List<NovelModelInfo> list;
 
     private OnNovelItemClickListener onNovelItemClickListener;
 
     public NovelAdapter(Context context, List<NovelModelInfo> list) {
+        super(list);
         this.context = context;
-        this.list = list;
+        setMultiTypeDelegate(new MultiTypeDelegate<NovelModelInfo>() {
+            @Override
+            protected int getItemType(NovelModelInfo entity) {
+                //根据你的实体类来判断布局类型
+                return entity.getType();
+            }
+        });
+        getMultiTypeDelegate()
+                .registerItemType(TYPE_LIST, R.layout.fragment_welfare_novel_item_listview)
+                .registerItemType(TYPE_GRID, R.layout.fragment_welfare_novel_item_gridview)
+                .registerItemType(2, R.layout.fragment_welfare_novel_item_ad);
     }
 
     public void setOnNovelItemClickListener(OnNovelItemClickListener onNovelItemClickListener) {
@@ -42,20 +52,7 @@ public class NovelAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        if (viewType == TYPE_LIST) {
-            return new NovelListViewHolder(inflater.inflate(R.layout.fragment_welfare_novel_item_listview, parent, false));
-        } else if (viewType == TYPE_GRID) {
-            return new NovelGridViewHolder(inflater.inflate(R.layout.fragment_welfare_novel_item_gridview, parent, false));
-        } else {
-            return new NovelAdViewHolder(inflater.inflate(R.layout.fragment_welfare_novel_item_ad, parent, false));
-        }
-    }
-
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        NovelModelInfo info = list.get(position);
+    protected void convert(final BaseViewHolder holder, NovelModelInfo info) {
         if (holder instanceof NovelListViewHolder) {
             NovelListViewHolder listViewHolder = (NovelListViewHolder) holder;
             NovelListAdapter listAdapter = new NovelListAdapter(context, info.getList());
@@ -64,7 +61,7 @@ public class NovelAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int childPosition, long id) {
                     if (onNovelItemClickListener != null) {
-                        onNovelItemClickListener.onClickNovel(position, childPosition);
+                        onNovelItemClickListener.onClickNovel(holder.getLayoutPosition(), childPosition);
                     }
                 }
             });
@@ -76,7 +73,7 @@ public class NovelAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int childPosition, long id) {
                     if (onNovelItemClickListener != null) {
-                        onNovelItemClickListener.onClickNovel(position, childPosition);
+                        onNovelItemClickListener.onClickNovel(holder.getLayoutPosition(), childPosition);
                     }
                 }
             });
@@ -91,17 +88,7 @@ public class NovelAdapter extends RecyclerView.Adapter {
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return list.size();
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return list.get(position).getType();
-    }
-
-    static class NovelListViewHolder extends RecyclerView.ViewHolder {
+    static class NovelListViewHolder extends BaseViewHolder {
         @BindView(R.id.listView)
         CustomListView listView;
 
@@ -111,7 +98,7 @@ public class NovelAdapter extends RecyclerView.Adapter {
         }
     }
 
-    static class NovelGridViewHolder extends RecyclerView.ViewHolder {
+    static class NovelGridViewHolder extends BaseViewHolder {
         @BindView(R.id.gridView)
         CustomeGridView gridView;
 
@@ -121,7 +108,7 @@ public class NovelAdapter extends RecyclerView.Adapter {
         }
     }
 
-    static class NovelAdViewHolder extends RecyclerView.ViewHolder {
+    static class NovelAdViewHolder extends BaseViewHolder {
         @BindView(R.id.layout_ad)
         LinearLayout layoutAd;
 

@@ -9,9 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.event.FollowEvent;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.friend.activity.ChatActivity;
@@ -19,6 +22,8 @@ import com.quduo.welfareshop.ui.friend.adapter.OtherInfoImageAdapter;
 import com.quduo.welfareshop.ui.friend.presenter.OtherInfoPresenter;
 import com.quduo.welfareshop.ui.friend.view.IOtherInfoView;
 import com.quduo.welfareshop.widgets.CustomeGridView;
+import com.quduo.welfareshop.widgets.RatioImageView;
+import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -42,19 +47,21 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
-    @BindView(R.id.user_id)
-    TextView userId;
-    @BindView(R.id.fans_num)
-    TextView fansNum;
+    @BindView(R.id.baseimage)
+    RatioImageView baseimage;
+    @BindView(R.id.image)
+    ImageView image;
+    @BindView(R.id.avatar)
+    SelectableRoundedImageView avatar;
+    @BindView(R.id.follow)
+    TextView follow;
     @BindView(R.id.no_photo)
     TextView noPhoto;
     @BindView(R.id.photoGridView)
     CustomeGridView photoGridView;
-    Unbinder unbinder;
     @BindView(R.id.send_message)
-    TextView sendMessage;
-    @BindView(R.id.follow)
-    TextView follow;
+    LinearLayout sendMessage;
+    Unbinder unbinder;
     private String otherUserId;
 
     public static OtherInfoFragment newInstance(String otherUserId) {
@@ -112,6 +119,12 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
         photoGridView.setAdapter(adapter);
         photoGridView.setVisibility(View.VISIBLE);
         noPhoto.setVisibility(View.GONE);
+
+        GlideApp.with(this)
+                .asBitmap()
+                .centerCrop()
+                .load("http://e.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg")
+                .into(image);
     }
 
     @Override
@@ -141,12 +154,10 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
     public void onClickFollow() {
         if (follow.getText().toString().equals("关注")) {
             follow.setText("已关注");
-            follow.setTextColor(ContextCompat.getColor(getContext(), R.color.theme_color));
-            follow.setCompoundDrawablesWithIntrinsicBounds(null, ContextCompat.getDrawable(getContext(), R.drawable.ic_guanzhu_s), null, null);
+            follow.setCompoundDrawablesWithIntrinsicBounds(null, ContextCompat.getDrawable(getContext(), R.drawable.ic_other_info_follow_s), null, null);
         } else {
             follow.setText("关注");
-            follow.setTextColor(ContextCompat.getColor(getContext(), R.color.content_text_color));
-            follow.setCompoundDrawablesWithIntrinsicBounds(null, ContextCompat.getDrawable(getContext(), R.drawable.ic_guanzhu_d), null, null);
+            follow.setCompoundDrawablesWithIntrinsicBounds(null, ContextCompat.getDrawable(getContext(), R.drawable.ic_other_info_follow_d), null, null);
         }
     }
 
@@ -155,6 +166,11 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
         follow.setText("已关注");
         follow.setTextColor(ContextCompat.getColor(getContext(), R.color.theme_color));
         follow.setCompoundDrawablesWithIntrinsicBounds(null, ContextCompat.getDrawable(getContext(), R.drawable.ic_guanzhu_s), null, null);
+    }
+
+    @OnClick(R.id.back)
+    public void onClickBack() {
+        _mActivity.onBackPressed();
     }
 
 

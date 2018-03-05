@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,9 @@ import com.quduo.welfareshop.ui.welfare.presenter.NovelDetailPresenter;
 import com.quduo.welfareshop.ui.welfare.view.INovelDetailView;
 import com.quduo.welfareshop.util.FileUtils;
 import com.quduo.welfareshop.util.ReaderUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.litepal.crud.DataSupport;
 
@@ -59,8 +63,10 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
+    @BindView(R.id.refresh_layout)
+    SmartRefreshLayout refreshLayout;
     @BindView(R.id.recyclerView)
-    LRecyclerView recyclerView;
+    RecyclerView recyclerView;
     @BindView(R.id.read_now)
     TextView readNow;
     @BindView(R.id.follow)
@@ -73,8 +79,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
 
     private int novelId;
     private List<String> list;
-    private LRecyclerViewAdapter mAdapter;
-
+    private NovelDetailAdapter adapter;
 
     public static NovelDetailFragment newInstance(int novelId) {
         Bundle args = new Bundle();
@@ -153,6 +158,14 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
     }
 
     private void initRecyclerView() {
+        refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(2000);
+            }
+        });
+
         toolbarLayout.setVisibility(View.GONE);
         list = new ArrayList<>();
         list.add("");
@@ -169,12 +182,9 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
         list.add("");
         list.add("");
         list.add("");
-        NovelDetailAdapter adapter = new NovelDetailAdapter(getContext(), list);
-        mAdapter = new LRecyclerViewAdapter(adapter);
+        adapter = new NovelDetailAdapter(getContext(), list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setLoadMoreEnabled(false);
-
+        recyclerView.setAdapter(adapter);
     }
 
     private void initHeaderView() {
@@ -187,7 +197,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
                 _mActivity.onBackPressed();
             }
         });
-        mAdapter.addHeaderView(headerView);
+        adapter.addHeaderView(headerView);
 
         coverImage.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {

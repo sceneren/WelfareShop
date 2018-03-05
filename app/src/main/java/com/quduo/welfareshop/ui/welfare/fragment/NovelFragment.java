@@ -1,28 +1,19 @@
 package com.quduo.welfareshop.ui.welfare.fragment;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.blankj.utilcode.util.ToastUtils;
-import com.github.jdsjlzx.interfaces.OnRefreshListener;
-import com.github.jdsjlzx.recyclerview.LRecyclerView;
-import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.quduo.welfareshop.R;
-import com.quduo.welfareshop.activity.ReadActivity;
-import com.quduo.welfareshop.db.BookList;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
-import com.quduo.welfareshop.ui.read.listener.OnSaveData2DBListener;
 import com.quduo.welfareshop.ui.welfare.adapter.NovelAdapter;
 import com.quduo.welfareshop.ui.welfare.entity.NovelModelInfo;
 import com.quduo.welfareshop.ui.welfare.entity.WelfareGalleryInfo;
@@ -30,14 +21,13 @@ import com.quduo.welfareshop.ui.welfare.presenter.NovelPresenter;
 import com.quduo.welfareshop.ui.welfare.view.INovelView;
 import com.quduo.welfareshop.util.BannerImageLoader;
 import com.quduo.welfareshop.util.FileUtils;
-import com.quduo.welfareshop.util.ReaderUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
 import org.greenrobot.eventbus.EventBus;
-import org.litepal.crud.DataSupport;
 
-import java.io.File;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -55,8 +45,10 @@ import wiki.scene.loadmore.StatusViewLayout;
  */
 
 public class NovelFragment extends BaseMvpFragment<INovelView, NovelPresenter> implements INovelView {
+    @BindView(R.id.refresh_layout)
+    SmartRefreshLayout refreshLayout;
     @BindView(R.id.recyclerView)
-    LRecyclerView recyclerView;
+    RecyclerView recyclerView;
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
     Unbinder unbinder;
@@ -64,7 +56,7 @@ public class NovelFragment extends BaseMvpFragment<INovelView, NovelPresenter> i
     private Banner banner;
     private List<WelfareGalleryInfo> bannerList;
 
-    private LRecyclerViewAdapter mAdapter;
+    private NovelAdapter adapter;
     private List<NovelModelInfo> list;
 
     public static NovelFragment newInstance() {
@@ -125,32 +117,29 @@ public class NovelFragment extends BaseMvpFragment<INovelView, NovelPresenter> i
     }
 
     private void initRecyclerView() {
+        refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setOnRefreshListener(new com.scwang.smartrefresh.layout.listener.OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(2000);
+            }
+        });
+
+
         String jsonStr = FileUtils.getAssetsJson(getContext(), "novel_list.json");
         Type listType = new TypeToken<LinkedList<NovelModelInfo>>() {
         }.getType();
         Gson gson = new Gson();
         list = gson.fromJson(jsonStr, listType);
-        NovelAdapter adapter = new NovelAdapter(getContext(), list);
+        adapter = new NovelAdapter(getContext(), list);
         adapter.setOnNovelItemClickListener(new NovelAdapter.OnNovelItemClickListener() {
             @Override
             public void onClickNovel(int position, int childPosition) {
                 EventBus.getDefault().post(new StartBrotherEvent(NovelDetailFragment.newInstance(1)));
             }
         });
-        mAdapter = new LRecyclerViewAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                recyclerView.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        recyclerView.refreshComplete(1);
-                    }
-                }, 10000);
-            }
-        });
+        recyclerView.setAdapter(adapter);
 
     }
 
@@ -159,7 +148,7 @@ public class NovelFragment extends BaseMvpFragment<INovelView, NovelPresenter> i
         banner = headerView.findViewById(R.id.banner);
         banner.setImageLoader(new BannerImageLoader());
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
-        mAdapter.addHeaderView(headerView);
+        adapter.addHeaderView(headerView);
     }
 
     private void bindHeaderView() {

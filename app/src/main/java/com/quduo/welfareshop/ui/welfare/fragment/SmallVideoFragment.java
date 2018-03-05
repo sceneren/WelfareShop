@@ -10,15 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.github.jdsjlzx.recyclerview.LRecyclerView;
-import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.welfare.adapter.SmallVideoAdapter;
 import com.quduo.welfareshop.ui.welfare.entity.WelfareVideoInfo;
 import com.quduo.welfareshop.ui.welfare.presenter.SmallVideoPresenter;
 import com.quduo.welfareshop.ui.welfare.view.ISmallVideoView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,6 @@ import butterknife.Unbinder;
 import cn.jzvd.JZMediaManager;
 import cn.jzvd.JZUtils;
 import cn.jzvd.JZVideoPlayer;
-import cn.jzvd.JZVideoPlayerManager;
 import wiki.scene.loadmore.StatusViewLayout;
 
 /**
@@ -39,14 +38,16 @@ import wiki.scene.loadmore.StatusViewLayout;
  */
 
 public class SmallVideoFragment extends BaseMvpFragment<ISmallVideoView, SmallVideoPresenter> implements ISmallVideoView {
+    Unbinder unbinder;
     @BindView(R.id.recyclerView)
-    LRecyclerView recyclerView;
+    RecyclerView recyclerView;
+    @BindView(R.id.refresh_layout)
+    SmartRefreshLayout refreshLayout;
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
-    Unbinder unbinder;
 
     private List<WelfareVideoInfo> videoInfoList;
-    private LRecyclerViewAdapter mAdapter;
+    private SmallVideoAdapter adapter;
 
     public static SmallVideoFragment newInstance() {
         Bundle args = new Bundle();
@@ -100,6 +101,14 @@ public class SmallVideoFragment extends BaseMvpFragment<ISmallVideoView, SmallVi
     @Override
     public void initView() {
         showContentPage();
+        refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(2000);
+            }
+        });
+
         videoInfoList = new ArrayList<>();
         WelfareVideoInfo videoInfo1 = new WelfareVideoInfo();
         videoInfo1.setImagePath("http://jzvd-pic.nathen.cn/jzvd-pic/bd7ffc84-8407-4037-a078-7d922ce0fb0f.jpg");
@@ -161,10 +170,9 @@ public class SmallVideoFragment extends BaseMvpFragment<ISmallVideoView, SmallVi
         videoInfo10.setTitle("饺子快长大");
         videoInfoList.add(videoInfo10);
 
-        SmallVideoAdapter adapter = new SmallVideoAdapter(getContext(), videoInfoList);
-        mAdapter = new LRecyclerViewAdapter(adapter);
+        adapter = new SmallVideoAdapter(getContext(), videoInfoList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(adapter);
         recyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
