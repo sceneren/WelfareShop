@@ -6,28 +6,23 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.arjinmc.recyclerviewdecoration.RecyclerViewItemDecoration;
+import com.blankj.utilcode.util.SizeUtils;
 import com.quduo.welfareshop.R;
-import com.quduo.welfareshop.event.StartBrotherEvent;
-import com.quduo.welfareshop.mvp.BaseMvpFragment;
-import com.quduo.welfareshop.ui.welfare.adapter.GalleryAdapter;
-import com.quduo.welfareshop.ui.welfare.adapter.GalleryTypeGridAdapter;
+import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
+import com.quduo.welfareshop.ui.mine.adapter.MyFollowImageAdapter;
 import com.quduo.welfareshop.ui.welfare.entity.WelfareGalleryInfo;
-import com.quduo.welfareshop.ui.welfare.presenter.GalleryPresenter;
-import com.quduo.welfareshop.ui.welfare.view.IGalleryView;
-import com.quduo.welfareshop.util.BannerImageLoader;
-import com.quduo.welfareshop.widgets.CustomeGridView;
+import com.quduo.welfareshop.ui.welfare.presenter.GalleryDetailPresenter;
+import com.quduo.welfareshop.ui.welfare.view.IGalleryDetailView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,33 +34,29 @@ import wiki.scene.loadmore.StatusViewLayout;
 
 /**
  * Author:scene
- * Time:2018/1/25  12:06
- * Description:美女图库
+ * Time:2018/3/5 16:57
+ * Description:图库详情
  */
-public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresenter> implements IGalleryView {
-    @BindView(R.id.status_view)
-    StatusViewLayout statusView;
-    Unbinder unbinder;
+
+public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailView, GalleryDetailPresenter> implements IGalleryDetailView {
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.toolbar_title)
+    TextView toolbarTitle;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout refreshLayout;
-
-    private View headerView;
-    private Banner banner;
-    private CustomeGridView typeGridView;
-    private GalleryTypeGridAdapter typeGridAdapter;
-    private List<String> typeGridList;
-
+    @BindView(R.id.status_view)
+    StatusViewLayout statusView;
+    Unbinder unbinder;
 
     private List<WelfareGalleryInfo> galleryList;
-    private GalleryAdapter adapter;
+    private MyFollowImageAdapter adapter;
 
-    private List<WelfareGalleryInfo> bannerList;
-
-    public static GalleryFragment newInstance() {
+    public static GalleryDetailFragment newInstance() {
         Bundle args = new Bundle();
-        GalleryFragment fragment = new GalleryFragment();
+        GalleryDetailFragment fragment = new GalleryDetailFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -73,20 +64,59 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_welfare_grallery, container, false);
+        View view = inflater.inflate(R.layout.fragment_gallery_detail, container, false);
         unbinder = ButterKnife.bind(this, view);
-        return view;
+        return attachToSwipeBack(view);
+    }
+
+    @Override
+    public void showLoadingPage() {
+        try {
+            statusView.showLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showContentPage() {
+        try {
+            statusView.showContent();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showErrorPage() {
+        try {
+            statusView.showFailed(retryListener);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private View.OnClickListener retryListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+        }
+    };
+
+    @Override
+    public void initToolbar() {
+        toolbarTitle.setText("图库详情");
+        initToolbarNav(toolbar);
     }
 
     @Override
     public void initView() {
         showContentPage();
         initRecyclerView();
-        initHeaderView();
-        bindHeaderView();
     }
 
     private void initRecyclerView() {
+
         refreshLayout.setEnableLoadMore(false);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -94,6 +124,7 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
                 refreshLayout.finishRefresh(2000);
             }
         });
+
         galleryList = new ArrayList<>();
 
         WelfareGalleryInfo info1 = new WelfareGalleryInfo();
@@ -208,113 +239,28 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
         info16.setTitle("标题16");
         galleryList.add(info16);
 
-        adapter = new GalleryAdapter(getContext(), galleryList);
-
+        adapter = new MyFollowImageAdapter(getContext(), galleryList);
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         //防止item位置互换
         layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         recyclerView.setLayoutManager(layoutManager);
+        RecyclerViewItemDecoration.Builder builder = new RecyclerViewItemDecoration.Builder(getContext());
+        builder.color("#00000000");
+        builder.dashWidth(SizeUtils.dp2px(5));
+        builder.dashGap(SizeUtils.dp2px(5));
+        builder.thickness(SizeUtils.dp2px(5));
+        builder.gridBottomVisible(true); //控制下面边框
+        builder.gridTopVisible(true); //控制上面边框
+        builder.gridLeftVisible(true); //控制左边边框
+        builder.gridRightVisible(true); //控制右边边框
+        recyclerView.addItemDecoration(builder.create());
         recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                EventBus.getDefault().post(new StartBrotherEvent(GalleryDetailFragment.newInstance()));
-            }
-        });
-    }
-
-    private void initHeaderView() {
-        headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_welfare_gallery_header, null);
-        banner = headerView.findViewById(R.id.banner);
-        banner.setImageLoader(new BannerImageLoader());
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
-        typeGridView = headerView.findViewById(R.id.typeGridView);
-        typeGridList = new ArrayList<>();
-        typeGridList.add("制服诱惑");
-        typeGridList.add("黑丝美腿");
-        typeGridList.add("童颜巨乳");
-        typeGridList.add("蜜桃美臀");
-        typeGridList.add("猛男系列");
-        typeGridAdapter = new GalleryTypeGridAdapter(getContext(), typeGridList);
-        typeGridView.setAdapter(typeGridAdapter);
-        adapter.addHeaderView(headerView);
-    }
-
-    private void bindHeaderView() {
-        if (bannerList == null) {
-            bannerList = new ArrayList<>();
-        } else {
-            bannerList.clear();
-        }
-        WelfareGalleryInfo info2 = new WelfareGalleryInfo();
-        info2.setUrl("http://f.hiphotos.baidu.com/image/h%3D300/sign=4a0a3dd10155b31983f9847573ab8286/503d269759ee3d6db032f61b48166d224e4ade6e.jpg");
-        info2.setPicWidth(1023);
-        info2.setPicHeight(682);
-        info2.setTitle("标题2");
-        bannerList.add(info2);
-
-        WelfareGalleryInfo info9 = new WelfareGalleryInfo();
-        info9.setUrl("http://a.hiphotos.baidu.com/image/h%3D300/sign=71f6f27f2c7f9e2f6f351b082f31e962/500fd9f9d72a6059f550a1832334349b023bbae3.jpg");
-        info9.setPicWidth(650);
-        info9.setPicHeight(488);
-        info9.setTitle("标题9");
-        bannerList.add(info9);
-
-        WelfareGalleryInfo info5 = new WelfareGalleryInfo();
-        info5.setUrl("http://b.hiphotos.baidu.com/image/h%3D300/sign=03d791b0e0c4b7452b94b116fffd1e78/58ee3d6d55fbb2fb4a944f8b444a20a44723dcef.jpg");
-        info5.setPicWidth(1023);
-        info5.setPicHeight(682);
-        info5.setTitle("标题5");
-        bannerList.add(info5);
-        List<String> images = new ArrayList<>();
-        List<String> titles = new ArrayList<>();
-        for (int i = 0; i < bannerList.size(); i++) {
-            images.add(bannerList.get(i).getUrl());
-            titles.add(bannerList.get(i).getTitle());
-        }
-        banner.setImages(images);
-        banner.setBannerTitles(titles);
-        banner.start();
     }
 
     @Override
-    public void showLoadingPage() {
-        try {
-            statusView.showLoading();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void showContentPage() {
-        try {
-            statusView.showContent();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void showErrorPage() {
-        try {
-            statusView.showFailed(retryListener);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private View.OnClickListener retryListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-        }
-    };
-
-    @Override
-    public GalleryPresenter initPresenter() {
-        return new GalleryPresenter(this);
+    public GalleryDetailPresenter initPresenter() {
+        return new GalleryDetailPresenter(this);
     }
 
     @Override
@@ -322,5 +268,4 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
         super.onDestroyView();
         unbinder.unbind();
     }
-
 }
