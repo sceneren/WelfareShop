@@ -4,6 +4,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -12,6 +13,7 @@ import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.welfare.adapter.BeautyVideoItemAdapter;
+import com.quduo.welfareshop.ui.welfare.adapter.VideoDetailCommentAdapter;
 import com.quduo.welfareshop.ui.welfare.adapter.VideoDetailGoodsAdapter;
 import com.quduo.welfareshop.ui.welfare.entity.VideoTypeInfo;
 import com.quduo.welfareshop.ui.welfare.presenter.VideoDetailPresenter;
@@ -58,12 +60,21 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
     CustomListView videoListView;
     @BindView(R.id.goodsGridView)
     CustomeGridView goodsGridView;
+    @BindView(R.id.btn_zan)
+    ImageView btnZan;
+    @BindView(R.id.btn_follow)
+    ImageView btnFollow;
+    @BindView(R.id.commentListView)
+    CustomListView commentListView;
 
     private List<String> goodsList;
     private VideoDetailGoodsAdapter goodsAdapter;
 
     private List<VideoTypeInfo> videoList;
     private BeautyVideoItemAdapter videoAdapter;
+
+    private List<String> commentList;
+    private VideoDetailCommentAdapter commentAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +116,7 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
 
         initVideoListView();
         initGoodsGridView();
+        initCommentList();
     }
 
     private void initGoodsGridView() {
@@ -125,6 +137,18 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
         videoList = gson.fromJson(jsonStr, listType);
         videoAdapter = new BeautyVideoItemAdapter(VideoDetailActivity.this, videoList);
         videoListView.setAdapter(videoAdapter);
+    }
+
+    private void initCommentList() {
+        commentList = new ArrayList<>();
+        commentList.add("");
+        commentList.add("");
+        commentList.add("");
+        commentList.add("");
+        commentList.add("");
+        commentList.add("");
+        commentAdapter = new VideoDetailCommentAdapter(VideoDetailActivity.this, commentList);
+        commentListView.setAdapter(commentAdapter);
     }
 
     @Override
