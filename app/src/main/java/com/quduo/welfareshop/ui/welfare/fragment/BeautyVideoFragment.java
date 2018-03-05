@@ -5,12 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.jdsjlzx.recyclerview.LRecyclerView;
-import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.quduo.welfareshop.R;
@@ -23,12 +22,14 @@ import com.quduo.welfareshop.ui.welfare.presenter.BeautyVideoPresenter;
 import com.quduo.welfareshop.ui.welfare.view.IBeautyVideoView;
 import com.quduo.welfareshop.util.BannerImageLoader;
 import com.quduo.welfareshop.util.FileUtils;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,17 +45,19 @@ import wiki.scene.loadmore.StatusViewLayout;
  */
 
 public class BeautyVideoFragment extends BaseMvpFragment<IBeautyVideoView, BeautyVideoPresenter> implements IBeautyVideoView {
-    @BindView(R.id.recyclerView)
-    LRecyclerView recyclerView;
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
     Unbinder unbinder;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+    @BindView(R.id.refresh_layout)
+    SmartRefreshLayout refreshLayout;
 
     private View headerView;
     private Banner banner;
 
     private List<WelfareGalleryInfo> bannerList;
-    private LRecyclerViewAdapter mAdapter;
+    private BeautyVideoAdapter adapter;
 
     public static BeautyVideoFragment newInstance() {
         Bundle args = new Bundle();
@@ -117,22 +120,28 @@ public class BeautyVideoFragment extends BaseMvpFragment<IBeautyVideoView, Beaut
     private List<VideoModelInfo> list;
 
     private void initRecyclerView() {
+        refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(2000);
+            }
+        });
+
         String jsonStr = FileUtils.getAssetsJson(getContext(), "beautyvideo.json");
         Type listType = new TypeToken<LinkedList<VideoModelInfo>>() {
         }.getType();
         Gson gson = new Gson();
         list = gson.fromJson(jsonStr, listType);
-        BeautyVideoAdapter adapter = new BeautyVideoAdapter(getContext(), list);
+        adapter = new BeautyVideoAdapter(getContext(), list);
         adapter.setOnItemClickVideoListener(new BeautyVideoAdapter.OnItemClickVideoListener() {
             @Override
-            public void onItemClickVideo(int position, int position1,int position2) {
-                //list.get(position).getList().get(position1).getList().get(position)
+            public void onItemClickVideo(int position, int position1, int position2) {
                 startActivity(new Intent(getContext(), VideoDetailActivity.class));
             }
         });
-        mAdapter = new LRecyclerViewAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(adapter);
     }
 
     private void initHeaderView() {
@@ -140,7 +149,7 @@ public class BeautyVideoFragment extends BaseMvpFragment<IBeautyVideoView, Beaut
         banner = headerView.findViewById(R.id.banner);
         banner.setImageLoader(new BannerImageLoader());
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
-        mAdapter.addHeaderView(headerView);
+        adapter.addHeaderView(headerView);
         //banner.start();
     }
 
@@ -183,7 +192,7 @@ public class BeautyVideoFragment extends BaseMvpFragment<IBeautyVideoView, Beaut
 
     private void initFooterView() {
         View footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_bottom_more_content, null);
-        mAdapter.addFooterView(footerView);
+        adapter.addFooterView(footerView);
     }
 
     @Override

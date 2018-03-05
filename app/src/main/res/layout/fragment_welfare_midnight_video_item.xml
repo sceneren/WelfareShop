@@ -19,7 +19,7 @@
             app:vertical_weight="609" />
 
         <ImageView
-            android:id="@+id/image"
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignBottom="@+id/baseimage"

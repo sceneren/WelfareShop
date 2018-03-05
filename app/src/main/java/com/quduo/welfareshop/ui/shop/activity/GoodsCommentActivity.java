@@ -3,17 +3,19 @@ package com.quduo.welfareshop.ui.shop.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
-import com.github.jdsjlzx.recyclerview.LRecyclerView;
-import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.shop.adapter.GoodsCommentAdapter;
 import com.quduo.welfareshop.ui.shop.presenter.GoodsCommentPresenter;
 import com.quduo.welfareshop.ui.shop.view.IGoodsCommentView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,15 +37,17 @@ public class GoodsCommentActivity extends BaseMvpActivity<IGoodsCommentView, Goo
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
     @BindView(R.id.recyclerView)
-    LRecyclerView recyclerView;
+    RecyclerView recyclerView;
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
     @BindView(R.id.buy_now)
     TextView buyNow;
     Unbinder unbinder;
+    @BindView(R.id.refresh_layout)
+    SmartRefreshLayout refreshLayout;
 
     private List<String> list;
-    private LRecyclerViewAdapter mAdapter;
+    private GoodsCommentAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,6 +74,13 @@ public class GoodsCommentActivity extends BaseMvpActivity<IGoodsCommentView, Goo
     }
 
     private void initRecyclerView() {
+        refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(2000);
+            }
+        });
         list = new ArrayList<>();
         list.add("");
         list.add("");
@@ -79,11 +90,9 @@ public class GoodsCommentActivity extends BaseMvpActivity<IGoodsCommentView, Goo
         list.add("");
         list.add("");
         list.add("");
-        GoodsCommentAdapter adapter = new GoodsCommentAdapter(GoodsCommentActivity.this, list);
-        mAdapter = new LRecyclerViewAdapter(adapter);
+        adapter = new GoodsCommentAdapter(GoodsCommentActivity.this, list);
         recyclerView.setLayoutManager(new LinearLayoutManager(GoodsCommentActivity.this));
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setLoadMoreEnabled(false);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override

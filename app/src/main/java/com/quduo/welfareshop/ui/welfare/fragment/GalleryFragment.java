@@ -4,13 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.jdsjlzx.recyclerview.LRecyclerView;
-import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.welfare.adapter.GalleryAdapter;
@@ -20,6 +19,9 @@ import com.quduo.welfareshop.ui.welfare.presenter.GalleryPresenter;
 import com.quduo.welfareshop.ui.welfare.view.IGalleryView;
 import com.quduo.welfareshop.util.BannerImageLoader;
 import com.quduo.welfareshop.widgets.CustomeGridView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -37,11 +39,13 @@ import wiki.scene.loadmore.StatusViewLayout;
  * Description:美女图库
  */
 public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresenter> implements IGalleryView {
-    @BindView(R.id.recyclerView)
-    LRecyclerView recyclerView;
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
     Unbinder unbinder;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+    @BindView(R.id.refresh_layout)
+    SmartRefreshLayout refreshLayout;
 
     private View headerView;
     private Banner banner;
@@ -52,7 +56,6 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
 
     private List<WelfareGalleryInfo> galleryList;
     private GalleryAdapter adapter;
-    private LRecyclerViewAdapter mAdapter;
 
     private List<WelfareGalleryInfo> bannerList;
 
@@ -80,6 +83,13 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
     }
 
     private void initRecyclerView() {
+        refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(2000);
+            }
+        });
         galleryList = new ArrayList<>();
 
         WelfareGalleryInfo info1 = new WelfareGalleryInfo();
@@ -195,14 +205,13 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
         galleryList.add(info16);
 
         adapter = new GalleryAdapter(getContext(), galleryList);
-        mAdapter = new LRecyclerViewAdapter(adapter);
 
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         //防止item位置互换
         layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(adapter);
     }
 
     private void initHeaderView() {
@@ -219,7 +228,7 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
         typeGridList.add("猛男系列");
         typeGridAdapter = new GalleryTypeGridAdapter(getContext(), typeGridList);
         typeGridView.setAdapter(typeGridAdapter);
-        mAdapter.addHeaderView(headerView);
+        adapter.addHeaderView(headerView);
     }
 
     private void bindHeaderView() {

@@ -230,9 +230,6 @@ dependencies {
     implementation project(':emoticonkeyboard')
     compile 'com.github.w446108264:AndroidEmoji:1.0.0'
 
-    //上下拉的recyclerview
-    compile 'com.github.jdsjlzx:LRecyclerView:1.5.0'
-
     //播放器
     compile 'cn.jzvd:jiaozivideoplayer:6.2.7'
 

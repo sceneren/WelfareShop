@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SizeUtils;
-import com.github.jdsjlzx.interfaces.OnItemClickListener;
-import com.github.jdsjlzx.recyclerview.LRecyclerView;
-import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
@@ -24,6 +23,9 @@ import com.quduo.welfareshop.ui.shop.activity.GoodsDetailActivity;
 import com.quduo.welfareshop.ui.shop.adapter.ShopAdapter;
 import com.quduo.welfareshop.ui.shop.presenter.ShopPresenter;
 import com.quduo.welfareshop.ui.shop.view.IShopView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -34,6 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import wiki.scene.loadmore.StatusViewLayout;
 
 /**
  * 商城主界面
@@ -47,11 +50,14 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
     TextView toolbarTitle;
     Unbinder unbinder;
     @BindView(R.id.recyclerView)
-    LRecyclerView recyclerView;
+    RecyclerView recyclerView;
+    @BindView(R.id.refresh_layout)
+    SmartRefreshLayout refreshLayout;
+    @BindView(R.id.status_view)
+    StatusViewLayout statusView;
 
     private List<String> list;
-    private LRecyclerViewAdapter mAdapter;
-
+    private ShopAdapter adapter;
 
     public static ShopFragment newInstance() {
         Bundle args = new Bundle();
@@ -78,11 +84,19 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
     @Override
     public void initView() {
         super.initView();
+        showContentPage();
         initRecyclerView();
         initHeaderView();
     }
 
     private void initRecyclerView() {
+        refreshLayout.setEnableLoadMore(false);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                refreshLayout.finishRefresh(2000);
+            }
+        });
         list = new ArrayList<>();
         list.add("");
         list.add("");
@@ -90,15 +104,13 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
         list.add("");
         list.add("");
         list.add("");
-        ShopAdapter adapter = new ShopAdapter(getContext(), list);
-        mAdapter = new LRecyclerViewAdapter(adapter);
+        adapter = new ShopAdapter(getContext(), list);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.addItemDecoration(new SpacesItemDecoration(SizeUtils.dp2px(2)));
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setLoadMoreEnabled(false);
-        mAdapter.setOnItemClickListener(new OnItemClickListener() {
+        recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 startActivity(new Intent(getContext(), GoodsDetailActivity.class));
             }
         });
@@ -106,24 +118,43 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
 
     private void initHeaderView() {
         View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_shop_header, null);
-        mAdapter.addHeaderView(headerView);
+        adapter.addHeaderView(headerView);
     }
 
 
     @Override
     public void showLoadingPage() {
-
+        try {
+            statusView.showLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void showContentPage() {
-
+        try {
+            statusView.showContent();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void showErrorPage() {
-
+        try {
+            statusView.showFailed(retryListener);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+    private View.OnClickListener retryListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+        }
+    };
 
     @Override
     public ShopPresenter initPresenter() {

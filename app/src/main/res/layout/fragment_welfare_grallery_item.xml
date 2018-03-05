@@ -19,7 +19,7 @@
             android:layout_height="wrap_content">
 
             <com.quduo.welfareshop.widgets.SelectableRoundedImageView
-                android:id="@+id/image"
+                android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:sriv_left_top_corner_radius="@dimen/dp_10"

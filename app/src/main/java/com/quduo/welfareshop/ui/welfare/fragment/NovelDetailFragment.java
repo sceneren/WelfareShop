@@ -20,8 +20,6 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.github.jdsjlzx.recyclerview.LRecyclerView;
-import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.ReadActivity;
 import com.quduo.welfareshop.base.GlideApp;

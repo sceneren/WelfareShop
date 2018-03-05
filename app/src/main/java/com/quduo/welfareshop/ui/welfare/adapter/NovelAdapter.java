@@ -27,13 +27,16 @@ import butterknife.ButterKnife;
 public class NovelAdapter extends BaseQuickAdapter<NovelModelInfo, BaseViewHolder> {
     private static final int TYPE_LIST = 0;
     private static final int TYPE_GRID = 1;
+    private static final int TYPE_AD = 2;
     private Context context;
+    private List<NovelModelInfo> list;
 
     private OnNovelItemClickListener onNovelItemClickListener;
 
     public NovelAdapter(Context context, List<NovelModelInfo> list) {
         super(list);
         this.context = context;
+        this.list = list;
         setMultiTypeDelegate(new MultiTypeDelegate<NovelModelInfo>() {
             @Override
             protected int getItemType(NovelModelInfo entity) {
@@ -44,7 +47,7 @@ public class NovelAdapter extends BaseQuickAdapter<NovelModelInfo, BaseViewHolde
         getMultiTypeDelegate()
                 .registerItemType(TYPE_LIST, R.layout.fragment_welfare_novel_item_listview)
                 .registerItemType(TYPE_GRID, R.layout.fragment_welfare_novel_item_gridview)
-                .registerItemType(2, R.layout.fragment_welfare_novel_item_ad);
+                .registerItemType(TYPE_AD, R.layout.fragment_welfare_novel_item_ad);
     }
 
     public void setOnNovelItemClickListener(OnNovelItemClickListener onNovelItemClickListener) {
@@ -77,7 +80,7 @@ public class NovelAdapter extends BaseQuickAdapter<NovelModelInfo, BaseViewHolde
                     }
                 }
             });
-        } else {
+        } else if (holder instanceof NovelAdViewHolder) {
             NovelAdViewHolder adViewHolder = (NovelAdViewHolder) holder;
             adViewHolder.layoutAd.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -87,6 +90,15 @@ public class NovelAdapter extends BaseQuickAdapter<NovelModelInfo, BaseViewHolde
             });
         }
     }
+
+//    @Override
+//    public int getItemViewType(int position) {
+//        if(list.get(position).getType()>2){
+//            return super.getItemViewType(position);
+//        }else{
+//            return list.get(position).getType();
+//        }
+//    }
 
     static class NovelListViewHolder extends BaseViewHolder {
         @BindView(R.id.listView)

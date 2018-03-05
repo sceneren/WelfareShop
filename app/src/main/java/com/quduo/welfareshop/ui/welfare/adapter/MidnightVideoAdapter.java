@@ -23,12 +23,10 @@ import butterknife.ButterKnife;
 
 public class MidnightVideoAdapter extends BaseQuickAdapter<String, MidnightVideoAdapter.MidnightVideoViewHolder> {
     private Context context;
-    private List<String> list;
 
     public MidnightVideoAdapter(Context context, List<String> list) {
         super(R.layout.fragment_welfare_midnight_video_item, list);
         this.context = context;
-        this.list = list;
     }
 
 
@@ -39,12 +37,12 @@ public class MidnightVideoAdapter extends BaseQuickAdapter<String, MidnightVideo
                 .asBitmap()
                 .centerCrop()
                 .load(url)
-                .into(helper.image);
+                .into(helper.imageView);
     }
 
     static class MidnightVideoViewHolder extends BaseViewHolder {
-        @BindView(R.id.image)
-        ImageView image;
+        @BindView(R.id.imageView)
+        ImageView imageView;
         @BindView(R.id.tag_bg)
         ImageView tagBg;
         @BindView(R.id.tag)
