@@ -106,7 +106,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     @Override
     public void initToolbar() {
         toolbarTitle.setText("图库详情");
-        initToolbarNav(toolbar);
+        initToolbarNav(toolbar,true);
     }
 
     @Override

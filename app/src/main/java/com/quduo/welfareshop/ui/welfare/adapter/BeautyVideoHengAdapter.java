@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
@@ -72,7 +73,7 @@ public class BeautyVideoHengAdapter extends BaseAdapter {
 
     static class BeautyVideoHengHolder {
         @BindView(R.id.image)
-        CustomHeightRoundedImageView image;
+        ImageView image;
         @BindView(R.id.title)
         TextView title;
         @BindView(R.id.play_number)
