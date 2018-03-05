@@ -18,6 +18,7 @@ import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.event.FollowEvent;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.friend.activity.ChatActivity;
+import com.quduo.welfareshop.ui.friend.activity.VideoChatActivity;
 import com.quduo.welfareshop.ui.friend.adapter.OtherInfoImageAdapter;
 import com.quduo.welfareshop.ui.friend.presenter.OtherInfoPresenter;
 import com.quduo.welfareshop.ui.friend.view.IOtherInfoView;
@@ -173,5 +174,9 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
         _mActivity.onBackPressed();
     }
 
-
+    @OnClick(R.id.video_chat)
+    public void onClickVideoChat() {
+        startActivity(new Intent(_mActivity, VideoChatActivity.class));
+        _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+    }
 }

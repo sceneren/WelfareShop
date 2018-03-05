@@ -497,10 +497,11 @@
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/video_chat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#FE6363"
+            android:background="@drawable/bg_chat_video"
             android:gravity="center"
             android:orientation="horizontal">
 
