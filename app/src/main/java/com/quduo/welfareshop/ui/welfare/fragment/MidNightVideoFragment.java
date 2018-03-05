@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.welfare.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.activity.RechargeActivity;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.welfare.adapter.MidnightVideoAdapter;
 import com.quduo.welfareshop.ui.welfare.presenter.MidNightVideoPresenter;
@@ -120,6 +123,13 @@ public class MidNightVideoFragment extends BaseMvpFragment<IMidNightVideoView, M
         adapter = new MidnightVideoAdapter(getContext(), list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                startActivity(new Intent(_mActivity, RechargeActivity.class));
+                _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+            }
+        });
     }
 
     private void initFooterView() {

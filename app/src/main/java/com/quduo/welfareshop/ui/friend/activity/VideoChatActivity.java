@@ -3,6 +3,7 @@ package com.quduo.welfareshop.ui.friend.activity;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
