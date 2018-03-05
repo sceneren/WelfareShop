@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.util.MultiTypeDelegate;
@@ -14,9 +15,6 @@ import com.quduo.welfareshop.widgets.CustomListView;
 import com.quduo.welfareshop.widgets.CustomeGridView;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Author:scene
@@ -29,14 +27,12 @@ public class NovelAdapter extends BaseQuickAdapter<NovelModelInfo, BaseViewHolde
     private static final int TYPE_GRID = 1;
     private static final int TYPE_AD = 2;
     private Context context;
-    private List<NovelModelInfo> list;
 
     private OnNovelItemClickListener onNovelItemClickListener;
 
     public NovelAdapter(Context context, List<NovelModelInfo> list) {
         super(list);
         this.context = context;
-        this.list = list;
         setMultiTypeDelegate(new MultiTypeDelegate<NovelModelInfo>() {
             @Override
             protected int getItemType(NovelModelInfo entity) {
@@ -56,11 +52,11 @@ public class NovelAdapter extends BaseQuickAdapter<NovelModelInfo, BaseViewHolde
 
     @Override
     protected void convert(final BaseViewHolder holder, NovelModelInfo info) {
-        if (holder instanceof NovelListViewHolder) {
-            NovelListViewHolder listViewHolder = (NovelListViewHolder) holder;
+        if (holder.getItemViewType() == TYPE_LIST) {
             NovelListAdapter listAdapter = new NovelListAdapter(context, info.getList());
-            listViewHolder.listView.setAdapter(listAdapter);
-            listViewHolder.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            CustomListView listView = holder.getView(R.id.listView);
+            listView.setAdapter(listAdapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int childPosition, long id) {
                     if (onNovelItemClickListener != null) {
@@ -68,11 +64,11 @@ public class NovelAdapter extends BaseQuickAdapter<NovelModelInfo, BaseViewHolde
                     }
                 }
             });
-        } else if (holder instanceof NovelGridViewHolder) {
-            NovelGridViewHolder gridViewHolder = (NovelGridViewHolder) holder;
+        } else if (holder.getItemViewType() == TYPE_GRID) {
             NovelGridAdapter gridAdapter = new NovelGridAdapter(context, info.getList());
-            gridViewHolder.gridView.setAdapter(gridAdapter);
-            gridViewHolder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            CustomeGridView gridView = holder.getView(R.id.gridView);
+            gridView.setAdapter(gridAdapter);
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int childPosition, long id) {
                     if (onNovelItemClickListener != null) {
@@ -80,53 +76,14 @@ public class NovelAdapter extends BaseQuickAdapter<NovelModelInfo, BaseViewHolde
                     }
                 }
             });
-        } else if (holder instanceof NovelAdViewHolder) {
-            NovelAdViewHolder adViewHolder = (NovelAdViewHolder) holder;
-            adViewHolder.layoutAd.setOnClickListener(new View.OnClickListener() {
+        } else if (holder.getItemViewType() == TYPE_AD) {
+            LinearLayout layoutAd = holder.getView(R.id.layout_ad);
+            layoutAd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                 }
             });
-        }
-    }
-
-//    @Override
-//    public int getItemViewType(int position) {
-//        if(list.get(position).getType()>2){
-//            return super.getItemViewType(position);
-//        }else{
-//            return list.get(position).getType();
-//        }
-//    }
-
-    static class NovelListViewHolder extends BaseViewHolder {
-        @BindView(R.id.listView)
-        CustomListView listView;
-
-        NovelListViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
-        }
-    }
-
-    static class NovelGridViewHolder extends BaseViewHolder {
-        @BindView(R.id.gridView)
-        CustomeGridView gridView;
-
-        NovelGridViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
-        }
-    }
-
-    static class NovelAdViewHolder extends BaseViewHolder {
-        @BindView(R.id.layout_ad)
-        LinearLayout layoutAd;
-
-        NovelAdViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
         }
     }
 

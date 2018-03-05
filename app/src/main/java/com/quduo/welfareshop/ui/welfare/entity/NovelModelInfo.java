@@ -28,4 +28,12 @@ public class NovelModelInfo implements Serializable {
     public void setList(List<NovelIndexInfo> list) {
         this.list = list;
     }
+
+    @Override
+    public String toString() {
+        return "NovelModelInfo{" +
+                "type=" + type +
+                ", list=" + list +
+                '}';
+    }
 }

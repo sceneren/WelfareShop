@@ -1,19 +1,13 @@
 package com.quduo.welfareshop.ui.welfare.adapter;
 
 import android.content.Context;
-import android.view.View;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.ui.welfare.entity.VideoModelInfo;
-import com.quduo.welfareshop.widgets.CustomListView;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Author:scene
@@ -21,7 +15,7 @@ import butterknife.ButterKnife;
  * Description:美女视频
  */
 
-public class BeautyVideoAdapter extends BaseQuickAdapter<VideoModelInfo, BeautyVideoAdapter.BeautyVideoViewHolder> {
+public class BeautyVideoAdapter extends BaseQuickAdapter<VideoModelInfo, BaseViewHolder> {
     private Context context;
 
     private OnItemClickVideoListener onItemClickVideoListener;
@@ -37,10 +31,10 @@ public class BeautyVideoAdapter extends BaseQuickAdapter<VideoModelInfo, BeautyV
 
 
     @Override
-    protected void convert(final BeautyVideoViewHolder holder, VideoModelInfo item) {
+    protected void convert(final BaseViewHolder holder, VideoModelInfo item) {
         BeautyVideoItemAdapter itemAdapter = new BeautyVideoItemAdapter(context, item.getList());
-        holder.listView.setAdapter(itemAdapter);
-        holder.title.setText(item.getTitle());
+        holder.setAdapter(R.id.listView, itemAdapter);
+        holder.setText(R.id.title, item.getTitle());
         itemAdapter.setOnItemClickItemVideoListener(new BeautyVideoItemAdapter.OnItemClickItemVideoListener() {
             @Override
             public void onItemClickItemVideo(int position1, int position2) {
@@ -49,18 +43,6 @@ public class BeautyVideoAdapter extends BaseQuickAdapter<VideoModelInfo, BeautyV
                 }
             }
         });
-    }
-
-    static class BeautyVideoViewHolder extends BaseViewHolder {
-        @BindView(R.id.title)
-        TextView title;
-        @BindView(R.id.listView)
-        CustomListView listView;
-
-        BeautyVideoViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
-        }
     }
 
     public interface OnItemClickVideoListener {

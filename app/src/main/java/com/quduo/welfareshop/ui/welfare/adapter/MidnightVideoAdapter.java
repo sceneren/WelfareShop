@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
  * Description:午夜影院
  */
 
-public class MidnightVideoAdapter extends BaseQuickAdapter<String, MidnightVideoAdapter.MidnightVideoViewHolder> {
+public class MidnightVideoAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     private Context context;
 
     public MidnightVideoAdapter(Context context, List<String> list) {
@@ -31,13 +31,14 @@ public class MidnightVideoAdapter extends BaseQuickAdapter<String, MidnightVideo
 
 
     @Override
-    protected void convert(MidnightVideoViewHolder helper, String item) {
+    protected void convert(BaseViewHolder helper, String item) {
         String url = "http://imgsrc.baidu.com/imgad/pic/item/3bf33a87e950352a0c1c9a355843fbf2b2118b8a.jpg";
+        ImageView imageView=helper.getView(R.id.imageView);
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
                 .load(url)
-                .into(helper.imageView);
+                .into(imageView);
     }
 
     static class MidnightVideoViewHolder extends BaseViewHolder {

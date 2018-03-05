@@ -2,7 +2,6 @@ package com.quduo.welfareshop.ui.welfare.fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -202,13 +201,8 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
 
                     @Override
                     public void onGlobalLayout() {
-                        if (Build.VERSION.SDK_INT >= 16) {
-                            coverImage.getViewTreeObserver()
-                                    .removeOnGlobalLayoutListener(this);
-                        } else {
-                            coverImage.getViewTreeObserver()
-                                    .removeGlobalOnLayoutListener(this);
-                        }
+                        coverImage.getViewTreeObserver()
+                                .removeOnGlobalLayoutListener(this);
                         int height = coverImage.getHeight(); // 获取高度
                         LogUtils.e(height);
                         ViewGroup.LayoutParams layoutParams = coverImage.getLayoutParams();

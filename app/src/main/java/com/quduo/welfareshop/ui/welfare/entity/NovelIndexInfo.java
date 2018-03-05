@@ -27,4 +27,12 @@ public class NovelIndexInfo implements Serializable {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    @Override
+    public String toString() {
+        return "NovelIndexInfo{" +
+                "title='" + title + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                '}';
+    }
 }

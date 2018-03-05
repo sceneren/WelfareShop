@@ -26,7 +26,7 @@ import wiki.scene.loadmore.utils.PtrLocalDisplay;
  * Time:2018/2/8 11:39
  * Description:福利图库
  */
-public class GalleryAdapter extends BaseQuickAdapter<WelfareGalleryInfo, GalleryAdapter.GalleryViewHolder> {
+public class GalleryAdapter extends BaseQuickAdapter<WelfareGalleryInfo, BaseViewHolder> {
     private Context context;
 
     public GalleryAdapter(Context context, List<WelfareGalleryInfo> list) {
@@ -36,27 +36,33 @@ public class GalleryAdapter extends BaseQuickAdapter<WelfareGalleryInfo, Gallery
 
 
     @Override
-    protected void convert(GalleryViewHolder holder, WelfareGalleryInfo item) {
-        int itemWidth = PtrLocalDisplay.SCREEN_WIDTH_PIXELS / 2 - SizeUtils.dp2px(5);
-        ViewGroup.LayoutParams params = holder.imageView.getLayoutParams();
-        float scale = (float) itemWidth / (float) item.getPicWidth();
-        params.width = itemWidth;
-        params.height = (int) (scale * (float) item.getPicHeight());
-        holder.imageView.setLayoutParams(params);
-        GlideApp.with(context)
-                .asBitmap()
-                .centerCrop()
-                .load(item.getUrl())
-                .into(holder.imageView);
-        holder.name.setText(item.getTitle());
-        if (holder.getLayoutPosition() % 2 == 0) {
-            holder.tagBg.setColorFilter(Color.parseColor("#FEA0CA"));
-        } else {
-            holder.tagBg.setColorFilter(Color.parseColor("#ACD2FF"));
+    protected void convert(BaseViewHolder holder, WelfareGalleryInfo item) {
+        ImageView imageView = holder.getView(R.id.imageView);
+        ImageView tagBg = holder.getView(R.id.tag_bg);
+
+        if (imageView != null) {
+            int itemWidth = PtrLocalDisplay.SCREEN_WIDTH_PIXELS / 2 - SizeUtils.dp2px(5);
+            ViewGroup.LayoutParams params = imageView.getLayoutParams();
+            float scale = (float) itemWidth / (float) item.getPicWidth();
+            params.width = itemWidth;
+            params.height = (int) (scale * (float) item.getPicHeight());
+            imageView.setLayoutParams(params);
+            GlideApp.with(context)
+                    .asBitmap()
+                    .centerCrop()
+                    .load(item.getUrl())
+                    .into(imageView);
+            holder.setText(R.id.name, item.getTitle());
+            if (holder.getLayoutPosition() % 2 == 0) {
+                tagBg.setColorFilter(Color.parseColor("#FEA0CA"));
+            } else {
+                tagBg.setColorFilter(Color.parseColor("#ACD2FF"));
+            }
         }
+
     }
 
-    class GalleryViewHolder extends BaseViewHolder {
+    static class GalleryViewHolder extends BaseViewHolder {
         @BindView(R.id.imageView)
         SelectableRoundedImageView imageView;
         @BindView(R.id.tag)
@@ -76,6 +82,7 @@ public class GalleryAdapter extends BaseQuickAdapter<WelfareGalleryInfo, Gallery
             super(view);
             ButterKnife.bind(this, view);
         }
+
     }
 
 }
