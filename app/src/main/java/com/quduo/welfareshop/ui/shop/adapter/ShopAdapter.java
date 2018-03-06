@@ -63,7 +63,7 @@ public class ShopAdapter extends BaseQuickAdapter<String, ShopAdapter.ShopViewHo
             image.setLayoutParams(layoutParams);
 
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) btnBuy.getLayoutParams();
-            params.setMargins(0, height - SizeUtils.dp2px(18), 0, 0);
+            params.setMargins(0, height - SizeUtils.dp2px(9), 0, 0);
             btnBuy.setLayoutParams(params);
         }
     }

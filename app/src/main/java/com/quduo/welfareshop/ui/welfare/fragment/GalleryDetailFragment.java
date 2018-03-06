@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.welfare.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import com.arjinmc.recyclerviewdecoration.RecyclerViewItemDecoration;
 import com.blankj.utilcode.util.SizeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.activity.PreviewImageActivity;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.mine.adapter.MyFollowImageAdapter;
 import com.quduo.welfareshop.ui.welfare.entity.WelfareGalleryInfo;
@@ -261,7 +263,14 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                ArrayList<String> imageUrlList = new ArrayList<>();
+                for (WelfareGalleryInfo info : galleryList) {
+                    imageUrlList.add(info.getUrl());
+                }
+                Intent intent = new Intent(getContext(), PreviewImageActivity.class);
+                intent.putExtra(PreviewImageActivity.ARG_URLS, imageUrlList);
+                intent.putExtra(PreviewImageActivity.ARG_POSITION, position);
+                startActivity(intent);
             }
         });
     }

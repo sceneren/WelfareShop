@@ -91,7 +91,6 @@ public class FriendFragment extends BaseMainMvpFragment<IFriendView, FriendPrese
         }
     }
 
-
     private void initFragment() {
         new Handler().postDelayed(new Runnable() {
             @Override

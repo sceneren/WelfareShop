@@ -41,7 +41,7 @@
         android:paddingRight="5dp"
         android:paddingTop="10dp"
         android:text="商城消费1元送1积分，可抽现金红包，100%有奖"
-        android:textSize="@dimen/sp_14" />
+        android:textSize="@dimen/sp_12" />
 
     <View
         android:layout_width="match_parent"
@@ -53,10 +53,10 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:paddingBottom="20dp"
+        android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="@dimen/dp_10"
-        android:paddingTop="20dp">
+        android:paddingTop="10dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -67,7 +67,7 @@
             android:gravity="center"
             android:text="男性玩具"
             android:textColor="@color/content_text_color"
-            android:textSize="@dimen/sp_14" />
+            android:textSize="@dimen/sp_12" />
 
         <TextView
             android:layout_width="match_parent"
@@ -78,7 +78,7 @@
             android:gravity="center"
             android:text="女性玩具"
             android:textColor="@color/content_text_color"
-            android:textSize="@dimen/sp_14" />
+            android:textSize="@dimen/sp_12" />
 
         <TextView
             android:layout_width="match_parent"
@@ -89,7 +89,7 @@
             android:gravity="center"
             android:text="双人情趣"
             android:textColor="@color/content_text_color"
-            android:textSize="@dimen/sp_14" />
+            android:textSize="@dimen/sp_12" />
 
         <TextView
             android:layout_width="match_parent"
@@ -100,7 +100,7 @@
             android:gravity="center"
             android:text="延时锻炼"
             android:textColor="@color/content_text_color"
-            android:textSize="@dimen/sp_14" />
+            android:textSize="@dimen/sp_12" />
     </LinearLayout>
 
     <View
@@ -149,7 +149,7 @@
                     android:layout_height="wrap_content"
                     android:text="调情必备"
                     android:textColor="@color/content_text_color"
-                    android:textSize="@dimen/sp_14" />
+                    android:textSize="@dimen/sp_12" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -157,7 +157,7 @@
                     android:layout_marginTop="5dp"
                     android:text="5秒必出水"
                     android:textColor="@color/des_text_color"
-                    android:textSize="@dimen/sp_12" />
+                    android:textSize="10sp" />
 
                 <com.quduo.welfareshop.widgets.RatioImageView
                     android:layout_width="match_parent"
@@ -189,7 +189,7 @@
                     android:layout_height="wrap_content"
                     android:text="调情必备"
                     android:textColor="@color/content_text_color"
-                    android:textSize="@dimen/sp_14" />
+                    android:textSize="@dimen/sp_12" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -197,7 +197,7 @@
                     android:layout_marginTop="5dp"
                     android:text="5秒必出水"
                     android:textColor="@color/des_text_color"
-                    android:textSize="@dimen/sp_12" />
+                    android:textSize="10sp" />
 
                 <com.quduo.welfareshop.widgets.RatioImageView
                     android:layout_width="match_parent"
@@ -229,7 +229,7 @@
                     android:layout_height="wrap_content"
                     android:text="调情必备"
                     android:textColor="@color/content_text_color"
-                    android:textSize="@dimen/sp_14" />
+                    android:textSize="@dimen/sp_12" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -237,7 +237,7 @@
                     android:layout_marginTop="5dp"
                     android:text="5秒必出水"
                     android:textColor="@color/des_text_color"
-                    android:textSize="@dimen/sp_12" />
+                    android:textSize="10sp" />
 
                 <com.quduo.welfareshop.widgets.RatioImageView
                     android:layout_width="match_parent"
@@ -269,7 +269,7 @@
                     android:layout_height="wrap_content"
                     android:text="调情必备"
                     android:textColor="@color/content_text_color"
-                    android:textSize="@dimen/sp_14" />
+                    android:textSize="@dimen/sp_12" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -277,7 +277,7 @@
                     android:layout_marginTop="5dp"
                     android:text="5秒必出水"
                     android:textColor="@color/des_text_color"
-                    android:textSize="@dimen/sp_12" />
+                    android:textSize="10sp" />
 
                 <com.quduo.welfareshop.widgets.RatioImageView
                     android:layout_width="match_parent"
@@ -322,7 +322,7 @@
                         android:lines="1"
                         android:text="调情必备"
                         android:textColor="@color/content_text_color"
-                        android:textSize="@dimen/sp_14" />
+                        android:textSize="@dimen/sp_12" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -331,7 +331,7 @@
                         android:lines="1"
                         android:text="5分钟出水"
                         android:textColor="@color/des_text_color"
-                        android:textSize="@dimen/sp_12" />
+                        android:textSize="10sp" />
                 </LinearLayout>
 
                 <com.quduo.welfareshop.widgets.RatioImageView
@@ -369,7 +369,7 @@
                         android:lines="1"
                         android:text="调情必备"
                         android:textColor="@color/content_text_color"
-                        android:textSize="@dimen/sp_14" />
+                        android:textSize="@dimen/sp_12" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -378,7 +378,7 @@
                         android:lines="1"
                         android:text="5分钟出水"
                         android:textColor="@color/des_text_color"
-                        android:textSize="@dimen/sp_12" />
+                        android:textSize="10sp" />
                 </LinearLayout>
 
                 <com.quduo.welfareshop.widgets.RatioImageView

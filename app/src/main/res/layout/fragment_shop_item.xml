@@ -35,13 +35,13 @@
             android:layout_centerHorizontal="true"
             android:background="@drawable/btn_shop_buy"
             android:gravity="center"
-            android:paddingBottom="@dimen/dp_10"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp"
-            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="2dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="2dp"
             android:text="点击购买"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp_16" />
+            android:textSize="@dimen/sp_14" />
     </RelativeLayout>
 
     <TextView
@@ -53,7 +53,7 @@
         android:lines="1"
         android:text="双震漫舞充电飞机杯"
         android:textColor="@color/title_text_color"
-        android:textSize="@dimen/sp_16" />
+        android:textSize="@dimen/sp_14" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:text="￥99.0"
             android:textColor="@color/theme_color"
-            android:textSize="@dimen/sp_16"
+            android:textSize="@dimen/sp_14"
             android:textStyle="bold" />
 
         <TextView
@@ -84,6 +84,7 @@
             android:layout_below="@+id/price"
             android:layout_centerHorizontal="true"
             android:text="购买解锁全栏目"
+            android:textSize="@dimen/sp_12"
             android:textColor="#3DBEFF" />
     </RelativeLayout>
 </LinearLayout>
