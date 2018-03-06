@@ -110,11 +110,7 @@ public class MainActivity extends BaseActivity {
         //移除布局变化监听
         try {
             if (mLayoutChangeListener != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    getWindow().getDecorView().getViewTreeObserver().removeOnGlobalLayoutListener(mLayoutChangeListener);
-                } else {
-                    getWindow().getDecorView().getViewTreeObserver().removeGlobalOnLayoutListener(mLayoutChangeListener);
-                }
+                getWindow().getDecorView().getViewTreeObserver().removeOnGlobalLayoutListener(mLayoutChangeListener);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -124,8 +120,6 @@ public class MainActivity extends BaseActivity {
 
     public LocationClient mLocationClient = null;
     private MyLocationListener myListener = new MyLocationListener();
-    public double latitude;
-    public double longitude;
 
     private void getLocation() {
         //声明LocationClient类
@@ -145,9 +139,8 @@ public class MainActivity extends BaseActivity {
             //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
             //以下只列举部分获取经纬度相关（常用）的结果信息
             //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
-
-            latitude = location.getLatitude();    //获取纬度信息
-            longitude = location.getLongitude();    //获取经度信息
+            MyApplication.getInstance().setLatitude(location.getLatitude());
+            MyApplication.getInstance().setLongitude(location.getLongitude());
             float radius = location.getRadius();    //获取定位精度，默认值为0.0f
             String coorType = location.getCoorType();
             //获取经纬度坐标类型，以LocationClientOption中设置过的坐标类型为准

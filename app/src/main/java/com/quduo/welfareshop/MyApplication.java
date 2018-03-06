@@ -68,7 +68,9 @@ public class MyApplication extends LitePalApplication {
     private ConfigInfo configInfo;
     //用户信息
     private UserInfo userInfo;
-
+    //当前位置
+    private double latitude;
+    private double longitude;
 
     static {
         //设置全局的Header构建器
@@ -285,6 +287,22 @@ public class MyApplication extends LitePalApplication {
 
     public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     /**

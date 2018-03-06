@@ -114,7 +114,7 @@ public class FriendFragment extends BaseMainMvpFragment<IFriendView, FriendPrese
                 }
 
             }
-        }, 2000);
+        }, 500);
 
     }
 

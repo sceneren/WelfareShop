@@ -10,10 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
-import com.quduo.welfareshop.activity.MainActivity;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.itemDecoration.GridSpacingItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
@@ -33,8 +34,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import wiki.scene.loadmore.PtrDefaultHandler;
-import wiki.scene.loadmore.PtrFrameLayout;
 import wiki.scene.loadmore.StatusViewLayout;
 import wiki.scene.loadmore.recyclerview.RecyclerAdapterWithHF;
 
@@ -72,6 +71,23 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
 
     @Override
     public void initView() {
+        showLoadingPage();
+        LogUtils.e(MyApplication.getInstance().getLatitude());
+        if (MyApplication.getInstance().getLatitude() == 0) {
+            refreshLayout.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    initView();
+                }
+            }, 500);
+        } else {
+            initRecyclerView();
+        }
+
+    }
+
+    private void initRecyclerView() {
+        showContentPage();
         refreshLayout.setEnableLoadMore(false);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -79,16 +95,6 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
                 refreshLayout.finishRefresh(2000);
             }
         });
-        if (_mActivity instanceof MainActivity) {
-            if (((MainActivity) _mActivity).latitude != 0) {
-                showContentPage();
-            } else {
-                showNoLocationPage();
-            }
-        } else {
-            showNoLocationPage();
-        }
-
         List<String> list = new ArrayList<>();
         list.add("xxxxxxxxxxx");
         list.add("xxxxxxxxxxx");
@@ -114,7 +120,6 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
                 EventBus.getDefault().post(new StartBrotherEvent(OtherInfoFragment.newInstance(String.valueOf(position + 1))));
             }
         });
-
     }
 
     @Override
