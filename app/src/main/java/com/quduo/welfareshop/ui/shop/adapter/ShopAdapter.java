@@ -1,7 +1,6 @@
 package com.quduo.welfareshop.ui.shop.adapter;
 
 import android.content.Context;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -15,8 +14,6 @@ import com.quduo.welfareshop.base.GlideApp;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
 
 /**
@@ -25,7 +22,7 @@ import wiki.scene.loadmore.utils.PtrLocalDisplay;
  * Description:商城
  */
 
-public class ShopAdapter extends BaseQuickAdapter<String, ShopAdapter.ShopViewHolder> {
+public class ShopAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     private Context context;
 
     public ShopAdapter(Context context, List<String> list) {
@@ -34,37 +31,24 @@ public class ShopAdapter extends BaseQuickAdapter<String, ShopAdapter.ShopViewHo
     }
 
     @Override
-    protected void convert(ShopViewHolder helper, String item) {
+    protected void convert(BaseViewHolder helper, String item) {
+        ImageView image = helper.getView(R.id.image);
+        TextView btnBuy = helper.getView(R.id.btn_buy);
+        ViewGroup.LayoutParams layoutParams = image.getLayoutParams();
+        int height = (int) ((PtrLocalDisplay.SCREEN_WIDTH_PIXELS - SizeUtils.dp2px(21)) / 2f);
+        layoutParams.height = height;
+        image.setLayoutParams(layoutParams);
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) btnBuy.getLayoutParams();
+        params.setMargins(0, height - SizeUtils.dp2px(9), 0, 0);
+        btnBuy.setLayoutParams(params);
+
+
         String url = "http://pic19.nipic.com/20120214/3145425_134109747000_2.jpg";
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
                 .load(url)
-                .into(helper.image);
+                .into(image);
     }
 
-
-    class ShopViewHolder extends BaseViewHolder {
-        @BindView(R.id.image)
-        ImageView image;
-        @BindView(R.id.btn_buy)
-        TextView btnBuy;
-        @BindView(R.id.price)
-        TextView price;
-        @BindView(R.id.buy_number)
-        TextView buyNumber;
-
-        ShopViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
-            ViewGroup.LayoutParams layoutParams = image.getLayoutParams();
-            int height = (int) ((PtrLocalDisplay.SCREEN_WIDTH_PIXELS - SizeUtils.dp2px(21)) / 2f);
-            layoutParams.height = height;
-            image.setLayoutParams(layoutParams);
-
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) btnBuy.getLayoutParams();
-            params.setMargins(0, height - SizeUtils.dp2px(9), 0, 0);
-            btnBuy.setLayoutParams(params);
-        }
-    }
 }

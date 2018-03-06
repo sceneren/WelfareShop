@@ -6,6 +6,12 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
     <include layout="@layout/toolbar_white" />
 
     <wiki.scene.loadmore.StatusViewLayout
@@ -43,8 +49,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 app:base="horizontal"
-                                app:horizontal_weight="1"
-                                app:vertical_weight="1" />
+                                app:horizontal_weight="10"
+                                app:vertical_weight="7" />
 
                             <com.youth.banner.Banner
                                 android:id="@+id/banner"
@@ -65,7 +71,7 @@
                             android:padding="10dp"
                             android:text="这是商品名称"
                             android:textColor="@color/title_text_color"
-                            android:textSize="@dimen/sp_16" />
+                            android:textSize="@dimen/sp_14" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -80,7 +86,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="￥369"
                                 android:textColor="#FF4386"
-                                android:textSize="@dimen/sp_14" />
+                                android:textSize="@dimen/sp_12" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -88,7 +94,7 @@
                                 android:layout_marginLeft="@dimen/dp_10"
                                 android:text="送369钻石"
                                 android:textColor="#FECE5B"
-                                android:textSize="@dimen/sp_14" />
+                                android:textSize="@dimen/sp_12" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -97,7 +103,7 @@
                                 android:layout_weight="1"
                                 android:text="原价：￥988"
                                 android:textColor="@color/des_text_color"
-                                android:textSize="@dimen/sp_14" />
+                                android:textSize="@dimen/sp_12" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -105,7 +111,7 @@
                                 android:layout_marginLeft="@dimen/dp_10"
                                 android:text="销量:2487"
                                 android:textColor="@color/des_text_color"
-                                android:textSize="@dimen/sp_14" />
+                                android:textSize="@dimen/sp_12" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -135,7 +141,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="正品包邮"
                                     android:textColor="@color/des_text_color"
-                                    android:textSize="@dimen/sp_14" />
+                                    android:textSize="@dimen/sp_12" />
                             </LinearLayout>
 
                             <View
@@ -162,7 +168,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="保密配送"
                                     android:textColor="@color/des_text_color"
-                                    android:textSize="@dimen/sp_14" />
+                                    android:textSize="@dimen/sp_12" />
                             </LinearLayout>
 
                             <View
@@ -189,14 +195,14 @@
                                     android:layout_height="wrap_content"
                                     android:text="闪电发货"
                                     android:textColor="@color/des_text_color"
-                                    android:textSize="@dimen/sp_14" />
+                                    android:textSize="@dimen/sp_12" />
                             </LinearLayout>
 
                         </LinearLayout>
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp_10"
+                            android:layout_height="5dp"
                             android:background="#F9F9F9" />
 
                         <TextView
@@ -205,7 +211,7 @@
                             android:padding="@dimen/dp_10"
                             android:text="买家秀"
                             android:textColor="@color/title_text_color"
-                            android:textSize="@dimen/sp_16" />
+                            android:textSize="@dimen/sp_14" />
 
                         <com.quduo.welfareshop.widgets.CustomListView
                             android:id="@+id/commentListView"
@@ -229,7 +235,7 @@
                             android:paddingTop="5dp"
                             android:text="查看全部"
                             android:textColor="#FF5994"
-                            android:textSize="18sp" />
+                            android:textSize="16sp" />
 
                         <View
                             android:layout_width="match_parent"
@@ -242,7 +248,7 @@
                             android:padding="@dimen/dp_10"
                             android:text="商品详情"
                             android:textColor="@color/title_text_color"
-                            android:textSize="@dimen/sp_16" />
+                            android:textSize="@dimen/sp_14" />
 
                         <WebView
                             android:id="@+id/webView"
@@ -269,10 +275,10 @@
                     android:layout_weight="0.4"
                     android:background="@color/theme_color"
                     android:orientation="vertical"
-                    android:paddingBottom="@dimen/dp_10"
+                    android:paddingBottom="5dp"
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"
-                    android:paddingTop="@dimen/dp_10">
+                    android:paddingTop="5dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -299,7 +305,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="3dp"
                         android:drawableLeft="@drawable/ic_sdfh"
                         android:drawablePadding="5dp"
                         android:gravity="center"
