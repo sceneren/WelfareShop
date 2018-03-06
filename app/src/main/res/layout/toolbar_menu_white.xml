@@ -13,7 +13,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="40dp"
             app:navigationIcon="@drawable/ic_toolbar_back_black"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay"
@@ -35,8 +35,8 @@
 
         <ImageView
             android:id="@+id/toolbar_image_menu"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:scaleType="centerInside"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"

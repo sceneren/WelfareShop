@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.arjinmc.recyclerviewdecoration.RecyclerViewItemDecoration;
 import com.blankj.utilcode.util.SizeUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.mine.adapter.MyFollowImageAdapter;
@@ -106,7 +107,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     @Override
     public void initToolbar() {
         toolbarTitle.setText("图库详情");
-        initToolbarNav(toolbar,true);
+        initToolbarNav(toolbar, true);
     }
 
     @Override
@@ -256,6 +257,13 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
         builder.gridRightVisible(true); //控制右边边框
         recyclerView.addItemDecoration(builder.create());
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+        });
     }
 
     @Override
