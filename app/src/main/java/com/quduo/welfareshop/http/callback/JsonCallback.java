@@ -26,11 +26,6 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
     public void onStart(Request<T, ? extends Request> request) {
         super.onStart(request);
         HashMap<String, String> params = ApiUtil.createParams();
-//        if (ShopApplication.hasLogin && ShopApplication.userInfo != null && !ShopApplication.userInfo.getAccess_token().isEmpty()) {
-//            params.put("access_token", ShopApplication.userInfo.getAccess_token());
-//            params.put("mobile", ShopApplication.userInfo.getMobile());
-//            params.put("user_id", String.valueOf(ShopApplication.userInfo.getUser_id()));
-//        }
         request.getParams().put(params);
     }
 

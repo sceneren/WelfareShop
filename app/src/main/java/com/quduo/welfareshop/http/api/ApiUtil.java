@@ -21,8 +21,8 @@ public class ApiUtil {
     public static final String LOGIN = "user/login";
     public static final String LOGIN_TAG = "user/login";
 
-    public static final String SMALL_VIDEO_LIST="micro_video";
-    public static final String SMALL_VIDEO_LIST_TAG="micro_video";
+    public static final String SMALL_VIDEO_LIST = "micro_video";
+    public static final String SMALL_VIDEO_LIST_TAG = "micro_video";
 
 
     /**
@@ -38,6 +38,9 @@ public class ApiUtil {
         params.put("signature", getSign(timestamp + ""));
         params.put("app_type", "1");
         params.put("version", AppUtils.getAppVersionCode() + "");
+        if (MyApplication.getInstance().getUserInfo() != null) {
+            params.put("user_id", MyApplication.getInstance().getUserInfo().getId() + "");
+        }
         return params;
     }
 

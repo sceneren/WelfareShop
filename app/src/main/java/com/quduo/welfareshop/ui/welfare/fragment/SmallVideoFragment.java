@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.http.api.ApiUtil;
@@ -145,6 +146,18 @@ public class SmallVideoFragment extends BaseMvpFragment<ISmallVideoView, SmallVi
         });
 
         presenter.getSmallVideoData(currentPage, true);
+
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (view.getId() == R.id.btn_follow) {
+                    videoInfoList.get(position).setIs_favor(!videoInfoList.get(position).isIs_favor());
+                } else {
+                    videoInfoList.get(position).setIs_good(!videoInfoList.get(position).isIs_good());
+                }
+                adapter.notifyItemChanged(position);
+            }
+        });
     }
 
     @Override

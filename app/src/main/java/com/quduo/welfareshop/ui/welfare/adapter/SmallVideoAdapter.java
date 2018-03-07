@@ -42,6 +42,10 @@ public class SmallVideoAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolde
         helper.setText(R.id.play_number, "播放：" + item.getPlay_times());
         helper.setText(R.id.follow_number, "收藏：" + item.getFavor_times());
         helper.setText(R.id.zan_number, "点赞：" + item.getGood());
+        helper.setImageResource(R.id.btn_zan, item.isIs_good() ? R.drawable.ic_video_zan_s : R.drawable.ic_video_zan_d);
+        helper.setImageResource(R.id.btn_follow, item.isIs_favor() ? R.drawable.ic_video_follow_s : R.drawable.ic_video_follow_d);
+        helper.addOnClickListener(R.id.btn_zan);
+        helper.addOnClickListener(R.id.btn_follow);
     }
 
 }

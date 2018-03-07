@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.quduo.welfareshop.R;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -45,6 +46,7 @@ public class RedOpenDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_red_open);
+        ButterKnife.bind(this);
     }
 
     @OnClick(R.id.close)
