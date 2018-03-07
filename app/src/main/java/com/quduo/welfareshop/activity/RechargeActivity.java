@@ -3,6 +3,7 @@ package com.quduo.welfareshop.activity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
@@ -10,6 +11,7 @@ import com.quduo.welfareshop.mvp.BaseMvpActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -26,6 +28,12 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     @BindView(R.id.wechat_pay)
     TextView wechatPay;
     Unbinder unbinder;
+    @BindView(R.id.layout_money_1)
+    LinearLayout layoutMoney1;
+    @BindView(R.id.layout_money_2)
+    LinearLayout layoutMoney2;
+    @BindView(R.id.layout_money_3)
+    LinearLayout layoutMoney3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +72,27 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     @Override
     public void showErrorPage() {
 
+    }
+
+    @OnClick(R.id.layout_money_1)
+    public void onClickMoney1() {
+        layoutMoney1.setBackgroundResource(R.drawable.bg_recharge_money_s);
+        layoutMoney2.setBackgroundResource(R.drawable.bg_recharge_money_d);
+        layoutMoney3.setBackgroundResource(R.drawable.bg_recharge_money_d);
+    }
+
+    @OnClick(R.id.layout_money_2)
+    public void onClickMoney2() {
+        layoutMoney1.setBackgroundResource(R.drawable.bg_recharge_money_d);
+        layoutMoney2.setBackgroundResource(R.drawable.bg_recharge_money_s);
+        layoutMoney3.setBackgroundResource(R.drawable.bg_recharge_money_d);
+    }
+
+    @OnClick(R.id.layout_money_3)
+    public void onClickMoney3() {
+        layoutMoney1.setBackgroundResource(R.drawable.bg_recharge_money_d);
+        layoutMoney2.setBackgroundResource(R.drawable.bg_recharge_money_d);
+        layoutMoney3.setBackgroundResource(R.drawable.bg_recharge_money_s);
     }
 
     @Override
