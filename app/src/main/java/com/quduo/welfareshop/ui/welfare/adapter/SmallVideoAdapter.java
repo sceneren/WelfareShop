@@ -23,12 +23,10 @@ import cn.jzvd.JZVideoPlayerStandard;
 
 public class SmallVideoAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder> {
     private Context context;
-    private List<VideoInfo> list;
 
     public SmallVideoAdapter(Context context, List<VideoInfo> list) {
         super(R.layout.fragment_welfare_small_video_item, list);
         this.context = context;
-        this.list = list;
     }
 
     @Override
@@ -41,11 +39,9 @@ public class SmallVideoAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolde
                 .centerCrop()
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
                 .into(videoPlayer.thumbImageView);
-        helper.setText(R.id.play_number, "");
-        helper.setText(R.id.play_number, "");
-        helper.setText(R.id.play_number, "");
-        helper.setText(R.id.play_number, "");
-        helper.setText(R.id.play_number, "");
+        helper.setText(R.id.play_number, "播放：" + item.getPlay_times());
+        helper.setText(R.id.follow_number, "收藏：" + item.getFavor_times());
+        helper.setText(R.id.zan_number, "点赞：" + item.getGood());
     }
 
 }
