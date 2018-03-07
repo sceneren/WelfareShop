@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.dialog.RedOpenDialog;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
 import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
@@ -38,6 +39,8 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
     @BindView(R.id.toolbar_image_menu)
     ImageView toolbarImageMenu;
     Unbinder unbinder;
+
+    private RedOpenDialog redOpenDialog;
 
     public static RedFragment newInstance() {
         Bundle args = new Bundle();
@@ -94,5 +97,17 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
     @OnClick(R.id.toolbar_image_menu)
     public void onClickToolBarImageMenu() {
         EventBus.getDefault().post(new StartBrotherEvent(MineFragment.newInstance()));
+    }
+
+    @OnClick(R.id.open)
+    public void onClickOpen() {
+        if (redOpenDialog == null) {
+            redOpenDialog = new RedOpenDialog(getContext());
+        }
+        if (redOpenDialog.isShowing()) {
+            redOpenDialog.cancel();
+        } else {
+            redOpenDialog.show();
+        }
     }
 }

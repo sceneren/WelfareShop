@@ -127,20 +127,20 @@ public class VideoListFragment extends BaseBackMvpFragment<IVideoListView, Video
 
         list = new ArrayList<>();
         VideoInfo info = new VideoInfo();
-        info.setTitle("视频1");
-        info.setImageUrl("http://f.hiphotos.baidu.com/image/h%3D300/sign=4a0a3dd10155b31983f9847573ab8286/503d269759ee3d6db032f61b48166d224e4ade6e.jpg");
+        info.setName("视频1");
+        info.setThumb("http://f.hiphotos.baidu.com/image/h%3D300/sign=4a0a3dd10155b31983f9847573ab8286/503d269759ee3d6db032f61b48166d224e4ade6e.jpg");
         list.add(info);
         VideoInfo info1 = new VideoInfo();
-        info1.setTitle("视频2");
-        info1.setImageUrl("http://f.hiphotos.baidu.com/image/h%3D300/sign=4a0a3dd10155b31983f9847573ab8286/503d269759ee3d6db032f61b48166d224e4ade6e.jpg");
+        info1.setName("视频2");
+        info1.setThumb("http://f.hiphotos.baidu.com/image/h%3D300/sign=4a0a3dd10155b31983f9847573ab8286/503d269759ee3d6db032f61b48166d224e4ade6e.jpg");
         list.add(info1);
         VideoInfo info2 = new VideoInfo();
-        info2.setTitle("视频3");
-        info2.setImageUrl("http://f.hiphotos.baidu.com/image/h%3D300/sign=4a0a3dd10155b31983f9847573ab8286/503d269759ee3d6db032f61b48166d224e4ade6e.jpg");
+        info2.setName("视频3");
+        info2.setThumb("http://f.hiphotos.baidu.com/image/h%3D300/sign=4a0a3dd10155b31983f9847573ab8286/503d269759ee3d6db032f61b48166d224e4ade6e.jpg");
         list.add(info2);
         VideoInfo info3 = new VideoInfo();
-        info3.setTitle("视频4");
-        info3.setImageUrl("http://f.hiphotos.baidu.com/image/h%3D300/sign=4a0a3dd10155b31983f9847573ab8286/503d269759ee3d6db032f61b48166d224e4ade6e.jpg");
+        info3.setName("视频4");
+        info3.setThumb("http://f.hiphotos.baidu.com/image/h%3D300/sign=4a0a3dd10155b31983f9847573ab8286/503d269759ee3d6db032f61b48166d224e4ade6e.jpg");
         list.add(info3);
         adapter = new VideoListAdapter(getContext(), list);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));

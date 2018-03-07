@@ -29,11 +29,11 @@ public class VideoListAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder
     @Override
     protected void convert(BaseViewHolder helper, VideoInfo item) {
         ImageView imageView = helper.getView(R.id.image);
-        helper.setText(R.id.title, item.getTitle());
+        helper.setText(R.id.title, item.getName());
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
-                .load(item.getImageUrl())
+                .load(item.getThumb())
                 .into(imageView);
     }
 }

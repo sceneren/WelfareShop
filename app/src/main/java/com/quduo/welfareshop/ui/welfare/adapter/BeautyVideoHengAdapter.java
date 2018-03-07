@@ -62,11 +62,11 @@ public class BeautyVideoHengAdapter extends BaseAdapter {
             holder = (BeautyVideoHengHolder) convertView.getTag();
         }
         VideoInfo info = list.get(position);
-        holder.title.setText(info.getTitle());
+        holder.title.setText(info.getName());
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
-                .load(list.get(position).getImageUrl())
+                .load(list.get(position).getThumb())
                 .into(holder.image);
         return convertView;
     }

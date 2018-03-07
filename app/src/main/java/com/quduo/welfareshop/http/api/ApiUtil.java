@@ -21,6 +21,9 @@ public class ApiUtil {
     public static final String LOGIN = "user/login";
     public static final String LOGIN_TAG = "user/login";
 
+    public static final String SMALL_VIDEO_LIST="micro_video";
+    public static final String SMALL_VIDEO_LIST_TAG="micro_video";
+
 
     /**
      * Case By:创建参数基础信息
