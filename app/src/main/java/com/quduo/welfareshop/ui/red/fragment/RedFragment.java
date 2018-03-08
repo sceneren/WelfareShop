@@ -115,4 +115,9 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
     public void onClickEnterMyRed() {
         EventBus.getDefault().post(new StartBrotherEvent(MyRedFragment.newInstance()));
     }
+    @OnClick(R.id.cash)
+    public void onClickCash() {
+        EventBus.getDefault().post(new StartBrotherEvent(CashFragment.newInstance()));
+    }
+
 }
