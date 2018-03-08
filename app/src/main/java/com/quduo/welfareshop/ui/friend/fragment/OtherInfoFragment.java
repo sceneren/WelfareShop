@@ -21,6 +21,7 @@ import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.friend.activity.ChatActivity;
 import com.quduo.welfareshop.ui.friend.activity.VideoChatActivity;
 import com.quduo.welfareshop.ui.friend.adapter.OtherInfoImageAdapter;
+import com.quduo.welfareshop.ui.friend.dialog.EditUserInfoStep1Dialog;
 import com.quduo.welfareshop.ui.friend.dialog.OpenChatDialog;
 import com.quduo.welfareshop.ui.friend.dialog.ToRechargeDialog;
 import com.quduo.welfareshop.ui.friend.dialog.VideoChatToRechargeDialog;
@@ -156,7 +157,9 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
 
 //        showOpenChatDialog();
 
-        showVideoChatRechargeDialog();
+//        showVideoChatRechargeDialog();
+
+        showEditUserInfoStep1Dialog();
     }
 
     @OnClick(R.id.follow)
@@ -228,6 +231,11 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
             });
         }
         openChatDialog.show();
+    }
+
+    private void showEditUserInfoStep1Dialog() {
+        Intent intent = new Intent(_mActivity, EditUserInfoStep1Dialog.class);
+        startActivity(intent);
     }
 
 

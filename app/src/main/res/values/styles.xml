@@ -62,6 +62,7 @@
     <style name="tab_appearance">
         <item name="android:textSize">14sp</item>
     </style>
+
     <style name="tab_appearance1">
         <item name="android:textSize">12sp</item>
     </style>
@@ -144,5 +145,17 @@
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="DialogActivity" parent="@style/AppTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
     </style>
 </resources>

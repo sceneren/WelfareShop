@@ -111,6 +111,16 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.SwipeBack" />
 
+        <activity
+            android:name=".ui.friend.dialog.EditUserInfoStep1Dialog"
+            android:theme="@style/DialogActivity" />
+        <activity
+            android:name=".ui.friend.dialog.EditUserInfoStep2Dialog"
+            android:theme="@style/DialogActivity" />
+        <activity
+            android:name=".ui.friend.dialog.EditUserInfoStep3Dialog"
+            android:theme="@style/DialogActivity" />
+
         <!-- ##############友盟开始################### -->
         <meta-data
             android:name="UMENG_APPKEY"

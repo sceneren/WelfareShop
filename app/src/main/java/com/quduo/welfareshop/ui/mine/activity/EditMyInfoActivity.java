@@ -247,7 +247,7 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
                 birthday.setText(dateTime.toString("yyyy-MM-dd"));
             }
         })
-                .setRange(1990, 2017)
+                .setRange(1900, 2050)
                 .setType(new boolean[]{true, true, true, false, false, false})
                 .setLabel("", "", "", "", "", "").build();
         Calendar calendar = Calendar.getInstance();
