@@ -13,29 +13,47 @@
         android:src="@drawable/ic_dialog_to_recharge_close" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center"
         android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="只有充足的积分才能发起视频聊天"
+            android:textColor="@color/title_text_color"
+            android:textSize="@dimen/sp_14" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="(5积分/分钟)"
+            android:textColor="#FC3C75"
+            android:textSize="@dimen/sp_12" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="积分不足请先充值"
-            android:textColor="@color/title_text_color"
-            android:textSize="@dimen/sp_16" />
+            android:textColor="@color/des_text_color"
+            android:textSize="@dimen/sp_14" />
 
         <TextView
             android:id="@+id/to_recharge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_10"
             android:background="@drawable/btn_to_recharge"
             android:gravity="center"
             android:text="去充值"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_16" />
     </LinearLayout>
+
 
 </RelativeLayout>
