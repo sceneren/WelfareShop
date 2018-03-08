@@ -14,12 +14,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.activity.RechargeActivity;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.event.FollowEvent;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
-import com.quduo.welfareshop.ui.friend.activity.ChatActivity;
 import com.quduo.welfareshop.ui.friend.activity.VideoChatActivity;
 import com.quduo.welfareshop.ui.friend.adapter.OtherInfoImageAdapter;
+import com.quduo.welfareshop.ui.friend.dialog.ToRechargeDialog;
 import com.quduo.welfareshop.ui.friend.presenter.OtherInfoPresenter;
 import com.quduo.welfareshop.ui.friend.view.IOtherInfoView;
 import com.quduo.welfareshop.widgets.CustomeGridView;
@@ -64,6 +65,8 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
     LinearLayout sendMessage;
     Unbinder unbinder;
     private String otherUserId;
+
+    private ToRechargeDialog rechargeDialog;
 
     public static OtherInfoFragment newInstance(String otherUserId) {
         Bundle args = new Bundle();
@@ -142,13 +145,14 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
 
     @OnClick(R.id.send_message)
     public void onClickSendMessage() {
-        Intent intent = new Intent(_mActivity, ChatActivity.class);
-        intent.putExtra("ID", otherUserId);
-        intent.putExtra("NICKNAME", "小周" + otherUserId);
-        intent.putExtra("IS_FOLLOW", !follow.getText().toString().equals("关注"));
-        intent.putExtra("OTHERAVATAR", "http://e.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg");
-        startActivity(intent);
-        _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+//        Intent intent = new Intent(_mActivity, ChatActivity.class);
+//        intent.putExtra("ID", otherUserId);
+//        intent.putExtra("NICKNAME", "小周" + otherUserId);
+//        intent.putExtra("IS_FOLLOW", !follow.getText().toString().equals("关注"));
+//        intent.putExtra("OTHERAVATAR", "http://e.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg");
+//        startActivity(intent);
+//        _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+        showRechargeDialog();
     }
 
     @OnClick(R.id.follow)
@@ -178,5 +182,19 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
     public void onClickVideoChat() {
         startActivity(new Intent(_mActivity, VideoChatActivity.class));
         _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+    }
+
+    private void showRechargeDialog() {
+        if (rechargeDialog == null) {
+            rechargeDialog = new ToRechargeDialog(getContext());
+            rechargeDialog.setOnClickToRechargeListener(new ToRechargeDialog.OnClickToRechargeListener() {
+                @Override
+                public void onClickToRecharge() {
+                    startActivity(new Intent(_mActivity, RechargeActivity.class));
+                    _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+                }
+            });
+        }
+        rechargeDialog.show();
     }
 }
