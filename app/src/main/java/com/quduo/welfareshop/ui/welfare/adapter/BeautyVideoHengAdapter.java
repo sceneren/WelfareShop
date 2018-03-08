@@ -39,7 +39,7 @@ public class BeautyVideoHengAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list.size();
+        return list == null ? 0 : list.size();
     }
 
     @Override
@@ -67,7 +67,7 @@ public class BeautyVideoHengAdapter extends BaseAdapter {
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain()+list.get(position).getThumb())
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position).getThumb())
                 .into(holder.image);
         return convertView;
     }

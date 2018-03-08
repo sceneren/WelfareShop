@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.quduo.libselecter.utils.LogUtils;
 import com.quduo.welfareshop.recovery.tools.RecoverySharedPrefsUtil;
 import com.quduo.welfareshop.recovery.tools.RecoveryUtil;
 import com.quduo.welfareshop.recovery.tools.Reflect;
@@ -215,6 +216,7 @@ public final class Recovery1Activity extends AppCompatActivity {
         }
         mCauseTv.setText(String.valueOf(mCause));
         mStackTraceTv.setText(String.valueOf(mStackTrace));
+        LogUtils.e(mStackTrace);
     }
 
     private boolean isDebugMode() {

@@ -38,7 +38,7 @@ public class BeautyVideoShu2Adapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list.size();
+        return list == null ? 0 : list.size();
     }
 
     @Override

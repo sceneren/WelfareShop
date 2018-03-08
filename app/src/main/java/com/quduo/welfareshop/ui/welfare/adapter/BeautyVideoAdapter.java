@@ -43,7 +43,6 @@ public class BeautyVideoAdapter extends BaseQuickAdapter<VideoModelInfo, BaseVie
                 }
             }
         });
-        holder.addOnClickListener(R.id.more_video);
     }
 
     public interface OnItemClickVideoListener {

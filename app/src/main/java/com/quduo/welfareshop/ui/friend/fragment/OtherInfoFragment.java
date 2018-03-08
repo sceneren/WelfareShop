@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
@@ -67,6 +68,8 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
     CustomeGridView photoGridView;
     @BindView(R.id.send_message)
     LinearLayout sendMessage;
+    @BindView(R.id.image_layout)
+    RelativeLayout imageLayout;
     Unbinder unbinder;
     private String otherUserId;
 
@@ -127,7 +130,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
         list.add("");
         OtherInfoImageAdapter adapter = new OtherInfoImageAdapter(getContext(), list);
         photoGridView.setAdapter(adapter);
-        photoGridView.setVisibility(View.VISIBLE);
+        imageLayout.setVisibility(View.VISIBLE);
         noPhoto.setVisibility(View.GONE);
 
         GlideApp.with(this)
