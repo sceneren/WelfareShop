@@ -57,4 +57,10 @@ public class RedOpenDialog extends Dialog {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void show() {
+        setCanceledOnTouchOutside(false);
+        super.show();
+    }
 }

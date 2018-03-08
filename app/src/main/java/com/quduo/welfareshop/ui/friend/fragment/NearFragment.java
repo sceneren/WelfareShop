@@ -12,13 +12,13 @@ import android.widget.ImageView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SizeUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.itemDecoration.GridSpacingItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.friend.adapter.NearAdapter;
+import com.quduo.welfareshop.ui.friend.dialog.FriendChooseDialog;
 import com.quduo.welfareshop.ui.friend.presenter.NearPresenter;
 import com.quduo.welfareshop.ui.friend.view.INearView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -53,6 +53,8 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
     StatusViewLayout statusView;
     @BindView(R.id.friend_screen)
     ImageView friendScreen;
+
+    private FriendChooseDialog dialog;
 
     public static NearFragment newInstance() {
         Bundle args = new Bundle();
@@ -159,7 +161,10 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
 
     @OnClick(R.id.friend_screen)
     public void onClickFriendScreen() {
-        ToastUtils.showShort("点击筛选");
+        if (dialog == null) {
+            dialog = new FriendChooseDialog(getContext());
+        }
+        dialog.show();
     }
 
     @Override
