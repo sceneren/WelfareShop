@@ -20,6 +20,7 @@ import com.quduo.welfareshop.event.FollowEvent;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.friend.activity.VideoChatActivity;
 import com.quduo.welfareshop.ui.friend.adapter.OtherInfoImageAdapter;
+import com.quduo.welfareshop.ui.friend.dialog.OpenChatDialog;
 import com.quduo.welfareshop.ui.friend.dialog.ToRechargeDialog;
 import com.quduo.welfareshop.ui.friend.presenter.OtherInfoPresenter;
 import com.quduo.welfareshop.ui.friend.view.IOtherInfoView;
@@ -67,6 +68,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
     private String otherUserId;
 
     private ToRechargeDialog rechargeDialog;
+    private OpenChatDialog openChatDialog;
 
     public static OtherInfoFragment newInstance(String otherUserId) {
         Bundle args = new Bundle();
@@ -152,7 +154,10 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
 //        intent.putExtra("OTHERAVATAR", "http://e.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg");
 //        startActivity(intent);
 //        _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
-        showRechargeDialog();
+
+//        showRechargeDialog();
+
+        showOpenChatDialog();
     }
 
     @OnClick(R.id.follow)
@@ -196,5 +201,20 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
             });
         }
         rechargeDialog.show();
+    }
+
+
+
+    private void showOpenChatDialog() {
+        if (openChatDialog == null) {
+            openChatDialog = new OpenChatDialog(getContext());
+            openChatDialog.setOnClickOpenChatListener(new OpenChatDialog.OnClickOpenChatListener() {
+                @Override
+                public void onClickOpenChat() {
+
+                }
+            });
+        }
+        openChatDialog.show();
     }
 }
