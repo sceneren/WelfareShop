@@ -1,6 +1,7 @@
 package com.quduo.welfareshop.ui.welfare.view;
 
 import com.quduo.welfareshop.mvp.BaseView;
+import com.quduo.welfareshop.ui.welfare.entity.BeautyVideoResultInfo;
 
 /**
  * Author:scene
@@ -8,4 +9,9 @@ import com.quduo.welfareshop.mvp.BaseView;
  * Description:美女视频
  */
 public interface IBeautyVideoView extends BaseView {
+    void showMessage(String msg);
+
+    void refreshFinish();
+
+    void bindData(BeautyVideoResultInfo data);
 }

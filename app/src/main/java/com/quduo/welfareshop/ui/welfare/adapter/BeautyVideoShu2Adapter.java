@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.welfare.entity.VideoInfo;
@@ -65,7 +66,7 @@ public class BeautyVideoShu2Adapter extends BaseAdapter {
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
-                .load(list.get(position).getThumb())
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain()+list.get(position).getThumb())
                 .into(holder.image);
         return convertView;
     }

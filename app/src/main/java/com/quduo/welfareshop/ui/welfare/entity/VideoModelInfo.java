@@ -10,22 +10,22 @@ import java.util.List;
  */
 
 public class VideoModelInfo implements Serializable {
-    private List<VideoTypeInfo> list;
-    private String  title;
+    private List<VideoTypeInfo> positions;
+    private String name;
 
-    public List<VideoTypeInfo> getList() {
-        return list;
+    public List<VideoTypeInfo> getPositions() {
+        return positions;
     }
 
-    public void setList(List<VideoTypeInfo> list) {
-        this.list = list;
+    public void setPositions(List<VideoTypeInfo> positions) {
+        this.positions = positions;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 }

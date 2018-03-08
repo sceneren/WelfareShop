@@ -56,6 +56,7 @@ public class BeautyVideoItemAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         BeautyVideoItemViewHolder holder;
+        //1 => '横图', 2 => '竖图(一行2个)', 3 => '竖图(一行3个)', 4 => '大图'
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.fragment_welfare_beauty_video_item_item, parent, false);
             holder = new BeautyVideoItemViewHolder(convertView);
@@ -64,25 +65,25 @@ public class BeautyVideoItemAdapter extends BaseAdapter {
             holder = (BeautyVideoItemViewHolder) convertView.getTag();
         }
         VideoTypeInfo info = list.get(position);
-        if (info.getType() == 0) {
+        if (info.getType() == 4) {
             //大图
             holder.gridView.setNumColumns(1);
-            BeautyVideoBigAdapter adapter = new BeautyVideoBigAdapter(context, info.getList());
+            BeautyVideoBigAdapter adapter = new BeautyVideoBigAdapter(context, info.getVideos());
             holder.gridView.setAdapter(adapter);
         } else if (info.getType() == 1) {
             //横图
             holder.gridView.setNumColumns(2);
-            BeautyVideoHengAdapter adapter = new BeautyVideoHengAdapter(context, info.getList());
+            BeautyVideoHengAdapter adapter = new BeautyVideoHengAdapter(context, info.getVideos());
             holder.gridView.setAdapter(adapter);
         } else if (info.getType() == 2) {
             //2张竖图
             holder.gridView.setNumColumns(2);
-            BeautyVideoShuAdapter adapter = new BeautyVideoShuAdapter(context, info.getList());
+            BeautyVideoShuAdapter adapter = new BeautyVideoShuAdapter(context, info.getVideos());
             holder.gridView.setAdapter(adapter);
         } else {
             //3张竖图
             holder.gridView.setNumColumns(3);
-            BeautyVideoShu2Adapter adapter = new BeautyVideoShu2Adapter(context, info.getList());
+            BeautyVideoShu2Adapter adapter = new BeautyVideoShu2Adapter(context, info.getVideos());
             holder.gridView.setAdapter(adapter);
         }
         holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

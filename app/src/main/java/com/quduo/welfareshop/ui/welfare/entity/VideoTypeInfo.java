@@ -10,15 +10,15 @@ import java.util.List;
  */
 
 public class VideoTypeInfo implements Serializable {
-    private List<VideoInfo> list;
+    private List<VideoInfo> videos;
     private int type;
 
-    public List<VideoInfo> getList() {
-        return list;
+    public List<VideoInfo> getVideos() {
+        return videos;
     }
 
-    public void setList(List<VideoInfo> list) {
-        this.list = list;
+    public void setVideos(List<VideoInfo> videos) {
+        this.videos = videos;
     }
 
     public int getType() {

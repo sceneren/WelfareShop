@@ -110,8 +110,8 @@ public class EnterActivity extends BaseActivity {
                         super.onError(response);
                         try {
                             ToastUtils.showShort("网络连接异常，请检查网络");
-                            toMainActivity();
-                            //MyApplication.getInstance().exit();
+                            //toMainActivity();
+                            MyApplication.getInstance().exit();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

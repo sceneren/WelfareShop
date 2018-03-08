@@ -32,9 +32,9 @@ public class BeautyVideoAdapter extends BaseQuickAdapter<VideoModelInfo, BaseVie
 
     @Override
     protected void convert(final BaseViewHolder holder, VideoModelInfo item) {
-        BeautyVideoItemAdapter itemAdapter = new BeautyVideoItemAdapter(context, item.getList());
+        BeautyVideoItemAdapter itemAdapter = new BeautyVideoItemAdapter(context, item.getPositions());
         holder.setAdapter(R.id.listView, itemAdapter);
-        holder.setText(R.id.title, item.getTitle());
+        holder.setText(R.id.title, item.getName());
         itemAdapter.setOnItemClickItemVideoListener(new BeautyVideoItemAdapter.OnItemClickItemVideoListener() {
             @Override
             public void onItemClickItemVideo(int position1, int position2) {
