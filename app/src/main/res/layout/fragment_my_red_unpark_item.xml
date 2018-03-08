@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_unpark_red"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="10dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/open"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_park_red"
+        android:gravity="center"
+        android:text="可拆开"
+        android:textColor="#A11103"
+        android:textSize="@dimen/sp_12" />
+</LinearLayout>

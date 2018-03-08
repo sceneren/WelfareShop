@@ -110,4 +110,9 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
             redOpenDialog.show();
         }
     }
+
+    @OnClick(R.id.enter_my_red)
+    public void onClickEnterMyRed() {
+        EventBus.getDefault().post(new StartBrotherEvent(MyRedFragment.newInstance()));
+    }
 }
