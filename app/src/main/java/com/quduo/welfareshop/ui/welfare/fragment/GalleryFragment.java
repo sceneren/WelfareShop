@@ -9,6 +9,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -77,7 +78,7 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_welfare_grallery, container, false);
+        View view = inflater.inflate(R.layout.fragment_welfare_gallery, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -131,6 +132,13 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
         cateList = new ArrayList<>();
         typeGridAdapter = new GalleryTypeGridAdapter(getContext(), cateList);
         typeGridView.setAdapter(typeGridAdapter);
+        typeGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                GalleryCateInfo info = cateList.get(position);
+                EventBus.getDefault().post(new StartBrotherEvent(GalleryCateFragment.newInstance(info.getId(), info.getName())));
+            }
+        });
         adapter.addHeaderView(headerView);
     }
 

@@ -23,6 +23,9 @@ public class ApiUtil {
     //图库
     public static final String GALLERY = "gallery";
     public static final String GALLERY_TAG = "gallery";
+    //图库分类列表
+    public static final String GALLERY_CATE = "gallery/cate";
+    public static final String GALLERY_CATE_TAG = "gallery/cate";
     //图库详情
     public static final String GALLERY_DETAIL = "/gallery/detail";
     public static final String GALLERY_DETAIL_TAG = "/gallery/detail";

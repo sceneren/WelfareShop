@@ -31,7 +31,7 @@ public class GalleryAdapter extends BaseQuickAdapter<WelfareGalleryInfo, BaseVie
     private Context context;
 
     public GalleryAdapter(Context context, List<WelfareGalleryInfo> list) {
-        super(R.layout.fragment_welfare_grallery_item, list);
+        super(R.layout.fragment_welfare_gallery_item, list);
         this.context = context;
     }
 
