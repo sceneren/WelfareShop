@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.mine.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.mine.presenter.MinePresenter;
 import com.quduo.welfareshop.ui.mine.view.IMineView;
+import com.quduo.welfareshop.ui.shop.fragment.ServiceCenterActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -124,6 +126,11 @@ public class MineFragment extends BaseBackMvpFragment<IMineView, MinePresenter> 
     @OnClick(R.id.my_receiver)
     public void onClickMyReceiver() {
         start(MyReceiverFragment.newInstance());
+    }
+
+    @OnClick(R.id.user_agreement)
+    public void onClickUserAgreement() {
+        startActivity(new Intent(_mActivity, ServiceCenterActivity.class));
     }
 
 }
