@@ -10,15 +10,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.RechargeActivity;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.welfare.adapter.MidnightVideoAdapter;
+import com.quduo.welfareshop.ui.welfare.entity.MidNightVideoResultInfo;
+import com.quduo.welfareshop.ui.welfare.entity.VideoInfo;
 import com.quduo.welfareshop.ui.welfare.presenter.MidNightVideoPresenter;
 import com.quduo.welfareshop.ui.welfare.view.IMidNightVideoView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
@@ -44,8 +48,10 @@ public class MidNightVideoFragment extends BaseMvpFragment<IMidNightVideoView, M
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
 
-    private List<String> list;
+    private List<VideoInfo> list;
     private MidnightVideoAdapter adapter;
+
+    private int currentPage = 1;
 
     public static MidNightVideoFragment newInstance() {
         Bundle args = new Bundle();
@@ -92,15 +98,15 @@ public class MidNightVideoFragment extends BaseMvpFragment<IMidNightVideoView, M
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            presenter.getMidNightVideoData(1, true);
         }
     };
 
     @Override
     public void initView() {
-        showContentPage();
         initRecyclerView();
         initFooterView();
+        presenter.getMidNightVideoData(1, true);
     }
 
     private void initRecyclerView() {
@@ -108,18 +114,16 @@ public class MidNightVideoFragment extends BaseMvpFragment<IMidNightVideoView, M
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
-                refreshLayout.finishRefresh(2000);
+                presenter.getMidNightVideoData(1, false);
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshLayout) {
+                presenter.getMidNightVideoData(currentPage + 1, false);
             }
         });
         list = new ArrayList<>();
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
         adapter = new MidnightVideoAdapter(getContext(), list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
@@ -146,5 +150,47 @@ public class MidNightVideoFragment extends BaseMvpFragment<IMidNightVideoView, M
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void showMessage(String msg) {
+        try {
+            ToastUtils.showShort(msg);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void refreshFinish() {
+        try {
+            refreshLayout.finishRefresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void loadmoreFinish() {
+        try {
+            refreshLayout.finishLoadMore();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void bindData(MidNightVideoResultInfo data) {
+        try {
+            currentPage = data.getCurrent_page();
+            refreshLayout.setEnableLoadMore(data.getLast_page() > currentPage);
+            if (currentPage == 1) {
+                list.clear();
+            }
+            list.addAll(data.getData());
+            adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -36,6 +36,7 @@ public class VideoInfo implements Serializable {
     private int score;
     private boolean is_favor;
     private boolean is_good;
+    private String description;
 
     public int getId() {
         return id;
@@ -131,5 +132,13 @@ public class VideoInfo implements Serializable {
 
     public void setIs_good(boolean is_good) {
         this.is_good = is_good;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -7,8 +7,10 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.ui.welfare.entity.VideoInfo;
 
 import java.util.List;
 
@@ -21,24 +23,27 @@ import butterknife.ButterKnife;
  * Description:午夜影院
  */
 
-public class MidnightVideoAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class MidnightVideoAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder> {
     private Context context;
 
-    public MidnightVideoAdapter(Context context, List<String> list) {
+    public MidnightVideoAdapter(Context context, List<VideoInfo> list) {
         super(R.layout.fragment_welfare_midnight_video_item, list);
         this.context = context;
     }
 
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
-        String url = "http://imgsrc.baidu.com/imgad/pic/item/3bf33a87e950352a0c1c9a355843fbf2b2118b8a.jpg";
-        ImageView imageView=helper.getView(R.id.imageView);
+    protected void convert(BaseViewHolder helper, VideoInfo item) {
+        ImageView imageView = helper.getView(R.id.imageView);
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
-                .load(url)
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
                 .into(imageView);
+        helper.setText(R.id.title, item.getName());
+        helper.setText(R.id.play_number, "播放：" + item.getPlay_times());
+        helper.setText(R.id.follow_number, "关注：" + item.getFavor_times());
+
     }
 
     static class MidnightVideoViewHolder extends BaseViewHolder {

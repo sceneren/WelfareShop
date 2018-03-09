@@ -26,6 +26,9 @@ public class ApiUtil {
     //美女视频
     public static final String BEAUTY_VIDEO = "video";
     public static final String BEAUTY_VIDEO_TAG = "video";
+    //午夜视频
+    public static final String MIDNIGHT_VIDEO = "movie";
+    public static final String MIDNIGHT_VIDEO_TAG = "movie";
 
     /**
      * Case By:创建参数基础信息
