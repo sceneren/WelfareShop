@@ -9,18 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.blankj.utilcode.util.ToastUtils;
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.welfare.adapter.NovelAdapter;
+import com.quduo.welfareshop.ui.welfare.entity.BannerInfo;
 import com.quduo.welfareshop.ui.welfare.entity.NovelModelInfo;
-import com.quduo.welfareshop.ui.welfare.entity.WelfareGalleryInfo;
+import com.quduo.welfareshop.ui.welfare.entity.NovelResultInfo;
 import com.quduo.welfareshop.ui.welfare.presenter.NovelPresenter;
 import com.quduo.welfareshop.ui.welfare.view.INovelView;
 import com.quduo.welfareshop.util.BannerImageLoader;
-import com.quduo.welfareshop.util.FileUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.youth.banner.Banner;
@@ -28,9 +28,7 @@ import com.youth.banner.BannerConfig;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -54,10 +52,10 @@ public class NovelFragment extends BaseMvpFragment<INovelView, NovelPresenter> i
     Unbinder unbinder;
 
     private Banner banner;
-    private List<WelfareGalleryInfo> bannerList;
+    private List<BannerInfo> bannerList;
 
     private NovelAdapter adapter;
-    private List<NovelModelInfo> list;
+    private List<NovelModelInfo> list = new ArrayList<>();
 
     public static NovelFragment newInstance() {
         Bundle args = new Bundle();
@@ -104,16 +102,15 @@ public class NovelFragment extends BaseMvpFragment<INovelView, NovelPresenter> i
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            presenter.getNovelListData(true);
         }
     };
 
     @Override
     public void initView() {
-        showContentPage();
         initRecyclerView();
         initHeaderView();
-        bindHeaderView();
+        presenter.getNovelListData(true);
     }
 
     private void initRecyclerView() {
@@ -121,16 +118,10 @@ public class NovelFragment extends BaseMvpFragment<INovelView, NovelPresenter> i
         refreshLayout.setOnRefreshListener(new com.scwang.smartrefresh.layout.listener.OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
-                refreshLayout.finishRefresh(2000);
+                presenter.getNovelListData(false);
             }
         });
 
-
-        String jsonStr = FileUtils.getAssetsJson(getContext(), "novel_list.json");
-        Type listType = new TypeToken<LinkedList<NovelModelInfo>>() {
-        }.getType();
-        Gson gson = new Gson();
-        list = gson.fromJson(jsonStr, listType);
         adapter = new NovelAdapter(getContext(), list);
         adapter.setOnNovelItemClickListener(new NovelAdapter.OnNovelItemClickListener() {
             @Override
@@ -151,37 +142,19 @@ public class NovelFragment extends BaseMvpFragment<INovelView, NovelPresenter> i
         adapter.addHeaderView(headerView);
     }
 
-    private void bindHeaderView() {
+    private void bindHeaderView(List<BannerInfo> banners) {
         if (bannerList == null) {
             bannerList = new ArrayList<>();
         } else {
             bannerList.clear();
         }
-        WelfareGalleryInfo info2 = new WelfareGalleryInfo();
-        info2.setUrl("http://f.hiphotos.baidu.com/image/h%3D300/sign=4a0a3dd10155b31983f9847573ab8286/503d269759ee3d6db032f61b48166d224e4ade6e.jpg");
-        info2.setPicWidth(1023);
-        info2.setPicHeight(682);
-        info2.setTitle("标题2");
-        bannerList.add(info2);
+        bannerList.addAll(banners);
 
-        WelfareGalleryInfo info9 = new WelfareGalleryInfo();
-        info9.setUrl("http://a.hiphotos.baidu.com/image/h%3D300/sign=71f6f27f2c7f9e2f6f351b082f31e962/500fd9f9d72a6059f550a1832334349b023bbae3.jpg");
-        info9.setPicWidth(650);
-        info9.setPicHeight(488);
-        info9.setTitle("标题9");
-        bannerList.add(info9);
-
-        WelfareGalleryInfo info5 = new WelfareGalleryInfo();
-        info5.setUrl("http://b.hiphotos.baidu.com/image/h%3D300/sign=03d791b0e0c4b7452b94b116fffd1e78/58ee3d6d55fbb2fb4a944f8b444a20a44723dcef.jpg");
-        info5.setPicWidth(1023);
-        info5.setPicHeight(682);
-        info5.setTitle("标题5");
-        bannerList.add(info5);
         List<String> images = new ArrayList<>();
         List<String> titles = new ArrayList<>();
         for (int i = 0; i < bannerList.size(); i++) {
-            images.add(bannerList.get(i).getUrl());
-            titles.add(bannerList.get(i).getTitle());
+            images.add(MyApplication.getInstance().getConfigInfo().getFile_domain() + bannerList.get(i).getThumb());
+            titles.add(bannerList.get(i).getName());
         }
         banner.setImages(images);
         banner.setBannerTitles(titles);
@@ -199,4 +172,33 @@ public class NovelFragment extends BaseMvpFragment<INovelView, NovelPresenter> i
         unbinder.unbind();
     }
 
+    @Override
+    public void showMessage(String msg) {
+        try {
+            ToastUtils.showShort(msg);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void refreshFinish() {
+        try {
+            refreshLayout.finishRefresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void bindData(NovelResultInfo data) {
+        try {
+            list.clear();
+            list.addAll(data.getData());
+            adapter.notifyDataSetChanged();
+            bindHeaderView(data.getBanner());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

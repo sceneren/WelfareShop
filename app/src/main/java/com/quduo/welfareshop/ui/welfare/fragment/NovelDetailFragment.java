@@ -204,7 +204,6 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
                         coverImage.getViewTreeObserver()
                                 .removeOnGlobalLayoutListener(this);
                         int height = coverImage.getHeight(); // 获取高度
-                        LogUtils.e(height);
                         ViewGroup.LayoutParams layoutParams = coverImage.getLayoutParams();
                         layoutParams.width = (int) (243f * height / 325f);
                         coverImage.setLayoutParams(layoutParams);

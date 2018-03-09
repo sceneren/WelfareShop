@@ -8,9 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
-import com.quduo.welfareshop.ui.welfare.entity.NovelIndexInfo;
+import com.quduo.welfareshop.ui.welfare.entity.NovelInfo;
 import com.quduo.welfareshop.widgets.RatioImageView;
 
 import java.util.List;
@@ -26,10 +27,10 @@ import butterknife.ButterKnife;
 
 public class NovelListAdapter extends BaseAdapter {
     private Context context;
-    private List<NovelIndexInfo> list;
+    private List<NovelInfo> list;
     private LayoutInflater inflater;
 
-    public NovelListAdapter(Context context, List<NovelIndexInfo> list) {
+    public NovelListAdapter(Context context, List<NovelInfo> list) {
         this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
@@ -37,7 +38,7 @@ public class NovelListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list.size();
+        return list == null ? 0 : list.size();
     }
 
     @Override
@@ -60,13 +61,18 @@ public class NovelListAdapter extends BaseAdapter {
         } else {
             holder = (NovelListItemViewHolder) convertView.getTag();
         }
-        NovelIndexInfo info = list.get(position);
+        NovelInfo info = list.get(position);
         holder.title.setText(info.getTitle());
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
-                .load(list.get(position).getImageUrl())
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position).getThumb())
                 .into(holder.image);
+        String str=info.getDescription();
+        str=str.replace("\n","");
+        str=str.replace("\r","");
+        holder.des.setText(str);
+        holder.readNumber.setText("阅读：" + info.getView_times());
         return convertView;
     }
 

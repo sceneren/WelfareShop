@@ -43,7 +43,7 @@ public class MidnightVideoAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHo
         helper.setText(R.id.title, item.getName());
         helper.setText(R.id.play_number, "播放：" + item.getPlay_times());
         helper.setText(R.id.follow_number, "关注：" + item.getFavor_times());
-
+        helper.setText(R.id.des, item.getDescription());
     }
 
     static class MidnightVideoViewHolder extends BaseViewHolder {

@@ -10,8 +10,17 @@ import java.util.List;
  */
 
 public class NovelModelInfo implements Serializable {
+    private String name;
     private int type;
-    private List<NovelIndexInfo> list;
+    private List<NovelInfo> novel;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getType() {
         return type;
@@ -21,19 +30,11 @@ public class NovelModelInfo implements Serializable {
         this.type = type;
     }
 
-    public List<NovelIndexInfo> getList() {
-        return list;
+    public List<NovelInfo> getNovel() {
+        return novel;
     }
 
-    public void setList(List<NovelIndexInfo> list) {
-        this.list = list;
-    }
-
-    @Override
-    public String toString() {
-        return "NovelModelInfo{" +
-                "type=" + type +
-                ", list=" + list +
-                '}';
+    public void setNovel(List<NovelInfo> novel) {
+        this.novel = novel;
     }
 }

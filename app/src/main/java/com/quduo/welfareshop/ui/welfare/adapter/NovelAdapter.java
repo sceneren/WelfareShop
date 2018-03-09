@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.util.MultiTypeDelegate;
@@ -23,9 +22,9 @@ import java.util.List;
  */
 
 public class NovelAdapter extends BaseQuickAdapter<NovelModelInfo, BaseViewHolder> {
-    private static final int TYPE_LIST = 0;
-    private static final int TYPE_GRID = 1;
-    private static final int TYPE_AD = 2;
+    private static final int TYPE_LIST = 1;
+    private static final int TYPE_GRID = 2;
+    private static final int TYPE_AD = 0;
     private Context context;
 
     private OnNovelItemClickListener onNovelItemClickListener;
@@ -41,9 +40,9 @@ public class NovelAdapter extends BaseQuickAdapter<NovelModelInfo, BaseViewHolde
             }
         });
         getMultiTypeDelegate()
+                .registerItemType(TYPE_AD, R.layout.fragment_welfare_novel_item_ad)
                 .registerItemType(TYPE_LIST, R.layout.fragment_welfare_novel_item_listview)
-                .registerItemType(TYPE_GRID, R.layout.fragment_welfare_novel_item_gridview)
-                .registerItemType(TYPE_AD, R.layout.fragment_welfare_novel_item_ad);
+                .registerItemType(TYPE_GRID, R.layout.fragment_welfare_novel_item_gridview);
     }
 
     public void setOnNovelItemClickListener(OnNovelItemClickListener onNovelItemClickListener) {
@@ -53,7 +52,7 @@ public class NovelAdapter extends BaseQuickAdapter<NovelModelInfo, BaseViewHolde
     @Override
     protected void convert(final BaseViewHolder holder, NovelModelInfo info) {
         if (holder.getItemViewType() == TYPE_LIST) {
-            NovelListAdapter listAdapter = new NovelListAdapter(context, info.getList());
+            NovelListAdapter listAdapter = new NovelListAdapter(context, info.getNovel());
             CustomListView listView = holder.getView(R.id.listView);
             listView.setAdapter(listAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -65,7 +64,7 @@ public class NovelAdapter extends BaseQuickAdapter<NovelModelInfo, BaseViewHolde
                 }
             });
         } else if (holder.getItemViewType() == TYPE_GRID) {
-            NovelGridAdapter gridAdapter = new NovelGridAdapter(context, info.getList());
+            NovelGridAdapter gridAdapter = new NovelGridAdapter(context, info.getNovel());
             CustomeGridView gridView = holder.getView(R.id.gridView);
             gridView.setAdapter(gridAdapter);
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

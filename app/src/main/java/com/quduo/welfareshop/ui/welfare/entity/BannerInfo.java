@@ -1,10 +1,10 @@
 package com.quduo.welfareshop.ui.welfare.entity;
 
 /**
-*Author:scene
-*Time:2018/3/7 17:47
-*Description:banner
-*/
+ * Author:scene
+ * Time:2018/3/7 17:47
+ * Description:banner
+ */
 
 public class BannerInfo {
 
@@ -17,7 +17,7 @@ public class BannerInfo {
 
     private String thumb;
     private String name;
-    private int id;
+    private int data_id;
     private String type;
 
     public String getThumb() {
@@ -36,12 +36,12 @@ public class BannerInfo {
         this.name = name;
     }
 
-    public int getId() {
-        return id;
+    public int getData_id() {
+        return data_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setData_id(int data_id) {
+        this.data_id = data_id;
     }
 
     public String getType() {

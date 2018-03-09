@@ -29,6 +29,9 @@ public class ApiUtil {
     //午夜视频
     public static final String MIDNIGHT_VIDEO = "movie";
     public static final String MIDNIGHT_VIDEO_TAG = "movie";
+    //小说
+    public static final String NOVEL_LIST = "novel";
+    public static final String NOVEL_LIST_TAG = "novel";
 
     /**
      * Case By:创建参数基础信息
