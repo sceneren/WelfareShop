@@ -1,6 +1,7 @@
 package com.quduo.welfareshop.ui.welfare.view;
 
 import com.quduo.welfareshop.mvp.BaseView;
+import com.quduo.welfareshop.ui.welfare.entity.GalleryDetailResultInfo;
 
 /**
  * Author:scene
@@ -9,5 +10,9 @@ import com.quduo.welfareshop.mvp.BaseView;
  */
 
 public interface IGalleryDetailView extends BaseView {
+    void showMessage(String msg);
 
+    void refreshFinish();
+
+    void bindData(GalleryDetailResultInfo data);
 }

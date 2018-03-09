@@ -7,6 +7,11 @@
 
     <include layout="@layout/toolbar_white_2" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#EFEFEF" />
+
     <wiki.scene.loadmore.StatusViewLayout
         android:id="@+id/status_view"
         android:layout_width="match_parent"
@@ -19,9 +24,9 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
-                android:layout_marginLeft="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp" />
 
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     </wiki.scene.loadmore.StatusViewLayout>

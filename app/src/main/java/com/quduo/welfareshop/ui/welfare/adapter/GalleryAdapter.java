@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.SizeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.welfare.entity.WelfareGalleryInfo;
@@ -43,16 +44,20 @@ public class GalleryAdapter extends BaseQuickAdapter<WelfareGalleryInfo, BaseVie
         if (imageView != null) {
             int itemWidth = PtrLocalDisplay.SCREEN_WIDTH_PIXELS / 2 - SizeUtils.dp2px(5);
             ViewGroup.LayoutParams params = imageView.getLayoutParams();
-            float scale = (float) itemWidth / (float) item.getPicWidth();
+            float scale = (float) itemWidth / (float) item.getThumb_width();
             params.width = itemWidth;
-            params.height = (int) (scale * (float) item.getPicHeight());
+            params.height = (int) (scale * (float) item.getThumb_height());
             imageView.setLayoutParams(params);
             GlideApp.with(context)
                     .asBitmap()
                     .centerCrop()
-                    .load(item.getUrl())
+                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
                     .into(imageView);
-            holder.setText(R.id.name, item.getTitle());
+            holder.setText(R.id.name, item.getName());
+            holder.setText(R.id.count, "共" + item.getImage_count() + "张");
+            holder.setText(R.id.click_num,"点击："+item.getView_times());
+            holder.setText(R.id.follow_num,"收藏："+item.getFavor_times());
+
             if (holder.getLayoutPosition() % 2 == 0) {
                 tagBg.setColorFilter(Color.parseColor("#FEA0CA"));
             } else {

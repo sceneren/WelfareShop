@@ -20,6 +20,12 @@ public class ApiUtil {
 
     public static final String LOGIN = "user/login";
     public static final String LOGIN_TAG = "user/login";
+    //图库
+    public static final String GALLERY = "gallery";
+    public static final String GALLERY_TAG = "gallery";
+    //图库详情
+    public static final String GALLERY_DETAIL = "/gallery/detail";
+    public static final String GALLERY_DETAIL_TAG = "/gallery/detail";
     //小视频
     public static final String SMALL_VIDEO_LIST = "micro_video";
     public static final String SMALL_VIDEO_LIST_TAG = "micro_video";

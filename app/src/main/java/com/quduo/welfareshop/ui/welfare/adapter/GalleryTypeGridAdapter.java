@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.ui.welfare.entity.GalleryCateInfo;
 import com.quduo.welfareshop.widgets.CustomHeightRoundedImageView;
 
 import java.util.List;
@@ -24,10 +26,10 @@ import butterknife.ButterKnife;
 
 public class GalleryTypeGridAdapter extends BaseAdapter {
     private Context context;
-    private List<String> list;
+    private List<GalleryCateInfo> list;
     private LayoutInflater inflater;
 
-    public GalleryTypeGridAdapter(Context context, List<String> list) {
+    public GalleryTypeGridAdapter(Context context, List<GalleryCateInfo> list) {
         this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
@@ -58,13 +60,13 @@ public class GalleryTypeGridAdapter extends BaseAdapter {
         } else {
             holder = (TypeGridViewHolder) convertView.getTag();
         }
-        String url = "http://e.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg";
+        GalleryCateInfo info=list.get(position);
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
-                .load(url)
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain()+info.getThumb())
                 .into(holder.image);
-        holder.name.setText(list.get(position));
+        holder.name.setText(info.getName());
         return convertView;
     }
 

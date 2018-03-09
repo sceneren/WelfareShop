@@ -2,41 +2,23 @@ package com.quduo.welfareshop.ui.welfare.entity;
 
 import com.quduo.welfareshop.base.BaseBean;
 
+import java.util.List;
+
 /**
- * Author:scene
- * Time:2018/2/8 14:25
- * Description:美女图库
+ * Created by scene on 2018/3/9.
  */
 
-public class WelfareGalleryInfo extends BaseBean {
-
-    /**
-     * id : 16
-     * cate_id : 1
-     * name : 长腿美眉红色内衣私房写真
-     * weight : 0
-     * thumb : /gallery/1/16/15.jpg
-     * view_times : 0
-     * favor_times : 0
-     * tags : null
-     * good : 0
-     * thumb_width : 682
-     * thumb_height : 1024
-     * image_count : 17
-     */
-
+public class GalleryDetailResultInfo extends BaseBean {
     private int id;
     private int cate_id;
     private String name;
     private int weight;
     private String thumb;
+    private List<ImageDetailInfo> images;
     private int view_times;
     private int favor_times;
     private String tags;
     private int good;
-    private int thumb_width;
-    private int thumb_height;
-    private int image_count;
 
     public int getId() {
         return id;
@@ -78,6 +60,14 @@ public class WelfareGalleryInfo extends BaseBean {
         this.thumb = thumb;
     }
 
+    public List<ImageDetailInfo> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ImageDetailInfo> images) {
+        this.images = images;
+    }
+
     public int getView_times() {
         return view_times;
     }
@@ -108,29 +98,5 @@ public class WelfareGalleryInfo extends BaseBean {
 
     public void setGood(int good) {
         this.good = good;
-    }
-
-    public int getThumb_width() {
-        return thumb_width;
-    }
-
-    public void setThumb_width(int thumb_width) {
-        this.thumb_width = thumb_width;
-    }
-
-    public int getThumb_height() {
-        return thumb_height;
-    }
-
-    public void setThumb_height(int thumb_height) {
-        this.thumb_height = thumb_height;
-    }
-
-    public int getImage_count() {
-        return image_count;
-    }
-
-    public void setImage_count(int image_count) {
-        this.image_count = image_count;
     }
 }
