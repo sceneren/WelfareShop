@@ -1,13 +1,17 @@
 package com.quduo.welfareshop.ui.welfare.model;
 
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.FileCallback;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.http.base.LzyResponse;
 import com.quduo.welfareshop.http.callback.JsonCallback;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.ui.welfare.entity.NovelDetailResultInfo;
+
+import java.io.File;
 
 /**
  * Author:scene
@@ -47,6 +51,43 @@ public class NovelDetailModel {
                         listener.onFinish();
                     }
                 });
+
+    }
+
+    public void downloadNovel(String fileUrl, String fileName, final HttpResultListener<String> listener) {
+        try {
+            OkGo.<File>get(fileUrl)
+                    .tag("DOWNLOAD_TAG")
+                    .execute(new FileCallback(AppConfig.NOVEL_DIR, fileName) {
+                        @Override
+                        public void onSuccess(Response<File> response) {
+                            try {
+                                listener.onSuccess(response.body().getAbsolutePath());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                listener.onFail("小说打开失败请重试");
+                            }
+                        }
+
+                        @Override
+                        public void onError(Response<File> response) {
+                            super.onError(response);
+                            try {
+                                listener.onFail("小说打开失败请重试");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            super.onFinish();
+                            listener.onFinish();
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 }

@@ -66,4 +66,40 @@ public class NovelDetailPresenter extends BasePresenter<INovelDetailView> {
             e.printStackTrace();
         }
     }
+
+    public void downloadNovel() {
+        try {
+            mView.showLoadingDialog();
+            model.downloadNovel(mView.getFileUrl(), mView.getFileName(), new HttpResultListener<String>() {
+                @Override
+                public void onSuccess(String data) {
+                    try {
+                        mView.downloadSuccess(data);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.showMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

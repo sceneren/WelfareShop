@@ -3,7 +3,6 @@ package com.quduo.welfareshop.ui.welfare.fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -18,10 +17,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.hss01248.dialog.StyledDialog;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.ReadActivity;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.db.BookList;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.read.listener.OnSaveData2DBListener;
@@ -31,7 +32,6 @@ import com.quduo.welfareshop.ui.welfare.entity.NovelDetailInfo;
 import com.quduo.welfareshop.ui.welfare.entity.NovelDetailResultInfo;
 import com.quduo.welfareshop.ui.welfare.presenter.NovelDetailPresenter;
 import com.quduo.welfareshop.ui.welfare.view.INovelDetailView;
-import com.quduo.welfareshop.util.FileUtils;
 import com.quduo.welfareshop.util.ReaderUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -86,6 +86,9 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
     private int novelId;
     private List<NovelChapterInfo> list;
     private NovelDetailAdapter adapter;
+
+    private String fileUrl;
+    private String fileName;
 
     public static NovelDetailFragment newInstance(int novelId) {
         Bundle args = new Bundle();
@@ -243,50 +246,33 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
         unbinder.unbind();
     }
 
-
     private void onClickRead() {
-        List<BookList> allBooks = DataSupport.findAll(BookList.class);
-        if (allBooks.size() > 0) {
-            final BookList bookList = allBooks.get(0);
-            bookList.setId(allBooks.get(0).getId());
-            final String path = bookList.getBookpath();
-            File file = new File(path);
-            if (!file.exists()) {
-                new AlertDialog.Builder(_mActivity)
-                        .setTitle(getString(R.string.app_name))
-                        .setMessage(path + "文件不存在,是否删除该书本？")
-                        .setPositiveButton("删除", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //数据库删除书籍
-                                DataSupport.deleteAll(BookList.class, "bookpath = ?", path);
+        try {
+            String fileUrl = AppConfig.NOVEL_DIR + novelTitle.getText().toString();
+            //判断小说是否在本地
+            if (com.blankj.utilcode.util.FileUtils.isFileExists(fileUrl)) {
+                //判断小说是否导入了
+                List<BookList> bookLists = DataSupport.findAll(BookList.class);
+                boolean flag = false;
+                if (null != bookLists && bookLists.size() > 0) {
+                    for (BookList bookList : bookLists) {
+                        if (bookList.getNovelId() == novelId) {
+                            flag = true;
+                            openNovel(bookList);
+                        }
+                    }
+                    if (!flag) {
+                        initNovel(fileUrl);
+                    }
 
-                            }
-                        }).setCancelable(true).show();
-                return;
+                } else {
+                    initNovel(AppConfig.NOVEL_DIR + novelTitle.getText().toString());
+                }
+            } else {
+                presenter.downloadNovel();
             }
-            ReadActivity.openBook(bookList, _mActivity);
-        } else {
-            BookList bookList = new BookList();
-            final String bookName = FileUtils.getFileName(Environment.getExternalStorageDirectory().getPath() + File.separator + "396993.txt");
-            bookList.setBookname(bookName);
-            bookList.setBookpath(Environment.getExternalStorageDirectory().getPath() + File.separator + "396993.txt");
-            ReaderUtil.addBook2DB(bookList, new OnSaveData2DBListener() {
-                @Override
-                public void onSaveSuccess() {
-                    ToastUtils.showShort("导入书本成功");
-                }
-
-                @Override
-                public void onSaveFail() {
-                    ToastUtils.showShort("由于一些原因添加书本失败");
-                }
-
-                @Override
-                public void onSaveRepeat() {
-                    ToastUtils.showShort("书本" + bookName + "重复了");
-                }
-            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
@@ -313,6 +299,8 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
             list.addAll(detailInfo.getChapters());
             adapter.notifyDataSetChanged();
             follow.setText(detailInfo.getData().isIs_favor() ? "已收藏" : "加入收藏");
+            setFileName(detailInfo.getData().getTitle());
+            setFileUrl(detailInfo.getData().getTxt_url());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -326,4 +314,94 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
             e.printStackTrace();
         }
     }
+
+    @Override
+    public String getFileUrl() {
+        return fileUrl;
+    }
+
+    @Override
+    public String getFileName() {
+        return fileName;
+    }
+
+    @Override
+    public void downloadSuccess(String url) {
+        initNovel(url);
+    }
+
+    @Override
+    public void hideLoadingDialog() {
+        try {
+            StyledDialog.dismissLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showLoadingDialog() {
+        try {
+            StyledDialog.buildLoading("正在为您加载小说...").show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void initNovel(String url) {
+        final BookList bookList = new BookList();
+        final String bookName = url;
+        bookList.setBookname(getFileName());
+        bookList.setBookpath(bookName);
+        bookList.setNovelId(novelId);
+        ReaderUtil.addBook2DB(bookList, new OnSaveData2DBListener() {
+            @Override
+            public void onSaveSuccess() {
+                openNovel(bookList);
+            }
+
+            @Override
+            public void onSaveFail() {
+                ToastUtils.showShort("由于一些原因添加书本失败");
+            }
+
+            @Override
+            public void onSaveRepeat() {
+                openNovel(bookList);
+            }
+        });
+    }
+
+    @Override
+    public void openNovel(BookList bookList) {
+        final String path = bookList.getBookpath();
+        File file = new File(path);
+        if (!file.exists()) {
+            new AlertDialog.Builder(_mActivity)
+                    .setTitle(getString(R.string.app_name))
+                    .setMessage(path + "文件不存在,是否删除该书本？")
+                    .setPositiveButton("删除", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //数据库删除书籍
+                            DataSupport.deleteAll(BookList.class, "bookpath = ?", path);
+
+                        }
+                    }).setCancelable(true).show();
+            return;
+        }
+        bookList.setBookpath(path);
+        bookList.setBookname(getFileName());
+        ReadActivity.openBook(bookList, _mActivity);
+    }
+
+    private void setFileUrl(String url) {
+        fileUrl = MyApplication.getInstance().getConfigInfo().getFile_domain() + url;
+    }
+
+    private void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
 }

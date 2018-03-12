@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.welfare.view;
 
+import com.quduo.welfareshop.db.BookList;
 import com.quduo.welfareshop.mvp.BaseView;
 import com.quduo.welfareshop.ui.welfare.entity.NovelDetailResultInfo;
 
@@ -17,4 +18,18 @@ public interface INovelDetailView extends BaseView {
     void bindData(NovelDetailResultInfo detailInfo);
 
     void refreshFinish();
+
+    String getFileUrl();
+
+    String getFileName();
+
+    void downloadSuccess(String url);
+
+    void hideLoadingDialog();
+
+    void showLoadingDialog();
+
+    void initNovel(String url);
+
+    void openNovel(BookList bookList);
 }
