@@ -57,6 +57,11 @@ public class CatalogFragment extends SupportFragment {
         catalogueAdapter.setCharter(pageFactory.getCurrentCharter());
         lv_catalogue.setAdapter(catalogueAdapter);
         catalogueAdapter.notifyDataSetChanged();
+        try {
+            lv_catalogue.setSelection(pageFactory.getCurrentCharter());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void initListener() {

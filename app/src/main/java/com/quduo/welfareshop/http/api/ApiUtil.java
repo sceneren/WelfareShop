@@ -50,7 +50,9 @@ public class ApiUtil {
     //取消收藏
     public static final String CANCEL_FOLLOW = "/personal/favor/delete";
     public static final String CANCEL_FOLLOW_TAG = "/personal/favor/delete";
-
+    //我收藏的小说
+    public static final String MY_FOLLOW_NOVEL="personal/favor/novel";
+    public static final String MY_FOLLOW_NOVEL_TAG="personal/favor/novel";
 
     /**
      * Case By:创建参数基础信息

@@ -9,11 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.mine.adapter.MyFollowNovelAdapter;
+import com.quduo.welfareshop.ui.mine.entity.MyFollowNovelInfo;
 import com.quduo.welfareshop.ui.mine.presenter.MyFollowNovelPresenter;
 import com.quduo.welfareshop.ui.mine.view.IMyFollowNovelView;
+import com.quduo.welfareshop.ui.welfare.fragment.NovelDetailFragment;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -41,7 +44,7 @@ public class MyFollowNovelFragment extends BaseMvpFragment<IMyFollowNovelView, M
     StatusViewLayout statusView;
     Unbinder unbinder;
 
-    private List<String> list;
+    private List<MyFollowNovelInfo> list;
     private MyFollowNovelAdapter adapter;
 
     public static MyFollowNovelFragment newInstance() {
@@ -89,14 +92,14 @@ public class MyFollowNovelFragment extends BaseMvpFragment<IMyFollowNovelView, M
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            presenter.getMyFollowNovelData(true);
         }
     };
 
     @Override
     public void initView() {
-        showContentPage();
         initRecyclerView();
+        presenter.getMyFollowNovelData(true);
     }
 
     private void initRecyclerView() {
@@ -104,18 +107,21 @@ public class MyFollowNovelFragment extends BaseMvpFragment<IMyFollowNovelView, M
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
-                refreshLayout.finishRefresh(2000);
+                presenter.getMyFollowNovelData(false);
             }
         });
         list = new ArrayList<>();
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
         adapter = new MyFollowNovelAdapter(getContext(), list);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (getParentFragment() != null) {
+                    ((MyFollowFragment) getParentFragment()).start(NovelDetailFragment.newInstance(list.get(position).getNovel_id()));
+                }
+            }
+        });
     }
 
     @Override
@@ -127,5 +133,25 @@ public class MyFollowNovelFragment extends BaseMvpFragment<IMyFollowNovelView, M
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void refreshFinish() {
+        try {
+            refreshLayout.finishRefresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void bindData(List<MyFollowNovelInfo> list) {
+        try {
+            this.list.clear();
+            this.list.addAll(list);
+            adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

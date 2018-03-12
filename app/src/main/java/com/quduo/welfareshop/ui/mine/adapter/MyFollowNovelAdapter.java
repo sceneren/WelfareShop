@@ -1,20 +1,16 @@
 package com.quduo.welfareshop.ui.mine.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.ui.mine.entity.MyFollowNovelInfo;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Author:scene
@@ -22,45 +18,24 @@ import butterknife.ButterKnife;
  * Description:我收藏的小说
  */
 
-public class MyFollowNovelAdapter extends RecyclerView.Adapter<MyFollowNovelAdapter.MyFollowNovelViewHolder> {
+public class MyFollowNovelAdapter extends BaseQuickAdapter<MyFollowNovelInfo, BaseViewHolder> {
     private Context context;
-    private List<String> list;
 
-    public MyFollowNovelAdapter(Context context, List<String> list) {
+    public MyFollowNovelAdapter(Context context, List<MyFollowNovelInfo> list) {
+        super(R.layout.fragment_my_follow_novel_item, list);
         this.context = context;
-        this.list = list;
-
     }
 
-    @Override
-    public MyFollowNovelViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MyFollowNovelViewHolder(LayoutInflater.from(context).inflate(R.layout.fragment_my_follow_novel_item, parent, false));
-    }
 
     @Override
-    public void onBindViewHolder(MyFollowNovelViewHolder holder, int position) {
-        String url = "http://scimg.jb51.net/allimg/150708/14-150FQ15305155.jpg";
+    protected void convert(BaseViewHolder helper, MyFollowNovelInfo item) {
+        helper.setText(R.id.title, item.getTitle());
+        ImageView imageView = helper.getView(R.id.image);
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
-                .load(url)
-                .into(holder.image);
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb_shu())
+                .into(imageView);
     }
 
-    @Override
-    public int getItemCount() {
-        return list.size();
-    }
-
-    class MyFollowNovelViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.image)
-        ImageView image;
-        @BindView(R.id.title)
-        TextView title;
-
-        MyFollowNovelViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
-        }
-    }
 }
