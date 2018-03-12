@@ -41,7 +41,9 @@ public class ApiUtil {
     //小说
     public static final String NOVEL_LIST = "novel";
     public static final String NOVEL_LIST_TAG = "novel";
-
+    //小说详情
+    public static final String NOVEL_DETAIL="novel/chapter";
+    public static final String NOVEL_DETAIL_TAG="novel/chapter";
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

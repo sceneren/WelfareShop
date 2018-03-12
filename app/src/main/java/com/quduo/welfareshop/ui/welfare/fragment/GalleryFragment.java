@@ -13,9 +13,11 @@ import android.widget.AdapterView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.event.StartBrotherEvent;
+import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.welfare.adapter.GalleryAdapter;
 import com.quduo.welfareshop.ui.welfare.adapter.GalleryTypeGridAdapter;
@@ -216,6 +218,7 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
 
     @Override
     public void onDestroyView() {
+        OkGo.getInstance().cancelTag(ApiUtil.GALLERY_TAG);
         super.onDestroyView();
         unbinder.unbind();
     }

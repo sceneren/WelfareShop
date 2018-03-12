@@ -10,9 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.event.StartBrotherEvent;
+import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.welfare.adapter.NovelAdapter;
 import com.quduo.welfareshop.ui.welfare.entity.BannerInfo;
@@ -25,6 +27,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -126,12 +129,14 @@ public class NovelFragment extends BaseMvpFragment<INovelView, NovelPresenter> i
         adapter.setOnNovelItemClickListener(new NovelAdapter.OnNovelItemClickListener() {
             @Override
             public void onClickNovel(int position, int childPosition) {
-                EventBus.getDefault().post(new StartBrotherEvent(NovelDetailFragment.newInstance(1)));
+                if (position > 0) {
+                    position = position - 1;
+                    EventBus.getDefault().post(new StartBrotherEvent(NovelDetailFragment.newInstance(list.get(position).getNovel().get(childPosition).getId())));
+                }
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
-
     }
 
     private void initHeaderView() {
@@ -139,6 +144,16 @@ public class NovelFragment extends BaseMvpFragment<INovelView, NovelPresenter> i
         banner = headerView.findViewById(R.id.banner);
         banner.setImageLoader(new BannerImageLoader());
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                try {
+                    EventBus.getDefault().post(new StartBrotherEvent(NovelDetailFragment.newInstance(bannerList.get(position).getData_id())));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         adapter.addHeaderView(headerView);
     }
 
@@ -168,6 +183,7 @@ public class NovelFragment extends BaseMvpFragment<INovelView, NovelPresenter> i
 
     @Override
     public void onDestroyView() {
+        OkGo.getInstance().cancelTag(ApiUtil.NOVEL_LIST_TAG);
         super.onDestroyView();
         unbinder.unbind();
     }

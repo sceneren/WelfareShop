@@ -32,7 +32,7 @@ public class NovelInfo extends BaseBean {
      * 　　从结婚她就想着离婚，他最终如了她的愿。
      * 　　多年后的相遇，他依...
      */
-
+    private int id;
     private String title;
     private String thumb;
     private String thumb_shu;
@@ -40,6 +40,14 @@ public class NovelInfo extends BaseBean {
     private int favor_times;
     private int score;
     private String description;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;

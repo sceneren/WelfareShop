@@ -5,6 +5,7 @@ import android.content.Context;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.ui.welfare.entity.NovelChapterInfo;
 
 import java.util.List;
 
@@ -14,17 +15,17 @@ import java.util.List;
  * Description:小说详情
  */
 
-public class NovelDetailAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class NovelDetailAdapter extends BaseQuickAdapter<NovelChapterInfo, BaseViewHolder> {
     private Context context;
 
-    public NovelDetailAdapter(Context context, List<String> list) {
+    public NovelDetailAdapter(Context context, List<NovelChapterInfo> list) {
         super(R.layout.fragment_welfare_novel_detail_item, list);
         this.context = context;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
-        helper.setText(R.id.title, "这是标题");
+    protected void convert(BaseViewHolder helper, NovelChapterInfo item) {
+        helper.setText(R.id.title, item.getTitle());
     }
 
 }
