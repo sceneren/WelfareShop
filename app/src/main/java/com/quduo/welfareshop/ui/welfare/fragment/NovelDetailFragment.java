@@ -16,14 +16,17 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hss01248.dialog.StyledDialog;
+import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.ReadActivity;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.db.BookList;
+import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.read.listener.OnSaveData2DBListener;
 import com.quduo.welfareshop.ui.welfare.adapter.NovelDetailAdapter;
@@ -89,6 +92,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
 
     private String fileUrl;
     private String fileName;
+    private int followId = 0;
 
     public static NovelDetailFragment newInstance(int novelId) {
         Bundle args = new Bundle();
@@ -242,6 +246,9 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
 
     @Override
     public void onDestroyView() {
+        OkGo.getInstance().cancelTag(ApiUtil.NOVEL_DETAIL_TAG);
+        OkGo.getInstance().cancelTag(ApiUtil.CANCEL_FOLLOW_TAG);
+        OkGo.getInstance().cancelTag(ApiUtil.FOLLOW_NOVEL_TAG);
         super.onDestroyView();
         unbinder.unbind();
     }
@@ -298,9 +305,10 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
             list.clear();
             list.addAll(detailInfo.getChapters());
             adapter.notifyDataSetChanged();
-            follow.setText(detailInfo.getData().isIs_favor() ? "已收藏" : "加入收藏");
             setFileName(detailInfo.getData().getTitle());
             setFileUrl(detailInfo.getData().getTxt_url());
+            setFollowId(detailInfo.getData().getFavor_id());
+            follow.setText(getFollowId() != 0 ? "已收藏" : "加入收藏");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -340,9 +348,13 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
     }
 
     @Override
-    public void showLoadingDialog() {
+    public void showLoadingDialog(String message) {
         try {
-            StyledDialog.buildLoading("正在为您加载小说...").show();
+            if (StringUtils.isEmpty(message)) {
+                StyledDialog.buildLoading().show();
+            } else {
+                StyledDialog.buildLoading(message).show();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -351,9 +363,8 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
     @Override
     public void initNovel(String url) {
         final BookList bookList = new BookList();
-        final String bookName = url;
         bookList.setBookname(getFileName());
-        bookList.setBookpath(bookName);
+        bookList.setBookpath(url);
         bookList.setNovelId(novelId);
         ReaderUtil.addBook2DB(bookList, new OnSaveData2DBListener() {
             @Override
@@ -396,12 +407,48 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
         ReadActivity.openBook(bookList, _mActivity);
     }
 
+    @Override
+    public void showHasFollow() {
+        try {
+            follow.setText("已收藏");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showNoFollow() {
+        try {
+            follow.setText("加入收藏");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public int getFollowId() {
+        return followId;
+    }
+
+    private void setFollowId(int followId) {
+        this.followId = followId;
+    }
+
     private void setFileUrl(String url) {
         fileUrl = MyApplication.getInstance().getConfigInfo().getFile_domain() + url;
     }
 
     private void setFileName(String fileName) {
         this.fileName = fileName;
+    }
+
+    @OnClick(R.id.follow)
+    public void onClickFollow() {
+        if (follow.getText().toString().equals("已收藏")) {
+            presenter.cancelFollowNovel();
+        } else {
+            presenter.followNovel();
+        }
     }
 
 }

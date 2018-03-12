@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.LogUtils;

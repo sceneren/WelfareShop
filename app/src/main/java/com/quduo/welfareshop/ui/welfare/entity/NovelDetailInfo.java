@@ -3,10 +3,10 @@ package com.quduo.welfareshop.ui.welfare.entity;
 import com.quduo.welfareshop.base.BaseBean;
 
 /**
-*Author:scene
-*Time:2018/3/12 10:16
-*Description:小说详情
-*/
+ * Author:scene
+ * Time:2018/3/12 10:16
+ * Description:小说详情
+ */
 
 public class NovelDetailInfo extends BaseBean {
 
@@ -20,18 +20,18 @@ public class NovelDetailInfo extends BaseBean {
      * favor_times : 0
      * score : 0
      * description : 书名：余生不过我爱你
-     作者：杨柠萌
-
-     简介：
-     谁都知道帝国都城的帝铭爵向来毒舌无比狂拽上天，一小心娶了个顽皮千金以后，画风秒变。
-     “宝宝，来我给你捶捶腿。”
-     “宝宝，要我给你捏捏腰吗？”
-     众人纷纷不解，“请问顾小姐你是怎么把帝少变成妻奴的？”
-     顾七宝挑眉，“因为帝少闲到无所事事，数钱数到手抽筋，所以我只要会捣乱就行咯。”
-     众人：还有这种操作！！！
-
-     ==================
-
+     * 作者：杨柠萌
+     * <p>
+     * 简介：
+     * 谁都知道帝国都城的帝铭爵向来毒舌无比狂拽上天，一小心娶了个顽皮千金以后，画风秒变。
+     * “宝宝，来我给你捶捶腿。”
+     * “宝宝，要我给你捏捏腰吗？”
+     * 众人纷纷不解，“请问顾小姐你是怎么把帝少变成妻奴的？”
+     * 顾七宝挑眉，“因为帝少闲到无所事事，数钱数到手抽筋，所以我只要会捣乱就行咯。”
+     * 众人：还有这种操作！！！
+     * <p>
+     * ==================
+     * <p>
      * good : 0
      * position_id : 0
      * txt_url : /novels/1/all.txt
@@ -51,7 +51,7 @@ public class NovelDetailInfo extends BaseBean {
     private int good;
     private int position_id;
     private String txt_url;
-    private boolean is_favor;
+    private int favor_id;
     private boolean is_good;
     private String tags;
 
@@ -151,12 +151,12 @@ public class NovelDetailInfo extends BaseBean {
         this.txt_url = txt_url;
     }
 
-    public boolean isIs_favor() {
-        return is_favor;
+    public int getFavor_id() {
+        return favor_id;
     }
 
-    public void setIs_favor(boolean is_favor) {
-        this.is_favor = is_favor;
+    public void setFavor_id(int favor_id) {
+        this.favor_id = favor_id;
     }
 
     public boolean isIs_good() {

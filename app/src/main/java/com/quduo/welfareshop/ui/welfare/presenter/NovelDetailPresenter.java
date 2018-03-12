@@ -69,7 +69,7 @@ public class NovelDetailPresenter extends BasePresenter<INovelDetailView> {
 
     public void downloadNovel() {
         try {
-            mView.showLoadingDialog();
+            mView.showLoadingDialog("正在为您加载小说...");
             model.downloadNovel(mView.getFileUrl(), mView.getFileName(), new HttpResultListener<String>() {
                 @Override
                 public void onSuccess(String data) {
@@ -78,6 +78,92 @@ public class NovelDetailPresenter extends BasePresenter<INovelDetailView> {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.showMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void followNovel() {
+        try {
+            mView.showLoadingDialog("");
+            HttpParams params = new HttpParams();
+            params.put("data_id", mView.getNovelId());
+            model.followNovel(params, new HttpResultListener<Boolean>() {
+                @Override
+                public void onSuccess(Boolean data) {
+                    try {
+                        if (data) {
+                            mView.showHasFollow();
+                        } else {
+                            mView.showMessage("操作失败，请重试");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.showMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void cancelFollowNovel() {
+        try {
+            mView.showLoadingDialog("");
+            HttpParams params = new HttpParams();
+            params.put("id", mView.getFollowId());
+            model.cancelFollow(params, new HttpResultListener<Boolean>() {
+                @Override
+                public void onSuccess(Boolean data) {
+                    try {
+                        if (data) {
+                            mView.showNoFollow();
+                        } else {
+                            mView.showMessage("操作失败，请重试");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 }
 
                 @Override

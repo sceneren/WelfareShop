@@ -90,4 +90,68 @@ public class NovelDetailModel {
         }
 
     }
+
+    public void followNovel(HttpParams params, final HttpResultListener<Boolean> listener) {
+        OkGo.<LzyResponse<Boolean>>get(ApiUtil.API_PRE + ApiUtil.FOLLOW_NOVEL)
+                .tag(ApiUtil.FOLLOW_NOVEL_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<Boolean>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<Boolean>> response) {
+                        try {
+                            listener.onSuccess(response.body().status);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<Boolean>> response) {
+                        super.onError(response);
+                        try {
+                            listener.onFail(response.getException().getMessage());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        listener.onFinish();
+                    }
+                });
+    }
+
+    public void cancelFollow(HttpParams params, final HttpResultListener<Boolean> listener) {
+        OkGo.<LzyResponse<Boolean>>get(ApiUtil.API_PRE + ApiUtil.CANCEL_FOLLOW)
+                .tag(ApiUtil.CANCEL_FOLLOW_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<Boolean>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<Boolean>> response) {
+                        try {
+                            listener.onSuccess(response.body().status);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<Boolean>> response) {
+                        super.onError(response);
+                        try {
+                            listener.onFail(response.getException().getMessage());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        listener.onFinish();
+                    }
+                });
+    }
 }

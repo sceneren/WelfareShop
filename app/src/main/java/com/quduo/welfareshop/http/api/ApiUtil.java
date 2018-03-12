@@ -42,8 +42,16 @@ public class ApiUtil {
     public static final String NOVEL_LIST = "novel";
     public static final String NOVEL_LIST_TAG = "novel";
     //小说详情
-    public static final String NOVEL_DETAIL="novel/chapter";
-    public static final String NOVEL_DETAIL_TAG="novel/chapter";
+    public static final String NOVEL_DETAIL = "novel/chapter";
+    public static final String NOVEL_DETAIL_TAG = "novel/chapter";
+    //收藏小说
+    public static final String FOLLOW_NOVEL = "personal/favor/add_novel";
+    public static final String FOLLOW_NOVEL_TAG = "personal/favor/add_novel";
+    //取消收藏
+    public static final String CANCEL_FOLLOW = "/personal/favor/delete";
+    public static final String CANCEL_FOLLOW_TAG = "/personal/favor/delete";
+
+
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

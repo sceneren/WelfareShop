@@ -27,9 +27,15 @@ public interface INovelDetailView extends BaseView {
 
     void hideLoadingDialog();
 
-    void showLoadingDialog();
+    void showLoadingDialog(String message);
 
     void initNovel(String url);
 
     void openNovel(BookList bookList);
+
+    void showHasFollow();
+
+    void showNoFollow();
+
+    int getFollowId();
 }
