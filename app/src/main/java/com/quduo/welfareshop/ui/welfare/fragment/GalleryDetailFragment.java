@@ -6,14 +6,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.arjinmc.recyclerviewdecoration.RecyclerViewItemDecoration;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -22,8 +20,9 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.PreviewImageActivity;
 import com.quduo.welfareshop.http.api.ApiUtil;
+import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
-import com.quduo.welfareshop.ui.mine.adapter.MyFollowImageAdapter;
+import com.quduo.welfareshop.ui.welfare.adapter.GalleryDetailAdapter;
 import com.quduo.welfareshop.ui.welfare.entity.GalleryDetailResultInfo;
 import com.quduo.welfareshop.ui.welfare.entity.ImageDetailInfo;
 import com.quduo.welfareshop.ui.welfare.presenter.GalleryDetailPresenter;
@@ -60,7 +59,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     Unbinder unbinder;
 
     private List<ImageDetailInfo> galleryList = new ArrayList<>();
-    private MyFollowImageAdapter adapter;
+    private GalleryDetailAdapter adapter;
 
     private int id;
     private final static String ARG_ID = "ID";
@@ -144,22 +143,12 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
             }
         });
 
-        adapter = new MyFollowImageAdapter(getContext(), galleryList);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        adapter = new GalleryDetailAdapter(getContext(), galleryList);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         //防止item位置互换
-        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         recyclerView.setLayoutManager(layoutManager);
-        RecyclerViewItemDecoration.Builder builder = new RecyclerViewItemDecoration.Builder(getContext());
-        builder.color("#00000000");
-        builder.dashWidth(SizeUtils.dp2px(5));
-        builder.dashGap(SizeUtils.dp2px(5));
-        builder.thickness(SizeUtils.dp2px(5));
-        builder.gridBottomVisible(true); //控制下面边框
-        builder.gridTopVisible(true); //控制上面边框
-        builder.gridLeftVisible(true); //控制左边边框
-        builder.gridRightVisible(true); //控制右边边框
-        recyclerView.addItemDecoration(builder.create());
+        recyclerView.addItemDecoration(new SpacesItemDecoration(SizeUtils.dp2px(1)));
         recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
