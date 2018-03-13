@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.shop.adapter.GoodsDetailCommentAdapter;
+import com.quduo.welfareshop.ui.shop.dialog.ChooseGoodsTypePopupwindow;
 import com.quduo.welfareshop.ui.shop.presenter.GoodsDetailPresenter;
 import com.quduo.welfareshop.ui.shop.view.IGoodsDetailView;
 import com.quduo.welfareshop.widgets.CustomListView;
@@ -52,6 +53,10 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
     CustomListView commentListView;
     @BindView(R.id.webView)
     X5WebView webView;
+    @BindView(R.id.see_all_comment)
+    TextView seeAllComment;
+    @BindView(R.id.buy_now)
+    TextView buyNow;
 
     private List<String> list;
     private GoodsDetailCommentAdapter commentAdapter;
@@ -156,5 +161,15 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
     @OnClick(R.id.see_all_comment)
     public void onClickSeeAllComment() {
         startActivity(new Intent(GoodsDetailActivity.this, GoodsCommentActivity.class));
+    }
+
+    private ChooseGoodsTypePopupwindow chooseTypePopupwindow;
+
+    @OnClick(R.id.buy_now)
+    public void onClickBuyNow() {
+        if (chooseTypePopupwindow == null) {
+            chooseTypePopupwindow = new ChooseGoodsTypePopupwindow(GoodsDetailActivity.this);
+        }
+        chooseTypePopupwindow.show(buyNow);
     }
 }
