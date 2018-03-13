@@ -154,7 +154,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
 
     @OnClick(R.id.send_message)
     public void onClickSendMessage() {
-//        toChatMessage();
+        toChatMessage();
 
 //        showRechargeDialog();
 
@@ -162,7 +162,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
 
 //        showVideoChatRechargeDialog();
 
-        showEditUserInfoStep1Dialog();
+//        showEditUserInfoStep1Dialog();
     }
 
     @OnClick(R.id.follow)

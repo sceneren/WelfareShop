@@ -21,9 +21,8 @@ import com.quduo.welfareshop.ui.friend.adapter.ChatAdapter;
 import com.quduo.welfareshop.ui.friend.audio.AudioRecordButton;
 import com.quduo.welfareshop.ui.friend.entity.ChatMessageInfo;
 import com.quduo.welfareshop.ui.friend.presenter.ChatPresenter;
+import com.quduo.welfareshop.ui.friend.userdef.QqEmoticonsKeyBoard;
 import com.quduo.welfareshop.ui.friend.userdef.QqUtils;
-import com.quduo.welfareshop.ui.friend.userdef.SimpleUserDefAppsGridView;
-import com.quduo.welfareshop.ui.friend.userdef.SimpleUserdefEmoticonsKeyBoard;
 import com.quduo.welfareshop.ui.friend.view.IChatView;
 import com.quduo.welfareshop.util.EmojiConstants;
 import com.quduo.welfareshop.util.ImageSelectorUtil;
@@ -61,7 +60,7 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
     private static final int REQUEST_CAMERA_CODE = 10001;
 
     @BindView(R.id.ek_bar)
-    SimpleUserdefEmoticonsKeyBoard ekBar;
+    QqEmoticonsKeyBoard ekBar;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
@@ -156,19 +155,18 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
         ekBar.setAdapter(QqUtils.getCommonAdapter(this, emoticonClickListener));
         ekBar.addOnFuncKeyBoardListener(this);
 
-        SimpleUserDefAppsGridView simpleUserDefAppsGridView = new SimpleUserDefAppsGridView(this);
-        simpleUserDefAppsGridView.setOnClickItemListener(new SimpleUserDefAppsGridView.OnClickItemListener() {
+        ekBar.getBtnCamera().setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClickCamera() {
+            public void onClick(View v) {
                 ImageSelectorUtil.openCamera(ChatActivity.this, REQUEST_CAMERA_CODE);
             }
-
+        });
+        ekBar.getBtnImage().setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClickGrallery() {
+            public void onClick(View v) {
                 ImageSelectorUtil.openImageList(ChatActivity.this, 9, REQUEST_GALLERY_CODE);
             }
         });
-        ekBar.addFuncView(simpleUserDefAppsGridView);
         ekBar.getEtChat().setOnSizeChangedListener(new EmoticonsEditText.OnSizeChangedListener() {
             @Override
             public void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -182,6 +180,14 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
                 ekBar.getEtChat().setText("");
             }
         });
+        ekBar.getBtnPtv().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ChatActivity.this, VideoChatActivity.class));
+                ChatActivity.this.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+            }
+        });
+
         if (ekBar.getBtnVoice() instanceof AudioRecordButton) {
             ((AudioRecordButton) ekBar.getBtnVoice()).setAudioFinishRecorderListener(new AudioRecordButton.AudioFinishRecorderListener() {
                 @Override

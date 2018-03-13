@@ -23,7 +23,7 @@ import me.weyye.hipermission.HiPermission;
 import me.weyye.hipermission.PermissionCallback;
 import me.weyye.hipermission.PermissionItem;
 
-public class AudioRecordButton extends android.support.v7.widget.AppCompatButton implements AudioManager.AudioStageListener {
+public class AudioRecordButton extends android.support.v7.widget.AppCompatImageView implements AudioManager.AudioStageListener {
     private static final int STATE_NORMAL = 1;
     private static final int STATE_RECORDING = 2;
     private static final int STATE_WANT_TO_CANCEL = 3;
@@ -277,6 +277,7 @@ public class AudioRecordButton extends android.support.v7.widget.AppCompatButton
                 isTouch = false;
                 if (!mReady) {
                     reset();
+                    ToastUtils.showShort("请长按发送语音消息");
                     return super.onTouchEvent(event);
                 }
                 // 如果按的时间太短，还没准备好或者时间录制太短，就离开了，则显示这个dialog
@@ -346,13 +347,13 @@ public class AudioRecordButton extends android.support.v7.widget.AppCompatButton
             mCurrentState = state;
             switch (mCurrentState) {
                 case STATE_NORMAL:
-                    setBackgroundResource(R.drawable.btn_voice_nomal);
-                    setText(R.string.normal);
+                    //setBackgroundResource(R.drawable.btn_voice_nomal);
+                    //setText(R.string.normal);
 
                     break;
                 case STATE_RECORDING:
-                    setBackgroundResource(R.drawable.btn_voice_press);
-                    setText(R.string.recording);
+                    //setBackgroundResource(R.drawable.btn_voice_press);
+                    //setText(R.string.recording);
                     if (isRecording) {
                         mDialogManager.recording();
                         // 复写dialog.recording();
@@ -360,8 +361,8 @@ public class AudioRecordButton extends android.support.v7.widget.AppCompatButton
                     break;
 
                 case STATE_WANT_TO_CANCEL:
-                    setBackgroundResource(R.drawable.btn_voice_press);
-                    setText(R.string.want_to_cancle);
+                    //setBackgroundResource(R.drawable.btn_voice_press);
+                    //setText(R.string.want_to_cancle);
                     // dialog want to cancel
                     mDialogManager.wantToCancel();
                     break;
@@ -369,12 +370,6 @@ public class AudioRecordButton extends android.support.v7.widget.AppCompatButton
             }
         }
 
-    }
-
-    @Override
-    public boolean onPreDraw() {
-        // TODO Auto-generated method stub
-        return false;
     }
 
 }
