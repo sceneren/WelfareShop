@@ -125,6 +125,11 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar.SwipeBack" />
+        <activity
+            android:name=".ui.shop.activity.ConfirmOrderActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.SwipeBack" />
         <!-- ##############友盟开始################### -->
         <meta-data
             android:name="UMENG_APPKEY"

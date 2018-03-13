@@ -44,10 +44,16 @@ public class ChooseGoodsTypePopupwindow extends PopupWindow {
     private TagAdapter<String> tagAdapter;
     private List<String> list;
 
+    private OnClickChooseTypeButtonListener onClickChooseTypeButtonListener;
+
     public ChooseGoodsTypePopupwindow(Context context) {
         super(context);
         this.context = context;
         init();
+    }
+
+    public void setOnClickChooseTypeButtonListener(OnClickChooseTypeButtonListener onClickChooseTypeButtonListener) {
+        this.onClickChooseTypeButtonListener = onClickChooseTypeButtonListener;
     }
 
     private void init() {
@@ -100,6 +106,14 @@ public class ChooseGoodsTypePopupwindow extends PopupWindow {
                 dismiss();
             }
         });
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onClickChooseTypeButtonListener != null) {
+                    onClickChooseTypeButtonListener.onClickConfirm();
+                }
+            }
+        });
     }
 
     private void initConfig() {
@@ -115,6 +129,10 @@ public class ChooseGoodsTypePopupwindow extends PopupWindow {
 
     public void show(View view) {
         showAtLocation(view, Gravity.BOTTOM, 0, 0);
+    }
+
+    public interface OnClickChooseTypeButtonListener {
+        void onClickConfirm();
     }
 
 }

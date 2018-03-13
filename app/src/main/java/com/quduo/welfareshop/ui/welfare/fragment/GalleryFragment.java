@@ -121,7 +121,7 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                EventBus.getDefault().post(new StartBrotherEvent(GalleryDetailFragment.newInstance(galleryList.get(position).getId())));
+                EventBus.getDefault().post(new StartBrotherEvent(GalleryDetailFragment.newInstance(galleryList.get(position).getId(),galleryList.get(position).getName())));
             }
         });
     }
@@ -134,7 +134,7 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                EventBus.getDefault().post(new StartBrotherEvent(GalleryDetailFragment.newInstance(bannerList.get(position).getData_id())));
+                EventBus.getDefault().post(new StartBrotherEvent(GalleryDetailFragment.newInstance(bannerList.get(position).getData_id(),galleryList.get(position).getName())));
             }
         });
         CustomGridView typeGridView = headerView.findViewById(R.id.typeGridView);

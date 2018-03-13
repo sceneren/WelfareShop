@@ -70,6 +70,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
         initView();
         initListView();
         initWebView();
+
     }
 
     private void initToolBar() {
@@ -169,6 +170,14 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
     public void onClickBuyNow() {
         if (chooseTypePopupwindow == null) {
             chooseTypePopupwindow = new ChooseGoodsTypePopupwindow(GoodsDetailActivity.this);
+            chooseTypePopupwindow.setOnClickChooseTypeButtonListener(new ChooseGoodsTypePopupwindow.OnClickChooseTypeButtonListener() {
+                @Override
+                public void onClickConfirm() {
+                    Intent intent = new Intent(GoodsDetailActivity.this, ConfirmOrderActivity.class);
+                    startActivity(intent);
+                    GoodsDetailActivity.this.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+                }
+            });
         }
         chooseTypePopupwindow.show(buyNow);
     }

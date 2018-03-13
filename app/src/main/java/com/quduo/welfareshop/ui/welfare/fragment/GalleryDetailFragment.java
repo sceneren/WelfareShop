@@ -65,10 +65,13 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
 
     private int id;
     private final static String ARG_ID = "ID";
+    private String title;
+    private final static String ARG_TITLE = "title";
 
-    public static GalleryDetailFragment newInstance(int id) {
+    public static GalleryDetailFragment newInstance(int id, String title) {
         Bundle args = new Bundle();
         args.putInt(ARG_ID, id);
+        args.putString(ARG_TITLE, title);
         GalleryDetailFragment fragment = new GalleryDetailFragment();
         fragment.setArguments(args);
         return fragment;
@@ -79,6 +82,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             id = getArguments().getInt(ARG_ID, 0);
+            title = getArguments().getString(ARG_TITLE, "图库详情");
         }
     }
 
@@ -126,7 +130,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
 
     @Override
     public void initToolbar() {
-        toolbarTitle.setText("图库详情");
+        toolbarTitle.setText(title);
         toolbarText.setText("收藏");
         initToolbarNav(toolbar, true);
     }
