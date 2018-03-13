@@ -16,6 +16,7 @@ import com.blankj.utilcode.util.SizeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.event.StartBrotherEvent;
+import com.quduo.welfareshop.itemDecoration.GridSpacingItemDecoration;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
 import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
@@ -106,7 +107,7 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
         list.add("");
         adapter = new ShopAdapter(getContext(), list);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        recyclerView.addItemDecoration(new SpacesItemDecoration(SizeUtils.dp2px(2)));
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, SizeUtils.dp2px(2), false));
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override

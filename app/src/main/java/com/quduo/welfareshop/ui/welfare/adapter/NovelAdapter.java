@@ -11,7 +11,7 @@ import com.chad.library.adapter.base.util.MultiTypeDelegate;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.ui.welfare.entity.NovelModelInfo;
 import com.quduo.welfareshop.widgets.CustomListView;
-import com.quduo.welfareshop.widgets.CustomeGridView;
+import com.quduo.welfareshop.widgets.CustomGridView;
 
 import java.util.List;
 
@@ -65,7 +65,7 @@ public class NovelAdapter extends BaseQuickAdapter<NovelModelInfo, BaseViewHolde
             });
         } else if (holder.getItemViewType() == TYPE_GRID) {
             NovelGridAdapter gridAdapter = new NovelGridAdapter(context, info.getNovel());
-            CustomeGridView gridView = holder.getView(R.id.gridView);
+            CustomGridView gridView = holder.getView(R.id.gridView);
             gridView.setAdapter(gridAdapter);
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override

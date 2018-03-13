@@ -28,13 +28,14 @@ import com.quduo.welfareshop.ui.welfare.entity.WelfareGalleryInfo;
 import com.quduo.welfareshop.ui.welfare.presenter.GalleryPresenter;
 import com.quduo.welfareshop.ui.welfare.view.IGalleryView;
 import com.quduo.welfareshop.util.BannerImageLoader;
-import com.quduo.welfareshop.widgets.CustomeGridView;
+import com.quduo.welfareshop.widgets.CustomGridView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -130,7 +131,13 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
         banner = headerView.findViewById(R.id.banner);
         banner.setImageLoader(new BannerImageLoader());
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
-        CustomeGridView typeGridView = headerView.findViewById(R.id.typeGridView);
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                EventBus.getDefault().post(new StartBrotherEvent(GalleryDetailFragment.newInstance(bannerList.get(position).getData_id())));
+            }
+        });
+        CustomGridView typeGridView = headerView.findViewById(R.id.typeGridView);
         cateList = new ArrayList<>();
         typeGridAdapter = new GalleryTypeGridAdapter(getContext(), cateList);
         typeGridView.setAdapter(typeGridAdapter);

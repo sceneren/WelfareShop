@@ -56,6 +56,8 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
+    @BindView(R.id.toolbar_text)
+    TextView toolbarText;
     Unbinder unbinder;
 
     private List<ImageDetailInfo> galleryList = new ArrayList<>();
@@ -125,6 +127,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     @Override
     public void initToolbar() {
         toolbarTitle.setText("图库详情");
+        toolbarText.setText("收藏");
         initToolbarNav(toolbar, true);
     }
 

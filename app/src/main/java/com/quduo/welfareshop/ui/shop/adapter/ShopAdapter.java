@@ -33,16 +33,6 @@ public class ShopAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, String item) {
         ImageView image = helper.getView(R.id.image);
-        TextView btnBuy = helper.getView(R.id.btn_buy);
-        ViewGroup.LayoutParams layoutParams = image.getLayoutParams();
-        int height = (int) ((PtrLocalDisplay.SCREEN_WIDTH_PIXELS - SizeUtils.dp2px(21)) / 2f);
-        layoutParams.height = height;
-        image.setLayoutParams(layoutParams);
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) btnBuy.getLayoutParams();
-        params.setMargins(0, height - SizeUtils.dp2px(9), 0, 0);
-        btnBuy.setLayoutParams(params);
-
-
         String url = "http://pic19.nipic.com/20120214/3145425_134109747000_2.jpg";
         GlideApp.with(context)
                 .asBitmap()

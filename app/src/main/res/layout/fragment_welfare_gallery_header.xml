@@ -32,7 +32,7 @@
             app:title_textsize="14sp" />
     </RelativeLayout>
 
-    <com.quduo.welfareshop.widgets.CustomeGridView
+    <com.quduo.welfareshop.widgets.CustomGridView
         android:id="@+id/typeGridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

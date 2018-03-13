@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.ui.welfare.entity.VideoTypeInfo;
-import com.quduo.welfareshop.widgets.CustomeGridView;
+import com.quduo.welfareshop.widgets.CustomGridView;
 
 import java.util.List;
 
@@ -99,7 +99,7 @@ public class BeautyVideoItemAdapter extends BaseAdapter {
 
     static class BeautyVideoItemViewHolder {
         @BindView(R.id.gridView)
-        CustomeGridView gridView;
+        CustomGridView gridView;
 
         BeautyVideoItemViewHolder(View view) {
             ButterKnife.bind(this, view);

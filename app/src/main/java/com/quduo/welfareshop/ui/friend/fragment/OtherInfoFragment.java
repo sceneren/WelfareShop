@@ -28,7 +28,7 @@ import com.quduo.welfareshop.ui.friend.dialog.ToRechargeDialog;
 import com.quduo.welfareshop.ui.friend.dialog.VideoChatToRechargeDialog;
 import com.quduo.welfareshop.ui.friend.presenter.OtherInfoPresenter;
 import com.quduo.welfareshop.ui.friend.view.IOtherInfoView;
-import com.quduo.welfareshop.widgets.CustomeGridView;
+import com.quduo.welfareshop.widgets.CustomGridView;
 import com.quduo.welfareshop.widgets.RatioImageView;
 import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 
@@ -65,7 +65,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
     @BindView(R.id.no_photo)
     TextView noPhoto;
     @BindView(R.id.photoGridView)
-    CustomeGridView photoGridView;
+    CustomGridView photoGridView;
     @BindView(R.id.send_message)
     LinearLayout sendMessage;
     @BindView(R.id.image_layout)

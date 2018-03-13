@@ -18,7 +18,7 @@ import com.quduo.welfareshop.ui.mine.presenter.EditMyInfoPresenter;
 import com.quduo.welfareshop.ui.mine.view.IEditMyInfoView;
 import com.quduo.welfareshop.util.ImageSelectorUtil;
 import com.quduo.welfareshop.widgets.CircleImageView;
-import com.quduo.welfareshop.widgets.CustomeGridView;
+import com.quduo.welfareshop.widgets.CustomGridView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -53,7 +53,7 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
     @BindView(R.id.avatar)
     CircleImageView avatar;
     @BindView(R.id.photoGridView)
-    CustomeGridView photoGridView;
+    CustomGridView photoGridView;
     @BindView(R.id.nickname)
     TextView nickname;
     @BindView(R.id.sex)

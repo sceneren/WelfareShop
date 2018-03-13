@@ -9,19 +9,19 @@ import android.widget.GridView;
  * package:wiki.scene.shop.widgets
  * Author：scene on 2017/6/29 13:37
  */
-public class CustomeGridView extends GridView {
+public class CustomGridView extends GridView {
 
-    public CustomeGridView(Context context) {
+    public CustomGridView(Context context) {
         super(context);
         // TODO Auto-generated constructor stub
     }
 
-    public CustomeGridView(Context context, AttributeSet attrs) {
+    public CustomGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
         // TODO Auto-generated constructor stub
     }
 
-    public CustomeGridView(Context context, AttributeSet attrs, int defStyle) {
+    public CustomGridView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         // TODO Auto-generated constructor stub
     }

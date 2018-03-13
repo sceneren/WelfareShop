@@ -20,7 +20,7 @@ import com.quduo.welfareshop.ui.welfare.presenter.VideoDetailPresenter;
 import com.quduo.welfareshop.ui.welfare.view.IVideoDetailView;
 import com.quduo.welfareshop.util.FileUtils;
 import com.quduo.welfareshop.widgets.CustomListView;
-import com.quduo.welfareshop.widgets.CustomeGridView;
+import com.quduo.welfareshop.widgets.CustomGridView;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -59,7 +59,7 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
     @BindView(R.id.videoListView)
     CustomListView videoListView;
     @BindView(R.id.goodsGridView)
-    CustomeGridView goodsGridView;
+    CustomGridView goodsGridView;
     @BindView(R.id.btn_zan)
     ImageView btnZan;
     @BindView(R.id.btn_follow)
