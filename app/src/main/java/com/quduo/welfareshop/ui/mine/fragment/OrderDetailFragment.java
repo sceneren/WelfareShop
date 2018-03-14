@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.mine.adapter.OrderDetailRecommendGoodsAdapter;
+import com.quduo.welfareshop.ui.mine.adapter.TimeLineAdapter;
 import com.quduo.welfareshop.ui.mine.presenter.OrderDetailPresenter;
 import com.quduo.welfareshop.ui.mine.view.IOrderDetailView;
 import com.quduo.welfareshop.widgets.CustomGridView;
@@ -70,6 +71,9 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
 
     private List<String> goodsList = new ArrayList<>();
     private OrderDetailRecommendGoodsAdapter recommendGoodsAdapter;
+
+    private List<String> logisticsList = new ArrayList<>();
+    private TimeLineAdapter timeLineAdapter;
 
     public static OrderDetailFragment newInstance(int orderId) {
         Bundle args = new Bundle();
@@ -162,6 +166,18 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
         goodsGridView.setAdapter(recommendGoodsAdapter);
     }
 
+    private void initLogisticsListView() {
+        logisticsList.add("");
+        logisticsList.add("");
+        logisticsList.add("");
+        logisticsList.add("");
+        logisticsList.add("");
+        logisticsList.add("");
+        logisticsList.add("");
+        timeLineAdapter=new TimeLineAdapter(getContext(),logisticsList);
+        logisticsListView.setAdapter(timeLineAdapter);
+    }
+
     private void showType() {
         if (orderId == 0) {
             layoutTypeUnpay.setVisibility(View.VISIBLE);
@@ -172,6 +188,7 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
         } else if (orderId == 2) {
             layoutTypeUnpay.setVisibility(View.GONE);
             layoutTypeHasSend.setVisibility(View.VISIBLE);
+            initLogisticsListView();
         }
     }
 

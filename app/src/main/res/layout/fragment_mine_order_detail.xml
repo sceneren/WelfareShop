@@ -291,12 +291,15 @@
                             android:padding="@dimen/dp_10"
                             android:text="物流追踪"
                             android:textColor="@color/title_text_color"
-                            android:textSize="@dimen/sp_14" />
+                            android:textSize="@dimen/sp_16" />
 
                         <com.quduo.welfareshop.widgets.CustomListView
                             android:id="@+id/logisticsListView"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            android:divider="@color/transparent1"
+                            android:dividerHeight="0dp"
+                            android:listSelector="@color/transparent1" />
                     </LinearLayout>
                     <!--###订单时间###-->
                     <View
@@ -386,7 +389,7 @@
                             android:padding="@dimen/dp_10"
                             android:text="您可能还喜欢"
                             android:textColor="@color/title_text_color"
-                            android:textSize="@dimen/sp_14" />
+                            android:textSize="@dimen/sp_16" />
 
                         <com.quduo.welfareshop.widgets.CustomGridView
                             android:id="@+id/goodsGridView"
