@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
-    <dbname value="book" ></dbname>
+    <dbname value="book" />
 
-    <version value="1" ></version>
+    <version value="1" />
 
     <list>
-        <mapping class="com.quduo.welfareshop.db.BookCatalogue"></mapping>
-        <mapping class="com.quduo.welfareshop.db.BookList"></mapping>
-        <mapping class="com.quduo.welfareshop.db.BookMarks"></mapping>
+        <mapping class="com.quduo.welfareshop.db.BookCatalogue" />
+        <mapping class="com.quduo.welfareshop.db.BookList" />
+        <mapping class="com.quduo.welfareshop.db.BookMarks" />
     </list>
 </litepal>

@@ -47,7 +47,7 @@ public class MyOrderChildFragment extends BaseMvpFragment<IMyOrderChildView, MyO
     Unbinder unbinder;
 
     private int type = 0;
-    private List<OrderInfo> list;
+    private List<OrderInfo> list = new ArrayList<>();
     private MyOrderChildAdapter adapter;
 
     public static MyOrderChildFragment newInstance(int type) {
@@ -122,7 +122,6 @@ public class MyOrderChildFragment extends BaseMvpFragment<IMyOrderChildView, MyO
                 refreshLayout.finishRefresh(2000);
             }
         });
-        list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             OrderInfo orderInfo = new OrderInfo();
             orderInfo.setType(type);
@@ -152,9 +151,15 @@ public class MyOrderChildFragment extends BaseMvpFragment<IMyOrderChildView, MyO
     @Override
     public void onDestroyView() {
         try {
-            list.clear();
-            adapter.notifyDataSetChanged();
-            recyclerView.setAdapter(null);
+            if (list != null) {
+                list.clear();
+            }
+            if (adapter != null) {
+                adapter.notifyDataSetChanged();
+            }
+            if (recyclerView != null) {
+                recyclerView.setAdapter(null);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

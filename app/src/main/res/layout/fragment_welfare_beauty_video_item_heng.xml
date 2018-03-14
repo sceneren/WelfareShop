@@ -26,29 +26,6 @@
             android:layout_alignRight="@+id/baseimage"
             android:layout_alignTop="@+id/baseimage" />
 
-        <ImageView
-            android:id="@+id/tag_bg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tag"
-            android:layout_alignLeft="@+id/tag"
-            android:layout_alignRight="@+id/tag"
-            android:layout_alignTop="@+id/tag"
-            android:src="@drawable/btn_theme_corner_half_2dp" />
-
-        <TextView
-            android:id="@+id/tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
-            android:paddingBottom="2dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="2dp"
-            android:text="黑丝"
-            android:textColor="@color/white"
-            android:textSize="@dimen/dp_10" />
     </RelativeLayout>
 
     <TextView

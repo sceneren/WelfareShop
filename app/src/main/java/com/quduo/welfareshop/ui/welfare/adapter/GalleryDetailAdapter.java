@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.quduo.welfareshop.MyApplication;
@@ -13,7 +14,10 @@ import com.quduo.welfareshop.ui.welfare.entity.ImageDetailInfo;
 
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.BlurTransformation;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
+
+import static com.quduo.welfareshop.base.GlideOptions.bitmapTransform;
 
 /**
  * 图片详情
@@ -37,11 +41,28 @@ public class GalleryDetailAdapter extends BaseQuickAdapter<ImageDetailInfo, Base
         float scale = (float) PtrLocalDisplay.SCREEN_WIDTH_PIXELS / (float) list.get(helper.getLayoutPosition()).getWidth();
         params.height = (int) (scale * (float) list.get(helper.getLayoutPosition()).getHeight());
         image.setLayoutParams(params);
-        GlideApp.with(context)
-                .asBitmap()
-                .centerCrop()
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getUrl())
-                .into(image);
+
+        if (helper.getLayoutPosition() > 7) {
+            helper.setVisible(R.id.cover_image, true);
+            helper.setVisible(R.id.tip, true);
+            GlideApp.with(context)
+                    .asBitmap()
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getUrl())
+                    .apply(bitmapTransform(new BlurTransformation(25, 7)))
+                    .into(image);
+        } else {
+            helper.setVisible(R.id.cover_image, false);
+            helper.setVisible(R.id.tip, false);
+            GlideApp.with(context)
+                    .asBitmap()
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getUrl())
+                    .into(image);
+        }
+
     }
 
 }
