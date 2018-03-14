@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.welfare.fragment;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +17,7 @@ import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hss01248.dialog.StyledDialog;
+import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
@@ -69,6 +71,9 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     private final static String ARG_ID = "ID";
     private String title;
     private final static String ARG_TITLE = "title";
+
+    private Dialog noScoreDialog;
+    private Dialog openVipDialog;
 
     public static GalleryDetailFragment newInstance(int id, String title) {
         Bundle args = new Bundle();
@@ -163,15 +168,24 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ArrayList<String> imageUrlList = new ArrayList<>();
-                for (ImageDetailInfo info : galleryList) {
-                    imageUrlList.add(MyApplication.getInstance().getConfigInfo().getFile_domain() + info.getUrl());
+                if (position > 7) {
+                    if (position == 8) {
+                        showNoScoreDialog();
+                    } else {
+                        showOpenVipDialog();
+                    }
+                } else {
+                    ArrayList<String> imageUrlList = new ArrayList<>();
+                    for (ImageDetailInfo info : galleryList) {
+                        imageUrlList.add(MyApplication.getInstance().getConfigInfo().getFile_domain() + info.getUrl());
+                    }
+                    Intent intent = new Intent(getContext(), PreviewImageActivity.class);
+                    intent.putExtra(PreviewImageActivity.ARG_URLS, imageUrlList);
+                    intent.putExtra(PreviewImageActivity.ARG_POSITION, position);
+                    startActivity(intent);
+                    _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
                 }
-                Intent intent = new Intent(getContext(), PreviewImageActivity.class);
-                intent.putExtra(PreviewImageActivity.ARG_URLS, imageUrlList);
-                intent.putExtra(PreviewImageActivity.ARG_POSITION, position);
-                startActivity(intent);
-                _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+
             }
         });
     }
@@ -266,6 +280,66 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     public void hideLoadingDialog() {
         try {
             StyledDialog.dismissLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showNoScoreDialog() {
+        try {
+            noScoreDialog = StyledDialog.buildIosAlert("提示", "趣币不足，请充值", new MyDialogListener() {
+                @Override
+                public void onFirst() {
+
+                }
+
+                @Override
+                public void onSecond() {
+
+                }
+            }).setBtnText("确定", "取消").show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void hideNoScoreDialog() {
+        try {
+            StyledDialog.dismiss(noScoreDialog);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showOpenVipDialog() {
+        try {
+            openVipDialog = StyledDialog.buildIosAlert("消耗3查看", "您还剩余0趣币", new MyDialogListener() {
+                @Override
+                public void onFirst() {
+
+                }
+
+                @Override
+                public void onSecond() {
+
+                }
+            }).setBtnText("确定", "取消").show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void hideOpenVipDialog() {
+        try {
+            if (openVipDialog != null) {
+                StyledDialog.dismiss(openVipDialog);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -27,4 +27,12 @@ public interface IGalleryDetailView extends BaseView {
     void showNoFollow();
 
     void hideLoadingDialog();
+
+    void showNoScoreDialog();
+
+    void hideNoScoreDialog();
+
+    void showOpenVipDialog();
+
+    void hideOpenVipDialog();
 }
