@@ -174,31 +174,21 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/to_recharge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:paddingBottom="@dimen/dp_10"
-                android:paddingTop="@dimen/dp_10">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/btn_shop_buy"
-                    android:drawablePadding="5dp"
-                    android:drawableRight="@drawable/ic_go"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:paddingTop="10dp"
-                    android:text="商城消费1元送1积分，解锁更多栏目、抽取现金红包"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp_12" />
-            </RelativeLayout>
+                android:drawableLeft="@drawable/ic_mine_recharge"
+                android:drawablePadding="20dp"
+                android:drawableRight="@drawable/ic_mine_arrow_right"
+                android:gravity="center_vertical"
+                android:paddingBottom="15dp"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="15dp"
+                android:paddingTop="15dp"
+                android:text="积分充值"
+                android:textColor="@color/title_text_color" />
 
             <View
                 android:layout_width="match_parent"

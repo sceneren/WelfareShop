@@ -17,7 +17,7 @@ public class NovelDetailPresenter extends BasePresenter<INovelDetailView> {
     private NovelDetailModel model;
 
     public NovelDetailPresenter(INovelDetailView view) {
-        this.mView = view;
+        super(view);
         this.model = new NovelDetailModel();
     }
 

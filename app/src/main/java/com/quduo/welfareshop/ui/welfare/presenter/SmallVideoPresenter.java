@@ -16,6 +16,7 @@ public class SmallVideoPresenter extends BasePresenter<ISmallVideoView> {
     private SmallVideoModel model;
 
     public SmallVideoPresenter(ISmallVideoView view) {
+        super(view);
         this.mView = view;
         this.model = new SmallVideoModel();
     }

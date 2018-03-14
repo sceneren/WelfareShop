@@ -16,7 +16,7 @@ public class MidNightVideoPresenter extends BasePresenter<IMidNightVideoView> {
     private MidNightVideoModel model;
 
     public MidNightVideoPresenter(IMidNightVideoView view) {
-        this.mView = view;
+        super(view);
         this.model = new MidNightVideoModel();
     }
 

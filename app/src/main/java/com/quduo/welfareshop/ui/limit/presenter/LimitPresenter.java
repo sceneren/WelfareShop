@@ -11,6 +11,6 @@ import com.quduo.welfareshop.ui.limit.view.ILimitView;
 public class LimitPresenter extends BasePresenter<ILimitView> {
 
     public LimitPresenter(ILimitView view) {
-        this.mView = view;
+        super(view);
     }
 }

@@ -14,7 +14,7 @@ public class FollowPresenter extends BasePresenter<IFollowView> {
     private FollowModel model;
 
     public FollowPresenter(IFollowView view) {
-        this.mView = view;
+        super(view);
         this.model = new FollowModel();
     }
 }

@@ -14,7 +14,7 @@ public class MyFollowVideoPresenter extends BasePresenter<IMyFollowVideoView> {
     private MyFollowVideoModel model;
 
     public MyFollowVideoPresenter(IMyFollowVideoView view) {
-        this.mView = view;
+        super(view);
         this.model = new MyFollowVideoModel();
     }
 }

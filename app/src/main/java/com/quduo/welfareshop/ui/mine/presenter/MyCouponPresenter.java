@@ -14,7 +14,7 @@ public class MyCouponPresenter extends BasePresenter<IMyCouponView> {
     private MyCouponModel model;
 
     public MyCouponPresenter(IMyCouponView view) {
-        this.mView = view;
+        super(view);
         this.model = new MyCouponModel();
     }
 }

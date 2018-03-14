@@ -14,7 +14,7 @@ public class MyGoodsPresenter extends BasePresenter<IMyGoodsView> {
     private MyGoodsModel model;
 
     public MyGoodsPresenter(IMyGoodsView view) {
-        this.mView = view;
+        super(view);
         this.model = new MyGoodsModel();
     }
 }

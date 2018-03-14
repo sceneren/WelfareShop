@@ -8,6 +8,10 @@ package com.quduo.welfareshop.mvp;
 public abstract class BasePresenter<T> {
     public T mView;
 
+    public BasePresenter(T view) {
+        this.mView = view;
+    }
+
     public void attach(T mView) {
         this.mView = mView;
     }

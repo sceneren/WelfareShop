@@ -14,7 +14,7 @@ public class NearPresenter extends BasePresenter<INearView> {
     private NearModel model;
 
     public NearPresenter(INearView view) {
-        this.mView = view;
+        super(view);
         this.model = new NearModel();
     }
 }

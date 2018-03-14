@@ -14,7 +14,7 @@ public class MyReceiverPresenter extends BasePresenter<IMyReceiverView> {
     private MyReceiverModel model;
 
     public MyReceiverPresenter(IMyReceiverView view) {
-        this.mView = view;
+        super(view);
         this.model = new MyReceiverModel();
     }
 }

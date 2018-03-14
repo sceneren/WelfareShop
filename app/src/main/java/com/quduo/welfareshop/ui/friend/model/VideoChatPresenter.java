@@ -11,6 +11,6 @@ import com.quduo.welfareshop.ui.friend.view.IVideoChatView;
 
 public class VideoChatPresenter extends BasePresenter<IVideoChatView> {
     public VideoChatPresenter(IVideoChatView view) {
-        this.mView = view;
+        super(view);
     }
 }

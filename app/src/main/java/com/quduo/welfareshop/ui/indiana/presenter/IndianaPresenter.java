@@ -13,7 +13,7 @@ public class IndianaPresenter extends BasePresenter<IIndianaView> {
     private IndianaModel model;
 
     public IndianaPresenter(IIndianaView view) {
-        this.mView = view;
+        super(view);
         this.model = new IndianaModel();
     }
 }

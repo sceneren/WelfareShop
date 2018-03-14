@@ -14,7 +14,7 @@ public class FriendPresenter extends BasePresenter<IFriendView> {
     private FriendModel model;
 
     public FriendPresenter(IFriendView view) {
-        this.mView = view;
+        super(view);
         model = new FriendModel();
     }
 }

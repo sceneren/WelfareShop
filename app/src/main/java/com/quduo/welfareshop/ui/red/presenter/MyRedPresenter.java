@@ -11,6 +11,6 @@ import com.quduo.welfareshop.ui.red.view.IMyRedView;
 
 public class MyRedPresenter extends BasePresenter<IMyRedView> {
     public MyRedPresenter(IMyRedView view) {
-        this.mView = view;
+        super(view);
     }
 }

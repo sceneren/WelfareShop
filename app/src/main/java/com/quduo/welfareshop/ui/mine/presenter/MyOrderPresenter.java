@@ -11,6 +11,6 @@ import com.quduo.welfareshop.ui.mine.view.IMyOrderView;
 
 public class MyOrderPresenter extends BasePresenter<IMyOrderView> {
     public MyOrderPresenter(IMyOrderView view) {
-        this.mView = view;
+        super(view);
     }
 }

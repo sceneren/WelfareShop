@@ -14,7 +14,7 @@ public class RedPresenter extends BasePresenter<IRedView> {
     private RedModel model;
 
     public RedPresenter(IRedView view) {
-        this.mView = view;
+        super(view);
         this.model = new RedModel();
     }
 }

@@ -16,7 +16,7 @@ public class GalleryPresenter extends BasePresenter<IGalleryView> {
     private GalleryModel model;
 
     public GalleryPresenter(IGalleryView view) {
-        this.mView = view;
+        super(view);
         this.model = new GalleryModel();
     }
 

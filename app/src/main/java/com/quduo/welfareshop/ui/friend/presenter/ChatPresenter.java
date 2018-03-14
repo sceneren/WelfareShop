@@ -21,7 +21,7 @@ public class ChatPresenter extends BasePresenter<IChatView> {
     private ChatModel model;
 
     public ChatPresenter(IChatView view) {
-        this.mView = view;
+        super(view);
         this.model = new ChatModel();
     }
 

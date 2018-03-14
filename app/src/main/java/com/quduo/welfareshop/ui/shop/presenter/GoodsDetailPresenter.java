@@ -14,7 +14,7 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
     private GoodsDetailModel model;
 
     public GoodsDetailPresenter(IGoodsDetailView view) {
-        this.mView = view;
+        super(view);
         this.model = new GoodsDetailModel();
     }
 }

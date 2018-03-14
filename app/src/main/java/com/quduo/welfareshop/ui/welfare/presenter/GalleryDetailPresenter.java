@@ -17,7 +17,7 @@ public class GalleryDetailPresenter extends BasePresenter<IGalleryDetailView> {
     private GalleryDetailModel model;
 
     public GalleryDetailPresenter(IGalleryDetailView view) {
-        this.mView = view;
+        super(view);
         this.model = new GalleryDetailModel();
     }
 

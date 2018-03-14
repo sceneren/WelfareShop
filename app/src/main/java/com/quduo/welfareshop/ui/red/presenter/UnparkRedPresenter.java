@@ -14,7 +14,7 @@ public class UnparkRedPresenter extends BasePresenter<IUnparkRedView> {
     private UnparkRedModel model;
 
     public UnparkRedPresenter(IUnparkRedView view) {
-        this.mView = view;
+        super(view);
         this.model = new UnparkRedModel();
     }
 }

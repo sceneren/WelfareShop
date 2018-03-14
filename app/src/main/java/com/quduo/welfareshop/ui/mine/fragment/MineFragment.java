@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.activity.RechargeActivity;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.mine.presenter.MinePresenter;
 import com.quduo.welfareshop.ui.mine.view.IMineView;
@@ -131,6 +132,12 @@ public class MineFragment extends BaseBackMvpFragment<IMineView, MinePresenter> 
     @OnClick(R.id.user_agreement)
     public void onClickUserAgreement() {
         startActivity(new Intent(_mActivity, ServiceCenterActivity.class));
+        _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }
 
+    @OnClick(R.id.to_recharge)
+    public void onClickToRecharge() {
+        startActivity(new Intent(getContext(), RechargeActivity.class));
+        _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+    }
 }

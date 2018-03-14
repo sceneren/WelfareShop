@@ -13,7 +13,7 @@ public class MyInfoPresenter extends BasePresenter<IMyInfoView> {
     private MyInfoModel model;
 
     public MyInfoPresenter(IMyInfoView view) {
-        this.mView = view;
+        super(view);
         model = new MyInfoModel();
     }
 }

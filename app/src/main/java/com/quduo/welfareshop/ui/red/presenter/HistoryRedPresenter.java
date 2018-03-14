@@ -14,7 +14,7 @@ public class HistoryRedPresenter extends BasePresenter<IHistoryRedView> {
     private HistoryRedModel model;
 
     public HistoryRedPresenter(IHistoryRedView view) {
-        this.mView = view;
+        super(view);
         this.model = new HistoryRedModel();
     }
 }

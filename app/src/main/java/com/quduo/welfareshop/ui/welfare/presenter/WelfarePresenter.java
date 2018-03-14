@@ -11,6 +11,7 @@ import com.quduo.welfareshop.ui.welfare.view.IWelfareView;
 public class WelfarePresenter extends BasePresenter<IWelfareView> {
 
     public WelfarePresenter(IWelfareView view) {
+        super(view);
         this.mView = view;
     }
 }

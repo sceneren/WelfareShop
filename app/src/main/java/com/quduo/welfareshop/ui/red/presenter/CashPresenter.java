@@ -14,7 +14,7 @@ public class CashPresenter extends BasePresenter<ICashView> {
     private CashModel model;
 
     public CashPresenter(ICashView view) {
-        this.mView = view;
+        super(view);
         this.model = new CashModel();
     }
 }

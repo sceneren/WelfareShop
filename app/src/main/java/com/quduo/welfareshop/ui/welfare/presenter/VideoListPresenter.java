@@ -14,6 +14,7 @@ public class VideoListPresenter extends BasePresenter<IVideoListView> {
     private VideoListModel model;
 
     public VideoListPresenter(IVideoListView view) {
+        super(view);
         this.mView = view;
         this.model = new VideoListModel();
     }

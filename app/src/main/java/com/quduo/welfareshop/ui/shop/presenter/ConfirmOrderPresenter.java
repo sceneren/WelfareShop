@@ -14,7 +14,7 @@ public class ConfirmOrderPresenter extends BasePresenter<IConfirmOrderView> {
     private ConfirmOrderModel model;
 
     public ConfirmOrderPresenter(IConfirmOrderView view) {
-        this.mView = view;
+        super(view);
         this.model = new ConfirmOrderModel();
     }
 }

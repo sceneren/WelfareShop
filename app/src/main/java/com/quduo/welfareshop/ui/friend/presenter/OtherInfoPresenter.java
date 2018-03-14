@@ -14,7 +14,7 @@ public class OtherInfoPresenter extends BasePresenter<IOtherInfoView> {
     private OtherInfoModel model;
 
     public OtherInfoPresenter(IOtherInfoView view) {
-        this.mView = view;
+        super(view);
         this.model = new OtherInfoModel();
     }
 }

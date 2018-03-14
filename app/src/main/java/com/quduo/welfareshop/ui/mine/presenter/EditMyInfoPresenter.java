@@ -14,7 +14,7 @@ public class EditMyInfoPresenter extends BasePresenter<IEditMyInfoView> {
     private EditMyInfoModel model;
 
     public EditMyInfoPresenter(IEditMyInfoView view) {
-        this.mView = view;
+        super(view);
         model = new EditMyInfoModel();
     }
 }

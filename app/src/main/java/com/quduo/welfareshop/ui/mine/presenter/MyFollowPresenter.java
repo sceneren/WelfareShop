@@ -11,6 +11,6 @@ import com.quduo.welfareshop.ui.mine.view.IMyFollowView;
 
 public class MyFollowPresenter extends BasePresenter<IMyFollowView> {
     public MyFollowPresenter(IMyFollowView view) {
-        this.mView = view;
+        super(view);
     }
 }

@@ -15,7 +15,7 @@ public class MessagePresenter extends BasePresenter<IMessageView> {
     private MessageModel model;
 
     public MessagePresenter(IMessageView view) {
-        this.mView = view;
+        super(view);
         model = new MessageModel();
     }
 

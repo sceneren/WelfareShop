@@ -14,6 +14,7 @@ public class VideoDetailPresenter extends BasePresenter<IVideoDetailView> {
     private VideoDetailModel model;
 
     public VideoDetailPresenter(IVideoDetailView view) {
+        super(view);
         this.mView = view;
         this.model = new VideoDetailModel();
     }

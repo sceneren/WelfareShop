@@ -18,7 +18,7 @@ public class MyFollowNovelPresenter extends BasePresenter<IMyFollowNovelView> {
     private MyFollowNovelModel model;
 
     public MyFollowNovelPresenter(IMyFollowNovelView view) {
-        this.mView = view;
+        super(view);
         this.model = new MyFollowNovelModel();
     }
 

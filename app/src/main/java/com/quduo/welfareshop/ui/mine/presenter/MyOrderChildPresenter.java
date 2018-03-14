@@ -14,7 +14,7 @@ public class MyOrderChildPresenter extends BasePresenter<IMyOrderChildView> {
     private MyOrderChildModel model;
 
     public MyOrderChildPresenter(IMyOrderChildView view) {
-        this.mView = view;
+        super(view);
         this.model = new MyOrderChildModel();
     }
 }

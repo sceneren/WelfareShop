@@ -15,7 +15,7 @@ public class BeautyVideoPresenter extends BasePresenter<IBeautyVideoView> {
     private BeautyVideoModel model;
 
     public BeautyVideoPresenter(IBeautyVideoView view) {
-        this.mView = view;
+        super(view);
         this.model = new BeautyVideoModel();
     }
 

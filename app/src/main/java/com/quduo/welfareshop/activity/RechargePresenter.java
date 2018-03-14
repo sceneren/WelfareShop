@@ -12,7 +12,7 @@ public class RechargePresenter extends BasePresenter<IRechargeView> {
     private RechargeModel model;
 
     public RechargePresenter(IRechargeView view) {
-        this.mView = view;
+        super(view);
         this.model = new RechargeModel();
     }
 }

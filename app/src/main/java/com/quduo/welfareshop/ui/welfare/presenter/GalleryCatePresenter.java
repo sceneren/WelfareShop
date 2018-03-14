@@ -16,7 +16,7 @@ public class GalleryCatePresenter extends BasePresenter<IGalleryCateView> {
     private GalleryCateModel model;
 
     public GalleryCatePresenter(IGalleryCateView view) {
-        this.mView = view;
+        super(view);
         this.model = new GalleryCateModel();
     }
 

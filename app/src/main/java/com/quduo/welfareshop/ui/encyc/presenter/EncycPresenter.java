@@ -11,6 +11,6 @@ import com.quduo.welfareshop.ui.encyc.view.IEncycView;
 public class EncycPresenter extends BasePresenter<IEncycView> {
 
     public EncycPresenter(IEncycView view) {
-        this.mView = view;
+        super(view);
     }
 }

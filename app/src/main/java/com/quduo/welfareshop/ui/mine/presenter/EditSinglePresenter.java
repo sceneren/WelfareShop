@@ -14,7 +14,7 @@ public class EditSinglePresenter extends BasePresenter<IEditSingleView> {
     private EditSingleModel model;
 
     public EditSinglePresenter(IEditSingleView view) {
-        this.mView = view;
+        super(view);
         this.model = new EditSingleModel();
     }
 }
