@@ -1,13 +1,11 @@
 package com.quduo.welfareshop.ui.welfare.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.blankj.utilcode.util.SizeUtils;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.quduo.welfareshop.MyApplication;
@@ -18,8 +16,6 @@ import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
 
 /**
@@ -38,56 +34,68 @@ public class GalleryAdapter extends BaseQuickAdapter<WelfareGalleryInfo, BaseVie
 
     @Override
     protected void convert(BaseViewHolder holder, WelfareGalleryInfo item) {
-        ImageView imageView = holder.getView(R.id.imageView);
-        ImageView tagBg = holder.getView(R.id.tag_bg);
+        SelectableRoundedImageView avatar = holder.getView(R.id.avatar);
+        ImageView baseimage = holder.getView(R.id.baseimage);
+        ImageView image2 = holder.getView(R.id.image2);
+        ImageView image3 = holder.getView(R.id.image3);
+        ImageView image4 = holder.getView(R.id.image4);
 
-        if (imageView != null) {
-            int itemWidth = PtrLocalDisplay.SCREEN_WIDTH_PIXELS / 2 - SizeUtils.dp2px(5);
-            ViewGroup.LayoutParams params = imageView.getLayoutParams();
-            float scale = (float) itemWidth / (float) item.getThumb_width();
-            params.width = itemWidth;
-            params.height = (int) (scale * (float) item.getThumb_height());
-            imageView.setLayoutParams(params);
-            GlideApp.with(context)
-                    .asBitmap()
-                    .centerCrop()
-                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
-                    .into(imageView);
-            holder.setText(R.id.name, item.getName());
-            holder.setText(R.id.count, "共" + item.getImage_count() + "张");
-            holder.setText(R.id.click_num,"点击："+item.getView_times());
-            holder.setText(R.id.follow_num,"收藏："+item.getFavor_times());
+        int baseWidth = PtrLocalDisplay.SCREEN_WIDTH_PIXELS - SizeUtils.dp2px(15);
+        float base = baseWidth / 1048f;
+        ViewGroup.LayoutParams smallParams = image2.getLayoutParams();
+        int smallSize = (int) (base * 372);
+        smallParams.width = smallSize;
+        smallParams.height = smallSize;
+        image2.setLayoutParams(smallParams);
+        image3.setLayoutParams(smallParams);
+        image4.setLayoutParams(smallParams);
 
-            if (holder.getLayoutPosition() % 2 == 0) {
-                tagBg.setColorFilter(Color.parseColor("#FEA0CA"));
-            } else {
-                tagBg.setColorFilter(Color.parseColor("#ACD2FF"));
-            }
+        ViewGroup.LayoutParams bigParams = baseimage.getLayoutParams();
+        int bigWidth = (int) (base * 676f);
+        int bigHeight = smallSize * 3 + SizeUtils.dp2px(10);
+        bigParams.width = bigWidth;
+        bigParams.height = bigHeight;
+        baseimage.setLayoutParams(bigParams);
+
+        GlideApp.with(context)
+                .asBitmap()
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
+                .into(avatar);
+        GlideApp.with(context)
+                .asBitmap()
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
+                .into(baseimage);
+        GlideApp.with(context)
+                .asBitmap()
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
+                .into(image2);
+        GlideApp.with(context)
+                .asBitmap()
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
+                .into(image3);
+        GlideApp.with(context)
+                .asBitmap()
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
+                .into(image4);
+
+        holder.setText(R.id.title, item.getName());
+        holder.setText(R.id.follow_number, String.valueOf(item.getFavor_times()));
+        if (item.getFavor_id() != 0) {
+            holder.setImageResource(R.id.follow, R.drawable.ic_gallery_follow_s);
+        } else {
+            holder.setImageResource(R.id.follow, R.drawable.ic_gallery_follow_d);
         }
-
-    }
-
-    static class GalleryViewHolder extends BaseViewHolder {
-        @BindView(R.id.imageView)
-        SelectableRoundedImageView imageView;
-        @BindView(R.id.tag)
-        TextView tag;
-        @BindView(R.id.tag_bg)
-        ImageView tagBg;
-        @BindView(R.id.count)
-        TextView count;
-        @BindView(R.id.name)
-        TextView name;
-        @BindView(R.id.click_num)
-        TextView clickNum;
-        @BindView(R.id.follow_num)
-        TextView followNum;
-
-        GalleryViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
-        }
-
+        holder.addOnClickListener(R.id.layout_follow);
     }
 
 }

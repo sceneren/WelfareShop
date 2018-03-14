@@ -37,6 +37,7 @@ public class WelfareGalleryInfo extends BaseBean {
     private int thumb_width;
     private int thumb_height;
     private int image_count;
+    private int favor_id;
 
     public int getId() {
         return id;
@@ -132,5 +133,13 @@ public class WelfareGalleryInfo extends BaseBean {
 
     public void setImage_count(int image_count) {
         this.image_count = image_count;
+    }
+
+    public int getFavor_id() {
+        return favor_id;
+    }
+
+    public void setFavor_id(int favor_id) {
+        this.favor_id = favor_id;
     }
 }

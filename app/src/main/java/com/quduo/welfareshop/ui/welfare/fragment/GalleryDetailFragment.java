@@ -25,6 +25,7 @@ import com.quduo.welfareshop.activity.PreviewImageActivity;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
+import com.quduo.welfareshop.ui.welfare.activity.WelfareImagePreviewActivity;
 import com.quduo.welfareshop.ui.welfare.adapter.GalleryDetailAdapter;
 import com.quduo.welfareshop.ui.welfare.entity.GalleryDetailResultInfo;
 import com.quduo.welfareshop.ui.welfare.entity.ImageDetailInfo;
@@ -60,8 +61,8 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
-    @BindView(R.id.toolbar_text)
-    TextView toolbarText;
+    @BindView(R.id.unlock)
+    TextView unlock;
     Unbinder unbinder;
 
     private List<ImageDetailInfo> galleryList = new ArrayList<>();
@@ -96,7 +97,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_gallery_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_welfare_gallery_detail, container, false);
         unbinder = ButterKnife.bind(this, view);
         return attachToSwipeBack(view);
     }
@@ -138,7 +139,6 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     @Override
     public void initToolbar() {
         toolbarTitle.setText(title);
-        toolbarText.setText("收藏");
         initToolbarNav(toolbar, true);
     }
 
@@ -179,7 +179,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
                     for (ImageDetailInfo info : galleryList) {
                         imageUrlList.add(MyApplication.getInstance().getConfigInfo().getFile_domain() + info.getUrl());
                     }
-                    Intent intent = new Intent(getContext(), PreviewImageActivity.class);
+                    Intent intent = new Intent(getContext(), WelfareImagePreviewActivity.class);
                     intent.putExtra(PreviewImageActivity.ARG_URLS, imageUrlList);
                     intent.putExtra(PreviewImageActivity.ARG_POSITION, position);
                     startActivity(intent);
@@ -197,7 +197,6 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
 
     @Override
     public void onDestroyView() {
-        OkGo.getInstance().cancelTag(ApiUtil.FOLLOW_GALLERY_TAG);
         OkGo.getInstance().cancelTag(ApiUtil.GALLERY_DETAIL_TAG);
         super.onDestroyView();
         unbinder.unbind();
@@ -231,7 +230,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
             galleryList.clear();
             galleryList.addAll(data.getImages());
             adapter.notifyDataSetChanged();
-            toolbarText.setText(data.getFavor_id() == 0 ? "收藏" : "已收藏");
+            unlock.setVisibility(data.getFavor_id() == 0 ? View.VISIBLE : View.GONE);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -250,7 +249,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     @Override
     public void showLoadingDialog() {
         try {
-            StyledDialog.buildLoading().show();
+            StyledDialog.buildLoading().setActivity(_mActivity).show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -259,7 +258,6 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     @Override
     public void showHasFollow(int followId) {
         try {
-            toolbarText.setText("已收藏");
             data.setFavor_id(followId);
         } catch (Exception e) {
             e.printStackTrace();
@@ -269,7 +267,6 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     @Override
     public void showNoFollow() {
         try {
-            toolbarText.setText("收藏");
             data.setFavor_id(0);
         } catch (Exception e) {
             e.printStackTrace();
@@ -345,14 +342,8 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
         }
     }
 
-    @OnClick(R.id.toolbar_text)
-    public void onClickToolbarText() {
-        if (data.getFavor_id() == 0) {
-            //收藏
-            presenter.followGallery();
-        } else {
-            //取消收藏
-            presenter.cancelFollow();
-        }
+    @OnClick(R.id.unlock)
+    public void onClickUnlock() {
+        showOpenVipDialog();
     }
 }

@@ -17,4 +17,12 @@ public interface IGalleryView extends BaseView {
     void loadmoreFinish();
 
     void bindData(GalleryResultInfo data);
+
+    void showLoadingDialog();
+
+    void followSuccess(int position,int followId);
+
+    void hideLoadingDialog();
+
+    void cancelFollowSuccess(int position);
 }

@@ -5,19 +5,21 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
+import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
+import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.welfare.adapter.GalleryAdapter;
 import com.quduo.welfareshop.ui.welfare.adapter.GalleryTypeGridAdapter;
@@ -111,17 +113,23 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
         galleryList = new ArrayList<>();
 
         adapter = new GalleryAdapter(getContext(), galleryList);
-
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        //防止item位置互换
-        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.addItemDecoration(new SpacesItemDecoration(SizeUtils.dp2px(5)));
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                EventBus.getDefault().post(new StartBrotherEvent(GalleryDetailFragment.newInstance(galleryList.get(position).getId(),galleryList.get(position).getName())));
+                EventBus.getDefault().post(new StartBrotherEvent(GalleryDetailFragment.newInstance(galleryList.get(position).getId(), galleryList.get(position).getName())));
+            }
+        });
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (galleryList.get(position).getFavor_id() == 0) {
+                    presenter.followGallery(position, galleryList.get(position).getId());
+                } else {
+                    presenter.cancelFollow(position, galleryList.get(position).getFavor_id());
+                }
             }
         });
     }
@@ -134,7 +142,7 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                EventBus.getDefault().post(new StartBrotherEvent(GalleryDetailFragment.newInstance(bannerList.get(position).getData_id(),galleryList.get(position).getName())));
+                EventBus.getDefault().post(new StartBrotherEvent(GalleryDetailFragment.newInstance(bannerList.get(position).getData_id(), galleryList.get(position).getName())));
             }
         });
         CustomGridView typeGridView = headerView.findViewById(R.id.typeGridView);
@@ -225,6 +233,8 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
 
     @Override
     public void onDestroyView() {
+        OkGo.getInstance().cancelTag(ApiUtil.FOLLOW_GALLERY_TAG);
+        OkGo.getInstance().cancelTag(ApiUtil.CANCEL_FOLLOW_TAG);
         OkGo.getInstance().cancelTag(ApiUtil.GALLERY_TAG);
         super.onDestroyView();
         unbinder.unbind();
@@ -269,6 +279,46 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
             }
             galleryList.addAll(data.getGallery().getData());
             adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showLoadingDialog() {
+        try {
+            StyledDialog.buildLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void followSuccess(int position, int followId) {
+        try {
+            galleryList.get(position).setFavor_id(followId);
+            galleryList.get(position).setFavor_times(galleryList.get(position).getFavor_times() + 1);
+            adapter.notifyItemChanged(position);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void hideLoadingDialog() {
+        try {
+            StyledDialog.dismissLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void cancelFollowSuccess(int position) {
+        try {
+            galleryList.get(position).setFavor_id(0);
+            galleryList.get(position).setFavor_times(galleryList.get(position).getFavor_times() > 0 ? galleryList.get(position).getFavor_times() - 1 : 0);
+            adapter.notifyItemChanged(position);
         } catch (Exception e) {
             e.printStackTrace();
         }
