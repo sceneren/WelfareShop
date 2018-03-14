@@ -230,7 +230,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
             galleryList.clear();
             galleryList.addAll(data.getImages());
             adapter.notifyDataSetChanged();
-            unlock.setVisibility(data.getFavor_id() == 0 ? View.VISIBLE : View.GONE);
+            unlock.setVisibility(View.VISIBLE);
         } catch (Exception e) {
             e.printStackTrace();
         }

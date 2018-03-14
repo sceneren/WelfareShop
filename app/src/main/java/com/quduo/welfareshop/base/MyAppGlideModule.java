@@ -26,7 +26,7 @@ public class MyAppGlideModule extends AppGlideModule {
                 .setMemoryCacheScreens(2)
                 .build();
         builder.setMemoryCache(new LruResourceCache(calculator.getMemoryCacheSize()));
-        builder.setDefaultRequestOptions(new RequestOptions().format(DecodeFormat.PREFER_RGB_565));
+        builder.setDefaultRequestOptions(new RequestOptions().format(DecodeFormat.PREFER_ARGB_8888));
         builder.setLogLevel(Log.DEBUG);
     }
 

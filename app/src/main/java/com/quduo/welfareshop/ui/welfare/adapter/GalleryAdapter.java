@@ -35,7 +35,7 @@ public class GalleryAdapter extends BaseQuickAdapter<WelfareGalleryInfo, BaseVie
     @Override
     protected void convert(BaseViewHolder holder, WelfareGalleryInfo item) {
         SelectableRoundedImageView avatar = holder.getView(R.id.avatar);
-        ImageView baseimage = holder.getView(R.id.baseimage);
+        ImageView image1 = holder.getView(R.id.image1);
         ImageView image2 = holder.getView(R.id.image2);
         ImageView image3 = holder.getView(R.id.image3);
         ImageView image4 = holder.getView(R.id.image4);
@@ -50,13 +50,13 @@ public class GalleryAdapter extends BaseQuickAdapter<WelfareGalleryInfo, BaseVie
         image3.setLayoutParams(smallParams);
         image4.setLayoutParams(smallParams);
 
-        ViewGroup.LayoutParams bigParams = baseimage.getLayoutParams();
+        ViewGroup.LayoutParams bigParams = image1.getLayoutParams();
         int bigWidth = (int) (base * 676f);
         int bigHeight = smallSize * 3 + SizeUtils.dp2px(10);
         bigParams.width = bigWidth;
         bigParams.height = bigHeight;
-        baseimage.setLayoutParams(bigParams);
-
+        image1.setLayoutParams(bigParams);
+        String url = "http://e.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg";
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
@@ -68,7 +68,7 @@ public class GalleryAdapter extends BaseQuickAdapter<WelfareGalleryInfo, BaseVie
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
-                .into(baseimage);
+                .into(image1);
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()

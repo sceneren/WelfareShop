@@ -42,9 +42,9 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/baseimage"
-                android:layout_width="60dp"
-                android:layout_height="60dp" />
+                android:id="@+id/image1"
+                android:layout_width="300dp"
+                android:layout_height="400dp" />
         </RelativeLayout>
 
         <LinearLayout

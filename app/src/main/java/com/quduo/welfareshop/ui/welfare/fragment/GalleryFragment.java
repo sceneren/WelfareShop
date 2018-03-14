@@ -287,7 +287,7 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
     @Override
     public void showLoadingDialog() {
         try {
-            StyledDialog.buildLoading();
+            StyledDialog.buildLoading().show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -298,7 +298,7 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
         try {
             galleryList.get(position).setFavor_id(followId);
             galleryList.get(position).setFavor_times(galleryList.get(position).getFavor_times() + 1);
-            adapter.notifyItemChanged(position);
+            adapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -318,7 +318,7 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
         try {
             galleryList.get(position).setFavor_id(0);
             galleryList.get(position).setFavor_times(galleryList.get(position).getFavor_times() > 0 ? galleryList.get(position).getFavor_times() - 1 : 0);
-            adapter.notifyItemChanged(position);
+            adapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();
         }
