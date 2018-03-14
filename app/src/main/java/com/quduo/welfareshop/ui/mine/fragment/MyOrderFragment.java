@@ -80,16 +80,18 @@ public class MyOrderFragment extends BaseBackMvpFragment<IMyOrderView, MyOrderPr
 
     @Override
     public void initView() {
-        String tabTitle[] = {"待付款", "待发货", "待评价"};
+        String tabTitle[] = {"待付款", "待发货","待收货", "待评价"};
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(MyOrderChildFragment.newInstance(0));
         fragmentList.add(MyOrderChildFragment.newInstance(1));
         fragmentList.add(MyOrderChildFragment.newInstance(2));
+        fragmentList.add(MyOrderChildFragment.newInstance(3));
         tab.addTab(tab.newTab().setText(tabTitle[0]));
         tab.addTab(tab.newTab().setText(tabTitle[1]));
         tab.addTab(tab.newTab().setText(tabTitle[2]));
+        tab.addTab(tab.newTab().setText(tabTitle[3]));
         viewPager.setAdapter(new BaseViewPagerAdapter(getChildFragmentManager(), tabTitle, fragmentList));
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(4);
         tab.setupWithViewPager(viewPager);
     }
 

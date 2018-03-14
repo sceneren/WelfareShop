@@ -133,6 +133,15 @@ public class MyOrderChildFragment extends BaseMvpFragment<IMyOrderChildView, MyO
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new SpacesItemDecoration(SizeUtils.dp2px(10), true, false));
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnClickOrderItemListener(new MyOrderChildAdapter.OnClickOrderItemListener() {
+            @Override
+            public void onClickOrderItem(int position) {
+                if ((getParentFragment()) != null && getParentFragment() instanceof MyOrderFragment) {
+                    ((MyOrderFragment) getParentFragment()).start(OrderDetailFragment.newInstance(type));
+                }
+            }
+        });
     }
 
     @Override

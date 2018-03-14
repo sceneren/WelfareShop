@@ -23,13 +23,15 @@ import butterknife.ButterKnife;
  */
 
 public class MyOrderChildAdapter extends RecyclerView.Adapter {
-    private static final int TYPE_UNPAY = 0;
-    private static final int TYPE_UNRECEIVER = 1;
-    private static final int TYPE_UNCOMMENT = 2;
+    private static final int TYPE_UNPAY = 0;//待付款
+    private static final int TYPE_UNSEND = 1;//待发货
+    private static final int TYPE_UNRECEIVER = 2;//待收货
+    private static final int TYPE_UNCOMMENT = 3;//待评价
     private Context context;
     private List<OrderInfo> list;
 
     private LayoutInflater inflater;
+    private OnClickOrderItemListener onClickOrderItemListener;
 
     public MyOrderChildAdapter(Context context, List<OrderInfo> list) {
         this.context = context;
@@ -37,12 +39,18 @@ public class MyOrderChildAdapter extends RecyclerView.Adapter {
         inflater = LayoutInflater.from(context);
     }
 
+    public void setOnClickOrderItemListener(OnClickOrderItemListener onClickOrderItemListener) {
+        this.onClickOrderItemListener = onClickOrderItemListener;
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == TYPE_UNPAY) {
             return new OrderUnPayViewHolder(inflater.inflate(R.layout.fragment_my_order_unpay_item, parent, false));
+        } else if (viewType == TYPE_UNSEND) {
+            return new OrderUnReceiverViewHolder(inflater.inflate(R.layout.fragment_my_order_unsend_item, parent, false));
         } else if (viewType == TYPE_UNRECEIVER) {
-            return new OrderUnReceiverViewHolder(inflater.inflate(R.layout.fragment_my_order_unreceiver_item, parent, false));
+            return new OrderUnCommentViewHolder(inflater.inflate(R.layout.fragment_my_order_unreceiver_item, parent, false));
         } else if (viewType == TYPE_UNCOMMENT) {
             return new OrderUnCommentViewHolder(inflater.inflate(R.layout.fragment_my_order_unreceiver_item, parent, false));
         }
@@ -50,10 +58,13 @@ public class MyOrderChildAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         OrderInfo info = list.get(position);
         if (holder instanceof OrderUnPayViewHolder) {
             OrderUnPayViewHolder viewHolder = (OrderUnPayViewHolder) holder;
+            viewHolder.goodsName.setText(info.getGoods_name());
+        } else if (holder instanceof UnsendViewHolder) {
+            UnsendViewHolder viewHolder = (UnsendViewHolder) holder;
             viewHolder.goodsName.setText(info.getGoods_name());
         } else if (holder instanceof OrderUnReceiverViewHolder) {
             OrderUnReceiverViewHolder viewHolder = (OrderUnReceiverViewHolder) holder;
@@ -62,6 +73,14 @@ public class MyOrderChildAdapter extends RecyclerView.Adapter {
             OrderUnCommentViewHolder viewHolder = (OrderUnCommentViewHolder) holder;
             viewHolder.goodsName.setText(info.getGoods_name());
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onClickOrderItemListener != null) {
+                    onClickOrderItemListener.onClickOrderItem(position);
+                }
+            }
+        });
     }
 
     @Override
@@ -108,6 +127,22 @@ public class MyOrderChildAdapter extends RecyclerView.Adapter {
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+    static class UnsendViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.image)
+        ImageView image;
+        @BindView(R.id.goods_name)
+        TextView goodsName;
+
+        UnsendViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    public interface OnClickOrderItemListener {
+        void onClickOrderItem(int position);
     }
 
 }
