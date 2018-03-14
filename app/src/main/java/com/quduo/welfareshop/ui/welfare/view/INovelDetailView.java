@@ -33,7 +33,7 @@ public interface INovelDetailView extends BaseView {
 
     void openNovel(BookList bookList);
 
-    void showHasFollow();
+    void showHasFollow(int followId);
 
     void showNoFollow();
 

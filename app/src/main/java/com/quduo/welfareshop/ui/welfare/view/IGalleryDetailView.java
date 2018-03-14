@@ -15,4 +15,16 @@ public interface IGalleryDetailView extends BaseView {
     void refreshFinish();
 
     void bindData(GalleryDetailResultInfo data);
+
+    int getFollowId();
+
+    int getGalleryId();
+
+    void showLoadingDialog();
+
+    void showHasFollow(int followId);
+
+    void showNoFollow();
+
+    void hideLoadingDialog();
 }

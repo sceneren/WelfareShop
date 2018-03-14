@@ -29,6 +29,9 @@ public class ApiUtil {
     //图库详情
     public static final String GALLERY_DETAIL = "/gallery/detail";
     public static final String GALLERY_DETAIL_TAG = "/gallery/detail";
+    //收藏图库
+    public static final String FOLLOW_GALLERY = "personal/favor/add_gallery";
+    public static final String FOLLOW_GALLERY_TAG = "personal/favor/add_gallery";
     //小视频
     public static final String SMALL_VIDEO_LIST = "micro_video";
     public static final String SMALL_VIDEO_LIST_TAG = "micro_video";
@@ -51,8 +54,8 @@ public class ApiUtil {
     public static final String CANCEL_FOLLOW = "/personal/favor/delete";
     public static final String CANCEL_FOLLOW_TAG = "/personal/favor/delete";
     //我收藏的小说
-    public static final String MY_FOLLOW_NOVEL="personal/favor/novel";
-    public static final String MY_FOLLOW_NOVEL_TAG="personal/favor/novel";
+    public static final String MY_FOLLOW_NOVEL = "personal/favor/novel";
+    public static final String MY_FOLLOW_NOVEL_TAG = "personal/favor/novel";
 
     /**
      * Case By:创建参数基础信息

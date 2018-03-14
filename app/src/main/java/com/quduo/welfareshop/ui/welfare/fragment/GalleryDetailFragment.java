@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
@@ -36,6 +37,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.loadmore.StatusViewLayout;
 
@@ -181,6 +183,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
 
     @Override
     public void onDestroyView() {
+        OkGo.getInstance().cancelTag(ApiUtil.FOLLOW_GALLERY_TAG);
         OkGo.getInstance().cancelTag(ApiUtil.GALLERY_DETAIL_TAG);
         super.onDestroyView();
         unbinder.unbind();
@@ -205,15 +208,77 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
         }
     }
 
+    private GalleryDetailResultInfo data;
 
     @Override
     public void bindData(GalleryDetailResultInfo data) {
         try {
+            this.data = data;
             galleryList.clear();
             galleryList.addAll(data.getImages());
             adapter.notifyDataSetChanged();
+            toolbarText.setText(data.getFavor_id() == 0 ? "收藏" : "已收藏");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public int getFollowId() {
+        return null != data ? data.getFavor_id() : 0;
+    }
+
+    @Override
+    public int getGalleryId() {
+        return id;
+    }
+
+    @Override
+    public void showLoadingDialog() {
+        try {
+            StyledDialog.buildLoading().show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showHasFollow(int followId) {
+        try {
+            toolbarText.setText("已收藏");
+            data.setFavor_id(followId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showNoFollow() {
+        try {
+            toolbarText.setText("收藏");
+            data.setFavor_id(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void hideLoadingDialog() {
+        try {
+            StyledDialog.dismissLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @OnClick(R.id.toolbar_text)
+    public void onClickToolbarText() {
+        if (data.getFavor_id() == 0) {
+            //收藏
+            presenter.followGallery();
+        } else {
+            //取消收藏
+            presenter.cancelFollow();
         }
     }
 }

@@ -3,6 +3,7 @@ package com.quduo.welfareshop.ui.welfare.presenter;
 import com.lzy.okgo.model.HttpParams;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.mvp.BasePresenter;
+import com.quduo.welfareshop.ui.welfare.entity.FollowSuccessInfo;
 import com.quduo.welfareshop.ui.welfare.entity.NovelDetailResultInfo;
 import com.quduo.welfareshop.ui.welfare.model.NovelDetailModel;
 import com.quduo.welfareshop.ui.welfare.view.INovelDetailView;
@@ -108,12 +109,12 @@ public class NovelDetailPresenter extends BasePresenter<INovelDetailView> {
             mView.showLoadingDialog("");
             HttpParams params = new HttpParams();
             params.put("data_id", mView.getNovelId());
-            model.followNovel(params, new HttpResultListener<Boolean>() {
+            model.followNovel(params, new HttpResultListener<FollowSuccessInfo>() {
                 @Override
-                public void onSuccess(Boolean data) {
+                public void onSuccess(FollowSuccessInfo data) {
                     try {
-                        if (data) {
-                            mView.showHasFollow();
+                        if (data.getId() != 0) {
+                            mView.showHasFollow(data.getId());
                         } else {
                             mView.showMessage("操作失败，请重试");
                         }

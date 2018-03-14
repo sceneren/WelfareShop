@@ -9,6 +9,7 @@ import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.http.base.LzyResponse;
 import com.quduo.welfareshop.http.callback.JsonCallback;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
+import com.quduo.welfareshop.ui.welfare.entity.FollowSuccessInfo;
 import com.quduo.welfareshop.ui.welfare.entity.NovelDetailResultInfo;
 
 import java.io.File;
@@ -91,22 +92,22 @@ public class NovelDetailModel {
 
     }
 
-    public void followNovel(HttpParams params, final HttpResultListener<Boolean> listener) {
-        OkGo.<LzyResponse<Boolean>>get(ApiUtil.API_PRE + ApiUtil.FOLLOW_NOVEL)
+    public void followNovel(HttpParams params, final HttpResultListener<FollowSuccessInfo> listener) {
+        OkGo.<LzyResponse<FollowSuccessInfo>>get(ApiUtil.API_PRE + ApiUtil.FOLLOW_NOVEL)
                 .tag(ApiUtil.FOLLOW_NOVEL_TAG)
                 .params(params)
-                .execute(new JsonCallback<LzyResponse<Boolean>>() {
+                .execute(new JsonCallback<LzyResponse<FollowSuccessInfo>>() {
                     @Override
-                    public void onSuccess(Response<LzyResponse<Boolean>> response) {
+                    public void onSuccess(Response<LzyResponse<FollowSuccessInfo>> response) {
                         try {
-                            listener.onSuccess(response.body().status);
+                            listener.onSuccess(response.body().data);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
 
                     @Override
-                    public void onError(Response<LzyResponse<Boolean>> response) {
+                    public void onError(Response<LzyResponse<FollowSuccessInfo>> response) {
                         super.onError(response);
                         try {
                             listener.onFail(response.getException().getMessage());

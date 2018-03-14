@@ -408,9 +408,10 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
     }
 
     @Override
-    public void showHasFollow() {
+    public void showHasFollow(int followId) {
         try {
             follow.setText("已收藏");
+            setFollowId(followId);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -420,6 +421,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
     public void showNoFollow() {
         try {
             follow.setText("加入收藏");
+            setFollowId(0);
         } catch (Exception e) {
             e.printStackTrace();
         }

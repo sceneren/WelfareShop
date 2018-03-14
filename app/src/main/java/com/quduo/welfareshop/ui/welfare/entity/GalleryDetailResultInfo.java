@@ -19,6 +19,7 @@ public class GalleryDetailResultInfo extends BaseBean {
     private int favor_times;
     private String tags;
     private int good;
+    private int favor_id;
 
     public int getId() {
         return id;
@@ -98,5 +99,13 @@ public class GalleryDetailResultInfo extends BaseBean {
 
     public void setGood(int good) {
         this.good = good;
+    }
+
+    public int getFavor_id() {
+        return favor_id;
+    }
+
+    public void setFavor_id(int favor_id) {
+        this.favor_id = favor_id;
     }
 }
