@@ -80,6 +80,12 @@ public class ApiUtil {
     //获取自己的用户信息
     public static final String MY_DETAIL_INFO = "personal/profile";
     public static final String MY_DETAIL_INFO_TAG = "personal/profile";
+    //上传照片
+    public static final String UPLOAD_PHOTO = "personal/profile/add_photo";
+    public static final String UPLOAD_PHOTO_TAG = "personal/profile/add_photo";
+    //删除照片
+    public static final String DELETE_PHOTO="personal/profile/delete_photo";
+    public static final String DELETE_PHOTO_TAG="personal/profile/delete_photo";
 
     /**
      * Case By:创建参数基础信息

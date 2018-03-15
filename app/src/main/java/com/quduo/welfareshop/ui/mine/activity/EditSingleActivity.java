@@ -50,7 +50,7 @@ public class EditSingleActivity extends BaseMvpActivity<IEditSingleView, EditSin
     }
 
     private void initView() {
-        toolbarText.setText("保存");
+        toolbarText.setText("确定");
         title = getIntent().getStringExtra(ARG_TITLE);
         toolbarTitle.setText(title);
         toolbar.setNavigationIcon(R.drawable.ic_toolbar_back_black);

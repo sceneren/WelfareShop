@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CFCFCF"
+    android:background="#F9F9F9"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar_text_white" />
@@ -11,7 +11,7 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="1dp"
         android:background="@color/white"
         android:lines="1"
         android:padding="@dimen/dp_10"

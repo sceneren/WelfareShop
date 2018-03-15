@@ -17,7 +17,7 @@ public class UploadImageEvent {
         this.photosBeanList = photosBeanList;
     }
 
-    public void setPhotosBeanList(List<MyUserDetailInfo.PhotosBean> photosBeanList) {
-        this.photosBeanList = photosBeanList;
+    public List<MyUserDetailInfo.PhotosBean> getPhotosBeanList() {
+        return photosBeanList;
     }
 }

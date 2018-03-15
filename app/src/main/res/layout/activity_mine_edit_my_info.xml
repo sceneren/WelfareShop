@@ -7,6 +7,11 @@
 
     <include layout="@layout/toolbar_text_white" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#EFEFEF" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -116,7 +121,6 @@
                         android:maxLines="1"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_default_avatar"
-                        android:text="某某某"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
                 </LinearLayout>
@@ -157,7 +161,6 @@
                         android:maxLines="1"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_default_avatar"
-                        android:text="保密"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
 
@@ -244,7 +247,6 @@
                         android:maxLines="1"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_default_avatar"
-                        android:text="这个冬天很冷"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
                 </LinearLayout>
@@ -285,7 +287,6 @@
                         android:maxLines="1"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_default_avatar"
-                        android:text="未婚"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
 
@@ -327,7 +328,6 @@
                         android:maxLines="1"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_default_avatar"
-                        android:text="1992-8-8"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
 
@@ -369,7 +369,6 @@
                         android:maxLines="1"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_default_avatar"
-                        android:text="O型"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
 
@@ -411,7 +410,6 @@
                         android:maxLines="1"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_default_avatar"
-                        android:text="192cm"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
 
@@ -453,7 +451,6 @@
                         android:maxLines="1"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_default_avatar"
-                        android:text="180kg"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
 
@@ -498,7 +495,6 @@
                         android:maxLines="1"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_default_avatar"
-                        android:text="123456"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
                 </LinearLayout>
@@ -539,7 +535,6 @@
                         android:maxLines="1"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_default_avatar"
-                        android:text="13502020202"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
 

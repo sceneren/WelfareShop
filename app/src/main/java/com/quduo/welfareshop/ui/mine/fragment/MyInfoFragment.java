@@ -20,6 +20,7 @@ import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.PreviewImageActivity;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.event.UpdateAvatarEvent;
+import com.quduo.welfareshop.event.UploadImageEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.mine.activity.EditMyInfoActivity;
@@ -212,7 +213,9 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
 
     @OnClick(R.id.edit_info)
     public void onClickEditInfo() {
-        startActivity(new Intent(_mActivity, EditMyInfoActivity.class));
+        Intent intent = new Intent(_mActivity, EditMyInfoActivity.class);
+        intent.putExtra(EditMyInfoActivity.ARG_USER_INFO, detailUserInfo);
+        startActivity(intent);
         _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }
 
@@ -260,11 +263,13 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
             GlideApp.with(this)
                     .asBitmap()
                     .centerCrop()
+                    .placeholder(R.drawable.ic_default_avatar)
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.getAvatar())
                     .into(image);
             GlideApp.with(this)
                     .asBitmap()
                     .centerCrop()
+                    .placeholder(R.drawable.ic_default_avatar)
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.getAvatar())
                     .into(avatar);
             nickname.setText(data.getNickname());
@@ -299,13 +304,34 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
             GlideApp.with(this)
                     .asBitmap()
                     .centerCrop()
+                    .placeholder(R.drawable.ic_default_avatar)
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + event.getAvatarPath())
                     .into(image);
             GlideApp.with(this)
                     .asBitmap()
                     .centerCrop()
+                    .placeholder(R.drawable.ic_default_avatar)
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + event.getAvatarPath())
                     .into(avatar);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void uploadPhoto(UploadImageEvent event) {
+        try {
+            detailUserInfo.setPhotos(event.getPhotosBeanList());
+            list.clear();
+            list.addAll(event.getPhotosBeanList());
+            adapter.notifyDataSetChanged();
+            if (detailUserInfo.getPhotos().size() > 0) {
+                imageLayout.setVisibility(View.VISIBLE);
+                noPhoto.setVisibility(View.GONE);
+            } else {
+                imageLayout.setVisibility(View.GONE);
+                noPhoto.setVisibility(View.VISIBLE);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

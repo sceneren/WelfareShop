@@ -19,9 +19,11 @@ import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.event.EditMyInfoEvent;
 import com.quduo.welfareshop.event.UpdateAvatarEvent;
+import com.quduo.welfareshop.event.UploadImageEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.mine.adapter.EditInfoPhotoAdapter;
+import com.quduo.welfareshop.ui.mine.entity.MyUserDetailInfo;
 import com.quduo.welfareshop.ui.mine.entity.UploadAvatarResultInfo;
 import com.quduo.welfareshop.ui.mine.presenter.EditMyInfoPresenter;
 import com.quduo.welfareshop.ui.mine.view.IEditMyInfoView;
@@ -34,6 +36,8 @@ import org.greenrobot.eventbus.Subscribe;
 import org.joda.time.DateTime;
 import org.joda.time.Instant;
 
+import java.io.File;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -43,6 +47,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import me.shaohui.advancedluban.Luban;
+import me.shaohui.advancedluban.OnCompressListener;
+import me.shaohui.advancedluban.OnMultiCompressListener;
 
 /**
  * Author:scene
@@ -53,6 +60,8 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
     private static final int REQUEST_LIST_CODE = 10001;
     private static final int REQUEST_AVATAR_CODE = 10002;
     //private static final int REQUEST_CAMERA_CODE = 10002;
+
+    public static final String ARG_USER_INFO = "user_info";
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -91,7 +100,9 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
     private List<String> sexList = null;
     private EditInfoPhotoAdapter adapter;
 
-    private List<String> list = new ArrayList<>();
+    private List<MyUserDetailInfo.PhotosBean> list = new ArrayList<>();
+    private MyUserDetailInfo detailUserInfo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,12 +110,14 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
         setContentView(R.layout.activity_mine_edit_my_info);
         unbinder = ButterKnife.bind(this);
         EventBus.getDefault().register(this);
+        detailUserInfo = (MyUserDetailInfo) getIntent().getSerializableExtra(ARG_USER_INFO);
         initToolbar();
         initView();
     }
 
     private void initToolbar() {
         toolbarTitle.setText("编辑");
+        toolbarText.setText("保存");
         toolbar.setNavigationIcon(R.drawable.ic_toolbar_back_black);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +128,46 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
     }
 
     private void initView() {
+        GlideApp.with(this)
+                .asBitmap()
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_avatar)
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + detailUserInfo.getAvatar())
+                .into(avatar);
+
+        initPhotoGridView(detailUserInfo.getPhotos());
+        nickname.setText(detailUserInfo.getNickname());
+
+        if (detailUserInfo.getSex() == 1) {
+            sex.setText("男");
+        } else if (detailUserInfo.getSex() == 2) {
+            sex.setText("女");
+        } else {
+            sex.setText("保密");
+        }
+
+        DateTime dateTime = new DateTime(detailUserInfo.getBirthday());
+        birthday.setText(dateTime.toString("yyyy-MM-dd"));
+
+        des.setText(detailUserInfo.getSignature());
+        emotion.setText(detailUserInfo.getMarital());
+        job.setText(detailUserInfo.getJob());
+        if (!StringUtils.isEmpty(detailUserInfo.getBlood_type())) {
+            blood.setText(MessageFormat.format("{0}型", detailUserInfo.getBlood_type()));
+        }
+        if (!StringUtils.isEmpty(detailUserInfo.getHeight()) && !detailUserInfo.getHeight().equals("0.00")) {
+            height.setText(MessageFormat.format("{0}cm", detailUserInfo.getHeight()));
+        }
+        if (!StringUtils.isEmpty(detailUserInfo.getWeight()) && !detailUserInfo.getWeight().equals("0.00")) {
+            weight.setText(MessageFormat.format("{0}kg", detailUserInfo.getWeight()));
+        }
+        wechatNum.setText(detailUserInfo.getWeixin());
+        phoneNum.setText(detailUserInfo.getMobile());
+    }
+
+    private void initPhotoGridView(List<MyUserDetailInfo.PhotosBean> photos) {
+        list.addAll(photos);
         adapter = new EditInfoPhotoAdapter(EditMyInfoActivity.this, list);
         photoGridView.setAdapter(adapter);
         photoGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -125,13 +178,11 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
                         ImageSelectorUtil.openImageList(EditMyInfoActivity.this, 9 - list.size(), REQUEST_LIST_CODE);
                     } else {
                         //删除图片
-                        list.remove(position - 1);
-                        adapter.notifyDataSetChanged();
+                        presenter.deletePhoto(position - 1, list.get(position - 1).getId());
                     }
                 } else {
                     //删除图片
-                    list.remove(position);
-                    adapter.notifyDataSetChanged();
+                    presenter.deletePhoto(position, list.get(position).getId());
                 }
             }
         });
@@ -162,23 +213,54 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-//        if (requestCode == REQUEST_CAMERA_CODE && resultCode == RESULT_OK && data != null) {
-//            String path = data.getStringExtra("result"); // 图片地址
-//            list.add(path);
-//            adapter.notifyDataSetChanged();
-//        }
-
         if (resultCode == RESULT_OK && data != null) {
             // 图片选择结果回调
             if (requestCode == REQUEST_LIST_CODE) {
                 List<String> pathList = data.getStringArrayListExtra("result");
-                for (String path : pathList) {
-                    list.add(path);
-                    adapter.notifyDataSetChanged();
+                List<File> files = new ArrayList<>();
+                for (String filePath : pathList) {
+                    files.add(new File(filePath));
                 }
+                Luban.compress(EditMyInfoActivity.this, files)
+                        .launch(new OnMultiCompressListener() {
+                            @Override
+                            public void onStart() {
+                                showLoadingDialog();
+                            }
+
+                            @Override
+                            public void onSuccess(List<File> fileList) {
+                                presenter.uploadPhoto(fileList);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                hideLoadingDialog();
+                                showMessage("图片上传失败请重试");
+                            }
+                        });
+
+
             } else if (requestCode == REQUEST_AVATAR_CODE) {
                 List<String> avatarPaths = data.getStringArrayListExtra("result");
-                presenter.uploadAvatar(avatarPaths.get(0));
+                Luban.compress(EditMyInfoActivity.this, new File(avatarPaths.get(0)))
+                        .launch(new OnCompressListener() {
+                            @Override
+                            public void onStart() {
+                                showLoadingDialog();
+                            }
+
+                            @Override
+                            public void onSuccess(File file) {
+                                presenter.uploadAvatar(file);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                hideLoadingDialog();
+                                showMessage("头像上传失败请重试");
+                            }
+                        });
             }
         }
 
@@ -204,6 +286,8 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
 
     @Override
     protected void onDestroy() {
+        OkGo.getInstance().cancelTag(ApiUtil.UPLOAD_PHOTO_TAG);
+        OkGo.getInstance().cancelTag(ApiUtil.DELETE_PHOTO_TAG);
         OkGo.getInstance().cancelTag(ApiUtil.UPLOAD_AVATAR_TAG);
         EventBus.getDefault().unregister(this);
         super.onDestroy();
@@ -277,6 +361,7 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
     @Override
     public void showLoadingDialog() {
         try {
+            hideLoadingDialog();
             StyledDialog.buildLoading().setActivity(EditMyInfoActivity.this).show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -316,8 +401,36 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
         }
     }
 
+    @Override
+    public void uploadPhotoSuccess(List<MyUserDetailInfo.PhotosBean> data) {
+        try {
+            list.clear();
+            list.addAll(data);
+            adapter.notifyDataSetChanged();
+            EventBus.getDefault().post(new UploadImageEvent(list));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deletePhotoSuccess(int position) {
+        try {
+            list.remove(position);
+            adapter.notifyDataSetChanged();
+            EventBus.getDefault().post(new UploadImageEvent(list));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @OnClick(R.id.layout_avatar)
     public void onClickAvatar() {
         ImageSelectorUtil.openImageList(EditMyInfoActivity.this, 1, REQUEST_AVATAR_CODE);
+    }
+
+    @OnClick(R.id.toolbar_text)
+    public void onClickSave() {
+
     }
 }

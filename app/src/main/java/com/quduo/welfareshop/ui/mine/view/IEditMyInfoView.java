@@ -1,7 +1,10 @@
 package com.quduo.welfareshop.ui.mine.view;
 
 import com.quduo.welfareshop.mvp.BaseView;
+import com.quduo.welfareshop.ui.mine.entity.MyUserDetailInfo;
 import com.quduo.welfareshop.ui.mine.entity.UploadAvatarResultInfo;
+
+import java.util.List;
 
 /**
  * Author:scene
@@ -17,4 +20,8 @@ public interface IEditMyInfoView extends BaseView {
     void uploadAvaterSuccess(UploadAvatarResultInfo resultInfo);
 
     void showMessage(String message);
+
+    void uploadPhotoSuccess(List<MyUserDetailInfo.PhotosBean> data);
+
+    void deletePhotoSuccess(int position);
 }

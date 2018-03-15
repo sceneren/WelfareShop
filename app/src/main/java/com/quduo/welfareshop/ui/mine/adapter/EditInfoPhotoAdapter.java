@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.ui.mine.entity.MyUserDetailInfo;
 import com.quduo.welfareshop.widgets.CustomHeightRoundedImageView;
 
 import java.util.List;
@@ -24,10 +26,10 @@ import butterknife.ButterKnife;
 
 public class EditInfoPhotoAdapter extends BaseAdapter {
     private Context context;
-    private List<String> list;
+    private List<MyUserDetailInfo.PhotosBean> list;
     private LayoutInflater inflater;
 
-    public EditInfoPhotoAdapter(Context context, List<String> list) {
+    public EditInfoPhotoAdapter(Context context, List<MyUserDetailInfo.PhotosBean> list) {
         this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
@@ -68,7 +70,7 @@ public class EditInfoPhotoAdapter extends BaseAdapter {
                 GlideApp.with(context)
                         .asBitmap()
                         .centerCrop()
-                        .load(list.get(position - 1))
+                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position - 1).getUrl())
                         .into(holder.image);
             }
         } else {
@@ -76,7 +78,7 @@ public class EditInfoPhotoAdapter extends BaseAdapter {
             GlideApp.with(context)
                     .asBitmap()
                     .centerCrop()
-                    .load(list.get(position))
+                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position).getUrl())
                     .into(holder.image);
         }
 

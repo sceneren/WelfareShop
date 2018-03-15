@@ -42,10 +42,10 @@ public class MyUserDetailInfo extends BaseBean {
     private String weight;
     private String height;
     private String weixin;
-    private long mobile;
+    private String mobile;
     private String job;
     private String blood_type;
-    private String birthday;
+    private long birthday;
     private String marital;
     private int subscribe;
     private List<PhotosBean> photos;
@@ -131,11 +131,11 @@ public class MyUserDetailInfo extends BaseBean {
         this.weixin = weixin;
     }
 
-    public long getMobile() {
+    public String getMobile() {
         return mobile;
     }
 
-    public void setMobile(long mobile) {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
 
@@ -155,11 +155,11 @@ public class MyUserDetailInfo extends BaseBean {
         this.blood_type = blood_type;
     }
 
-    public String getBirthday() {
+    public long getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
+    public void setBirthday(long birthday) {
         this.birthday = birthday;
     }
 

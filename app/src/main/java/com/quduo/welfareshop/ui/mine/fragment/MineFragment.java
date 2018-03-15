@@ -86,6 +86,7 @@ public class MineFragment extends BaseBackMvpFragment<IMineView, MinePresenter> 
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_avatar)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                 .into(avatar);
         nickname.setText(MyApplication.getInstance().getUserInfo().getNickname());
@@ -187,6 +188,7 @@ public class MineFragment extends BaseBackMvpFragment<IMineView, MinePresenter> 
             GlideApp.with(this)
                     .asBitmap()
                     .centerCrop()
+                    .placeholder(R.drawable.ic_default_avatar)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                     .into(avatar);
