@@ -247,15 +247,6 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     }
 
     @Override
-    public void showLoadingDialog() {
-        try {
-            StyledDialog.buildLoading().setActivity(_mActivity).show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     public void showHasFollow(int followId) {
         try {
             data.setFavor_id(followId);
@@ -268,6 +259,15 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     public void showNoFollow() {
         try {
             data.setFavor_id(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showLoadingDialog() {
+        try {
+            StyledDialog.buildLoading().setActivity(_mActivity).show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -295,7 +295,8 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
                 public void onSecond() {
 
                 }
-            }).setBtnText("确定", "取消").show();
+            }).setBtnText("确定", "取消")
+                    .show();
 
         } catch (Exception e) {
             e.printStackTrace();

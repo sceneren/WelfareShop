@@ -56,13 +56,7 @@ public class GalleryAdapter extends BaseQuickAdapter<WelfareGalleryInfo, BaseVie
         bigParams.width = bigWidth;
         bigParams.height = bigHeight;
         image1.setLayoutParams(bigParams);
-        String url = "http://e.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg";
-        GlideApp.with(context)
-                .asBitmap()
-                .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
-                .into(avatar);
+
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
@@ -87,7 +81,12 @@ public class GalleryAdapter extends BaseQuickAdapter<WelfareGalleryInfo, BaseVie
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
                 .into(image4);
-
+        GlideApp.with(context)
+                .asBitmap()
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
+                .into(avatar);
         holder.setText(R.id.title, item.getName());
         holder.setText(R.id.follow_number, String.valueOf(item.getFavor_times()));
         if (item.getFavor_id() != 0) {

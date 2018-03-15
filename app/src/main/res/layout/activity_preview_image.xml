@@ -1,38 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_black" />
+    <include
+        layout="@layout/toolbar_black" />
 
-    <RelativeLayout
+    <com.quduo.welfareshop.widgets.HackyViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp" />
 
-        <com.quduo.welfareshop.widgets.HackyViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp" />
+    <TextView
+        android:id="@+id/current_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_translate_black"
+        android:paddingBottom="2dp"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:paddingTop="2dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_14" />
 
-        <TextView
-            android:id="@+id/current_position"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/bg_translate_black"
-            android:layout_centerHorizontal="true"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            android:textSize="@dimen/sp_14"
-            android:paddingLeft="@dimen/dp_10"
-            android:paddingRight="@dimen/dp_10"
-            android:layout_marginBottom="20dp"
-            android:textColor="@color/white" />
-    </RelativeLayout>
-
-
-</LinearLayout>
+</RelativeLayout>

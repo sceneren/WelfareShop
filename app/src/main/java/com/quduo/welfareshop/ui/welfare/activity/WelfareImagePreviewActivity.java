@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.welfare.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -8,11 +9,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.hss01248.dialog.StyledDialog;
+import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.quduo.welfareshop.R;
-import com.quduo.welfareshop.adapter.PreviewImageAdapter;
 import com.quduo.welfareshop.mvp.BaseBackActivity;
+import com.quduo.welfareshop.ui.welfare.adapter.WelfareGalleryPreviewImageAdapter;
 import com.quduo.welfareshop.widgets.HackyViewPager;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,6 +43,9 @@ public class WelfareImagePreviewActivity extends BaseBackActivity {
     private List<String> imageUrls;
     private int position;
 
+    private Dialog noScoreDialog;
+    private Dialog openVipDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,9 +69,16 @@ public class WelfareImagePreviewActivity extends BaseBackActivity {
         } else {
             currentPosition.setVisibility(View.GONE);
         }
-        viewPager.setAdapter(new PreviewImageAdapter(WelfareImagePreviewActivity.this, imageUrls));
+        WelfareGalleryPreviewImageAdapter adapter = new WelfareGalleryPreviewImageAdapter(WelfareImagePreviewActivity.this, imageUrls);
+        adapter.setOnClickOpenVipListener(new WelfareGalleryPreviewImageAdapter.OnClickOpenVipListener() {
+            @Override
+            public void onClickOpenVip() {
+                showOpenVipDialog();
+            }
+        });
+        viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(position);
-        currentPosition.setText(String.format("%d/%d", position + 1, imageUrls.size()));
+        currentPosition.setText(MessageFormat.format("{0}/{1}", position + 1, imageUrls.size()));
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -73,7 +87,7 @@ public class WelfareImagePreviewActivity extends BaseBackActivity {
 
             @Override
             public void onPageSelected(int position) {
-                currentPosition.setText(String.format("%d/%d", position + 1, imageUrls.size()));
+                currentPosition.setText(MessageFormat.format("{0}/{1}", position + 1, imageUrls.size()));
             }
 
             @Override
@@ -102,5 +116,78 @@ public class WelfareImagePreviewActivity extends BaseBackActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+    }
+
+    private void showLoadingDialog() {
+        try {
+            StyledDialog.buildLoading().setActivity(WelfareImagePreviewActivity.this).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void hideLoadingDialog() {
+        try {
+            StyledDialog.dismissLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showNoScoreDialog() {
+        try {
+            noScoreDialog = StyledDialog.buildIosAlert("提示", "趣币不足，请充值", new MyDialogListener() {
+                @Override
+                public void onFirst() {
+
+                }
+
+                @Override
+                public void onSecond() {
+
+                }
+            }).setBtnText("确定", "取消")
+                    .show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void hideNoScoreDialog() {
+        try {
+            StyledDialog.dismiss(noScoreDialog);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showOpenVipDialog() {
+        try {
+            openVipDialog = StyledDialog.buildIosAlert("消耗3查看", "您还剩余0趣币", new MyDialogListener() {
+                @Override
+                public void onFirst() {
+
+                }
+
+                @Override
+                public void onSecond() {
+
+                }
+            }).setBtnText("确定", "取消").show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void hideOpenVipDialog() {
+        try {
+            if (openVipDialog != null) {
+                StyledDialog.dismiss(openVipDialog);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
