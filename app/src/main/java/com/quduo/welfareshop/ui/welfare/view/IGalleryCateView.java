@@ -18,4 +18,12 @@ public interface IGalleryCateView extends BaseView {
     void bindData(GalleryCateResultInfo data);
 
     int getCateId();
+
+    void followSuccess(int position, int followId);
+
+    void hideLoadingDialog();
+
+    void cancelFollowSuccess(int position);
+
+    void showLoadingDialog();
 }

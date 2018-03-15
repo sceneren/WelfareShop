@@ -17,4 +17,6 @@ public class RankPresenter extends BasePresenter<IRankView> {
         super(view);
         this.model = new RankModel();
     }
+
+
 }

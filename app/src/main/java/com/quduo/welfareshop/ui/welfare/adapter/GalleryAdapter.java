@@ -67,26 +67,27 @@ public class GalleryAdapter extends BaseQuickAdapter<WelfareGalleryInfo, BaseVie
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getImages().get(0))
+                .into(avatar);
+        GlideApp.with(context)
+                .asBitmap()
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getImages().get(1))
                 .into(image2);
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getImages().get(2))
                 .into(image3);
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getImages().get(3))
                 .into(image4);
-        GlideApp.with(context)
-                .asBitmap()
-                .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
-                .into(avatar);
+
         holder.setText(R.id.title, item.getName());
         holder.setText(R.id.follow_number, String.valueOf(item.getFavor_times()));
         if (item.getFavor_id() != 0) {

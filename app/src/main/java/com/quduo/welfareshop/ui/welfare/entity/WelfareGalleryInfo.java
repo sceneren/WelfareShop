@@ -2,6 +2,8 @@ package com.quduo.welfareshop.ui.welfare.entity;
 
 import com.quduo.welfareshop.base.BaseBean;
 
+import java.util.List;
+
 /**
  * Author:scene
  * Time:2018/2/8 14:25
@@ -11,18 +13,18 @@ import com.quduo.welfareshop.base.BaseBean;
 public class WelfareGalleryInfo extends BaseBean {
 
     /**
-     * id : 16
-     * cate_id : 1
-     * name : 长腿美眉红色内衣私房写真
+     * id : 2512
+     * cate_id : 5
+     * name : 黑色蕾丝美眉梓萱Crystal私房照
      * weight : 0
-     * thumb : /gallery/1/16/15.jpg
+     * thumb : /gallery/5/2512/fm.jpg
+     * images : ["/gallery/5/2512/5.jpg","/gallery/5/2512/11.jpg","/gallery/5/2512/19.jpg","/gallery/5/2512/1.jpg"]
      * view_times : 0
-     * favor_times : 0
+     * favor_times : 12
      * tags : null
-     * good : 0
-     * thumb_width : 682
-     * thumb_height : 1024
-     * image_count : 17
+     * good : 1
+     * image_count : 24
+     * is_good : false
      */
 
     private int id;
@@ -32,11 +34,10 @@ public class WelfareGalleryInfo extends BaseBean {
     private String thumb;
     private int view_times;
     private int favor_times;
-    private String tags;
     private int good;
-    private int thumb_width;
-    private int thumb_height;
     private int image_count;
+    private boolean is_good;
+    private List<String> images;
     private int favor_id;
 
     public int getId() {
@@ -95,14 +96,6 @@ public class WelfareGalleryInfo extends BaseBean {
         this.favor_times = favor_times;
     }
 
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-
     public int getGood() {
         return good;
     }
@@ -111,28 +104,28 @@ public class WelfareGalleryInfo extends BaseBean {
         this.good = good;
     }
 
-    public int getThumb_width() {
-        return thumb_width;
-    }
-
-    public void setThumb_width(int thumb_width) {
-        this.thumb_width = thumb_width;
-    }
-
-    public int getThumb_height() {
-        return thumb_height;
-    }
-
-    public void setThumb_height(int thumb_height) {
-        this.thumb_height = thumb_height;
-    }
-
     public int getImage_count() {
         return image_count;
     }
 
     public void setImage_count(int image_count) {
         this.image_count = image_count;
+    }
+
+    public boolean isIs_good() {
+        return is_good;
+    }
+
+    public void setIs_good(boolean is_good) {
+        this.is_good = is_good;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 
     public int getFavor_id() {

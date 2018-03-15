@@ -3,6 +3,7 @@ package com.quduo.welfareshop.ui.welfare.presenter;
 import com.lzy.okgo.model.HttpParams;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.mvp.BasePresenter;
+import com.quduo.welfareshop.ui.welfare.entity.FollowSuccessInfo;
 import com.quduo.welfareshop.ui.welfare.entity.GalleryCateResultInfo;
 import com.quduo.welfareshop.ui.welfare.model.GalleryCateModel;
 import com.quduo.welfareshop.ui.welfare.view.IGalleryCateView;
@@ -70,4 +71,91 @@ public class GalleryCatePresenter extends BasePresenter<IGalleryCateView> {
             e.printStackTrace();
         }
     }
+
+    public void followGallery(final int position, int id) {
+        try {
+            mView.showLoadingDialog();
+            HttpParams params = new HttpParams();
+            params.put("data_id", id);
+            model.followGallery(params, new HttpResultListener<FollowSuccessInfo>() {
+                @Override
+                public void onSuccess(FollowSuccessInfo data) {
+                    try {
+                        if (data.getId() != 0) {
+                            mView.followSuccess(position, data.getId());
+                        } else {
+                            mView.showMessage("操作失败，请重试");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.showMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void cancelFollow(final int position, final int followId) {
+        try {
+            mView.showLoadingDialog();
+            HttpParams params = new HttpParams();
+            params.put("id", followId);
+            model.cancelFollow(params, new HttpResultListener<Boolean>() {
+                @Override
+                public void onSuccess(Boolean data) {
+                    try {
+                        if (data) {
+                            mView.cancelFollowSuccess(position);
+                        } else {
+                            mView.showMessage("操作失败，请重试");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.showMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

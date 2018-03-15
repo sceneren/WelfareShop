@@ -7,6 +7,7 @@ import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.http.base.LzyResponse;
 import com.quduo.welfareshop.http.callback.JsonCallback;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
+import com.quduo.welfareshop.ui.welfare.entity.FollowSuccessInfo;
 import com.quduo.welfareshop.ui.welfare.entity.GalleryCateResultInfo;
 
 /**
@@ -33,6 +34,70 @@ public class GalleryCateModel {
 
                     @Override
                     public void onError(Response<LzyResponse<GalleryCateResultInfo>> response) {
+                        super.onError(response);
+                        try {
+                            listener.onFail(response.getException().getMessage());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        listener.onFinish();
+                    }
+                });
+    }
+
+    public void followGallery(HttpParams params, final HttpResultListener<FollowSuccessInfo> listener) {
+        OkGo.<LzyResponse<FollowSuccessInfo>>get(ApiUtil.API_PRE + ApiUtil.FOLLOW_GALLERY)
+                .tag(ApiUtil.FOLLOW_GALLERY_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<FollowSuccessInfo>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<FollowSuccessInfo>> response) {
+                        try {
+                            listener.onSuccess(response.body().data);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<FollowSuccessInfo>> response) {
+                        super.onError(response);
+                        try {
+                            listener.onFail(response.getException().getMessage());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        listener.onFinish();
+                    }
+                });
+    }
+
+    public void cancelFollow(HttpParams params, final HttpResultListener<Boolean> listener) {
+        OkGo.<LzyResponse<Boolean>>get(ApiUtil.API_PRE + ApiUtil.CANCEL_FOLLOW)
+                .tag(ApiUtil.CANCEL_FOLLOW_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<Boolean>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<Boolean>> response) {
+                        try {
+                            listener.onSuccess(response.body().status);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<Boolean>> response) {
                         super.onError(response);
                         try {
                             listener.onFail(response.getException().getMessage());
