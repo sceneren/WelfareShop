@@ -3,7 +3,7 @@ package com.quduo.welfareshop.ui.friend.presenter;
 import com.lzy.okgo.model.HttpParams;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.mvp.BasePresenter;
-import com.quduo.welfareshop.ui.friend.entity.NearInfo;
+import com.quduo.welfareshop.ui.friend.entity.OtherSimpleUserInfo;
 import com.quduo.welfareshop.ui.friend.model.NearModel;
 import com.quduo.welfareshop.ui.friend.view.INearView;
 
@@ -32,9 +32,9 @@ public class NearPresenter extends BasePresenter<INearView> {
             params.put("longitude", mView.getLongitude());
             params.put("latitude", mView.getLatitude());
             params.put("sex", mView.getSex());
-            model.getData(params, new HttpResultListener<List<NearInfo>>() {
+            model.getData(params, new HttpResultListener<List<OtherSimpleUserInfo>>() {
                 @Override
-                public void onSuccess(List<NearInfo> data) {
+                public void onSuccess(List<OtherSimpleUserInfo> data) {
                     try {
                         mView.bindData(data);
                         if (isFirst) {

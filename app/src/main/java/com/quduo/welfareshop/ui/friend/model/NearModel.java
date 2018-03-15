@@ -7,7 +7,7 @@ import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.http.base.LzyResponse;
 import com.quduo.welfareshop.http.callback.JsonCallback;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
-import com.quduo.welfareshop.ui.friend.entity.NearInfo;
+import com.quduo.welfareshop.ui.friend.entity.OtherSimpleUserInfo;
 
 import java.util.List;
 
@@ -18,13 +18,13 @@ import java.util.List;
  */
 
 public class NearModel {
-    public void getData(HttpParams params, final HttpResultListener<List<NearInfo>> listener) {
-        OkGo.<LzyResponse<List<NearInfo>>>get(ApiUtil.API_PRE + ApiUtil.NEAR_LIST)
+    public void getData(HttpParams params, final HttpResultListener<List<OtherSimpleUserInfo>> listener) {
+        OkGo.<LzyResponse<List<OtherSimpleUserInfo>>>get(ApiUtil.API_PRE + ApiUtil.NEAR_LIST)
                 .tag(ApiUtil.NEAR_LIST_TAG)
                 .params(params)
-                .execute(new JsonCallback<LzyResponse<List<NearInfo>>>() {
+                .execute(new JsonCallback<LzyResponse<List<OtherSimpleUserInfo>>>() {
                     @Override
-                    public void onSuccess(Response<LzyResponse<List<NearInfo>>> response) {
+                    public void onSuccess(Response<LzyResponse<List<OtherSimpleUserInfo>>> response) {
                         try {
                             listener.onSuccess(response.body().data);
                         } catch (Exception e) {
@@ -34,7 +34,7 @@ public class NearModel {
                     }
 
                     @Override
-                    public void onError(Response<LzyResponse<List<NearInfo>>> response) {
+                    public void onError(Response<LzyResponse<List<OtherSimpleUserInfo>>> response) {
                         super.onError(response);
                         try {
                             listener.onFail(response.getException().getMessage());

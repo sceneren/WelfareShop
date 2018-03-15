@@ -21,7 +21,7 @@ import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.friend.adapter.RankAdapter;
-import com.quduo.welfareshop.ui.friend.entity.NearInfo;
+import com.quduo.welfareshop.ui.friend.entity.OtherSimpleUserInfo;
 import com.quduo.welfareshop.ui.friend.presenter.RankPresenter;
 import com.quduo.welfareshop.ui.friend.view.IRankView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -53,7 +53,7 @@ public class RankFragment extends BaseMvpFragment<IRankView, RankPresenter> impl
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
 
-    private List<NearInfo> list = new ArrayList<>();
+    private List<OtherSimpleUserInfo> list = new ArrayList<>();
     private RankAdapter adapter;
 
     public static RankFragment newInstance() {
@@ -173,7 +173,7 @@ public class RankFragment extends BaseMvpFragment<IRankView, RankPresenter> impl
     }
 
     @Override
-    public void bindData(List<NearInfo> data) {
+    public void bindData(List<OtherSimpleUserInfo> data) {
         try {
             list.clear();
             list.addAll(data);

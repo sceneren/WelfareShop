@@ -1,13 +1,15 @@
 package com.quduo.welfareshop.ui.friend.activity;
 
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.friend.model.VideoChatPresenter;
 import com.quduo.welfareshop.ui.friend.view.IVideoChatView;
@@ -25,6 +27,9 @@ import butterknife.Unbinder;
  */
 
 public class VideoChatActivity extends BaseMvpActivity<IVideoChatView, VideoChatPresenter> implements IVideoChatView {
+    public static final String ARG_NICKNAME = "nickname";
+    public static final String ARG_AVATAR = "avatar";
+
     @BindView(R.id.background_image)
     ImageView backgroundImage;
     @BindView(R.id.avatar)
@@ -36,6 +41,8 @@ public class VideoChatActivity extends BaseMvpActivity<IVideoChatView, VideoChat
     @BindView(R.id.open_cemare)
     TextView openCemare;
     Unbinder unbinder;
+    @BindView(R.id.nickname)
+    TextView nickname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +53,20 @@ public class VideoChatActivity extends BaseMvpActivity<IVideoChatView, VideoChat
     }
 
     private void initView() {
-
+        Intent intent = getIntent();
+        String strNickName = intent.getStringExtra(ARG_NICKNAME);
+        String strAvatar = intent.getStringExtra(ARG_AVATAR);
+        GlideApp.with(this)
+                .asBitmap()
+                .centerCrop()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + strAvatar)
+                .into(backgroundImage);
+        GlideApp.with(this)
+                .asBitmap()
+                .centerCrop()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + strAvatar)
+                .into(avatar);
+        nickname.setText(strNickName);
     }
 
     @Override

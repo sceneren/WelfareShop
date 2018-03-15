@@ -23,7 +23,7 @@ import com.quduo.welfareshop.itemDecoration.GridSpacingItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.friend.adapter.NearAdapter;
 import com.quduo.welfareshop.ui.friend.dialog.FriendChooseDialog;
-import com.quduo.welfareshop.ui.friend.entity.NearInfo;
+import com.quduo.welfareshop.ui.friend.entity.OtherSimpleUserInfo;
 import com.quduo.welfareshop.ui.friend.presenter.NearPresenter;
 import com.quduo.welfareshop.ui.friend.view.INearView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -60,7 +60,7 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
 
     private FriendChooseDialog dialog;
 
-    private List<NearInfo> list = new ArrayList<>();
+    private List<OtherSimpleUserInfo> list = new ArrayList<>();
     private NearAdapter adapter;
 
     public static NearFragment newInstance() {
@@ -197,7 +197,7 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
     };
 
     @Override
-    public void bindData(List<NearInfo> data) {
+    public void bindData(List<OtherSimpleUserInfo> data) {
         try {
             list.clear();
             list.addAll(data);

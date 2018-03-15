@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.config.AppConfig;
@@ -121,7 +122,7 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
         GlideApp.with(ChatActivity.this)
                 .asBitmap()
                 .centerCrop()
-                .load(otherAvatar)
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + otherAvatar)
                 .into(othersAvatar);
 
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {
@@ -183,7 +184,10 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
         ekBar.getBtnPtv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ChatActivity.this, VideoChatActivity.class));
+                Intent intent = new Intent(ChatActivity.this, VideoChatActivity.class);
+                intent.putExtra(VideoChatActivity.ARG_AVATAR, otherAvatar);
+                intent.putExtra(VideoChatActivity.ARG_NICKNAME, otherNickName);
+                startActivity(intent);
                 ChatActivity.this.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
             }
         });

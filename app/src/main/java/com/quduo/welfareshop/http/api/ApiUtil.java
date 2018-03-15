@@ -65,9 +65,16 @@ public class ApiUtil {
     //关注用户
     public static final String FOLLOW_USER = "friend/subscribe";
     public static final String FOLLOW_USER_TAG = "friend/subscribe";
+    //取消关注用户
+    public static final String CENCEL_FOLLOW_USER = "friend/unsubscribe";
+    public static final String CENCEL_FOLLOW_USER_TAG = "friend/unsubscribe";
     //关注用户列表
-    public static final String FOLLOW_USER_LIST="personal/subscribe";
-    public static final String FOLLOW_USER_LIST_TAG="personal/subscribe";
+    public static final String FOLLOW_USER_LIST = "personal/subscribe";
+    public static final String FOLLOW_USER_LIST_TAG = "personal/subscribe";
+    //其他用户详情
+    public static final String OTHER_USER_DETAIL_INFO = "friend/profile";
+    public static final String OTHER_USER_DETAIL_INFO_TAG = "friend/profile";
+
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

@@ -10,7 +10,7 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.PreviewImageActivity;
 import com.quduo.welfareshop.base.GlideApp;
-import com.quduo.welfareshop.ui.friend.entity.NearInfo;
+import com.quduo.welfareshop.ui.friend.entity.OtherSimpleUserInfo;
 import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 import com.w4lle.library.NineGridlayout;
 
@@ -22,16 +22,16 @@ import java.util.List;
  * Time:2018/2/2 10:37
  * Description:人气榜
  */
-public class RankAdapter extends BaseQuickAdapter<NearInfo, BaseViewHolder> {
+public class RankAdapter extends BaseQuickAdapter<OtherSimpleUserInfo, BaseViewHolder> {
     private Context context;
 
-    public RankAdapter(Context context, List<NearInfo> list) {
+    public RankAdapter(Context context, List<OtherSimpleUserInfo> list) {
         super(R.layout.fragment_friend_rank_item, list);
         this.context = context;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, final NearInfo item) {
+    protected void convert(BaseViewHolder helper, final OtherSimpleUserInfo item) {
         SelectableRoundedImageView avatar = helper.getView(R.id.avatar);
         NineGridlayout imageLayout = helper.getView(R.id.image_layout);
         GlideApp.with(context)

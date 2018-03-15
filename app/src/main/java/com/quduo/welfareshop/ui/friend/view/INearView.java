@@ -1,7 +1,7 @@
 package com.quduo.welfareshop.ui.friend.view;
 
 import com.quduo.welfareshop.mvp.BaseView;
-import com.quduo.welfareshop.ui.friend.entity.NearInfo;
+import com.quduo.welfareshop.ui.friend.entity.OtherSimpleUserInfo;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 public interface INearView extends BaseView {
-    void bindData(List<NearInfo> data);
+    void bindData(List<OtherSimpleUserInfo> data);
 
     double getLongitude();
 

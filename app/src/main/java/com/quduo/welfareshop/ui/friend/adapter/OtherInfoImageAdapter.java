@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.widgets.CustomHeightRoundedImageView;
@@ -58,10 +59,9 @@ public class OtherInfoImageAdapter extends BaseAdapter {
             holder = (OtherInfoImageViewHolder) convertView.getTag();
         }
 
-        String url = "http://e.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg";
         GlideApp.with(context)
                 .asBitmap()
-                .load(url)
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position))
                 .centerCrop()
                 .placeholder(R.drawable.ic_agreement)
                 .into(holder.image);

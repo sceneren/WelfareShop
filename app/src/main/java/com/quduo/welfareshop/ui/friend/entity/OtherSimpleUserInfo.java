@@ -10,7 +10,7 @@ import java.util.List;
  * Description:附近的人
  */
 
-public class NearInfo extends BaseBean {
+public class OtherSimpleUserInfo extends BaseBean {
 
     /**
      * id : 1049

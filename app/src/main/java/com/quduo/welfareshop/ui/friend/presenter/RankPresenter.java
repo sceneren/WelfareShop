@@ -3,7 +3,7 @@ package com.quduo.welfareshop.ui.friend.presenter;
 import com.lzy.okgo.model.HttpParams;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.mvp.BasePresenter;
-import com.quduo.welfareshop.ui.friend.entity.NearInfo;
+import com.quduo.welfareshop.ui.friend.entity.OtherSimpleUserInfo;
 import com.quduo.welfareshop.ui.friend.model.RankModel;
 import com.quduo.welfareshop.ui.friend.view.IRankView;
 import com.quduo.welfareshop.ui.welfare.entity.FollowSuccessInfo;
@@ -29,9 +29,9 @@ public class RankPresenter extends BasePresenter<IRankView> {
             if (isFirst) {
                 mView.showLoadingPage();
             }
-            model.getData(new HttpResultListener<List<NearInfo>>() {
+            model.getData(new HttpResultListener<List<OtherSimpleUserInfo>>() {
                 @Override
-                public void onSuccess(List<NearInfo> data) {
+                public void onSuccess(List<OtherSimpleUserInfo> data) {
                     try {
                         mView.bindData(data);
                         if (isFirst) {
