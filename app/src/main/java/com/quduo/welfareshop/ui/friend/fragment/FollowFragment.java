@@ -185,10 +185,11 @@ public class FollowFragment extends BaseMvpFragment<IFollowView, FollowPresenter
 
     private void toChatMessage(FollowUserInfo userInfo) {
         Intent intent = new Intent(_mActivity, ChatActivity.class);
-        intent.putExtra("ID", userInfo.getTarget_user_id());
+        intent.putExtra("ID", String.valueOf(userInfo.getTarget_user_id()));
         intent.putExtra("NICKNAME", userInfo.getNickname());
         intent.putExtra("IS_FOLLOW", true);
-        intent.putExtra("OTHERAVATAR", MyApplication.getInstance().getConfigInfo().getFile_domain() + userInfo.getAvatar());
+        intent.putExtra("NEARBY", false);
+        intent.putExtra("OTHERAVATAR", userInfo.getAvatar());
         startActivity(intent);
         _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }

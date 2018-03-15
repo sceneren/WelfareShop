@@ -5,10 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.friend.entity.ChatMessageInfo;
@@ -49,10 +49,14 @@ public class MessageAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ChatMessageInfo info = list.get(position);
         MessageViewHolder viewHolder = (MessageViewHolder) holder;
+        String url = info.getOtherAvatar();
+        if (!url.startsWith("http")) {
+            url = MyApplication.getInstance().getConfigInfo().getFile_domain() + info.getOtherAvatar();
+        }
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
-                .load(info.getOtherAvatar())
+                .load(url)
                 .into(viewHolder.avatar);
         viewHolder.nickname.setText(info.getOtherNickName());
         if (info.getMessageType() == 0) {

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.quduo.welfareshop.base.GlideApp;
 import com.w4lle.library.NineGridAdapter;
 
@@ -51,8 +52,10 @@ public class NineGridImageAdapter extends NineGridAdapter {
         }
         iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
         GlideApp.with(context)
-                .load(list.get(i))
+                .asBitmap()
                 .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .load(list.get(i))
                 .into(iv);
         return iv;
     }

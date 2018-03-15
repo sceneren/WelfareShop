@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.PreviewImageActivity;
 import com.quduo.welfareshop.base.GlideApp;
@@ -36,7 +37,7 @@ import butterknife.ButterKnife;
  * Description:聊天记录
  */
 
-public class ChatAdapter extends RecyclerView.Adapter {
+public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int TYPE_TEXT = 0;
     private final int TYPE_IMAGE = 1;
     private final int TYPE_AUDIO = 2;
@@ -71,11 +72,10 @@ public class ChatAdapter extends RecyclerView.Adapter {
             if (holder != null && holder instanceof TextViewHolder) {
                 TextViewHolder textViewHolder = (TextViewHolder) holder;
                 QqUtils.spannableEmoticonFilter(textViewHolder.content, chatMessageInfo.getMessageContent());
-                String url = "http://e.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg";
                 GlideApp.with(context)
                         .asBitmap()
                         .centerCrop()
-                        .load(url)
+                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                         .into(textViewHolder.mineAvatar);
                 if (position == 0) {
                     textViewHolder.time.setVisibility(View.VISIBLE);
@@ -92,11 +92,10 @@ public class ChatAdapter extends RecyclerView.Adapter {
             }
         } else if (getItemViewType(position) == TYPE_IMAGE) {
             ImageViewHolder imageViewHolder = (ImageViewHolder) holder;
-            String url = "http://e.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg";
             GlideApp.with(context)
                     .asBitmap()
                     .centerCrop()
-                    .load(url)
+                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                     .into(imageViewHolder.mineAvatar);
             GlideApp.with(context)
                     .asBitmap()
@@ -127,11 +126,10 @@ public class ChatAdapter extends RecyclerView.Adapter {
             imageViewHolder.time.setText(dateTime.toString("yyyy-MM-dd HH:mm"));
         } else {
             final AudioViewHolder audioViewHolder = (AudioViewHolder) holder;
-            String url = "http://e.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg";
             GlideApp.with(context)
                     .asBitmap()
                     .centerCrop()
-                    .load(url)
+                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                     .into(audioViewHolder.mineAvatar);
             if (position == 0) {
                 audioViewHolder.time.setVisibility(View.VISIBLE);

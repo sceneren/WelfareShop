@@ -12,6 +12,9 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.hss01248.dialog.StyledDialog;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
@@ -83,6 +86,7 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
     private String otherNickName;
     private String otherAvatar;
     private boolean isFollow = false;
+    private boolean isNearby = false;
 
     private ChatAdapter chatAdapter;
     private RecyclerAdapterWithHF mAdapter;
@@ -98,6 +102,7 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
         otherNickName = getIntent().getStringExtra("NICKNAME");
         otherAvatar = getIntent().getStringExtra("OTHERAVATAR");
         isFollow = getIntent().getBooleanExtra("IS_FOLLOW", false);
+        isNearby = getIntent().getBooleanExtra("NEARBY", false);
         initToolbar();
         initView();
         presenter.getAllMessage(false, true);
@@ -122,6 +127,7 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
         GlideApp.with(ChatActivity.this)
                 .asBitmap()
                 .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + otherAvatar)
                 .into(othersAvatar);
 
@@ -320,10 +326,61 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
         }
     }
 
+    @Override
+    public void showLoadingDialog() {
+        try {
+            StyledDialog.buildLoading().show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void hideLoadingDialog() {
+        try {
+            StyledDialog.dismissLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void followUserSuccess(int followId) {
+        try {
+            EventBus.getDefault().post(new FollowEvent(followId));
+            followLayout.setVisibility(View.GONE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showMessage(String message) {
+        try {
+            ToastUtils.showShort(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public int getFromNearby() {
+        return isNearby ? 1 : 0;
+    }
+
+    @Override
+    public double getLongitude() {
+        return MyApplication.getInstance().getLongitude();
+    }
+
+    @Override
+    public double getLatitude() {
+        return MyApplication.getInstance().getLatitude();
+    }
+
     @OnClick(R.id.follow)
     public void onClickFollow() {
-        EventBus.getDefault().post(new FollowEvent());
-        followLayout.setVisibility(View.GONE);
+        presenter.followUser();
     }
 
 

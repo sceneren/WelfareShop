@@ -98,6 +98,7 @@ public class MessageFragment extends BaseMvpFragment<IMessageView, MessagePresen
                 intent.putExtra("ID", list.get(position).getOtherUserId());
                 intent.putExtra("NICKNAME", list.get(position).getOtherNickName());
                 intent.putExtra("IS_FOLLOW", true);
+                intent.putExtra("NEARBY", true);
                 intent.putExtra("OTHERAVATAR", list.get(position).getOtherAvatar());
                 startActivity(intent);
                 _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);

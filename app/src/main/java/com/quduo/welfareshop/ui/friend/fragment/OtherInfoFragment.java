@@ -249,9 +249,15 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
 
     @Subscribe
     public void currentUserHasFollow(FollowEvent event) {
-        follow.setText("已关注");
-        follow.setTextColor(ContextCompat.getColor(_mActivity, R.color.theme_color));
-        follow.setCompoundDrawablesWithIntrinsicBounds(null, ContextCompat.getDrawable(_mActivity, R.drawable.ic_guanzhu_s), null, null);
+        try {
+            if (detailUserInfo != null) {
+                detailUserInfo.setSubscribe_id(event.getFollowId());
+                showFollowStates();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @OnClick(R.id.back)
@@ -318,9 +324,10 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
 
     private void toChatMessage() {
         Intent intent = new Intent(_mActivity, ChatActivity.class);
-        intent.putExtra("ID", detailUserInfo.getId());
+        intent.putExtra("ID", String.valueOf(detailUserInfo.getId()));
         intent.putExtra("NICKNAME", detailUserInfo.getNickname());
         intent.putExtra("IS_FOLLOW", detailUserInfo.getSubscribe_id() != 0);
+        intent.putExtra("NEARBY", isFromNear);
         intent.putExtra("OTHERAVATAR", detailUserInfo.getAvatar());
         startActivity(intent);
         _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
@@ -450,12 +457,16 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
     }
 
     private void showFollowStates() {
-        if (detailUserInfo.getSubscribe_id() != 0) {
-            follow.setText("已关注");
-            follow.setCompoundDrawablesWithIntrinsicBounds(null, ContextCompat.getDrawable(_mActivity, R.drawable.ic_other_info_follow_s), null, null);
-        } else {
-            follow.setText("关注");
-            follow.setCompoundDrawablesWithIntrinsicBounds(null, ContextCompat.getDrawable(_mActivity, R.drawable.ic_other_info_follow_d), null, null);
+        try {
+            if (detailUserInfo.getSubscribe_id() != 0) {
+                follow.setText("已关注");
+                follow.setCompoundDrawablesWithIntrinsicBounds(null, ContextCompat.getDrawable(_mActivity, R.drawable.ic_other_info_follow_s), null, null);
+            } else {
+                follow.setText("关注");
+                follow.setCompoundDrawablesWithIntrinsicBounds(null, ContextCompat.getDrawable(_mActivity, R.drawable.ic_other_info_follow_d), null, null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

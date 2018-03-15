@@ -20,4 +20,18 @@ public interface IChatView extends BaseView {
     String getOtherNickName();
 
     void moveToBottom(boolean isFirstEnter);
+
+    void showLoadingDialog();
+
+    void hideLoadingDialog();
+
+    void followUserSuccess(int followId);
+
+    void showMessage(String message);
+
+    int getFromNearby();
+
+    double getLongitude();
+
+    double getLatitude();
 }
