@@ -71,8 +71,8 @@ public class MyApplication extends LitePalApplication {
     //用户信息
     private UserInfo userInfo;
     //当前位置
-    private double latitude;
-    private double longitude;
+    private double latitude = 0;
+    private double longitude = 0;
 
     static {
         //设置全局的Header构建器

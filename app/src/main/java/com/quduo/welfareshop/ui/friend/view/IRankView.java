@@ -1,6 +1,9 @@
 package com.quduo.welfareshop.ui.friend.view;
 
 import com.quduo.welfareshop.mvp.BaseView;
+import com.quduo.welfareshop.ui.friend.entity.NearInfo;
+
+import java.util.List;
 
 /**
  * Author:scene
@@ -9,4 +12,19 @@ import com.quduo.welfareshop.mvp.BaseView;
  */
 
 public interface IRankView extends BaseView {
+    void bindData(List<NearInfo> data);
+
+    void refreshFinish();
+
+    void showMessage(String message);
+
+    void showLoadingDialog();
+
+    void hideLoadingDialog();
+
+    double getLatitude();
+
+    double getLongitude();
+
+    void followSuccess(int position, int followId);
 }

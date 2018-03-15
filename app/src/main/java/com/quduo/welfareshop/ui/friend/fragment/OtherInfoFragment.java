@@ -50,6 +50,7 @@ import butterknife.Unbinder;
  */
 public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, OtherInfoPresenter> implements IOtherInfoView {
     private static final String ARG_ID = "user_id";
+    private static final String ARG_FROM = "from";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
@@ -72,14 +73,16 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
     RelativeLayout imageLayout;
     Unbinder unbinder;
     private String otherUserId;
+    private boolean isFromNear = false;
 
     private ToRechargeDialog rechargeDialog;
     private OpenChatDialog openChatDialog;
     private VideoChatToRechargeDialog videoChatToRechargeDialog;
 
-    public static OtherInfoFragment newInstance(String otherUserId) {
+    public static OtherInfoFragment newInstance(String otherUserId, boolean isFromNear) {
         Bundle args = new Bundle();
         args.putString(ARG_ID, otherUserId);
+        args.putBoolean(ARG_FROM, isFromNear);
         OtherInfoFragment fragment = new OtherInfoFragment();
         fragment.setArguments(args);
         return fragment;
@@ -90,7 +93,8 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         if (getArguments() != null) {
-            otherUserId = getArguments().getString(ARG_ID);
+            otherUserId = getArguments().getString(ARG_ID, "0");
+            isFromNear = getArguments().getBoolean(ARG_FROM, false);
         }
     }
 

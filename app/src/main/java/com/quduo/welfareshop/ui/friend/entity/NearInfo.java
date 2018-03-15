@@ -2,13 +2,15 @@ package com.quduo.welfareshop.ui.friend.entity;
 
 import com.quduo.welfareshop.base.BaseBean;
 
-/**
-*Author:scene
-*Time:2018/3/15 10:04
-*Description:附近的人
-*/
+import java.util.List;
 
-public class NearInfo extends BaseBean{
+/**
+ * Author:scene
+ * Time:2018/3/15 10:04
+ * Description:附近的人
+ */
+
+public class NearInfo extends BaseBean {
 
     /**
      * id : 1049
@@ -30,7 +32,8 @@ public class NearInfo extends BaseBean{
     private int subscribe;
     private String location;
     private int distance;
-    private String photo;
+    private List<String> photo;
+    private int subscribe_id;
 
     public int getId() {
         return id;
@@ -96,11 +99,19 @@ public class NearInfo extends BaseBean{
         this.distance = distance;
     }
 
-    public String getPhoto() {
+    public List<String> getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(List<String> photo) {
         this.photo = photo;
+    }
+
+    public int getSubscribe_id() {
+        return subscribe_id;
+    }
+
+    public void setSubscribe_id(int subscribe_id) {
+        this.subscribe_id = subscribe_id;
     }
 }

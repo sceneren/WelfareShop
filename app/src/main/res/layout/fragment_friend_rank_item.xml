@@ -63,6 +63,7 @@
                     android:textSize="10sp" />
 
                 <TextView
+                    android:id="@+id/follow_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -72,6 +73,7 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/follow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

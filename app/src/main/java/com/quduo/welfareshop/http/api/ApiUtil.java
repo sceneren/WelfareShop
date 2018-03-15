@@ -59,6 +59,12 @@ public class ApiUtil {
     //附近的人
     public static final String NEAR_LIST = "friend/nearby";
     public static final String NEAR_LIST_TAG = "friend/nearby";
+    //人气排行
+    public static final String RANK_LIST = "friend/ranking";
+    public static final String RANK_LIST_TAG = "friend/ranking";
+    //关注用户
+    public static final String FOLLOW_USER = "friend/subscribe";
+    public static final String FOLLOW_USER_TAG = "friend/subscribe";
 
     /**
      * Case By:创建参数基础信息
