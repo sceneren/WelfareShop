@@ -65,7 +65,9 @@ public class ApiUtil {
     //关注用户
     public static final String FOLLOW_USER = "friend/subscribe";
     public static final String FOLLOW_USER_TAG = "friend/subscribe";
-
+    //关注用户列表
+    public static final String FOLLOW_USER_LIST="personal/subscribe";
+    public static final String FOLLOW_USER_LIST_TAG="personal/subscribe";
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

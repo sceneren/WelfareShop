@@ -8,6 +8,7 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.friend.entity.NearInfo;
+import com.quduo.welfareshop.util.DistanceUtil;
 import com.quduo.welfareshop.widgets.CustomHeightRoundedImageView;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class NearAdapter extends BaseQuickAdapter<NearInfo, BaseViewHolder> {
         helper.setImageResource(R.id.sex, item.getSex() == 1 ? R.drawable.ic_male : R.drawable.ic_female);
         helper.setText(R.id.age, item.getSex() + "岁");
         helper.setText(R.id.name, item.getNickname());
-        helper.setText(R.id.distance, item.getDistance() + "m");
+        helper.setText(R.id.distance, DistanceUtil.formatDistance(item.getDistance()));
         CustomHeightRoundedImageView image = helper.getView(R.id.image);
         GlideApp.with(context)
                 .asBitmap()

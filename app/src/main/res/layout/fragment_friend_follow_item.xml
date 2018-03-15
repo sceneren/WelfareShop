@@ -35,6 +35,7 @@
             android:textSize="@dimen/sp_14" />
 
         <LinearLayout
+            android:id="@+id/layout_sex_age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/nickname"

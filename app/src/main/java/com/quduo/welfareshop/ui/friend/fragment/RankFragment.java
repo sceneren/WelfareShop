@@ -71,10 +71,25 @@ public class RankFragment extends BaseMvpFragment<IRankView, RankPresenter> impl
         return view;
     }
 
+    private int retryTime = 0;
+
     @Override
     public void initView() {
-        initRecyclerView();
-        presenter.getData(true);
+        if (MyApplication.getInstance().getLatitude() == 0) {
+            refreshLayout.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    retryTime += 1;
+                    if (retryTime > 3) {
+                        showMessage("无法获取到定位信息，请到设置中开启定位权限");
+                    } else {
+                        initView();
+                    }
+                }
+            }, 500);
+        } else {
+            initRecyclerView();
+        }
     }
 
     private void initRecyclerView() {
@@ -106,6 +121,8 @@ public class RankFragment extends BaseMvpFragment<IRankView, RankPresenter> impl
                 EventBus.getDefault().post(new StartBrotherEvent(OtherInfoFragment.newInstance(String.valueOf(list.get(position).getId()), false)));
             }
         });
+        presenter.getData(true);
+
     }
 
     @Override
