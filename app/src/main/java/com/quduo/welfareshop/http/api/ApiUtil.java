@@ -56,6 +56,9 @@ public class ApiUtil {
     //我收藏的小说
     public static final String MY_FOLLOW_NOVEL = "personal/favor/novel";
     public static final String MY_FOLLOW_NOVEL_TAG = "personal/favor/novel";
+    //附近的人
+    public static final String NEAR_LIST = "friend/nearby";
+    public static final String NEAR_LIST_TAG = "friend/nearby";
 
     /**
      * Case By:创建参数基础信息

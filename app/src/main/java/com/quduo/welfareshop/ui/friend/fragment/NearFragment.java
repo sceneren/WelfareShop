@@ -10,8 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.SizeUtils;
+import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.event.StartBrotherEvent;
@@ -19,6 +21,7 @@ import com.quduo.welfareshop.itemDecoration.GridSpacingItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.friend.adapter.NearAdapter;
 import com.quduo.welfareshop.ui.friend.dialog.FriendChooseDialog;
+import com.quduo.welfareshop.ui.friend.entity.NearInfo;
 import com.quduo.welfareshop.ui.friend.presenter.NearPresenter;
 import com.quduo.welfareshop.ui.friend.view.INearView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -35,7 +38,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.loadmore.StatusViewLayout;
-import wiki.scene.loadmore.recyclerview.RecyclerAdapterWithHF;
 
 /**
  * Author:scene
@@ -56,6 +58,9 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
 
     private FriendChooseDialog dialog;
 
+    private List<NearInfo> list = new ArrayList<>();
+    private NearAdapter adapter;
+
     public static NearFragment newInstance() {
         Bundle args = new Bundle();
         NearFragment fragment = new NearFragment();
@@ -71,15 +76,21 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
         return view;
     }
 
+    private int retryTime = 0;
+
     @Override
     public void initView() {
-        showLoadingPage();
-        LogUtils.e(MyApplication.getInstance().getLatitude());
         if (MyApplication.getInstance().getLatitude() == 0) {
             refreshLayout.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    initView();
+                    retryTime += 1;
+                    if (retryTime > 3) {
+                        showMessage("无法获取到定位信息，请到设置中开启定位权限");
+                        showNoLocationPage();
+                    } else {
+                        initView();
+                    }
                 }
             }, 500);
         } else {
@@ -94,34 +105,22 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
-                refreshLayout.finishRefresh(2000);
+                presenter.getData(false);
             }
         });
-        List<String> list = new ArrayList<>();
-        list.add("xxxxxxxxxxx");
-        list.add("xxxxxxxxxxx");
-        list.add("xxxxxxxxxxx");
-        list.add("xxxxxxxxxxx");
-        list.add("xxxxxxxxxxx");
-        list.add("xxxxxxxxxxx");
-        list.add("xxxxxxxxxxx");
-        list.add("xxxxxxxxxxx");
-        list.add("xxxxxxxxxxx");
-        list.add("xxxxxxxxxxx");
-        list.add("xxxxxxxxxxx");
-        list.add("xxxxxxxxxxx");
-        list.add("xxxxxxxxxxx");
+
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, SizeUtils.dp2px(5), true));
-        RecyclerAdapterWithHF mAdapter = new RecyclerAdapterWithHF(new NearAdapter(getContext(), list));
-        recyclerView.setAdapter(mAdapter);
-        mAdapter.setOnItemClickListener(new RecyclerAdapterWithHF.OnItemClickListener() {
+        adapter = new NearAdapter(getContext(), list);
+        recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(RecyclerAdapterWithHF adapter, RecyclerView.ViewHolder vh, int position) {
-                EventBus.getDefault().post(new StartBrotherEvent(OtherInfoFragment.newInstance(String.valueOf(position + 1))));
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                EventBus.getDefault().post(new StartBrotherEvent(OtherInfoFragment.newInstance(String.valueOf(list.get(position).getId()))));
             }
         });
+        presenter.getData(true);
     }
 
     @Override
@@ -161,8 +160,17 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
 
     @OnClick(R.id.friend_screen)
     public void onClickFriendScreen() {
-        if (dialog == null) {
+        if (dialog == null && getContext() != null) {
             dialog = new FriendChooseDialog(getContext());
+            dialog.setOnClickSexListener(new FriendChooseDialog.OnClickSexListener() {
+                @Override
+                public void onClickSex(int sex) {
+                    if (sex != getSex()) {
+                        SPUtils.getInstance().put("SEX", sex);
+                        refreshLayout.autoRefresh();
+                    }
+                }
+            });
         }
         dialog.show();
     }
@@ -181,7 +189,52 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            presenter.getData(true);
         }
     };
+
+    @Override
+    public void bindData(List<NearInfo> data) {
+        try {
+            list.clear();
+            list.addAll(data);
+            adapter.notifyDataSetChanged();
+            recyclerView.scrollToPosition(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public double getLongitude() {
+        return MyApplication.getInstance().getLongitude();
+    }
+
+    @Override
+    public double getLatitude() {
+        return MyApplication.getInstance().getLatitude();
+    }
+
+    @Override
+    public int getSex() {
+        return SPUtils.getInstance().getInt("SEX", 0);
+    }
+
+    @Override
+    public void refreshFinish() {
+        try {
+            refreshLayout.finishRefresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showMessage(String message) {
+        try {
+            ToastUtils.showShort(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

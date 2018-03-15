@@ -24,7 +24,6 @@ import wiki.scene.loadmore.utils.PtrLocalDisplay;
 
 public class FriendChooseDialog extends Dialog {
 
-
     @BindView(R.id.all)
     TextView all;
     @BindView(R.id.male)
@@ -33,6 +32,7 @@ public class FriendChooseDialog extends Dialog {
     TextView female;
     @BindView(R.id.cancel)
     TextView cancel;
+    private OnClickSexListener onClickSexListener;
 
     public FriendChooseDialog(@NonNull Context context) {
         super(context, R.style.Dialog);
@@ -44,6 +44,10 @@ public class FriendChooseDialog extends Dialog {
 
     protected FriendChooseDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
+    }
+
+    public void setOnClickSexListener(OnClickSexListener onClickSexListener) {
+        this.onClickSexListener = onClickSexListener;
     }
 
     @Override
@@ -70,21 +74,34 @@ public class FriendChooseDialog extends Dialog {
     @OnClick(R.id.all)
     public void onClickAll() {
         dismiss();
+        if (onClickSexListener != null) {
+            onClickSexListener.onClickSex(0);
+        }
     }
 
     @OnClick(R.id.male)
     public void onClickMale() {
         dismiss();
+        if (onClickSexListener != null) {
+            onClickSexListener.onClickSex(1);
+        }
     }
 
     @OnClick(R.id.female)
     public void onClickFemale() {
         dismiss();
+        if (onClickSexListener != null) {
+            onClickSexListener.onClickSex(2);
+        }
     }
 
     @OnClick(R.id.cancel)
     public void onClickCancel() {
         dismiss();
+    }
+
+    public interface OnClickSexListener {
+        void onClickSex(int sex);
     }
 
 }

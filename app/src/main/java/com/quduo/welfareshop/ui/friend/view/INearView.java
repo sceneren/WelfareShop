@@ -1,6 +1,9 @@
 package com.quduo.welfareshop.ui.friend.view;
 
 import com.quduo.welfareshop.mvp.BaseView;
+import com.quduo.welfareshop.ui.friend.entity.NearInfo;
+
+import java.util.List;
 
 /**
  * Author:scene
@@ -9,4 +12,15 @@ import com.quduo.welfareshop.mvp.BaseView;
  */
 
 public interface INearView extends BaseView {
+    void bindData(List<NearInfo> data);
+
+    double getLongitude();
+
+    double getLatitude();
+
+    int getSex();
+
+    void refreshFinish();
+
+    void showMessage(String message);
 }
