@@ -74,6 +74,12 @@ public class ApiUtil {
     //其他用户详情
     public static final String OTHER_USER_DETAIL_INFO = "friend/profile";
     public static final String OTHER_USER_DETAIL_INFO_TAG = "friend/profile";
+    //上传头像
+    public static final String UPLOAD_AVATAR = "personal/profile/avatar";
+    public static final String UPLOAD_AVATAR_TAG = "personal/profile/avatar";
+    //获取自己的用户信息
+    public static final String MY_DETAIL_INFO = "personal/profile";
+    public static final String MY_DETAIL_INFO_TAG = "personal/profile";
 
     /**
      * Case By:创建参数基础信息

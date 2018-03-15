@@ -10,10 +10,19 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.bigkoo.pickerview.TimePickerView;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.hss01248.dialog.StyledDialog;
+import com.lzy.okgo.OkGo;
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.event.EditMyInfoEvent;
+import com.quduo.welfareshop.event.UpdateAvatarEvent;
+import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.mine.adapter.EditInfoPhotoAdapter;
+import com.quduo.welfareshop.ui.mine.entity.UploadAvatarResultInfo;
 import com.quduo.welfareshop.ui.mine.presenter.EditMyInfoPresenter;
 import com.quduo.welfareshop.ui.mine.view.IEditMyInfoView;
 import com.quduo.welfareshop.util.ImageSelectorUtil;
@@ -42,7 +51,8 @@ import butterknife.Unbinder;
  */
 public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyInfoPresenter> implements IEditMyInfoView {
     private static final int REQUEST_LIST_CODE = 10001;
-    private static final int REQUEST_CAMERA_CODE = 10002;
+    private static final int REQUEST_AVATAR_CODE = 10002;
+    //private static final int REQUEST_CAMERA_CODE = 10002;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -152,19 +162,26 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_CAMERA_CODE && resultCode == RESULT_OK && data != null) {
-            String path = data.getStringExtra("result"); // 图片地址
-            list.add(path);
-            adapter.notifyDataSetChanged();
-        }
-        // 图片选择结果回调
-        if (requestCode == REQUEST_LIST_CODE && resultCode == RESULT_OK && data != null) {
-            List<String> pathList = data.getStringArrayListExtra("result");
-            for (String path : pathList) {
-                list.add(path);
-                adapter.notifyDataSetChanged();
+//        if (requestCode == REQUEST_CAMERA_CODE && resultCode == RESULT_OK && data != null) {
+//            String path = data.getStringExtra("result"); // 图片地址
+//            list.add(path);
+//            adapter.notifyDataSetChanged();
+//        }
+
+        if (resultCode == RESULT_OK && data != null) {
+            // 图片选择结果回调
+            if (requestCode == REQUEST_LIST_CODE) {
+                List<String> pathList = data.getStringArrayListExtra("result");
+                for (String path : pathList) {
+                    list.add(path);
+                    adapter.notifyDataSetChanged();
+                }
+            } else if (requestCode == REQUEST_AVATAR_CODE) {
+                List<String> avatarPaths = data.getStringArrayListExtra("result");
+                presenter.uploadAvatar(avatarPaths.get(0));
             }
         }
+
     }
 
     @OnClick(R.id.nickname)
@@ -187,6 +204,7 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
 
     @Override
     protected void onDestroy() {
+        OkGo.getInstance().cancelTag(ApiUtil.UPLOAD_AVATAR_TAG);
         EventBus.getDefault().unregister(this);
         super.onDestroy();
         unbinder.unbind();
@@ -256,4 +274,50 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
         pvTime.show();
     }
 
+    @Override
+    public void showLoadingDialog() {
+        try {
+            StyledDialog.buildLoading().setActivity(EditMyInfoActivity.this).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void hideLoadingDialog() {
+        try {
+            StyledDialog.dismissLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void uploadAvaterSuccess(UploadAvatarResultInfo resultInfo) {
+        try {
+            GlideApp.with(EditMyInfoActivity.this)
+                    .asBitmap()
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + resultInfo.getAvatar())
+                    .into(avatar);
+            EventBus.getDefault().post(new UpdateAvatarEvent(resultInfo.getAvatar()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showMessage(String message) {
+        try {
+            ToastUtils.showShort(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @OnClick(R.id.layout_avatar)
+    public void onClickAvatar() {
+        ImageSelectorUtil.openImageList(EditMyInfoActivity.this, 1, REQUEST_AVATAR_CODE);
+    }
 }

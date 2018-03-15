@@ -7,14 +7,24 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.RechargeActivity;
+import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.event.UpdateAvatarEvent;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.mine.presenter.MinePresenter;
 import com.quduo.welfareshop.ui.mine.view.IMineView;
 import com.quduo.welfareshop.ui.shop.fragment.ServiceCenterActivity;
+import com.quduo.welfareshop.widgets.CircleImageView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -26,12 +36,30 @@ import butterknife.Unbinder;
 
 public class MineFragment extends BaseBackMvpFragment<IMineView, MinePresenter> implements IMineView {
     Unbinder unbinder;
+    @BindView(R.id.avatar)
+    CircleImageView avatar;
+    @BindView(R.id.nickname)
+    TextView nickname;
+    @BindView(R.id.score_number)
+    TextView scoreNumber;
+    @BindView(R.id.diamonds_number)
+    TextView diamondsNumber;
+    @BindView(R.id.show_id)
+    TextView showId;
+    @BindView(R.id.follow_number)
+    TextView followNumber;
 
     public static MineFragment newInstance() {
         Bundle args = new Bundle();
         MineFragment fragment = new MineFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
 
     @Nullable
@@ -54,7 +82,17 @@ public class MineFragment extends BaseBackMvpFragment<IMineView, MinePresenter> 
 
     @Override
     public void initView() {
-
+        GlideApp.with(this)
+                .asBitmap()
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
+                .into(avatar);
+        nickname.setText(MyApplication.getInstance().getUserInfo().getNickname());
+        scoreNumber.setText(String.valueOf(MyApplication.getInstance().getUserInfo().getScore()));
+        diamondsNumber.setText(String.valueOf(MyApplication.getInstance().getUserInfo().getDiamond()));
+        showId.setText(String.valueOf(MyApplication.getInstance().getUserInfo().getId()));
+        followNumber.setText(String.valueOf(MyApplication.getInstance().getUserInfo().getSubscribe()));
     }
 
     @Override
@@ -80,6 +118,7 @@ public class MineFragment extends BaseBackMvpFragment<IMineView, MinePresenter> 
 
     @Override
     public void onDestroyView() {
+        EventBus.getDefault().unregister(this);
         super.onDestroyView();
         unbinder.unbind();
     }
@@ -139,5 +178,20 @@ public class MineFragment extends BaseBackMvpFragment<IMineView, MinePresenter> 
     public void onClickToRecharge() {
         startActivity(new Intent(getContext(), RechargeActivity.class));
         _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+    }
+
+    @Subscribe
+    public void uploadAvatar(UpdateAvatarEvent event) {
+        try {
+            MyApplication.getInstance().getUserInfo().setAvatar(event.getAvatarPath());
+            GlideApp.with(this)
+                    .asBitmap()
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
+                    .into(avatar);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

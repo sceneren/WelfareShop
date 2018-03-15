@@ -1,4 +1,4 @@
-package com.quduo.welfareshop.ui.friend.adapter;
+package com.quduo.welfareshop.ui.mine.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.ui.mine.entity.MyUserDetailInfo;
 import com.quduo.welfareshop.widgets.CustomHeightRoundedImageView;
 
 import java.util.List;
@@ -22,12 +23,12 @@ import butterknife.ButterKnife;
  * Time:2018/2/5 16:13
  * Description:照片墙
  */
-public class OtherInfoImageAdapter extends BaseAdapter {
+public class MyInfoImageAdapter extends BaseAdapter {
     private Context context;
-    private List<String> list;
+    private List<MyUserDetailInfo.PhotosBean> list;
     private LayoutInflater inflater;
 
-    public OtherInfoImageAdapter(Context context, List<String> list) {
+    public MyInfoImageAdapter(Context context, List<MyUserDetailInfo.PhotosBean> list) {
         this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
@@ -50,29 +51,29 @@ public class OtherInfoImageAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        OtherInfoImageViewHolder holder;
+        MyInfoImageViewHolder holder;
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.fragment_other_info_image_item, parent, false);
-            holder = new OtherInfoImageViewHolder(convertView);
+            holder = new MyInfoImageViewHolder(convertView);
             convertView.setTag(holder);
         } else {
-            holder = (OtherInfoImageViewHolder) convertView.getTag();
+            holder = (MyInfoImageViewHolder) convertView.getTag();
         }
 
         GlideApp.with(context)
                 .asBitmap()
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position))
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position).getUrl())
                 .centerCrop()
                 .placeholder(R.drawable.ic_agreement)
                 .into(holder.image);
         return convertView;
     }
 
-    static class OtherInfoImageViewHolder {
+    static class MyInfoImageViewHolder {
         @BindView(R.id.image)
         CustomHeightRoundedImageView image;
 
-        OtherInfoImageViewHolder(View view) {
+        MyInfoImageViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }

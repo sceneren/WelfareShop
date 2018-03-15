@@ -1,6 +1,7 @@
 package com.quduo.welfareshop.ui.mine.view;
 
 import com.quduo.welfareshop.mvp.BaseView;
+import com.quduo.welfareshop.ui.mine.entity.UploadAvatarResultInfo;
 
 /**
  * Author:scene
@@ -8,5 +9,12 @@ import com.quduo.welfareshop.mvp.BaseView;
  * Description:编辑资料
  */
 
-public interface IEditMyInfoView extends BaseView{
+public interface IEditMyInfoView extends BaseView {
+    void showLoadingDialog();
+
+    void hideLoadingDialog();
+
+    void uploadAvaterSuccess(UploadAvatarResultInfo resultInfo);
+
+    void showMessage(String message);
 }

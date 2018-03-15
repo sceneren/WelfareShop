@@ -1,6 +1,7 @@
 package com.quduo.welfareshop.ui.mine.view;
 
 import com.quduo.welfareshop.mvp.BaseView;
+import com.quduo.welfareshop.ui.mine.entity.MyUserDetailInfo;
 
 /**
  * Author:scene
@@ -9,4 +10,9 @@ import com.quduo.welfareshop.mvp.BaseView;
  */
 
 public interface IMyInfoView extends BaseView {
+    void showMessage(String message);
+
+    void refreshFinish();
+
+    void bindData(MyUserDetailInfo data);
 }
