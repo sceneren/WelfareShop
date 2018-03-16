@@ -15,9 +15,9 @@ import com.quduo.welfareshop.ui.welfare.entity.SmallVideoResultInfo;
  * Description:小视频
  */
 
-public class SmallVideoModel {
+public class SmallVideoModel extends ZanModel {
     public void getSmallVideoByPage(HttpParams params, final HttpResultListener<SmallVideoResultInfo> listener) {
-        OkGo.<LzyResponse<SmallVideoResultInfo>>get(ApiUtil.API_PRE+ApiUtil.SMALL_VIDEO_LIST)
+        OkGo.<LzyResponse<SmallVideoResultInfo>>get(ApiUtil.API_PRE + ApiUtil.SMALL_VIDEO_LIST)
                 .tag(ApiUtil.SMALL_VIDEO_LIST_TAG)
                 .params(params)
                 .execute(new JsonCallback<LzyResponse<SmallVideoResultInfo>>() {

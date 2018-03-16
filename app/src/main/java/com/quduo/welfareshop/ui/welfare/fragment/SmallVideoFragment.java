@@ -9,9 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.http.api.ApiUtil;
@@ -151,11 +153,16 @@ public class SmallVideoFragment extends BaseMvpFragment<ISmallVideoView, SmallVi
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if (view.getId() == R.id.btn_follow) {
-                    videoInfoList.get(position).setIs_favor(!videoInfoList.get(position).isIs_favor());
+                    if (videoInfoList.get(position).getFavor_id() != 0) {
+                        presenter.cancelFollow(position, videoInfoList.get(position).getFavor_id());
+                    } else {
+                        presenter.followVideo(position, videoInfoList.get(position).getId());
+                    }
                 } else {
-                    videoInfoList.get(position).setIs_good(!videoInfoList.get(position).isIs_good());
+                    if (!videoInfoList.get(position).isIs_good()) {
+                        presenter.zan(position, videoInfoList.get(position).getId());
+                    }
                 }
-                adapter.notifyItemChanged(position);
             }
         });
     }
@@ -209,6 +216,54 @@ public class SmallVideoFragment extends BaseMvpFragment<ISmallVideoView, SmallVi
             }
             videoInfoList.addAll(data.getData());
             adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showLoadingDialog() {
+        try {
+            StyledDialog.buildLoading().setActivity(_mActivity).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void hideLoadingDialog() {
+        try {
+            StyledDialog.dismissLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void followSuccess(int position, int followId) {
+        try {
+            videoInfoList.get(position).setFavor_id(followId);
+            adapter.notifyItemChanged(position, 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void cancelFollowSuccess(int position) {
+        try {
+            videoInfoList.get(position).setFavor_id(0);
+            adapter.notifyItemChanged(position, 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void zanSuccess(int position) {
+        try {
+            videoInfoList.get(position).setIs_good(true);
+            adapter.notifyItemChanged(position, videoInfoList.get(position));
         } catch (Exception e) {
             e.printStackTrace();
         }

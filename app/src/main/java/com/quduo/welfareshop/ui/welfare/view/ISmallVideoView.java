@@ -17,4 +17,14 @@ public interface ISmallVideoView extends BaseView {
     void loadmoreFinish();
 
     void bindData(SmallVideoResultInfo data);
+
+    void showLoadingDialog();
+
+    void hideLoadingDialog();
+
+    void followSuccess(int position, int followId);
+
+    void cancelFollowSuccess(int position);
+
+    void zanSuccess(int position);
 }

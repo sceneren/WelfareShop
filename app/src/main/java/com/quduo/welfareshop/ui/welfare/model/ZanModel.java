@@ -1,45 +1,47 @@
-package com.quduo.welfareshop.ui.mine.model;
+package com.quduo.welfareshop.ui.welfare.model;
 
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.http.base.LzyResponse;
 import com.quduo.welfareshop.http.callback.JsonCallback;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
-import com.quduo.welfareshop.ui.mine.entity.MyFollowVideoInfo;
-
-import java.util.List;
 
 /**
  * Author:scene
- * Time:2018/3/1 11:13
- * Description:收藏的视频
+ * Time:2018/3/16 12:21
+ * Description:点赞
  */
 
-public class MyFollowVideoModel {
-
-    public void getData(final HttpResultListener<List<MyFollowVideoInfo>> listener) {
-        OkGo.<LzyResponse<List<MyFollowVideoInfo>>>get(ApiUtil.API_PRE + ApiUtil.MY_FOLLOW_VIDEO)
-                .tag(ApiUtil.MY_FOLLOW_VIDEO_TAG)
-                .execute(new JsonCallback<LzyResponse<List<MyFollowVideoInfo>>>() {
+public class ZanModel  extends FollowVideoModel{
+    public void zan(HttpParams params, final HttpResultListener<Boolean> listener) {
+        OkGo.<LzyResponse<Boolean>>get(ApiUtil.API_PRE + ApiUtil.ZAN)
+                .tag(ApiUtil.ZAN_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<Boolean>>() {
                     @Override
-                    public void onSuccess(Response<LzyResponse<List<MyFollowVideoInfo>>> response) {
+                    public void onSuccess(Response<LzyResponse<Boolean>> response) {
                         try {
-                            listener.onSuccess(response.body().data);
+                            if (response.body().status) {
+                                listener.onSuccess(true);
+                            } else {
+                                listener.onFail("操作失败请重试");
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            listener.onFail("数据获取失败请重试");
+                            listener.onFail("操作失败请重试");
                         }
                     }
 
                     @Override
-                    public void onError(Response<LzyResponse<List<MyFollowVideoInfo>>> response) {
+                    public void onError(Response<LzyResponse<Boolean>> response) {
                         super.onError(response);
                         try {
                             listener.onFail(response.getException().getMessage());
                         } catch (Exception e) {
                             e.printStackTrace();
-                            listener.onFail("数据获取失败请重试");
+                            listener.onFail("操作失败请重试");
                         }
                     }
 

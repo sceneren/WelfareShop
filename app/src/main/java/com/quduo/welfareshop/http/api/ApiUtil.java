@@ -89,7 +89,15 @@ public class ApiUtil {
     //修改资料
     public static final String UPDATE_MY_INFO = "personal/profile/edit";
     public static final String UPDATE_MY_INFO_TAG = "personal/profile/edit";
-
+    //收藏视频
+    public static final String FOLLOW_VIDEO = "personal/favor/add_video";
+    public static final String FOLLOW_VIDEO_TAG = "personal/favor/add_video";
+    //我收藏的视频列表
+    public static final String MY_FOLLOW_VIDEO = "personal/favor/video";
+    public static final String MY_FOLLOW_VIDEO_TAG = "personal/favor/video";
+    //点赞1商品  2图库  3视频  4小说
+    public static final String ZAN="personal/good";
+    public static final String ZAN_TAG="personal/good";
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19
