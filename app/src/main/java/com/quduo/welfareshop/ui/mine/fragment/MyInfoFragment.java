@@ -289,14 +289,14 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
             adapter.notifyDataSetChanged();
             des.setText(data.getSignature());
             if (!StringUtils.isEmpty(data.getHeight())) {
-                if (data.getHeight().endsWith("CM")) {
+                if (data.getHeight().toUpperCase().endsWith("CM")) {
                     height.setText(data.getHeight());
                 } else {
                     height.setText(MessageFormat.format("{0}CM", data.getHeight()));
                 }
             }
             if (!StringUtils.isEmpty(data.getWeight())) {
-                if (data.getHeight().endsWith("KG")) {
+                if (data.getWeight().toUpperCase().endsWith("KG")) {
                     weight.setText(data.getWeight());
                 } else {
                     weight.setText(MessageFormat.format("{0}KG", data.getWeight()));
