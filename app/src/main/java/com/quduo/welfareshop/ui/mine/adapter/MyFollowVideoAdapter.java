@@ -1,21 +1,16 @@
 package com.quduo.welfareshop.ui.mine.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
-import com.quduo.welfareshop.widgets.RatioImageView;
+import com.quduo.welfareshop.ui.mine.entity.MyFollowVideoInfo;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Author:scene
@@ -23,51 +18,26 @@ import butterknife.ButterKnife;
  * Description:我收藏的视频
  */
 
-public class MyFollowVideoAdapter extends RecyclerView.Adapter<MyFollowVideoAdapter.MyFollowVideoViewHolder> {
+public class MyFollowVideoAdapter extends BaseQuickAdapter<MyFollowVideoInfo, BaseViewHolder> {
     private Context context;
-    private List<String> list;
 
-    public MyFollowVideoAdapter(Context context, List<String> list) {
+    public MyFollowVideoAdapter(Context context, List<MyFollowVideoInfo> list) {
+        super(R.layout.fragment_my_follow_video_item, list);
         this.context = context;
-        this.list = list;
 
     }
 
     @Override
-    public MyFollowVideoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MyFollowVideoViewHolder(LayoutInflater.from(context).inflate(R.layout.fragment_my_follow_video_item, parent, false));
-    }
-
-    @Override
-    public void onBindViewHolder(MyFollowVideoViewHolder holder, int position) {
-        String url = "http://scimg.jb51.net/allimg/150708/14-150FQ15305155.jpg";
+    protected void convert(BaseViewHolder helper, MyFollowVideoInfo item) {
+        helper.setText(R.id.title, item.getName());
+        helper.setText(R.id.play_number, "播放:" + item.getPlay_times());
+        helper.setText(R.id.follow_number, "收藏:" + item.getFavor_times());
+        ImageView image = helper.getView(R.id.image);
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
-                .load(url)
-                .into(holder.image);
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
+                .into(image);
     }
 
-    @Override
-    public int getItemCount() {
-        return list.size();
-    }
-
-    class MyFollowVideoViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.baseimage)
-        RatioImageView baseimage;
-        @BindView(R.id.image)
-        ImageView image;
-        @BindView(R.id.title)
-        TextView title;
-        @BindView(R.id.play_number)
-        TextView playNumber;
-        @BindView(R.id.follow_number)
-        TextView followNumber;
-
-        MyFollowVideoViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
-        }
-    }
 }

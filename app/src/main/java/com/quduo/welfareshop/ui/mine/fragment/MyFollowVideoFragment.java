@@ -9,9 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.mine.adapter.MyFollowVideoAdapter;
+import com.quduo.welfareshop.ui.mine.entity.MyFollowVideoInfo;
 import com.quduo.welfareshop.ui.mine.presenter.MyFollowVideoPresenter;
 import com.quduo.welfareshop.ui.mine.view.IMyFollowVideoView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -41,7 +43,7 @@ public class MyFollowVideoFragment extends BaseMvpFragment<IMyFollowVideoView, M
     StatusViewLayout statusView;
     Unbinder unbinder;
 
-    private List<String> list;
+    private List<MyFollowVideoInfo> list = new ArrayList<>();
     private MyFollowVideoAdapter adapter;
 
     public static MyFollowVideoFragment newInstance() {
@@ -89,14 +91,14 @@ public class MyFollowVideoFragment extends BaseMvpFragment<IMyFollowVideoView, M
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+        presenter.getData(true);
         }
     };
 
     @Override
     public void initView() {
-        showContentPage();
         initRecyclerView();
+        presenter.getData(true);
     }
 
     private void initRecyclerView() {
@@ -104,17 +106,10 @@ public class MyFollowVideoFragment extends BaseMvpFragment<IMyFollowVideoView, M
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
-                refreshLayout.finishRefresh(2000);
+                presenter.getData(false);
             }
         });
 
-        list = new ArrayList<>();
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
         adapter = new MyFollowVideoAdapter(getContext(), list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
@@ -129,5 +124,34 @@ public class MyFollowVideoFragment extends BaseMvpFragment<IMyFollowVideoView, M
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void bindData(List<MyFollowVideoInfo> data) {
+        try {
+            list.clear();
+            list.addAll(data);
+            adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showMessage(String message) {
+        try {
+            ToastUtils.showShort(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void refreshFinish() {
+        try {
+            refreshLayout.finishRefresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
