@@ -1,7 +1,6 @@
 package com.quduo.welfareshop.activity;
 
 import android.graphics.Rect;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.ViewTreeObserver;
 
@@ -20,6 +19,7 @@ import com.quduo.welfareshop.util.keyboard.OnSoftKeyboardStateChangedListener;
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
+import cn.jzvd.JZVideoPlayer;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
@@ -91,6 +91,9 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressedSupport() {
+        if (JZVideoPlayer.backPress()) {
+            return;
+        }
         super.onBackPressedSupport();
     }
 
@@ -147,5 +150,11 @@ public class MainActivity extends BaseActivity {
             int errorCode = location.getLocType();
             //获取定位类型、定位错误返回码，具体信息可参照类参考中BDLocation类中的说明
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JZVideoPlayer.releaseAllVideos();
     }
 }

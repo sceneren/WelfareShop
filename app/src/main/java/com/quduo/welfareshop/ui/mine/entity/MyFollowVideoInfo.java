@@ -27,6 +27,7 @@ public class MyFollowVideoInfo extends BaseBean {
     private int cate_id;
     private int play_times;
     private int favor_times;
+    private String url;
 
     public int getId() {
         return id;
@@ -82,5 +83,13 @@ public class MyFollowVideoInfo extends BaseBean {
 
     public void setFavor_times(int favor_times) {
         this.favor_times = favor_times;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

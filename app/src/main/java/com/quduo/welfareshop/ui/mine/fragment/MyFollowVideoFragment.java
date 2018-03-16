@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.mine.fragment;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.mine.adapter.MyFollowVideoAdapter;
 import com.quduo.welfareshop.ui.mine.entity.MyFollowVideoInfo;
@@ -26,6 +29,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.jzvd.JZVideoPlayer;
+import cn.jzvd.JZVideoPlayerStandard;
 import wiki.scene.loadmore.StatusViewLayout;
 
 /**
@@ -91,7 +96,7 @@ public class MyFollowVideoFragment extends BaseMvpFragment<IMyFollowVideoView, M
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-        presenter.getData(true);
+            presenter.getData(true);
         }
     };
 
@@ -113,6 +118,16 @@ public class MyFollowVideoFragment extends BaseMvpFragment<IMyFollowVideoView, M
         adapter = new MyFollowVideoAdapter(getContext(), list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (list.get(position).getCate_id() == AppConfig.VIDEO_TYPE_SMALL_VIDEO) {
+                    MyFollowVideoInfo item = list.get(position);
+                    JZVideoPlayer.FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+                    JZVideoPlayerStandard.startFullscreen(getContext(), JZVideoPlayerStandard.class, item.getUrl(), item.getName());
+                }
+            }
+        });
     }
 
     @Override
@@ -150,6 +165,21 @@ public class MyFollowVideoFragment extends BaseMvpFragment<IMyFollowVideoView, M
     public void refreshFinish() {
         try {
             refreshLayout.finishRefresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean onBackPressedSupport() {
+        return JZVideoPlayer.backPress() || super.onBackPressedSupport();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        try {
+            JZVideoPlayer.releaseAllVideos();
         } catch (Exception e) {
             e.printStackTrace();
         }
