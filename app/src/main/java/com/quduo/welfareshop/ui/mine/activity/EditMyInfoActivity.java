@@ -19,6 +19,7 @@ import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.event.EditMyInfoEvent;
 import com.quduo.welfareshop.event.UpdateAvatarEvent;
+import com.quduo.welfareshop.event.UpdateMyInfoSuccessEvent;
 import com.quduo.welfareshop.event.UploadImageEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
@@ -37,7 +38,6 @@ import org.joda.time.DateTime;
 import org.joda.time.Instant;
 
 import java.io.File;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -97,11 +97,15 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
     TextView phoneNum;
     Unbinder unbinder;
 
-    private List<String> sexList = null;
     private EditInfoPhotoAdapter adapter;
-
     private List<MyUserDetailInfo.PhotosBean> list = new ArrayList<>();
     private MyUserDetailInfo detailUserInfo;
+
+    private List<String> sexList = null;
+    private List<String> emotionList = null;
+    private List<String> bloodList = null;
+    private List<String> heightList = null;
+    private List<String> weightList = null;
 
 
     @Override
@@ -154,13 +158,13 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
         emotion.setText(detailUserInfo.getMarital());
         job.setText(detailUserInfo.getJob());
         if (!StringUtils.isEmpty(detailUserInfo.getBlood_type())) {
-            blood.setText(MessageFormat.format("{0}型", detailUserInfo.getBlood_type()));
+            blood.setText(detailUserInfo.getBlood_type());
         }
         if (!StringUtils.isEmpty(detailUserInfo.getHeight()) && !detailUserInfo.getHeight().equals("0.00")) {
-            height.setText(MessageFormat.format("{0}cm", detailUserInfo.getHeight()));
+            height.setText(detailUserInfo.getHeight());
         }
         if (!StringUtils.isEmpty(detailUserInfo.getWeight()) && !detailUserInfo.getWeight().equals("0.00")) {
-            weight.setText(MessageFormat.format("{0}kg", detailUserInfo.getWeight()));
+            weight.setText(detailUserInfo.getWeight());
         }
         wechatNum.setText(detailUserInfo.getWeixin());
         phoneNum.setText(detailUserInfo.getMobile());
@@ -266,11 +270,81 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
 
     }
 
+    @OnClick(R.id.toolbar_text)
+    public void onClickSave() {
+        presenter.updateMyInfo();
+    }
+
+    @OnClick(R.id.layout_avatar)
+    public void onClickAvatar() {
+        ImageSelectorUtil.openImageList(EditMyInfoActivity.this, 1, REQUEST_AVATAR_CODE);
+    }
+
     @OnClick(R.id.nickname)
     public void onClick() {
-        Intent intent = new Intent(EditMyInfoActivity.this, EditSingleActivity.class);
-        intent.putExtra(EditSingleActivity.ARG_TITLE, "昵称");
-        startActivity(intent);
+        toEditSingleActivity("昵称", nickname.getText().toString().trim());
+    }
+
+    @OnClick(R.id.sex)
+    public void onClickSex() {
+        String sexStr = sex.getText().toString().trim();
+        chooseSex(sexStr);
+    }
+
+    @OnClick(R.id.birthday)
+    public void onClickBirthDay() {
+        String birthDayStr = birthday.getText().toString().trim();
+        long birthDayMillis;
+        if (StringUtils.isEmpty(birthDayStr)) {
+            birthDayMillis = new Instant().getMillis();
+        } else {
+            birthDayMillis = new Instant(birthDayStr).getMillis();
+        }
+        chooseBirthDay(birthDayMillis);
+    }
+
+    @OnClick(R.id.des)
+    public void onClickDes() {
+        toEditSingleActivity("签名", des.getText().toString().trim());
+    }
+
+    @OnClick(R.id.emotion)
+    public void onClickEmotion() {
+        String emotionStr = emotion.getText().toString().trim();
+        chooseEmotion(emotionStr);
+    }
+
+    @OnClick(R.id.job)
+    public void onClickJob() {
+        toEditSingleActivity("职业", job.getText().toString().trim());
+    }
+
+    @OnClick(R.id.blood)
+    public void onClickBlood() {
+        String bloodStr = blood.getText().toString().trim();
+        chooseBlood(bloodStr);
+    }
+
+    @OnClick(R.id.height)
+    public void onClickHeight() {
+        String heightStr = height.getText().toString().trim();
+        chooseHeight(heightStr);
+    }
+
+    @OnClick(R.id.weight)
+    public void onClickWeight() {
+        String weightStr = weight.getText().toString().trim();
+        chooseWeight(weightStr);
+    }
+
+    @OnClick(R.id.wechat_num)
+    public void onClickWeChatNum() {
+        toEditSingleActivity("微信", wechatNum.getText().toString().trim());
+    }
+
+    @OnClick(R.id.phone_num)
+    public void onClickPhoneNum() {
+        toEditSingleActivity("电话", phoneNum.getText().toString().trim());
     }
 
     @Subscribe
@@ -280,6 +354,14 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
         }
         if (event.getTitle().equals("昵称")) {
             nickname.setText(event.getContent());
+        } else if (event.getTitle().equals("签名")) {
+            des.setText(event.getContent());
+        } else if (event.getTitle().equals("职业")) {
+            job.setText(event.getContent());
+        } else if (event.getTitle().equals("微信")) {
+            wechatNum.setText(event.getContent());
+        } else if (event.getTitle().equals("电话")) {
+            phoneNum.setText(event.getContent());
         }
     }
 
@@ -294,11 +376,6 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
         unbinder.unbind();
     }
 
-    @OnClick(R.id.sex)
-    public void onClickSex() {
-        String sexStr = sex.getText().toString().trim();
-        chooseSex(sexStr);
-    }
 
     private void chooseSex(String sexStr) {
         if (sexList == null) {
@@ -328,18 +405,126 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
         optionsPickerView.show();
     }
 
-    @OnClick(R.id.birthday)
-    public void onClickBirthDay() {
-        String birthDayStr = birthday.getText().toString().trim();
-        long birthDayMillis;
-        if (StringUtils.isEmpty(birthDayStr)) {
-            birthDayMillis = new Instant().getMillis();
-        } else {
-            birthDayMillis = new Instant(birthDayStr).getMillis();
+    //选择情感
+    private void chooseEmotion(final String emotionStr) {
+        if (emotionList == null) {
+            emotionList = new ArrayList<>();
+            emotionList.add("未知");
+            emotionList.add("未婚");
+            emotionList.add("已婚");
+            emotionList.add("离异");
         }
-        chooseBirthDay(birthDayMillis);
+        OptionsPickerView optionsPickerView = new OptionsPickerView.Builder(EditMyInfoActivity.this, new OptionsPickerView.OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                emotion.setText(emotionList.get(options1));
+            }
+        }).build();
+        optionsPickerView.setPicker(emotionList);
+        switch (emotionStr) {
+            case "未婚":
+                optionsPickerView.setSelectOptions(1);
+                break;
+            case "已婚":
+                optionsPickerView.setSelectOptions(2);
+                break;
+            case "离异":
+                optionsPickerView.setSelectOptions(3);
+                break;
+            default:
+                optionsPickerView.setSelectOptions(0);
+                break;
+        }
+        optionsPickerView.show();
     }
 
+    //选择血型
+    private void chooseBlood(String bloodStr) {
+        if (bloodList == null) {
+            bloodList = new ArrayList<>();
+            bloodList.add("未知");
+            bloodList.add("A型");
+            bloodList.add("B型");
+            bloodList.add("O型");
+            bloodList.add("AB型");
+        }
+        OptionsPickerView optionsPickerView = new OptionsPickerView.Builder(EditMyInfoActivity.this, new OptionsPickerView.OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                blood.setText(bloodList.get(options1));
+            }
+        }).build();
+        optionsPickerView.setPicker(bloodList);
+        switch (bloodStr) {
+            case "A型":
+                optionsPickerView.setSelectOptions(1);
+                break;
+            case "B型":
+                optionsPickerView.setSelectOptions(2);
+                break;
+            case "O型":
+                optionsPickerView.setSelectOptions(3);
+                break;
+            case "AB型":
+                optionsPickerView.setSelectOptions(4);
+                break;
+            default:
+                optionsPickerView.setSelectOptions(0);
+                break;
+        }
+        optionsPickerView.show();
+    }
+
+    //选择身高
+    private void chooseHeight(String heightStr) {
+        if (heightList == null) {
+            heightList = new ArrayList<>();
+            for (int i = 70; i <= 230; i++) {
+                heightList.add(String.valueOf(i) + "CM");
+            }
+        }
+        OptionsPickerView optionsPickerView = new OptionsPickerView.Builder(EditMyInfoActivity.this, new OptionsPickerView.OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                height.setText(heightList.get(options1));
+            }
+        }).build();
+        optionsPickerView.setPicker(heightList);
+        int size = heightList.size();
+        for (int i = 0; i < size; i++) {
+            if (heightStr.equals((heightList.get(i)))) {
+                optionsPickerView.setSelectOptions(i);
+            }
+        }
+        optionsPickerView.show();
+    }
+
+    //选择体重
+    private void chooseWeight(String weightStr) {
+        if (weightList == null) {
+            weightList = new ArrayList<>();
+            for (int i = 20; i <= 200; i++) {
+                weightList.add(String.valueOf(i) + "KG");
+            }
+        }
+        OptionsPickerView optionsPickerView = new OptionsPickerView.Builder(EditMyInfoActivity.this, new OptionsPickerView.OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                weight.setText(weightList.get(options1));
+            }
+        }).build();
+        optionsPickerView.setPicker(weightList);
+        int size = weightList.size();
+        for (int i = 0; i < size; i++) {
+            if (weightStr.equals((weightList.get(i)))) {
+                optionsPickerView.setSelectOptions(i);
+            }
+        }
+        optionsPickerView.show();
+    }
+
+
+    //选择生日
     private void chooseBirthDay(long birthDayMillis) {
         TimePickerView pvTime = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
             @Override
@@ -424,13 +609,86 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
         }
     }
 
-    @OnClick(R.id.layout_avatar)
-    public void onClickAvatar() {
-        ImageSelectorUtil.openImageList(EditMyInfoActivity.this, 1, REQUEST_AVATAR_CODE);
+    @Override
+    public void updateMyInfoSuccess() {
+        try {
+            MyApplication.getInstance().getUserInfo().setNickname(getNickName());
+            EventBus.getDefault().post(new UpdateMyInfoSuccessEvent());
+            EditMyInfoActivity.this.onBackPressedSupport();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    @OnClick(R.id.toolbar_text)
-    public void onClickSave() {
+    @Override
+    public String getNickName() {
+        return nickname.getText().toString().trim();
+    }
 
+    @Override
+    public int getSex() {
+        String sexStr = sex.getText().toString().trim();
+        switch (sexStr) {
+            case "男":
+                return 1;
+            case "女":
+                return 2;
+            default:
+                return 0;
+        }
+    }
+
+    @Override
+    public long getBirthday() {
+        String strBirthday = birthday.getText().toString().trim();
+        DateTime dateTime = new DateTime(strBirthday);
+        return dateTime.getMillis() / 1000;
+    }
+
+    @Override
+    public String getDes() {
+        return des.getText().toString().trim();
+    }
+
+    @Override
+    public String getEmotion() {
+        return emotion.getText().toString().trim();
+    }
+
+    @Override
+    public String getJob() {
+        return job.getText().toString();
+    }
+
+    @Override
+    public String getBloodType() {
+        return blood.getText().toString();
+    }
+
+    @Override
+    public String getMyHeight() {
+        return height.getText().toString();
+    }
+
+    @Override
+    public String getMyWeight() {
+        return weight.getText().toString();
+    }
+
+    @Override
+    public String getWechatNum() {
+        return wechatNum.getText().toString().trim();
+    }
+
+    @Override
+    public String getPhoneNum() {
+        return phoneNum.getText().toString().trim();
+    }
+
+    private void toEditSingleActivity(String title, String content) {
+        Intent intent = new Intent(EditMyInfoActivity.this, EditSingleActivity.class);
+        intent.putExtra(EditSingleActivity.ARG_TITLE, title);
+        intent.putExtra(EditSingleActivity.ARG_CONTENT, content);
+        startActivity(intent);
     }
 }

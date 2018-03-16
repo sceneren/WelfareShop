@@ -138,4 +138,52 @@ public class EditMyInfoPresenter extends BasePresenter<IEditMyInfoView> {
             e.printStackTrace();
         }
     }
+
+    public void updateMyInfo() {
+        try {
+            mView.showLoadingDialog();
+            HttpParams params = new HttpParams();
+            params.put("nickname", mView.getNickName());
+            params.put("sex", mView.getSex());
+            params.put("weight", mView.getMyWeight());
+            params.put("height", mView.getMyHeight());
+            params.put("weixin", mView.getWechatNum());
+            params.put("mobile", mView.getPhoneNum());
+            params.put("job", mView.getJob());
+            params.put("blood_type", mView.getBloodType());
+            params.put("marital", mView.getEmotion());
+            params.put("birthday", mView.getBirthday());
+            params.put("signature_text", mView.getDes());
+            model.updateMyInfo(params, new HttpResultListener<Boolean>() {
+                @Override
+                public void onSuccess(Boolean data) {
+                    try {
+                        mView.updateMyInfoSuccess();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.showMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

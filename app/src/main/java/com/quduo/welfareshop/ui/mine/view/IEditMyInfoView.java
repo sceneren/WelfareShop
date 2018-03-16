@@ -24,4 +24,28 @@ public interface IEditMyInfoView extends BaseView {
     void uploadPhotoSuccess(List<MyUserDetailInfo.PhotosBean> data);
 
     void deletePhotoSuccess(int position);
+
+    void updateMyInfoSuccess();
+
+    String getNickName();
+
+    int getSex();
+
+    long getBirthday();
+
+    String getDes();
+
+    String getEmotion();
+
+    String getJob();
+
+    String getBloodType();
+
+    String getMyHeight();
+
+    String getMyWeight();
+
+    String getWechatNum();
+
+    String getPhoneNum();
 }

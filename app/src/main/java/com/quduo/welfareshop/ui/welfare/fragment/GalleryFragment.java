@@ -142,7 +142,7 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
         banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                EventBus.getDefault().post(new StartBrotherEvent(GalleryDetailFragment.newInstance(bannerList.get(position).getData_id(), galleryList.get(position).getName())));
+                EventBus.getDefault().post(new StartBrotherEvent(GalleryDetailFragment.newInstance(bannerList.get(position).getData_id(), bannerList.get(position).getName())));
             }
         });
         CustomGridView typeGridView = headerView.findViewById(R.id.typeGridView);

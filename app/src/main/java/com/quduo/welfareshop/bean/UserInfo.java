@@ -10,16 +10,17 @@ import com.quduo.welfareshop.base.BaseBean;
 
 public class UserInfo extends BaseBean {
 
+
     /**
-     * id : 2
+     * id : 3
      * app_type : 1
-     * nickname : 现在咋整
-     * sex : 1
-     * avatar : /avatar/2.jpg
-     * uuid : 12345678
+     * nickname : 你好
+     * sex : 0
+     * avatar : /avatar/3.jpeg
+     * uuid : 358239057290894
      * wx_unionid : null
-     * qq_unionid : 123456
-     * reg_ip : 192.168.0.88
+     * qq_unionid :
+     * reg_ip : 192.168.0.109
      * last_login_time : 0
      * last_login_ip : 0
      * login_times : 0
@@ -28,10 +29,10 @@ public class UserInfo extends BaseBean {
      * resource_id : 1001
      * order_times : 0
      * order_money : 0
-     * create_time : 1519785327
-     * version : 0
+     * create_time : 1519803447
+     * version : 1
      * deduct : 1
-     * create_hour : 10
+     * create_hour : 15
      * create_date : 20180228
      * welfare_unlock : 1
      * secret_unlock : 1
@@ -40,19 +41,20 @@ public class UserInfo extends BaseBean {
      * age : 0
      * location : null
      * star : null
-     * weight : 0
-     * height : 0
-     * weixin : null
-     * mobile : 0
-     * job : null
-     * blood_type : null
-     * birthday : null
-     * marital : 1
+     * weight :
+     * height :
+     * weixin :
+     * mobile :
+     * job :
+     * blood_type :
+     * birthday :
+     * marital :
      * subscribe : 0
      * type : 1
      * alipay : null
      * alipay_name : null
      * diamond : 0
+     * signature :
      */
 
     private int id;
@@ -61,7 +63,7 @@ public class UserInfo extends BaseBean {
     private int sex;
     private String avatar;
     private String uuid;
-    private Object wx_unionid;
+    private String wx_unionid;
     private String qq_unionid;
     private String reg_ip;
     private int last_login_time;
@@ -84,19 +86,20 @@ public class UserInfo extends BaseBean {
     private int age;
     private String location;
     private String star;
-    private double weight;
-    private double height;
+    private String weight;
+    private String height;
     private String weixin;
     private String mobile;
     private String job;
     private String blood_type;
     private String birthday;
-    private int marital;
+    private String marital;
     private int subscribe;
     private int type;
     private String alipay;
     private String alipay_name;
     private int diamond;
+    private String signature;
 
     public int getId() {
         return id;
@@ -146,11 +149,11 @@ public class UserInfo extends BaseBean {
         this.uuid = uuid;
     }
 
-    public Object getWx_unionid() {
+    public String getWx_unionid() {
         return wx_unionid;
     }
 
-    public void setWx_unionid(Object wx_unionid) {
+    public void setWx_unionid(String wx_unionid) {
         this.wx_unionid = wx_unionid;
     }
 
@@ -330,19 +333,19 @@ public class UserInfo extends BaseBean {
         this.star = star;
     }
 
-    public double getWeight() {
+    public String getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 
-    public double getHeight() {
+    public String getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(String height) {
         this.height = height;
     }
 
@@ -386,11 +389,11 @@ public class UserInfo extends BaseBean {
         this.birthday = birthday;
     }
 
-    public int getMarital() {
+    public String getMarital() {
         return marital;
     }
 
-    public void setMarital(int marital) {
+    public void setMarital(String marital) {
         this.marital = marital;
     }
 
@@ -432,5 +435,13 @@ public class UserInfo extends BaseBean {
 
     public void setDiamond(int diamond) {
         this.diamond = diamond;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 }

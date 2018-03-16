@@ -2,9 +2,11 @@ package com.quduo.welfareshop.ui.mine.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.View;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.quduo.welfareshop.R;
@@ -29,6 +31,7 @@ import butterknife.Unbinder;
 
 public class EditSingleActivity extends BaseMvpActivity<IEditSingleView, EditSinglePresenter> implements IEditSingleView {
     public static final String ARG_TITLE = "title";
+    public static final String ARG_CONTENT = "content";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
@@ -52,7 +55,13 @@ public class EditSingleActivity extends BaseMvpActivity<IEditSingleView, EditSin
     private void initView() {
         toolbarText.setText("确定");
         title = getIntent().getStringExtra(ARG_TITLE);
+        String contentStr = getIntent().getStringExtra(ARG_CONTENT);
+        if (title.equals("电话")) {
+            content.setInputType(InputType.TYPE_CLASS_PHONE);
+        }
         toolbarTitle.setText(title);
+        content.setText(contentStr);
+        content.setSelection(contentStr.length());
         toolbar.setNavigationIcon(R.drawable.ic_toolbar_back_black);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +69,8 @@ public class EditSingleActivity extends BaseMvpActivity<IEditSingleView, EditSin
                 onBackPressed();
             }
         });
+
+
     }
 
     @Override
@@ -95,6 +106,11 @@ public class EditSingleActivity extends BaseMvpActivity<IEditSingleView, EditSin
             ToastUtils.showShort("请输入" + title);
             return;
         }
+        if (title.equals("电话") && !RegexUtils.isMobileSimple(contentStr)) {
+            ToastUtils.showShort("请输入正确的联系方式");
+            return;
+        }
+
         EditMyInfoEvent event = new EditMyInfoEvent(title, contentStr);
         EventBus.getDefault().post(event);
         onBackPressed();

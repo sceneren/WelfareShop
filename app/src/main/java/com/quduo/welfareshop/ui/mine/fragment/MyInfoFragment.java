@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
@@ -20,6 +21,7 @@ import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.PreviewImageActivity;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.event.UpdateAvatarEvent;
+import com.quduo.welfareshop.event.UpdateMyInfoSuccessEvent;
 import com.quduo.welfareshop.event.UploadImageEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
@@ -286,8 +288,20 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
             list.addAll(data.getPhotos());
             adapter.notifyDataSetChanged();
             des.setText(data.getSignature());
-            height.setText(MessageFormat.format("{0}cm", data.getHeight()));
-            weight.setText(MessageFormat.format("{0}kg", data.getWeight()));
+            if (!StringUtils.isEmpty(data.getHeight())) {
+                if (data.getHeight().endsWith("CM")) {
+                    height.setText(data.getHeight());
+                } else {
+                    height.setText(MessageFormat.format("{0}CM", data.getHeight()));
+                }
+            }
+            if (!StringUtils.isEmpty(data.getWeight())) {
+                if (data.getHeight().endsWith("KG")) {
+                    weight.setText(data.getWeight());
+                } else {
+                    weight.setText(MessageFormat.format("{0}KG", data.getWeight()));
+                }
+            }
             marital.setText(data.getMarital());
             bloodType.setText(data.getBlood_type());
             job.setText(data.getJob());
@@ -332,6 +346,15 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
                 imageLayout.setVisibility(View.GONE);
                 noPhoto.setVisibility(View.VISIBLE);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void updateMyInfoSuccess(UpdateMyInfoSuccessEvent event) {
+        try {
+            refreshLayout.autoRefresh();
         } catch (Exception e) {
             e.printStackTrace();
         }

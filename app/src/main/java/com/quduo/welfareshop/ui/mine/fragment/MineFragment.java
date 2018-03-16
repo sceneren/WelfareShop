@@ -15,6 +15,7 @@ import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.RechargeActivity;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.event.UpdateAvatarEvent;
+import com.quduo.welfareshop.event.UpdateMyInfoSuccessEvent;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.mine.presenter.MinePresenter;
 import com.quduo.welfareshop.ui.mine.view.IMineView;
@@ -192,6 +193,15 @@ public class MineFragment extends BaseBackMvpFragment<IMineView, MinePresenter> 
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                     .into(avatar);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void updateMyInfoSuccess(UpdateMyInfoSuccessEvent event) {
+        try {
+            nickname.setText(MyApplication.getInstance().getUserInfo().getNickname());
         } catch (Exception e) {
             e.printStackTrace();
         }

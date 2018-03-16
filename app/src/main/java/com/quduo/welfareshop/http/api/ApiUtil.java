@@ -84,8 +84,11 @@ public class ApiUtil {
     public static final String UPLOAD_PHOTO = "personal/profile/add_photo";
     public static final String UPLOAD_PHOTO_TAG = "personal/profile/add_photo";
     //删除照片
-    public static final String DELETE_PHOTO="personal/profile/delete_photo";
-    public static final String DELETE_PHOTO_TAG="personal/profile/delete_photo";
+    public static final String DELETE_PHOTO = "personal/profile/delete_photo";
+    public static final String DELETE_PHOTO_TAG = "personal/profile/delete_photo";
+    //修改资料
+    public static final String UPDATE_MY_INFO = "personal/profile/edit";
+    public static final String UPDATE_MY_INFO_TAG = "personal/profile/edit";
 
     /**
      * Case By:创建参数基础信息
