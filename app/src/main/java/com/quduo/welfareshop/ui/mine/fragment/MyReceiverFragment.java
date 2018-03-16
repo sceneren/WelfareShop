@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.hss01248.dialog.StyledDialog;
+import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.mine.entity.ReceiverInfo;
 import com.quduo.welfareshop.ui.mine.presenter.MyReceiverPresenter;
@@ -112,6 +114,8 @@ public class MyReceiverFragment extends BaseBackMvpFragment<IMyReceiverView, MyR
 
     @Override
     public void onDestroyView() {
+        OkGo.getInstance().cancelTag(ApiUtil.RECEIVER_ADDRESS_TAG);
+        OkGo.getInstance().cancelTag(ApiUtil.EDIT_RECEIVER_ADDRESS_TAG);
         super.onDestroyView();
         unbinder.unbind();
     }

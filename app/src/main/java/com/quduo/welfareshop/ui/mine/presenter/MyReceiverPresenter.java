@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.mine.presenter;
 
+import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.lzy.okgo.model.HttpParams;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
@@ -63,6 +64,11 @@ public class MyReceiverPresenter extends BasePresenter<IMyReceiverView> {
             }
             if (StringUtils.isEmpty(mView.getPhone())) {
                 mView.showMessage("请输入收货电话");
+                return;
+            }
+
+            if (RegexUtils.isMobileSimple(mView.getPhone())) {
+                mView.showMessage("请输入正确的联系电话");
                 return;
             }
 

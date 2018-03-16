@@ -6,10 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.SizeUtils;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 
@@ -17,7 +15,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import wiki.scene.loadmore.utils.PtrLocalDisplay;
 
 /**
  * Author:scene
@@ -83,14 +80,6 @@ public class VideoDetailGoodsAdapter extends BaseAdapter {
 
         VideoDetailGoodsViewHolder(View view) {
             ButterKnife.bind(this, view);
-            ViewGroup.LayoutParams layoutParams = image.getLayoutParams();
-            int height = (int) ((PtrLocalDisplay.SCREEN_WIDTH_PIXELS - SizeUtils.dp2px(21)) / 2f);
-            layoutParams.height = height;
-            image.setLayoutParams(layoutParams);
-
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) btnBuy.getLayoutParams();
-            params.setMargins(0, height-SizeUtils.dp2px(18) , 0, 0);
-            btnBuy.setLayoutParams(params);
         }
     }
 }
