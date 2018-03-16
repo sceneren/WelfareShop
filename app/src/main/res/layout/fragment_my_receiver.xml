@@ -56,6 +56,7 @@
                         android:visibility="invisible" />
 
                     <EditText
+                        android:id="@+id/receiver_name"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="20dp"
@@ -90,6 +91,7 @@
                         android:textSize="@dimen/sp_16" />
 
                     <EditText
+                        android:id="@+id/receiver_phone"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="20dp"
@@ -125,6 +127,7 @@
                         android:textSize="@dimen/sp_16" />
 
                     <EditText
+                        android:id="@+id/receiver_address"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginLeft="20dp"
@@ -144,6 +147,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/save"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"

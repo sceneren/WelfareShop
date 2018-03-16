@@ -96,8 +96,15 @@ public class ApiUtil {
     public static final String MY_FOLLOW_VIDEO = "personal/favor/video";
     public static final String MY_FOLLOW_VIDEO_TAG = "personal/favor/video";
     //点赞1商品  2图库  3视频  4小说
-    public static final String ZAN="personal/good";
-    public static final String ZAN_TAG="personal/good";
+    public static final String ZAN = "personal/good";
+    public static final String ZAN_TAG = "personal/good";
+    //收货信息
+    public static final String RECEIVER_ADDRESS = "personal/address";
+    public static final String RECEIVER_ADDRESS_TAG = "personal/address";
+    //编辑收货信息
+    public static final String EDIT_RECEIVER_ADDRESS = "personal/address/edit";
+    public static final String EDIT_RECEIVER_ADDRESS_TAG = "personal/address/edit";
+
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

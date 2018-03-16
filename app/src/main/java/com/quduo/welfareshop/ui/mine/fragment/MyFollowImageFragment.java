@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.SizeUtils;
+import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.mine.adapter.MyFollowImageAdapter;
@@ -130,6 +132,7 @@ public class MyFollowImageFragment extends BaseMvpFragment<IMyFollowImageView, M
 
     @Override
     public void onDestroyView() {
+        OkGo.getInstance().cancelTag(ApiUtil.MY_FOLLOW_VIDEO_TAG);
         super.onDestroyView();
         unbinder.unbind();
     }

@@ -175,6 +175,9 @@ public class SmallVideoFragment extends BaseMvpFragment<ISmallVideoView, SmallVi
     @Override
     public void onDestroyView() {
         OkGo.getInstance().cancelTag(ApiUtil.SMALL_VIDEO_LIST_TAG);
+        OkGo.getInstance().cancelTag(ApiUtil.ZAN_TAG);
+        OkGo.getInstance().cancelTag(ApiUtil.FOLLOW_VIDEO_TAG);
+        OkGo.getInstance().cancelTag(ApiUtil.CANCEL_FOLLOW_TAG);
         super.onDestroyView();
         unbinder.unbind();
     }
