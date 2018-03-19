@@ -15,6 +15,7 @@ import com.quduo.welfareshop.dialog.RedOpenDialog;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
 import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
+import com.quduo.welfareshop.ui.red.dialog.GetRedDialog;
 import com.quduo.welfareshop.ui.red.presenter.RedPresenter;
 import com.quduo.welfareshop.ui.red.view.IRedView;
 
@@ -41,6 +42,7 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
     Unbinder unbinder;
 
     private RedOpenDialog redOpenDialog;
+    private GetRedDialog getRedDialog;
 
     public static RedFragment newInstance() {
         Bundle args = new Bundle();
@@ -101,20 +103,25 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
 
     @OnClick(R.id.open)
     public void onClickOpen() {
-        if (redOpenDialog == null) {
-            redOpenDialog = new RedOpenDialog(getContext());
+//        if (redOpenDialog == null) {
+//            redOpenDialog = new RedOpenDialog(getContext());
+//        }
+//        if (redOpenDialog.isShowing()) {
+//            redOpenDialog.cancel();
+//        } else {
+//            redOpenDialog.show();
+//        }
+        if (getRedDialog == null) {
+            getRedDialog = new GetRedDialog(_mActivity);
         }
-        if (redOpenDialog.isShowing()) {
-            redOpenDialog.cancel();
-        } else {
-            redOpenDialog.show();
-        }
+        getRedDialog.show();
     }
 
     @OnClick(R.id.enter_my_red)
     public void onClickEnterMyRed() {
         EventBus.getDefault().post(new StartBrotherEvent(MyRedFragment.newInstance()));
     }
+
     @OnClick(R.id.cash)
     public void onClickCash() {
         EventBus.getDefault().post(new StartBrotherEvent(CashFragment.newInstance()));
