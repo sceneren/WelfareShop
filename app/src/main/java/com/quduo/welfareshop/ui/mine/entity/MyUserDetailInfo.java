@@ -50,6 +50,7 @@ public class MyUserDetailInfo extends BaseBean {
     private int subscribe;
     private List<PhotosBean> photos;
     private String signature;
+    private String cover;
 
     public int getId() {
         return id;
@@ -193,6 +194,14 @@ public class MyUserDetailInfo extends BaseBean {
 
     public void setSignature(String signature) {
         this.signature = signature;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 
     public static class PhotosBean extends BaseBean {

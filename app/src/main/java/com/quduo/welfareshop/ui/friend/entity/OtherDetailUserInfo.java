@@ -51,6 +51,7 @@ public class OtherDetailUserInfo extends BaseBean {
     private List<String> photos;
     private int subscribe_id;
     private String signature;
+    private String cover;
 
     public int getId() {
         return id;
@@ -202,5 +203,13 @@ public class OtherDetailUserInfo extends BaseBean {
 
     public void setSignature(String signature) {
         this.signature = signature;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 }

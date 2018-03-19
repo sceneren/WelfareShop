@@ -104,7 +104,9 @@ public class ApiUtil {
     //编辑收货信息
     public static final String EDIT_RECEIVER_ADDRESS = "personal/address/edit";
     public static final String EDIT_RECEIVER_ADDRESS_TAG = "personal/address/edit";
-
+    //设为封面
+    public static final String SET_COVER="personal/profile/set_cover";
+    public static final String SET_COVER_TAG="personal/profile/set_cover";
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

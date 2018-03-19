@@ -20,6 +20,7 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.event.UpdateAvatarEvent;
+import com.quduo.welfareshop.event.UpdateCoverImageEvent;
 import com.quduo.welfareshop.event.UpdateMyInfoSuccessEvent;
 import com.quduo.welfareshop.event.UploadImageEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
@@ -110,7 +111,7 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
     private MyInfoImageAdapter adapter;
 
     private ArrayList<MyUserDetailInfo.PhotosBean> images;
-    
+
     public static MyInfoFragment newInstance() {
         Bundle args = new Bundle();
         MyInfoFragment fragment = new MyInfoFragment();
@@ -264,8 +265,7 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
             GlideApp.with(this)
                     .asBitmap()
                     .centerCrop()
-                    .placeholder(R.drawable.ic_default_avatar)
-                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.getAvatar())
+                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.getCover())
                     .into(image);
             GlideApp.with(this)
                     .asBitmap()
@@ -319,13 +319,21 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
                     .centerCrop()
                     .placeholder(R.drawable.ic_default_avatar)
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + event.getAvatarPath())
-                    .into(image);
+                    .into(avatar);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void updateCoverImage(UpdateCoverImageEvent event) {
+        try {
+            detailUserInfo.setCover(event.getCoverPath());
             GlideApp.with(this)
                     .asBitmap()
                     .centerCrop()
-                    .placeholder(R.drawable.ic_default_avatar)
-                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + event.getAvatarPath())
-                    .into(avatar);
+                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + event.getCoverPath())
+                    .into(image);
         } catch (Exception e) {
             e.printStackTrace();
         }

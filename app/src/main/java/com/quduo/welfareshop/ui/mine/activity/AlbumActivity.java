@@ -267,6 +267,18 @@ public class AlbumActivity extends BaseMvpActivity<IAlbumView, AlbumPresenter> i
         }
     }
 
+    @Override
+    public void setCoverImageSuccess(int position) {
+        try {
+            EventBus.getDefault().post(new UploadImageEvent(list));
+            if (deleteImageDialog != null) {
+                deleteImageDialog.dismiss();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @OnClick(R.id.toolbar_text)
     public void onClickUpload() {
         ImageSelectorUtil.openImageList(AlbumActivity.this, 9, REQUEST_LIST_CODE);
@@ -280,7 +292,7 @@ public class AlbumActivity extends BaseMvpActivity<IAlbumView, AlbumPresenter> i
             deleteImageDialog.setOnClickDeleteDialogListener(new DeleteImageDialog.OnClickDeleteDialogListener() {
                 @Override
                 public void onClickSetCover() {
-
+                    presenter.setCoverImage(position, list.get(position).getId());
                 }
 
                 @Override

@@ -88,4 +88,41 @@ public class AlbumModel {
                     }
                 });
     }
+
+    public void setCoverImage(HttpParams params, final HttpResultListener<Boolean> listener) {
+        OkGo.<LzyResponse<Boolean>>get(ApiUtil.API_PRE + ApiUtil.SET_COVER)
+                .tag(ApiUtil.SET_COVER_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<Boolean>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<Boolean>> response) {
+                        try {
+                            if (response.body().status) {
+                                listener.onSuccess(true);
+                            } else {
+                                listener.onFail("操作失败请重试");
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            listener.onFail("操作失败请重试");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<Boolean>> response) {
+                        super.onError(response);
+                        try {
+                            listener.onFail("操作失败请重试");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        listener.onFinish();
+                    }
+                });
+    }
 }

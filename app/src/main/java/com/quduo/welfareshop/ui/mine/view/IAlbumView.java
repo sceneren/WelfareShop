@@ -21,4 +21,6 @@ public interface IAlbumView extends BaseView {
     void uploadPhotoSuccess(List<MyUserDetailInfo.PhotosBean> data);
 
     void deletePhotoSuccess(int position);
+
+    void setCoverImageSuccess(int position);
 }
