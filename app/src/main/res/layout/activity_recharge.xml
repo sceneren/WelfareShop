@@ -121,6 +121,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/recharge_38"
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_recharge_price"

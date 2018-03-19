@@ -8,6 +8,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.dialog.GetCouponDialog;
 import com.quduo.welfareshop.dialog.RechargeQuestionDialog;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 
@@ -38,6 +39,7 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     RadioGroup rechargeType;
 
     private RechargeQuestionDialog questionDialog;
+    private GetCouponDialog getCouponDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,4 +98,13 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
         }
         questionDialog.show();
     }
+
+    @OnClick(R.id.recharge_38)
+    void onClickRecharge38() {
+        if (getCouponDialog == null) {
+            getCouponDialog = new GetCouponDialog(RechargeActivity.this);
+        }
+        getCouponDialog.show();
+    }
+
 }
