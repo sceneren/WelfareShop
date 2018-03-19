@@ -107,6 +107,7 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
     private List<String> heightList = null;
     private List<String> weightList = null;
 
+    private ArrayList<MyUserDetailInfo.PhotosBean> images;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,17 +178,7 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
         photoGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (list.size() < 9) {
-                    if (position == 0) {
-                        ImageSelectorUtil.openImageList(EditMyInfoActivity.this, 9 - list.size(), REQUEST_LIST_CODE);
-                    } else {
-                        //删除图片
-                        presenter.deletePhoto(position - 1, list.get(position - 1).getId());
-                    }
-                } else {
-                    //删除图片
-                    presenter.deletePhoto(position, list.get(position).getId());
-                }
+                toAlbumActivity();
             }
         });
     }
@@ -690,5 +681,35 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
         intent.putExtra(EditSingleActivity.ARG_TITLE, title);
         intent.putExtra(EditSingleActivity.ARG_CONTENT, content);
         startActivity(intent);
+    }
+
+    @OnClick(R.id.layout_album)
+    public void onClickLayoutAlbum() {
+        toAlbumActivity();
+    }
+
+    private void toAlbumActivity() {
+        Intent intent = new Intent(EditMyInfoActivity.this, AlbumActivity.class);
+        intent.putExtra(AlbumActivity.ARG_IS_MINE, true);
+        if (images == null) {
+            images = new ArrayList<>();
+        }
+        images.clear();
+        images.addAll(list);
+        intent.putExtra(AlbumActivity.ARG_IMAGES, images);
+        startActivity(intent);
+        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+    }
+
+    @Subscribe
+    public void uploadPhoto(UploadImageEvent event) {
+        try {
+            detailUserInfo.setPhotos(event.getPhotosBeanList());
+            list.clear();
+            list.addAll(event.getPhotosBeanList());
+            adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -18,13 +18,13 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
-import com.quduo.welfareshop.activity.PreviewImageActivity;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.event.UpdateAvatarEvent;
 import com.quduo.welfareshop.event.UpdateMyInfoSuccessEvent;
 import com.quduo.welfareshop.event.UploadImageEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
+import com.quduo.welfareshop.ui.mine.activity.AlbumActivity;
 import com.quduo.welfareshop.ui.mine.activity.EditMyInfoActivity;
 import com.quduo.welfareshop.ui.mine.adapter.MyInfoImageAdapter;
 import com.quduo.welfareshop.ui.mine.entity.MyUserDetailInfo;
@@ -107,10 +107,10 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
     private MyUserDetailInfo detailUserInfo;
 
     private List<MyUserDetailInfo.PhotosBean> list = new ArrayList<>();
-    private ArrayList<String> imageList;
     private MyInfoImageAdapter adapter;
 
-
+    private ArrayList<MyUserDetailInfo.PhotosBean> images;
+    
     public static MyInfoFragment newInstance() {
         Bundle args = new Bundle();
         MyInfoFragment fragment = new MyInfoFragment();
@@ -152,24 +152,23 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
         photoGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                toPriviewActivity(position);
+                toAlbumActivity();
             }
         });
 
         presenter.getData(true);
     }
 
-    private void toPriviewActivity(int position) {
-        Intent intent = new Intent(_mActivity, PreviewImageActivity.class);
-        if (imageList == null) {
-            imageList = new ArrayList<>();
+
+    private void toAlbumActivity() {
+        Intent intent = new Intent(_mActivity, AlbumActivity.class);
+        intent.putExtra(AlbumActivity.ARG_IS_MINE, true);
+        if (images == null) {
+            images = new ArrayList<>();
         }
-        imageList.clear();
-        for (MyUserDetailInfo.PhotosBean photosBean : list) {
-            imageList.add(MyApplication.getInstance().getConfigInfo().getFile_domain() + photosBean.getUrl());
-        }
-        intent.putExtra(PreviewImageActivity.ARG_URLS, imageList);
-        intent.putExtra(PreviewImageActivity.ARG_POSITION, position);
+        images.clear();
+        images.addAll(list);
+        intent.putExtra(AlbumActivity.ARG_IMAGES, images);
         startActivity(intent);
         _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }
@@ -223,7 +222,7 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
 
     @OnClick(R.id.arrow)
     public void onClickArrow() {
-        toPriviewActivity(0);
+        toAlbumActivity();
     }
 
     @OnClick(R.id.back)

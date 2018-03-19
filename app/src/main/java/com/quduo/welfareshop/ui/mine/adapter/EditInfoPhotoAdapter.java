@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
@@ -37,7 +36,7 @@ public class EditInfoPhotoAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list.size() >= 9 ? list.size() : (list.size() + 1);
+        return list != null ? (list.size() > 3 ? 3 : list.size()) : 0;
     }
 
     @Override
@@ -61,28 +60,12 @@ public class EditInfoPhotoAdapter extends BaseAdapter {
         } else {
             holder = (PhotoViewHolder) convertView.getTag();
         }
-        if (list.size() < 9) {
-            if (position == 0) {
-                holder.image.setImageResource(R.drawable.ic_add_photo);
-                holder.delete.setVisibility(View.GONE);
-            } else {
-                holder.delete.setVisibility(View.VISIBLE);
-                GlideApp.with(context)
-                        .asBitmap()
-                        .centerCrop()
-                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position - 1).getUrl())
-                        .into(holder.image);
-            }
-        } else {
-            holder.delete.setVisibility(View.VISIBLE);
-            GlideApp.with(context)
-                    .asBitmap()
-                    .centerCrop()
-                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position).getUrl())
-                    .into(holder.image);
-        }
 
-
+        GlideApp.with(context)
+                .asBitmap()
+                .centerCrop()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position).getUrl())
+                .into(holder.image);
         return convertView;
     }
 
@@ -90,8 +73,6 @@ public class EditInfoPhotoAdapter extends BaseAdapter {
     static class PhotoViewHolder {
         @BindView(R.id.image)
         CustomHeightRoundedImageView image;
-        @BindView(R.id.delete)
-        ImageView delete;
 
         PhotoViewHolder(View view) {
             ButterKnife.bind(this, view);

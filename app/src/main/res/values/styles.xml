@@ -54,6 +54,17 @@
         <item name="android:backgroundDimAmount">0.4</item>
     </style>
 
+    <style name="bottom_dialog" parent="@android:style/Theme.Dialog">
+        <!-- 去除标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 去除背景 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.4</item>
+        <item name="android:windowEnterAnimation">@anim/pop_enter</item>
+        <item name="android:windowExitAnimation">@anim/pop_exit</item>
+    </style>
+
     <style name="Toolbar_TextAppearance_White">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@android:color/white</item>

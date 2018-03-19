@@ -22,7 +22,6 @@ import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
-import com.quduo.welfareshop.activity.PreviewImageActivity;
 import com.quduo.welfareshop.activity.RechargeActivity;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.event.FollowEvent;
@@ -38,6 +37,8 @@ import com.quduo.welfareshop.ui.friend.dialog.VideoChatToRechargeDialog;
 import com.quduo.welfareshop.ui.friend.entity.OtherDetailUserInfo;
 import com.quduo.welfareshop.ui.friend.presenter.OtherInfoPresenter;
 import com.quduo.welfareshop.ui.friend.view.IOtherInfoView;
+import com.quduo.welfareshop.ui.mine.activity.AlbumActivity;
+import com.quduo.welfareshop.ui.mine.entity.MyUserDetailInfo;
 import com.quduo.welfareshop.widgets.CustomGridView;
 import com.quduo.welfareshop.widgets.RatioImageView;
 import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
@@ -122,7 +123,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
     private OtherInfoImageAdapter adapter;
     private OtherDetailUserInfo detailUserInfo;
 
-    private ArrayList<String> imageList;
+    private ArrayList<MyUserDetailInfo.PhotosBean> images;
 
     public static OtherInfoFragment newInstance(String otherUserId, boolean isFromNear) {
         Bundle args = new Bundle();
@@ -204,7 +205,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
         photoGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                toPriviewActivity(position);
+                toAlbumActivity();
             }
         });
 
@@ -470,7 +471,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
 
     @OnClick(R.id.arrow)
     public void onClickArrow() {
-        toPriviewActivity(0);
+        toAlbumActivity();
     }
 
     private void showFollowStates() {
@@ -487,17 +488,19 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
         }
     }
 
-    private void toPriviewActivity(int position) {
-        Intent intent = new Intent(_mActivity, PreviewImageActivity.class);
-        if (imageList == null) {
-            imageList = new ArrayList<>();
+    private void toAlbumActivity() {
+        Intent intent = new Intent(_mActivity, AlbumActivity.class);
+        intent.putExtra(AlbumActivity.ARG_IS_MINE, false);
+        if (images == null) {
+            images = new ArrayList<>();
         }
-        imageList.clear();
-        for (String url : list) {
-            imageList.add(MyApplication.getInstance().getConfigInfo().getFile_domain() + url);
+        images.clear();
+        for (String str : list) {
+            MyUserDetailInfo.PhotosBean bean = new MyUserDetailInfo.PhotosBean();
+            bean.setUrl(str);
+            images.add(bean);
         }
-        intent.putExtra(PreviewImageActivity.ARG_URLS, imageList);
-        intent.putExtra(PreviewImageActivity.ARG_POSITION, position);
+        intent.putExtra(AlbumActivity.ARG_IMAGES, images);
         startActivity(intent);
         _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }

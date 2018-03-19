@@ -15,10 +15,5 @@
         app:custom_sriv_right_bottom_corner_radius="5dp"
         app:custom_sriv_right_top_corner_radius="5dp" />
 
-    <ImageView
-        android:id="@+id/delete"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/umeng_socialize_delete" />
+
 </RelativeLayout>

@@ -48,4 +48,6 @@ public interface IEditMyInfoView extends BaseView {
     String getWechatNum();
 
     String getPhoneNum();
+
+
 }
