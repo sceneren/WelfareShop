@@ -15,10 +15,9 @@ import com.quduo.welfareshop.ui.welfare.entity.MidNightVideoResultInfo;
  * Description:午夜影院
  */
 public class MidNightVideoModel {
-    public void getMidNightVideoData(HttpParams params, final HttpResultListener<MidNightVideoResultInfo> listener) {
+    public void getMidNightVideoData( final HttpResultListener<MidNightVideoResultInfo> listener) {
         OkGo.<LzyResponse<MidNightVideoResultInfo>>get(ApiUtil.API_PRE + ApiUtil.MIDNIGHT_VIDEO)
                 .tag(ApiUtil.MIDNIGHT_VIDEO_TAG)
-                .params(params)
                 .execute(new JsonCallback<LzyResponse<MidNightVideoResultInfo>>() {
                     @Override
                     public void onSuccess(Response<LzyResponse<MidNightVideoResultInfo>> response) {

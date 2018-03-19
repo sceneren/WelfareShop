@@ -1,6 +1,5 @@
 package com.quduo.welfareshop.ui.welfare.presenter;
 
-import com.lzy.okgo.model.HttpParams;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.mvp.BasePresenter;
 import com.quduo.welfareshop.ui.welfare.entity.MidNightVideoResultInfo;
@@ -20,15 +19,12 @@ public class MidNightVideoPresenter extends BasePresenter<IMidNightVideoView> {
         this.model = new MidNightVideoModel();
     }
 
-    public void getMidNightVideoData(int page, final boolean isFirst) {
+    public void getMidNightVideoData(final boolean isFirst) {
         try {
-            HttpParams params = new HttpParams();
-            params.put("page", page);
             if (isFirst) {
                 mView.showLoadingPage();
             }
-            model.getMidNightVideoData(params, new HttpResultListener<MidNightVideoResultInfo>() {
-
+            model.getMidNightVideoData(new HttpResultListener<MidNightVideoResultInfo>() {
                 @Override
                 public void onSuccess(MidNightVideoResultInfo data) {
                     try {
@@ -36,7 +32,6 @@ public class MidNightVideoPresenter extends BasePresenter<IMidNightVideoView> {
                             mView.showContentPage();
                         } else {
                             mView.refreshFinish();
-                            mView.loadmoreFinish();
                         }
                         mView.bindData(data);
                     } catch (Exception e) {
@@ -51,7 +46,6 @@ public class MidNightVideoPresenter extends BasePresenter<IMidNightVideoView> {
                             mView.showErrorPage();
                         } else {
                             mView.refreshFinish();
-                            mView.loadmoreFinish();
                         }
                         mView.showMessage(message);
                     } catch (Exception e) {
@@ -64,7 +58,6 @@ public class MidNightVideoPresenter extends BasePresenter<IMidNightVideoView> {
 
                 }
             });
-
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -11,31 +11,22 @@ import java.util.List;
  */
 
 public class MidNightVideoResultInfo extends BaseBean {
-    private int current_page;
-    private int last_page;
-    private List<VideoInfo> data;
+    private List<BannerInfo> banner;
+    private List<VideoModelInfo> videos;
 
-    public int getCurrent_page() {
-        return current_page;
+    public List<BannerInfo> getBanner() {
+        return banner;
     }
 
-    public void setCurrent_page(int current_page) {
-        this.current_page = current_page;
+    public void setBanner(List<BannerInfo> banner) {
+        this.banner = banner;
     }
 
-    public int getLast_page() {
-        return last_page;
+    public List<VideoModelInfo> getVideos() {
+        return videos;
     }
 
-    public void setLast_page(int last_page) {
-        this.last_page = last_page;
-    }
-
-    public List<VideoInfo> getData() {
-        return data;
-    }
-
-    public void setData(List<VideoInfo> data) {
-        this.data = data;
+    public void setVideos(List<VideoModelInfo> videos) {
+        this.videos = videos;
     }
 }
