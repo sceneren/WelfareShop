@@ -16,6 +16,7 @@ import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
 import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
 import com.quduo.welfareshop.ui.red.dialog.GetRedDialog;
+import com.quduo.welfareshop.ui.red.dialog.NeedGetScoreDialog;
 import com.quduo.welfareshop.ui.red.presenter.RedPresenter;
 import com.quduo.welfareshop.ui.red.view.IRedView;
 
@@ -43,6 +44,7 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
 
     private RedOpenDialog redOpenDialog;
     private GetRedDialog getRedDialog;
+    private NeedGetScoreDialog needGetScoreDialog;
 
     public static RedFragment newInstance() {
         Bundle args = new Bundle();
@@ -115,6 +117,11 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
             getRedDialog = new GetRedDialog(_mActivity);
         }
         getRedDialog.show();
+
+        if(needGetScoreDialog==null){
+            needGetScoreDialog=new NeedGetScoreDialog(_mActivity);
+        }
+        needGetScoreDialog.show();
     }
 
     @OnClick(R.id.enter_my_red)

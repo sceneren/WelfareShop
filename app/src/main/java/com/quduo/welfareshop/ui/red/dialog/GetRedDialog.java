@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.Html;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -52,6 +53,9 @@ public class GetRedDialog extends Dialog {
         setContentView(R.layout.dialog_get_red);
         ButterKnife.bind(this);
         setCanceledOnTouchOutside(false);
+        String text = "<font color = '#FFFFFF'> 每领取一个红包消耗</font>"
+                + "<font color = '#FFFF00'>10钻石</font>";
+        notice.setText(Html.fromHtml(text));
     }
 
     @OnClick(R.id.number_less)
