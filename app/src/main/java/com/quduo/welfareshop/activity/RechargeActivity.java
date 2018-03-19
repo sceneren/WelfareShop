@@ -2,6 +2,7 @@ package com.quduo.welfareshop.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -37,6 +38,12 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     RadioButton typeAlipay;
     @BindView(R.id.recharge_type)
     RadioGroup rechargeType;
+    @BindView(R.id.recharge_38)
+    TextView recharge38;
+    @BindView(R.id.notice)
+    TextView notice;
+    @BindView(R.id.has_question)
+    TextView hasQuestion;
 
     private RechargeQuestionDialog questionDialog;
     private GetCouponDialog getCouponDialog;
@@ -62,7 +69,10 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     }
 
     private void initView() {
-
+        String text = "<font color = '#333333'> 充值豪礼：充值任意金额送</font>"
+                + "<font color = '#FF8EAF'>38元</font>"
+                + "<font color = '#333333'>商城代金券</font>";
+        notice.setText(Html.fromHtml(text));
     }
 
     @Override
