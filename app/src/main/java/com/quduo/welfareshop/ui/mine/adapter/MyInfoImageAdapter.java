@@ -64,7 +64,6 @@ public class MyInfoImageAdapter extends BaseAdapter {
                 .asBitmap()
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position).getUrl())
                 .centerCrop()
-                .placeholder(R.drawable.ic_agreement)
                 .into(holder.image);
         return convertView;
     }

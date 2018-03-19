@@ -62,6 +62,7 @@ public class DeleteImageDialog extends Dialog {
                 params.width = (int) (PtrLocalDisplay.SCREEN_WIDTH_PIXELS * 0.9);
                 params.gravity = Gravity.BOTTOM;
                 window.setAttributes(params);
+                window.setWindowAnimations(R.style.pop_animation);
             }
         } catch (Exception e) {
             e.printStackTrace();
