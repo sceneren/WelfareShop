@@ -11,11 +11,13 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
+import com.quduo.welfareshop.ui.shop.dialog.BuySuccessDialog;
 import com.quduo.welfareshop.ui.shop.presenter.ConfirmOrderPresenter;
 import com.quduo.welfareshop.ui.shop.view.IConfirmOrderView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.loadmore.StatusViewLayout;
 
@@ -45,6 +47,7 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
     Unbinder unbinder;
+    private BuySuccessDialog buySuccessDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -117,4 +120,11 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
         unbinder.unbind();
     }
 
+    @OnClick(R.id.wechat_pay)
+    public void onClickWeChatPay() {
+        if (buySuccessDialog == null) {
+            buySuccessDialog = new BuySuccessDialog(ConfirmOrderActivity.this);
+        }
+        buySuccessDialog.show();
+    }
 }
