@@ -8,10 +8,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.dialog.RechargeQuestionDialog;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -34,6 +36,8 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     RadioButton typeAlipay;
     @BindView(R.id.recharge_type)
     RadioGroup rechargeType;
+
+    private RechargeQuestionDialog questionDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,5 +87,13 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.has_question)
+    public void onClickHasQuestion() {
+        if (questionDialog == null) {
+            questionDialog = new RechargeQuestionDialog(RechargeActivity.this);
+        }
+        questionDialog.show();
     }
 }
