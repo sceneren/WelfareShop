@@ -17,6 +17,7 @@ import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.PreviewImageActivity;
+import com.quduo.welfareshop.event.UpdateCoverImageEvent;
 import com.quduo.welfareshop.event.UploadImageEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.itemDecoration.GridSpacingItemDecoration;
@@ -270,7 +271,7 @@ public class AlbumActivity extends BaseMvpActivity<IAlbumView, AlbumPresenter> i
     @Override
     public void setCoverImageSuccess(int position) {
         try {
-            EventBus.getDefault().post(new UploadImageEvent(list));
+            EventBus.getDefault().post(new UpdateCoverImageEvent(list.get(position).getUrl()));
             if (deleteImageDialog != null) {
                 deleteImageDialog.dismiss();
             }
