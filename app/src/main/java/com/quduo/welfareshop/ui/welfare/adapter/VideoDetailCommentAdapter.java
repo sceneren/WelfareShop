@@ -7,7 +7,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.ui.welfare.entity.VideoCommentInfo;
 import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 
 import java.util.List;
@@ -23,10 +27,10 @@ import butterknife.ButterKnife;
 
 public class VideoDetailCommentAdapter extends BaseAdapter {
     private Context context;
-    private List<String> list;
+    private List<VideoCommentInfo> list;
     private LayoutInflater inflater;
 
-    public VideoDetailCommentAdapter(Context context, List<String> list) {
+    public VideoDetailCommentAdapter(Context context, List<VideoCommentInfo> list) {
         this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
@@ -34,7 +38,7 @@ public class VideoDetailCommentAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list.size();
+        return list != null ? list.size() : 0;
     }
 
     @Override
@@ -57,7 +61,15 @@ public class VideoDetailCommentAdapter extends BaseAdapter {
         } else {
             holder = (VideoDetailCommentViewHolder) convertView.getTag();
         }
-
+        VideoCommentInfo info = list.get(position);
+        holder.nickname.setText(info.getNickname());
+        holder.content.setText(info.getContent());
+        GlideApp.with(context)
+                .asBitmap()
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + info.getAvatar())
+                .into(holder.avatar);
         return convertView;
     }
 

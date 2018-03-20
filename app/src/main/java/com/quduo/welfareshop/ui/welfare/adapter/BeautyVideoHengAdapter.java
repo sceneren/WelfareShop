@@ -14,6 +14,7 @@ import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.welfare.entity.VideoInfo;
 import com.quduo.welfareshop.widgets.CustomHeightRoundedImageView;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -69,6 +70,8 @@ public class BeautyVideoHengAdapter extends BaseAdapter {
                 .centerCrop()
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position).getThumb())
                 .into(holder.image);
+        holder.playNumber.setText(MessageFormat.format("播放:{0}", info.getPlay_times()));
+        holder.followNumber.setText(MessageFormat.format("收藏:{0}", info.getFavor_times()));
         return convertView;
     }
 

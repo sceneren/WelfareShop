@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.mine.fragment;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.quduo.welfareshop.ui.mine.adapter.MyFollowVideoAdapter;
 import com.quduo.welfareshop.ui.mine.entity.MyFollowVideoInfo;
 import com.quduo.welfareshop.ui.mine.presenter.MyFollowVideoPresenter;
 import com.quduo.welfareshop.ui.mine.view.IMyFollowVideoView;
+import com.quduo.welfareshop.ui.welfare.activity.VideoDetailActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -125,6 +127,8 @@ public class MyFollowVideoFragment extends BaseMvpFragment<IMyFollowVideoView, M
                     MyFollowVideoInfo item = list.get(position);
                     JZVideoPlayer.FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
                     JZVideoPlayerStandard.startFullscreen(getContext(), JZVideoPlayerStandard.class, item.getUrl(), item.getName());
+                } else {
+                    toVideoDetailActivity(list.get(position).getVideo_id(), list.get(position).getCate_id());
                 }
             }
         });
@@ -180,6 +184,18 @@ public class MyFollowVideoFragment extends BaseMvpFragment<IMyFollowVideoView, M
         super.onPause();
         try {
             JZVideoPlayer.releaseAllVideos();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void toVideoDetailActivity(int videoId, int cateId) {
+        try {
+            Intent intent = new Intent(getContext(), VideoDetailActivity.class);
+            intent.putExtra(VideoDetailActivity.ARG_VIDEO_ID, videoId);
+            intent.putExtra(VideoDetailActivity.ARG_CATE_ID, cateId);
+            startActivity(intent);
+            _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
         } catch (Exception e) {
             e.printStackTrace();
         }

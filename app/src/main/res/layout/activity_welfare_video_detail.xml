@@ -21,211 +21,245 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ScrollView
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refresh_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <LinearLayout
+
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <cn.jzvd.JZVideoPlayerStandard
-                    android:id="@+id/video_player"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp" />
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/dp_10">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/play_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/ic_video_play_number"
-                        android:drawablePadding="5dp"
-                        android:gravity="center"
-                        android:text="播放:36544"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="10sp" />
+                    <cn.jzvd.JZVideoPlayerStandard
+                        android:id="@+id/video_player"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp" />
 
-                    <TextView
-                        android:id="@+id/follow_number"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:drawableLeft="@drawable/ic_video_follow_number"
-                        android:drawablePadding="5dp"
-                        android:gravity="center"
-                        android:text="收藏:36544"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="10sp" />
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/dp_10">
 
-                    <TextView
-                        android:id="@+id/zan_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:drawableLeft="@drawable/ic_video_zan_number"
-                        android:drawablePadding="5dp"
-                        android:gravity="center"
-                        android:text="点赞:36544"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="10sp" />
+                        <TextView
+                            android:id="@+id/play_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_video_play_number"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:text="播放:36544"
+                            android:textColor="@color/content_text_color"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:id="@+id/follow_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:drawableLeft="@drawable/ic_video_follow_number"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:text="收藏:36544"
+                            android:textColor="@color/content_text_color"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:id="@+id/zan_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:drawableLeft="@drawable/ic_video_zan_number"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:text="点赞:36544"
+                            android:textColor="@color/content_text_color"
+                            android:textSize="10sp" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
+
+                        <ImageView
+                            android:id="@+id/btn_zan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_video_zan_d" />
+
+                        <ImageView
+                            android:id="@+id/btn_follow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:src="@drawable/ic_video_follow_d" />
+                    </LinearLayout>
 
                     <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1" />
-
-                    <ImageView
-                        android:id="@+id/btn_zan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_video_zan_d" />
-
-                    <ImageView
-                        android:id="@+id/btn_follow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:src="@drawable/ic_video_follow_d" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#F9F9F9" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/btn_shop_buy"
-                    android:drawablePadding="5dp"
-                    android:drawableRight="@drawable/ic_go"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:paddingTop="10dp"
-                    android:text="商城消费1元送1积分，解锁更多栏目、抽取现金红包"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp_12" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="#F9F9F9" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/dp_10"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingTop="@dimen/dp_10"
-                    android:text="猜你喜欢"
-                    android:textColor="@color/title_text_color"
-                    android:textSize="@dimen/sp_16" />
-
-                <com.quduo.welfareshop.widgets.CustomListView
-                    android:id="@+id/videoListView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:divider="@color/transparent1"
-                    android:dividerHeight="10dp"
-                    android:listSelector="@color/transparent1" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/dp_10"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingTop="@dimen/dp_10"
-                    android:text="商城热卖"
-                    android:textColor="@color/title_text_color"
-                    android:textSize="@dimen/sp_16" />
-
-                <com.quduo.welfareshop.widgets.CustomGridView
-                    android:id="@+id/goodsGridView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#F9F9F9"
-                    android:horizontalSpacing="1dp"
-                    android:listSelector="@color/transparent1"
-                    android:numColumns="2"
-                    android:verticalSpacing="1dp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:background="#EEEEEE" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/dp_10"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingTop="@dimen/dp_10"
-                    android:text="用户评论"
-                    android:textColor="@color/title_text_color"
-                    android:textSize="@dimen/sp_16" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingBottom="@dimen/dp_10"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10">
-
-                    <com.quduo.welfareshop.widgets.SelectableRoundedImageView
-                        android:id="@+id/avatar"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_horizontal"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_default_avatar"
-                        app:sriv_oval="true" />
-
-                    <EditText
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:gravity="center_vertical"
+                        android:layout_height="1dp"
+                        android:background="#F9F9F9" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/btn_shop_buy"
+                        android:drawablePadding="5dp"
+                        android:drawableRight="@drawable/ic_go"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingBottom="10dp"
                         android:paddingLeft="5dp"
-                        android:textSize="@dimen/sp_16"
+                        android:paddingRight="5dp"
+                        android:paddingTop="10dp"
+                        android:text="商城消费1元送1积分，解锁更多栏目、抽取现金红包"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_12" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#F9F9F9" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="@dimen/dp_10"
+                        android:text="猜你喜欢"
                         android:textColor="@color/title_text_color"
-                        android:text=""
-                        android:layout_marginLeft="@dimen/dp_10"
-                        android:background="@drawable/bg_video_comment_edit"
-                        android:ellipsize="end"
-                        android:lines="1" />
+                        android:textSize="@dimen/sp_16" />
+
+                    <com.quduo.welfareshop.widgets.CustomGridView
+                        android:id="@+id/videoShuGridView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:horizontalSpacing="2dp"
+                        android:listSelector="@color/transparent1"
+                        android:numColumns="2"
+                        android:verticalSpacing="10dp" />
+
+                    <com.quduo.welfareshop.widgets.CustomGridView
+                        android:id="@+id/videoHengGridView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:horizontalSpacing="2dp"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:listSelector="@color/transparent1"
+                        android:numColumns="2"
+                        android:verticalSpacing="10dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="@dimen/dp_10"
+                        android:text="商城热卖"
+                        android:textColor="@color/title_text_color"
+                        android:textSize="@dimen/sp_16" />
+
+                    <com.quduo.welfareshop.widgets.CustomGridView
+                        android:id="@+id/goodsGridView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#F9F9F9"
+                        android:horizontalSpacing="1dp"
+                        android:listSelector="@color/transparent1"
+                        android:numColumns="2"
+                        android:verticalSpacing="1dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:background="#EEEEEE" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="@dimen/dp_10"
+                        android:text="用户评论"
+                        android:textColor="@color/title_text_color"
+                        android:textSize="@dimen/sp_16" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:paddingLeft="@dimen/dp_10"
+                        android:paddingRight="@dimen/dp_10">
+
+                        <com.quduo.welfareshop.widgets.SelectableRoundedImageView
+                            android:id="@+id/avatar"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_horizontal"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_default_avatar"
+                            app:sriv_oval="true" />
+
+                        <EditText
+                            android:id="@+id/comment_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:background="@drawable/bg_video_comment_edit"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical"
+                            android:lines="1"
+                            android:maxLines="1"
+                            android:paddingLeft="5dp"
+                            android:layout_weight="1"
+                            android:text=""
+                            android:textColor="@color/title_text_color"
+                            android:textSize="@dimen/sp_16" />
+                        <TextView
+                            android:id="@+id/comment"
+                            android:layout_width="wrap_content"
+                            android:text="评论"
+                            android:paddingTop="4dp"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:background="@drawable/btn_theme_corner_2dp"
+                            android:paddingBottom="4dp"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp_14"
+                            android:paddingLeft="@dimen/dp_10"
+                            android:paddingRight="@dimen/dp_10"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <com.quduo.welfareshop.widgets.CustomListView
+                        android:id="@+id/commentListView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:divider="#EEEEEE"
+                        android:dividerHeight="1dp"
+                        android:listSelector="@color/transparent1" />
+
                 </LinearLayout>
 
-                <com.quduo.welfareshop.widgets.CustomListView
-                    android:id="@+id/commentListView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:divider="#EEEEEE"
-                    android:dividerHeight="1dp"
-                    android:listSelector="@color/transparent1" />
-
-            </LinearLayout>
-
-        </ScrollView>
+            </ScrollView>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     </wiki.scene.loadmore.StatusViewLayout>
 
 </LinearLayout>

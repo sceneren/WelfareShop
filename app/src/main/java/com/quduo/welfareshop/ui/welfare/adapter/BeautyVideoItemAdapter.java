@@ -40,7 +40,7 @@ public class BeautyVideoItemAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list.size();
+        return list != null ? list.size() : 0;
     }
 
     @Override
@@ -89,8 +89,8 @@ public class BeautyVideoItemAdapter extends BaseAdapter {
         holder.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int childPosition, long id) {
-                if(onItemClickItemVideoListener!=null){
-                    onItemClickItemVideoListener.onItemClickItemVideo(position,childPosition);
+                if (onItemClickItemVideoListener != null) {
+                    onItemClickItemVideoListener.onItemClickItemVideo(position, childPosition);
                 }
             }
         });
@@ -106,7 +106,7 @@ public class BeautyVideoItemAdapter extends BaseAdapter {
         }
     }
 
-    public interface OnItemClickItemVideoListener{
-        void onItemClickItemVideo(int position,int childPosition);
+    public interface OnItemClickItemVideoListener {
+        void onItemClickItemVideo(int position, int childPosition);
     }
 }

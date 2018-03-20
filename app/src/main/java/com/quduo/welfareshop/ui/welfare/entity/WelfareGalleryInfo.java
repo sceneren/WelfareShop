@@ -12,33 +12,36 @@ import java.util.List;
 
 public class WelfareGalleryInfo extends BaseBean {
 
+
     /**
-     * id : 2512
-     * cate_id : 5
-     * name : 黑色蕾丝美眉梓萱Crystal私房照
-     * weight : 0
-     * thumb : /gallery/5/2512/fm.jpg
-     * images : ["/gallery/5/2512/5.jpg","/gallery/5/2512/11.jpg","/gallery/5/2512/19.jpg","/gallery/5/2512/1.jpg"]
+     * id : 18
+     * thumb : /gallery/2/18/fm.jpg
+     * name : G奶天后冰露丰乳巨臀火热肉体诱惑
+     * thumb_small : ["/gallery/2/18/s1.jpg","/gallery/2/18/s2.jpg","/gallery/2/18/s3.jpg"]
+     * avatar : /gallery/2/18/tx.jpg
      * view_times : 0
-     * favor_times : 12
+     * favor_times : 0
      * tags : null
-     * good : 1
-     * image_count : 24
+     * good : 0
+     * price : 0
+     * image_count : 61
+     * favor_id : 0
      * is_good : false
      */
 
     private int id;
-    private int cate_id;
-    private String name;
-    private int weight;
     private String thumb;
+    private String name;
+    private String avatar;
     private int view_times;
     private int favor_times;
+    private Object tags;
     private int good;
+    private int price;
     private int image_count;
-    private boolean is_good;
-    private List<String> images;
     private int favor_id;
+    private boolean is_good;
+    private List<String> thumb_small;
 
     public int getId() {
         return id;
@@ -48,12 +51,12 @@ public class WelfareGalleryInfo extends BaseBean {
         this.id = id;
     }
 
-    public int getCate_id() {
-        return cate_id;
+    public String getThumb() {
+        return thumb;
     }
 
-    public void setCate_id(int cate_id) {
-        this.cate_id = cate_id;
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
     }
 
     public String getName() {
@@ -64,20 +67,12 @@ public class WelfareGalleryInfo extends BaseBean {
         this.name = name;
     }
 
-    public int getWeight() {
-        return weight;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
-
-    public String getThumb() {
-        return thumb;
-    }
-
-    public void setThumb(String thumb) {
-        this.thumb = thumb;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public int getView_times() {
@@ -96,12 +91,28 @@ public class WelfareGalleryInfo extends BaseBean {
         this.favor_times = favor_times;
     }
 
+    public Object getTags() {
+        return tags;
+    }
+
+    public void setTags(Object tags) {
+        this.tags = tags;
+    }
+
     public int getGood() {
         return good;
     }
 
     public void setGood(int good) {
         this.good = good;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public int getImage_count() {
@@ -112,6 +123,14 @@ public class WelfareGalleryInfo extends BaseBean {
         this.image_count = image_count;
     }
 
+    public int getFavor_id() {
+        return favor_id;
+    }
+
+    public void setFavor_id(int favor_id) {
+        this.favor_id = favor_id;
+    }
+
     public boolean isIs_good() {
         return is_good;
     }
@@ -120,19 +139,11 @@ public class WelfareGalleryInfo extends BaseBean {
         this.is_good = is_good;
     }
 
-    public List<String> getImages() {
-        return images;
+    public List<String> getThumb_small() {
+        return thumb_small;
     }
 
-    public void setImages(List<String> images) {
-        this.images = images;
-    }
-
-    public int getFavor_id() {
-        return favor_id;
-    }
-
-    public void setFavor_id(int favor_id) {
-        this.favor_id = favor_id;
+    public void setThumb_small(List<String> thumb_small) {
+        this.thumb_small = thumb_small;
     }
 }

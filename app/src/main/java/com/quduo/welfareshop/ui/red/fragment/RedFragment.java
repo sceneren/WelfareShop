@@ -164,42 +164,42 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
      */
     private void showCountDownTimer(long endTime, final int maxPool) {
         long countTime = endTime * 1000 - NetTimeUtils.getWebsiteDatetime();
-        new CountDownTimer(countTime, 1000) {
+        new CountDownTimer(countTime, 50) {
             @Override
             public void onTick(long millisUntilFinished) {
                 try {
-                    long resetTime = millisUntilFinished / 1000;
-                    long hour = resetTime / 3600;
-                    long minite = (resetTime - 3600 * hour) / 60;
-                    long second = (resetTime - 3600 * hour - 60 * minite);
+                    long resetTime = millisUntilFinished;
+                    long minite = resetTime / 60000;
+                    long second = (resetTime - 60000 * minite) / 1000;
+                    long mills = resetTime - 60000 * minite - second * 1000;
 
-                    if (hour > 9) {
-                        char[] chars = String.valueOf(hour).toCharArray();
+                    if (minite > 9) {
+                        char[] chars = String.valueOf(minite).toCharArray();
                         time1.setText(String.valueOf(chars[0]));
                         time2.setText(String.valueOf(chars[1]));
                     } else {
                         time1.setText(String.valueOf(0));
-                        time2.setText(String.valueOf(hour));
-                    }
-
-                    if (minite > 9) {
-                        char[] chars = String.valueOf(minite).toCharArray();
-                        time3.setText(String.valueOf(chars[0]));
-                        time4.setText(String.valueOf(chars[1]));
-                    } else {
-                        time3.setText(String.valueOf(0));
-                        time4.setText(String.valueOf(minite));
+                        time2.setText(String.valueOf(minite));
                     }
 
                     if (second > 9) {
                         char[] chars = String.valueOf(second).toCharArray();
+                        time3.setText(String.valueOf(chars[0]));
+                        time4.setText(String.valueOf(chars[1]));
+                    } else {
+                        time3.setText(String.valueOf(0));
+                        time4.setText(String.valueOf(second));
+                    }
+
+                    if (mills > 9) {
+                        char[] chars = String.valueOf(mills).toCharArray();
                         time5.setText(String.valueOf(chars[0]));
                         time6.setText(String.valueOf(chars[1]));
                     } else {
                         time5.setText(String.valueOf(0));
-                        time6.setText(String.valueOf(second));
+                        time6.setText(String.valueOf(mills));
                     }
-                    int currentPool = (int) ((maxPool * (600 - resetTime)) / 600d);
+                    int currentPool = (int) ((maxPool * (600 - resetTime/1000)) / 600d);
                     char[] pools = String.valueOf(formatNumber(currentPool)).toCharArray();
                     jackpot6.setText(String.valueOf(pools[5]));
                     jackpot5.setText(String.valueOf(pools[4]));

@@ -119,6 +119,9 @@ public class ApiUtil {
     //拆红包
     public static final String OPEN_RED="red_bag/open";
     public static final String OPEN_RED_TAG="red_bag/open";
+    //视频详情
+    public static final String VIDEO_DETAIL="video/detail";
+    public static final String VIDEO_DETAIL_TAG="video/detail";
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

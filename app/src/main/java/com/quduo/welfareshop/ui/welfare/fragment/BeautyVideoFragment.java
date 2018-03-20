@@ -29,6 +29,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,7 +114,7 @@ public class BeautyVideoFragment extends BaseMvpFragment<IBeautyVideoView, Beaut
     public void initView() {
         initRecyclerView();
         initHeaderView();
-        initFooterView();
+        //initFooterView();
         presenter.getBeautyVideoData(true);
     }
 
@@ -129,7 +130,12 @@ public class BeautyVideoFragment extends BaseMvpFragment<IBeautyVideoView, Beaut
         adapter.setOnItemClickVideoListener(new BeautyVideoAdapter.OnItemClickVideoListener() {
             @Override
             public void onItemClickVideo(int position, int position1, int position2) {
-                startActivity(new Intent(getContext(), VideoDetailActivity.class));
+                try {
+                    toVideoDetailActivity(list.get(position - 1).getPositions().get(position1).getVideos().get(position2).getId());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -142,6 +148,14 @@ public class BeautyVideoFragment extends BaseMvpFragment<IBeautyVideoView, Beaut
         banner.setImageLoader(new BannerImageLoader());
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
         adapter.addHeaderView(headerView);
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                if (bannerList != null) {
+                    toVideoDetailActivity(bannerList.get(position).getData_id());
+                }
+            }
+        });
     }
 
     private void bindHeaderView(List<BannerInfo> bannerInfoList) {
@@ -205,6 +219,18 @@ public class BeautyVideoFragment extends BaseMvpFragment<IBeautyVideoView, Beaut
             list.clear();
             list.addAll(data.getVideos());
             adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void toVideoDetailActivity(int videoId) {
+        try {
+            Intent intent = new Intent(getContext(), VideoDetailActivity.class);
+            intent.putExtra(VideoDetailActivity.ARG_VIDEO_ID, videoId);
+            intent.putExtra(VideoDetailActivity.ARG_CATE_ID, 2);
+            startActivity(intent);
+            _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
         } catch (Exception e) {
             e.printStackTrace();
         }
