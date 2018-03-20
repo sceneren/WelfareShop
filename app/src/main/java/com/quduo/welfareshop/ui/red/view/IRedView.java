@@ -1,6 +1,7 @@
 package com.quduo.welfareshop.ui.red.view;
 
 import com.quduo.welfareshop.mvp.BaseView;
+import com.quduo.welfareshop.ui.red.entity.RedResultInfo;
 
 /**
  * Author:scene
@@ -8,5 +9,11 @@ import com.quduo.welfareshop.mvp.BaseView;
  * Description:红包
  */
 
-public interface IRedView extends BaseView{
+public interface IRedView extends BaseView {
+
+    void bindData(RedResultInfo data);
+
+    void refreshFinish();
+
+    void showMessage(String message);
 }

@@ -16,6 +16,7 @@ import com.quduo.welfareshop.bean.LoginInfo;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.http.base.LzyResponse;
 import com.quduo.welfareshop.http.callback.JsonCallback;
+import com.quduo.welfareshop.util.NetTimeUtils;
 import com.quduo.welfareshop.util.ResourceUtil;
 
 import java.util.ArrayList;
@@ -94,6 +95,7 @@ public class EnterActivity extends BaseActivity {
                             if (loginInfo != null) {
                                 MyApplication.getInstance().setConfigInfo(loginInfo.getConfig());
                                 MyApplication.getInstance().setUserInfo(loginInfo.getUser_info());
+                                NetTimeUtils.setErrorTime(loginInfo.getConfig().getServer_time());
                                 toMainActivity();
                             } else {
                                 ToastUtils.showShort("网络连接异常，请检查网络");

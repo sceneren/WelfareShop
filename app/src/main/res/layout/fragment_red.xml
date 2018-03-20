@@ -8,536 +8,435 @@
         layout="@layout/toolbar_menu"
         android:visibility="gone" />
 
-    <ScrollView
+    <wiki.scene.loadmore.StatusViewLayout
+        android:id="@+id/status_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refresh_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_red"
-            android:orientation="vertical">
-            <ImageView
-                android:id="@+id/enter_my_red"
+            android:layout_height="match_parent">
+
+
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:src="@drawable/bg_red_header"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_10"
-                android:background="@drawable/bg_red_userinfo"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/dp_10">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="昵称："
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="黄超超"
-                    android:textColor="#FF9E00"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:text="积分："
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="100"
-                    android:textColor="#FF9E00"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:text="现金："
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1000"
-                    android:textColor="#FF9E00"
-                    android:textSize="12sp" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/cash"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/btn_red_cash"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:text="提现"
-                    android:textColor="#FF0000"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/dp_10"
-                android:background="@drawable/bg_red_moneyinfo"
-                android:orientation="vertical"
-                android:padding="@dimen/dp_10">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="奖池累计现金："
-                        android:textColor="#FF9E00"
-                        android:textSize="@dimen/sp_12" />
-
-                    <TextView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/bg_red_number"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="#FF0000"
-                        android:textSize="@dimen/sp_12" />
-
-                    <TextView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/bg_red_number"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="#FF0000"
-                        android:textSize="@dimen/sp_12" />
-
-                    <TextView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/bg_red_number"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="#FF0000"
-                        android:textSize="@dimen/sp_12" />
-
-                    <TextView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/bg_red_number"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="#FF0000"
-                        android:textSize="@dimen/sp_12" />
-
-                    <TextView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/bg_red_number"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="#FF0000"
-                        android:textSize="@dimen/sp_12" />
-
-                    <TextView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/bg_red_number"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="#FF0000"
-                        android:textSize="@dimen/sp_12" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="拆红包倒计时："
-                        android:textColor="#FF9E00"
-                        android:textSize="@dimen/sp_12" />
-
-                    <TextView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/bg_red_number"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="#FF0000"
-                        android:textSize="@dimen/sp_12" />
-
-                    <TextView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:background="@drawable/bg_red_number"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="#FF0000"
-                        android:textSize="@dimen/sp_12" />
-
-                    <TextView
-                        android:layout_width="5dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text=":"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/bg_red_number"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="#FF0000"
-                        android:textSize="@dimen/sp_12" />
-
-                    <TextView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:background="@drawable/bg_red_number"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="#FF0000"
-                        android:textSize="@dimen/sp_12" />
-
-                    <TextView
-                        android:layout_width="5dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text=":"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/bg_red_number"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="#FF0000"
-                        android:textSize="@dimen/sp_12" />
-
-                    <TextView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/bg_red_number"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="#FF0000"
-                        android:textSize="@dimen/sp_12" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:gravity="center">
-
-                <ImageView
-                    android:id="@+id/open"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/bg_red_package" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal">
-
-                <ImageView
-                    android:id="@+id/image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/bg_red_zhantai" />
-
-                <ImageView
-                    android:id="@+id/text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/dp_40"
-                    android:src="@drawable/bg_red_text" />
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/image"
-                    android:layout_alignRight="@+id/image"
-                    android:layout_below="@+id/text"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:background="@drawable/bg_red_winner"
-                    android:orientation="vertical"
-                    android:padding="@dimen/dp_10">
+                    android:background="@drawable/bg_red"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/enter_my_red"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/bg_red_header" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:background="@drawable/bg_red_userinfo"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="@dimen/dp_10">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="喜从天降"
-                            android:textColor="#FF0000"
-                            android:textSize="@dimen/sp_12" />
+                            android:text="昵称："
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/nickname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="黄超超"
+                            android:textColor="#FF9E00"
+                            android:textSize="12sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_10"
-                            android:text="恭喜"
-                            android:textColor="#FF5A00"
-                            android:textSize="10sp" />
+                            android:text="钻石："
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/diamonds"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="3dp"
-                            android:layout_marginRight="3dp"
-                            android:text="黄超超"
-                            android:textColor="#FF0000"
-                            android:textSize="@dimen/sp_12" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="从红包中拆出"
-                            android:textColor="#FF5A00"
-                            android:textSize="10sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="3dp"
-                            android:text="100元现金"
-                            android:textColor="#FF0000"
-                            android:textSize="@dimen/sp_12" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="喜从天降"
-                            android:textColor="#FF0000"
-                            android:textSize="@dimen/sp_12" />
+                            android:text="100"
+                            android:textColor="#FF9E00"
+                            android:textSize="12sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_10"
-                            android:text="恭喜"
-                            android:textColor="#FF5A00"
-                            android:textSize="10sp" />
+                            android:text="现金："
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/money"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="3dp"
-                            android:layout_marginRight="3dp"
-                            android:text="黄超超"
+                            android:text="1000"
+                            android:textColor="#FF9E00"
+                            android:textSize="12sp" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:id="@+id/cash"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_red_cash"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:text="提现"
                             android:textColor="#FF0000"
-                            android:textSize="@dimen/sp_12" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="从红包中拆出"
-                            android:textColor="#FF5A00"
-                            android:textSize="10sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="3dp"
-                            android:text="100元现金"
-                            android:textColor="#FF0000"
-                            android:textSize="@dimen/sp_12" />
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:background="@drawable/bg_red_moneyinfo"
+                        android:orientation="vertical"
+                        android:padding="@dimen/dp_10">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="奖池累计现金："
+                                android:textColor="#FF9E00"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:id="@+id/jackpot1"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_marginRight="5dp"
+                                android:background="@drawable/bg_red_number"
+                                android:gravity="center"
+                                android:text="0"
+                                android:textColor="#FF0000"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:id="@+id/jackpot2"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_marginRight="5dp"
+                                android:background="@drawable/bg_red_number"
+                                android:gravity="center"
+                                android:text="0"
+                                android:textColor="#FF0000"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:id="@+id/jackpot3"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_marginRight="5dp"
+                                android:background="@drawable/bg_red_number"
+                                android:gravity="center"
+                                android:text="0"
+                                android:textColor="#FF0000"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:id="@+id/jackpot4"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_marginRight="5dp"
+                                android:background="@drawable/bg_red_number"
+                                android:gravity="center"
+                                android:text="0"
+                                android:textColor="#FF0000"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:id="@+id/jackpot5"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_marginRight="5dp"
+                                android:background="@drawable/bg_red_number"
+                                android:gravity="center"
+                                android:text="0"
+                                android:textColor="#FF0000"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:id="@+id/jackpot6"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_marginRight="5dp"
+                                android:background="@drawable/bg_red_number"
+                                android:gravity="center"
+                                android:text="0"
+                                android:textColor="#FF0000"
+                                android:textSize="@dimen/sp_12" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="拆红包倒计时："
+                                android:textColor="#FF9E00"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:id="@+id/time1"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_marginRight="5dp"
+                                android:background="@drawable/bg_red_number"
+                                android:gravity="center"
+                                android:text="0"
+                                android:textColor="#FF0000"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:id="@+id/time2"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:background="@drawable/bg_red_number"
+                                android:gravity="center"
+                                android:text="0"
+                                android:textColor="#FF0000"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:layout_width="5dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text=":"
+                                android:textColor="@color/white" />
+
+                            <TextView
+                                android:id="@+id/time3"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_marginRight="5dp"
+                                android:background="@drawable/bg_red_number"
+                                android:gravity="center"
+                                android:text="0"
+                                android:textColor="#FF0000"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:id="@+id/time4"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:background="@drawable/bg_red_number"
+                                android:gravity="center"
+                                android:text="0"
+                                android:textColor="#FF0000"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:layout_width="5dp"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text=":"
+                                android:textColor="@color/white" />
+
+                            <TextView
+                                android:id="@+id/time5"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_marginRight="5dp"
+                                android:background="@drawable/bg_red_number"
+                                android:gravity="center"
+                                android:text="0"
+                                android:textColor="#FF0000"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:id="@+id/time6"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_marginRight="5dp"
+                                android:background="@drawable/bg_red_number"
+                                android:gravity="center"
+                                android:text="0"
+                                android:textColor="#FF0000"
+                                android:textSize="@dimen/sp_12" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:gravity="center">
 
-                        <TextView
+                        <ImageView
+                            android:id="@+id/open"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="喜从天降"
-                            android:textColor="#FF0000"
-                            android:textSize="@dimen/sp_12" />
+                            android:src="@drawable/bg_red_package" />
+                    </RelativeLayout>
 
-                        <TextView
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
+
+                        <ImageView
+                            android:id="@+id/image"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/bg_red_zhantai" />
+
+                        <ImageView
+                            android:id="@+id/text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/dp_40"
+                            android:src="@drawable/bg_red_text" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@+id/image"
+                            android:layout_alignRight="@+id/image"
+                            android:layout_below="@+id/text"
                             android:layout_marginLeft="@dimen/dp_10"
-                            android:text="恭喜"
-                            android:textColor="#FF5A00"
-                            android:textSize="10sp" />
+                            android:layout_marginRight="@dimen/dp_10"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:background="@drawable/bg_red_winner"
+                            android:orientation="vertical"
+                            android:padding="@dimen/dp_10">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="3dp"
-                            android:layout_marginRight="3dp"
-                            android:text="黄超超"
-                            android:textColor="#FF0000"
-                            android:textSize="@dimen/sp_12" />
+                            <com.sunsky.marqueeview.MarqueeView
+                                android:id="@+id/marqueeView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="从红包中拆出"
-                            android:textColor="#FF5A00"
-                            android:textSize="10sp" />
+                        </LinearLayout>
+                    </RelativeLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="30dp"
+                        android:background="@drawable/bg_red_play_way"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="3dp"
-                            android:text="100元现金"
-                            android:textColor="#FF0000"
-                            android:textSize="@dimen/sp_12" />
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_red_way_1" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="领取红包（每领取一个红包消耗10积分）"
+                                android:textColor="#FFA600"
+                                android:textSize="@dimen/sp_12" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_red_way_2" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="玩家每消耗10积分，官方会向奖池中加入1元现金"
+                                android:textColor="#FFA600"
+                                android:textSize="@dimen/sp_12" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_red_way_3" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="活动结束时，奖池中全部现金奖随机放入大家的红包中"
+                                android:textColor="#FFA600"
+                                android:textSize="@dimen/sp_12" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_red_way_4" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="拆开红包，领取现金并提现(每个红包必能开出现金)"
+                                android:textColor="#FFA600"
+                                android:textSize="@dimen/sp_12" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="30dp"
-                android:background="@drawable/bg_red_play_way"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_red_way_1" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="领取红包（每领取一个红包消耗10积分）"
-                        android:textColor="#FFA600"
-                        android:textSize="@dimen/sp_12" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_red_way_2" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="玩家每消耗10积分，官方会向奖池中加入1元现金"
-                        android:textColor="#FFA600"
-                        android:textSize="@dimen/sp_12" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_red_way_3" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="活动结束时，奖池中全部现金奖随机放入大家的红包中"
-                        android:textColor="#FFA600"
-                        android:textSize="@dimen/sp_12" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_red_way_4" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="拆开红包，领取现金并提现(每个红包必能开出现金)"
-                        android:textColor="#FFA600"
-                        android:textSize="@dimen/sp_12" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+            </ScrollView>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </wiki.scene.loadmore.StatusViewLayout>
 </LinearLayout>

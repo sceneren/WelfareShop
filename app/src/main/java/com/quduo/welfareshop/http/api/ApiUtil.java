@@ -105,8 +105,12 @@ public class ApiUtil {
     public static final String EDIT_RECEIVER_ADDRESS = "personal/address/edit";
     public static final String EDIT_RECEIVER_ADDRESS_TAG = "personal/address/edit";
     //设为封面
-    public static final String SET_COVER="personal/profile/set_cover";
-    public static final String SET_COVER_TAG="personal/profile/set_cover";
+    public static final String SET_COVER = "personal/profile/set_cover";
+    public static final String SET_COVER_TAG = "personal/profile/set_cover";
+    //红包首页
+    public static final String RED_INDEX = "red_bag";
+    public static final String RED_INDEX_TAG = "red_bag";
+
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19
