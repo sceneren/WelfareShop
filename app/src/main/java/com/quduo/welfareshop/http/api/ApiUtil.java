@@ -122,6 +122,9 @@ public class ApiUtil {
     //视频详情
     public static final String VIDEO_DETAIL="video/detail";
     public static final String VIDEO_DETAIL_TAG="video/detail";
+    //收藏的图片
+    public static final String MY_FOLLOW_IMAGE="personal/favor/gallery";
+    public static final String MY_FOLLOW_IMAGE_TAG="personal/favor/gallery";
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

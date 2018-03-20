@@ -15,10 +15,10 @@ import com.quduo.welfareshop.ui.welfare.entity.FollowSuccessInfo;
  * Description:收藏视频
  */
 
-public class FollowVideoModel {
+public class FollowModel {
     public void followVideo(HttpParams params, final HttpResultListener<FollowSuccessInfo> listener) {
         OkGo.<LzyResponse<FollowSuccessInfo>>get(ApiUtil.API_PRE + ApiUtil.FOLLOW_VIDEO)
-                .tag(ApiUtil.FOLLOW_USER_LIST_TAG)
+                .tag(ApiUtil.FOLLOW_VIDEO_TAG)
                 .params(params)
                 .execute(new JsonCallback<LzyResponse<FollowSuccessInfo>>() {
                     @Override
@@ -50,7 +50,42 @@ public class FollowVideoModel {
                 });
     }
 
-    public void cancelFollowVideo(HttpParams params, final HttpResultListener<Boolean> listener) {
+    public void followImage(HttpParams params, final HttpResultListener<FollowSuccessInfo> listener) {
+        OkGo.<LzyResponse<FollowSuccessInfo>>get(ApiUtil.API_PRE + ApiUtil.FOLLOW_GALLERY)
+                .tag(ApiUtil.FOLLOW_GALLERY_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<FollowSuccessInfo>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<FollowSuccessInfo>> response) {
+                        try {
+                            listener.onSuccess(response.body().data);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            listener.onFail("操作失败请重试");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<FollowSuccessInfo>> response) {
+                        super.onError(response);
+                        try {
+                            listener.onFail(response.getException().getMessage());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            listener.onFail("操作失败请重试");
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        listener.onFinish();
+                    }
+                });
+    }
+
+
+    public void cancelFollow(HttpParams params, final HttpResultListener<Boolean> listener) {
         OkGo.<LzyResponse<Boolean>>get(ApiUtil.API_PRE + ApiUtil.CANCEL_FOLLOW)
                 .tag(ApiUtil.CANCEL_FOLLOW_TAG)
                 .params(params)

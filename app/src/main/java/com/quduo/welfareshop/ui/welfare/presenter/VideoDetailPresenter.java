@@ -152,7 +152,7 @@ public class VideoDetailPresenter extends BasePresenter<IVideoDetailView> {
             mView.showLoadingDialog();
             HttpParams params = new HttpParams();
             params.put("id", followId);
-            model.cancelFollowVideo(params, new HttpResultListener<Boolean>() {
+            model.cancelFollow(params, new HttpResultListener<Boolean>() {
                 @Override
                 public void onSuccess(Boolean data) {
                     try {

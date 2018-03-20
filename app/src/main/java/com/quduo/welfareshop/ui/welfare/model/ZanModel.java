@@ -14,7 +14,7 @@ import com.quduo.welfareshop.http.listener.HttpResultListener;
  * Description:点赞
  */
 
-public class ZanModel  extends FollowVideoModel{
+public class ZanModel extends FollowModel {
     public void zan(HttpParams params, final HttpResultListener<Boolean> listener) {
         OkGo.<LzyResponse<Boolean>>get(ApiUtil.API_PRE + ApiUtil.ZAN)
                 .tag(ApiUtil.ZAN_TAG)

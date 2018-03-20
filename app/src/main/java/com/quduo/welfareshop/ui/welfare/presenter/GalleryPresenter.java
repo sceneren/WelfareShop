@@ -76,7 +76,7 @@ public class GalleryPresenter extends BasePresenter<IGalleryView> {
             mView.showLoadingDialog();
             HttpParams params = new HttpParams();
             params.put("data_id", id);
-            model.followGallery(params, new HttpResultListener<FollowSuccessInfo>() {
+            model.followImage(params, new HttpResultListener<FollowSuccessInfo>() {
                 @Override
                 public void onSuccess(FollowSuccessInfo data) {
                     try {

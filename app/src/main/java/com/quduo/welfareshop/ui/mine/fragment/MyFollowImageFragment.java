@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.SizeUtils;
+import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.http.api.ApiUtil;
@@ -95,14 +98,14 @@ public class MyFollowImageFragment extends BaseMvpFragment<IMyFollowImageView, M
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            presenter.getData(true);
         }
     };
 
     @Override
     public void initView() {
-        showContentPage();
         initRecyclerView();
+        presenter.getData(true);
     }
 
 
@@ -112,7 +115,7 @@ public class MyFollowImageFragment extends BaseMvpFragment<IMyFollowImageView, M
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
-                refreshLayout.finishRefresh(2000);
+                presenter.getData(false);
             }
         });
 
@@ -123,6 +126,14 @@ public class MyFollowImageFragment extends BaseMvpFragment<IMyFollowImageView, M
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new SpacesItemDecoration(SizeUtils.dp2px(5)));
         recyclerView.setAdapter(adapter);
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (view.getId() == R.id.layout_follow) {
+                    presenter.cancelFollowImage(position, list.get(position).getId());
+                }
+            }
+        });
     }
 
     @Override
@@ -132,8 +143,66 @@ public class MyFollowImageFragment extends BaseMvpFragment<IMyFollowImageView, M
 
     @Override
     public void onDestroyView() {
-        OkGo.getInstance().cancelTag(ApiUtil.MY_FOLLOW_VIDEO_TAG);
+        OkGo.getInstance().cancelTag(ApiUtil.MY_FOLLOW_IMAGE_TAG);
         super.onDestroyView();
         unbinder.unbind();
     }
+
+    @Override
+    public void showMessage(String message) {
+        try {
+            ToastUtils.showShort(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void bindData(List<WelfareGalleryInfo> data) {
+        try {
+            list.clear();
+            list.addAll(data);
+            adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void refreshFinish() {
+        try {
+            refreshLayout.finishRefresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showLoadingDialog() {
+        try {
+            StyledDialog.buildLoading().setActivity(_mActivity).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void hideLoadingDialog() {
+        try {
+            StyledDialog.dismissLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void cancelFollowSuccess(int position) {
+        try {
+            list.remove(position);
+            adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
