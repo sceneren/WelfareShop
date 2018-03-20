@@ -16,4 +16,16 @@ public interface IRedView extends BaseView {
     void refreshFinish();
 
     void showMessage(String message);
+
+    void buyRedSuccess(int diamondNumber);
+
+    void showLoadingDialog();
+
+    void hideLoadingDialog();
+
+    void hideGetRedDialog();
+
+    void showNeedGetDiamondDialog();
+
+    void hideNeedGetDiamondDialog();
 }

@@ -14,15 +14,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.hss01248.dialog.StyledDialog;
+import com.hss01248.dialog.interfaces.MyDialogListener;
+import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
-import com.quduo.welfareshop.dialog.RedOpenDialog;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.event.UpdateMyInfoSuccessEvent;
+import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
 import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
 import com.quduo.welfareshop.ui.red.dialog.GetRedDialog;
-import com.quduo.welfareshop.ui.red.dialog.NeedGetScoreDialog;
+import com.quduo.welfareshop.ui.red.dialog.NeedGetDiamondDialog;
 import com.quduo.welfareshop.ui.red.entity.RedResultInfo;
 import com.quduo.welfareshop.ui.red.entity.RedWinInfo;
 import com.quduo.welfareshop.ui.red.presenter.RedPresenter;
@@ -60,8 +63,6 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
     @BindView(R.id.toolbar_image_menu)
     ImageView toolbarImageMenu;
     Unbinder unbinder;
-    @BindView(R.id.enter_my_red)
-    ImageView enterMyRed;
     @BindView(R.id.nickname)
     TextView nickname;
     @BindView(R.id.diamonds)
@@ -107,11 +108,11 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
     @BindView(R.id.marqueeView)
     MarqueeView marqueeView;
 
-    private RedOpenDialog redOpenDialog;
     private GetRedDialog getRedDialog;
-    private NeedGetScoreDialog needGetScoreDialog;
+    private NeedGetDiamondDialog needGetDiamondDialog;
 
     private List<View> views = new ArrayList<>();
+    private RedResultInfo redResultInfo;
 
     public static RedFragment newInstance() {
         Bundle args = new Bundle();
@@ -222,7 +223,12 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
                     time4.setText(String.valueOf(0));
                     time5.setText(String.valueOf(0));
                     time6.setText(String.valueOf(0));
-                    presenter.getData(false);
+                    refreshLayout.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            presenter.getData(false);
+                        }
+                    }, 2000);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -271,6 +277,8 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
 
     @Override
     public void onDestroyView() {
+        OkGo.getInstance().cancelTag(ApiUtil.RED_INDEX_TAG);
+        OkGo.getInstance().cancelTag(ApiUtil.BUY_RED_TAG);
         EventBus.getDefault().unregister(this);
         super.onDestroyView();
         unbinder.unbind();
@@ -283,23 +291,7 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
 
     @OnClick(R.id.open)
     public void onClickOpen() {
-//        if (redOpenDialog == null) {
-//            redOpenDialog = new RedOpenDialog(getContext());
-//        }
-//        if (redOpenDialog.isShowing()) {
-//            redOpenDialog.cancel();
-//        } else {
-//            redOpenDialog.show();
-//        }
-        if (getRedDialog == null) {
-            getRedDialog = new GetRedDialog(_mActivity);
-        }
-        getRedDialog.show();
-
-        if (needGetScoreDialog == null) {
-            needGetScoreDialog = new NeedGetScoreDialog(_mActivity);
-        }
-        needGetScoreDialog.show();
+        showGetRedDialog();
     }
 
     @OnClick(R.id.enter_my_red)
@@ -315,6 +307,8 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
     @Override
     public void bindData(RedResultInfo data) {
         try {
+            redResultInfo = null;
+            redResultInfo = data;
             nickname.setText(MyApplication.getInstance().getUserInfo().getNickname());
             diamonds.setText(String.valueOf(MyApplication.getInstance().getUserInfo().getDiamond()));
             money.setText(String.valueOf(MyApplication.getInstance().getUserInfo().getMoney()));
@@ -407,6 +401,81 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
         }
     }
 
+    @Override
+    public void buyRedSuccess(int diamondNumber) {
+        try {
+            hideGetRedDialog();
+            diamonds.setText(String.valueOf(diamondNumber));
+            MyApplication.getInstance().getUserInfo().setDiamond(diamondNumber);
+            StyledDialog.buildIosAlert("提示", "红包领取成功", new MyDialogListener() {
+                @Override
+                public void onFirst() {
+                    onDismiss();
+                }
+
+                @Override
+                public void onSecond() {
+
+                }
+            }).setBtnText("确定").show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void showLoadingDialog() {
+        try {
+            StyledDialog.buildLoading().setActivity(_mActivity).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void hideLoadingDialog() {
+        try {
+            StyledDialog.dismissLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void hideGetRedDialog() {
+        try {
+            if (getRedDialog != null && getRedDialog.isShowing()) {
+                getRedDialog.cancel();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showNeedGetDiamondDialog() {
+        try {
+            if (needGetDiamondDialog == null) {
+                needGetDiamondDialog = new NeedGetDiamondDialog(_mActivity);
+            }
+            needGetDiamondDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void hideNeedGetDiamondDialog() {
+        try {
+            if (needGetDiamondDialog != null && needGetDiamondDialog.isShowing()) {
+                needGetDiamondDialog.cancel();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @SuppressLint("DefaultLocale")
     private String formatNumber(int number) {
         return String.format("%06d", number);
@@ -419,5 +488,18 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void showGetRedDialog() {
+        if (getRedDialog == null) {
+            getRedDialog = new GetRedDialog(_mActivity);
+            getRedDialog.setOnClickGetRedListener(new GetRedDialog.OnClickGetRedListener() {
+                @Override
+                public void onClickGetRed(int number) {
+                    presenter.buyRed(number, redResultInfo.getPeriod().getId());
+                }
+            });
+        }
+        getRedDialog.show();
     }
 }

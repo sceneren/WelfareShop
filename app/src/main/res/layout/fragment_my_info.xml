@@ -74,6 +74,7 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
+                            android:background="#000000"
                             android:layout_height="wrap_content">
 
                             <com.quduo.welfareshop.widgets.RatioImageView

@@ -75,7 +75,7 @@ public class MyRedFragment extends BaseBackMvpFragment<IMyRedView, MyRedPresente
 
     @Override
     public void initToolbar() {
-        toolbarTitle.setText("我的收藏");
+        toolbarTitle.setText("现金红包");
         toolbar.setNavigationIcon(R.drawable.ic_back_gold);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

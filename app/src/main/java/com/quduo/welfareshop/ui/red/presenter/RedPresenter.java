@@ -1,7 +1,9 @@
 package com.quduo.welfareshop.ui.red.presenter;
 
+import com.lzy.okgo.model.HttpParams;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.mvp.BasePresenter;
+import com.quduo.welfareshop.ui.red.entity.BuyRedResultInfo;
 import com.quduo.welfareshop.ui.red.entity.RedResultInfo;
 import com.quduo.welfareshop.ui.red.model.RedModel;
 import com.quduo.welfareshop.ui.red.view.IRedView;
@@ -57,6 +59,49 @@ public class RedPresenter extends BasePresenter<IRedView> {
                 @Override
                 public void onFinish() {
 
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void buyRed(int number, int periodId) {
+        try {
+            mView.showLoadingDialog();
+            HttpParams params = new HttpParams();
+            params.put("number", number);
+            params.put("period_id", periodId);
+            model.buyRed(params, new HttpResultListener<BuyRedResultInfo>() {
+                @Override
+                public void onSuccess(BuyRedResultInfo data) {
+                    try {
+                        mView.buyRedSuccess(data.getDiamond());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        if (message.equals("钻石不足")) {
+                            mView.showNeedGetDiamondDialog();
+                        } else {
+                            mView.showMessage(message);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         } catch (Exception e) {

@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
 
+import java.text.MessageFormat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -22,13 +24,14 @@ import butterknife.OnClick;
 
 public class RedOpenDialog extends Dialog {
 
-
     @BindView(R.id.close)
     ImageView close;
     @BindView(R.id.total_money)
     TextView totalMoney;
     @BindView(R.id.open)
     ImageView open;
+
+    private OnClickOpenListener onClickOpenListener;
 
     public RedOpenDialog(@NonNull Context context) {
         super(context, R.style.Dialog);
@@ -42,15 +45,20 @@ public class RedOpenDialog extends Dialog {
         super(context, cancelable, cancelListener);
     }
 
+    public void setOnClickOpenListener(OnClickOpenListener onClickOpenListener) {
+        this.onClickOpenListener = onClickOpenListener;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_red_open);
         ButterKnife.bind(this);
+        setCanceledOnTouchOutside(false);
     }
 
     @OnClick(R.id.close)
-    public void onClickClose() {
+    void onClickClose() {
         try {
             dismiss();
         } catch (Exception e) {
@@ -58,9 +66,19 @@ public class RedOpenDialog extends Dialog {
         }
     }
 
-    @Override
-    public void show() {
-        setCanceledOnTouchOutside(false);
-        super.show();
+    @OnClick(R.id.open)
+    void onClickOpen() {
+        if (onClickOpenListener != null) {
+            onClickOpenListener.onClickOpen();
+        }
+    }
+
+    public void showDialog(String total) {
+        show();
+        totalMoney.setText(MessageFormat.format("奖池总金额：{0}", total));
+    }
+
+    public interface OnClickOpenListener {
+        void onClickOpen();
     }
 }

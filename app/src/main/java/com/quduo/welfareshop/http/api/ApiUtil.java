@@ -110,7 +110,15 @@ public class ApiUtil {
     //红包首页
     public static final String RED_INDEX = "red_bag";
     public static final String RED_INDEX_TAG = "red_bag";
-
+    //买红包
+    public static final String BUY_RED = "red_bag/buy";
+    public static final String BUY_RED_TAG = "red_bag/buy";
+    //未拆开的红包
+    public static final String UNPARK_RED = "personal/red_bag";
+    public static final String UNPARK_RED_TAG = "personal/red_bag";
+    //拆红包
+    public static final String OPEN_RED="red_bag/open";
+    public static final String OPEN_RED_TAG="red_bag/open";
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

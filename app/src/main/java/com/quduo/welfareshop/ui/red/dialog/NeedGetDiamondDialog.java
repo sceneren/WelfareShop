@@ -17,16 +17,16 @@ import butterknife.OnClick;
  * Description:积分不足
  */
 
-public class NeedGetScoreDialog extends Dialog {
-    public NeedGetScoreDialog(@NonNull Context context) {
+public class NeedGetDiamondDialog extends Dialog {
+    public NeedGetDiamondDialog(@NonNull Context context) {
         super(context, R.style.Dialog);
     }
 
-    public NeedGetScoreDialog(@NonNull Context context, int themeResId) {
+    public NeedGetDiamondDialog(@NonNull Context context, int themeResId) {
         super(context, themeResId);
     }
 
-    protected NeedGetScoreDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
+    protected NeedGetDiamondDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
     }
 
