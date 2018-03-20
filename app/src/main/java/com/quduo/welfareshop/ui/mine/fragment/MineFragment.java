@@ -14,9 +14,10 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.RechargeActivity;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.event.UpdateAvatarEvent;
 import com.quduo.welfareshop.event.UpdateMyInfoSuccessEvent;
-import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
+import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
 import com.quduo.welfareshop.ui.mine.presenter.MinePresenter;
 import com.quduo.welfareshop.ui.mine.view.IMineView;
 import com.quduo.welfareshop.ui.shop.fragment.ServiceCenterActivity;
@@ -35,7 +36,7 @@ import butterknife.Unbinder;
  * Created by scene on 2018/1/25.
  */
 
-public class MineFragment extends BaseBackMvpFragment<IMineView, MinePresenter> implements IMineView {
+public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> implements IMineView {
     Unbinder unbinder;
     @BindView(R.id.avatar)
     CircleImageView avatar;
@@ -68,17 +69,7 @@ public class MineFragment extends BaseBackMvpFragment<IMineView, MinePresenter> 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mine, container, false);
         unbinder = ButterKnife.bind(this, view);
-        return attachToSwipeBack(view);
-    }
-
-    @Override
-    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
-        super.onLazyInitView(savedInstanceState);
-    }
-
-    @Override
-    public void initToolbar() {
-
+        return view;
     }
 
     @Override
@@ -132,42 +123,42 @@ public class MineFragment extends BaseBackMvpFragment<IMineView, MinePresenter> 
 
     @OnClick(R.id.avatar)
     public void onClickAvatar() {
-        start(MyInfoFragment.newInstance());
+       EventBus.getDefault().post(new StartBrotherEvent(MyInfoFragment.newInstance()));
     }
 
     @OnClick(R.id.my_order)
     public void onClickMyOrder() {
-        start(MyOrderFragment.newInstance());
+        EventBus.getDefault().post(new StartBrotherEvent(MyOrderFragment.newInstance()));
     }
 
     @OnClick(R.id.my_follow_goods)
     public void onClickMyFollowGoods() {
-        start(MyGoodsFragment.newInstance());
+        EventBus.getDefault().post(new StartBrotherEvent(MyGoodsFragment.newInstance()));
     }
 
     @OnClick(R.id.my_video)
     public void onClickMyVideo() {
-        start(MyFollowFragment.newInstance(0));
+        EventBus.getDefault().post(new StartBrotherEvent(MyFollowFragment.newInstance(0)));
     }
 
     @OnClick(R.id.my_novel)
     public void onClickMyNovel() {
-        start(MyFollowFragment.newInstance(1));
+        EventBus.getDefault().post(new StartBrotherEvent(MyFollowFragment.newInstance(1)));
     }
 
     @OnClick(R.id.my_photo)
     public void onClickMyPhoto() {
-        start(MyFollowFragment.newInstance(2));
+        EventBus.getDefault().post(new StartBrotherEvent(MyFollowFragment.newInstance(2)));
     }
 
     @OnClick(R.id.my_coupon)
     public void onClickMyCoupon() {
-        start(MyCouponFragment.newInstance());
+        EventBus.getDefault().post(new StartBrotherEvent(MyCouponFragment.newInstance()));
     }
 
     @OnClick(R.id.my_receiver)
     public void onClickMyReceiver() {
-        start(MyReceiverFragment.newInstance());
+        EventBus.getDefault().post(new StartBrotherEvent(MyReceiverFragment.newInstance()));
     }
 
     @OnClick(R.id.user_agreement)

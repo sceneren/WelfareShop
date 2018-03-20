@@ -10,20 +10,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.lhh.apst.library.CustomPagerSlidingTabStrip;
 import com.quduo.welfareshop.MainFragment;
 import com.quduo.welfareshop.R;
-import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.event.TabSelectedEvent;
 import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
 import com.quduo.welfareshop.ui.friend.adapter.FriendPagerAdapter;
 import com.quduo.welfareshop.ui.friend.presenter.FriendPresenter;
 import com.quduo.welfareshop.ui.friend.view.IFriendView;
-import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
 import com.quduo.welfareshop.widgets.APSTSViewPager;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,7 +30,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import me.weyye.hipermission.HiPermission;
 
@@ -50,8 +46,6 @@ public class FriendFragment extends BaseMainMvpFragment<IFriendView, FriendPrese
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
-    @BindView(R.id.toolbar_image_menu)
-    ImageView toolbarImageMenu;
     @BindView(R.id.tabs)
     CustomPagerSlidingTabStrip tabs;
     @BindView(R.id.viewPager)
@@ -142,11 +136,5 @@ public class FriendFragment extends BaseMainMvpFragment<IFriendView, FriendPrese
         super.onDestroyView();
         unbinder.unbind();
     }
-
-    @OnClick(R.id.toolbar_image_menu)
-    public void onClickToolBarImageMenu() {
-        EventBus.getDefault().post(new StartBrotherEvent(MineFragment.newInstance()));
-    }
-
 
 }
