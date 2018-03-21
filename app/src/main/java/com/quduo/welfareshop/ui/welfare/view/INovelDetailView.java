@@ -38,4 +38,6 @@ public interface INovelDetailView extends BaseView {
     void showNoFollow();
 
     int getFollowId();
+
+    void unlockSuccess(int currentScore);
 }

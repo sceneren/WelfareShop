@@ -20,7 +20,7 @@ import java.io.File;
  * Description:小说详情
  */
 
-public class NovelDetailModel {
+public class NovelDetailModel extends FollowModel{
     public void getNovelDetailData(HttpParams params, final HttpResultListener<NovelDetailResultInfo> listener) {
         OkGo.<LzyResponse<NovelDetailResultInfo>>get(ApiUtil.API_PRE + ApiUtil.NOVEL_DETAIL)
                 .tag(ApiUtil.NOVEL_DETAIL_TAG)
@@ -92,67 +92,5 @@ public class NovelDetailModel {
 
     }
 
-    public void followNovel(HttpParams params, final HttpResultListener<FollowSuccessInfo> listener) {
-        OkGo.<LzyResponse<FollowSuccessInfo>>get(ApiUtil.API_PRE + ApiUtil.FOLLOW_NOVEL)
-                .tag(ApiUtil.FOLLOW_NOVEL_TAG)
-                .params(params)
-                .execute(new JsonCallback<LzyResponse<FollowSuccessInfo>>() {
-                    @Override
-                    public void onSuccess(Response<LzyResponse<FollowSuccessInfo>> response) {
-                        try {
-                            listener.onSuccess(response.body().data);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
 
-                    @Override
-                    public void onError(Response<LzyResponse<FollowSuccessInfo>> response) {
-                        super.onError(response);
-                        try {
-                            listener.onFail(response.getException().getMessage());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        listener.onFinish();
-                    }
-                });
-    }
-
-    public void cancelFollow(HttpParams params, final HttpResultListener<Boolean> listener) {
-        OkGo.<LzyResponse<Boolean>>get(ApiUtil.API_PRE + ApiUtil.CANCEL_FOLLOW)
-                .tag(ApiUtil.CANCEL_FOLLOW_TAG)
-                .params(params)
-                .execute(new JsonCallback<LzyResponse<Boolean>>() {
-                    @Override
-                    public void onSuccess(Response<LzyResponse<Boolean>> response) {
-                        try {
-                            listener.onSuccess(response.body().status);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onError(Response<LzyResponse<Boolean>> response) {
-                        super.onError(response);
-                        try {
-                            listener.onFail(response.getException().getMessage());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        listener.onFinish();
-                    }
-                });
-    }
 }

@@ -54,6 +54,8 @@ public class NovelDetailInfo extends BaseBean {
     private int favor_id;
     private boolean is_good;
     private String tags;
+    private int price;
+    private boolean payed;
 
     public int getId() {
         return id;
@@ -173,5 +175,21 @@ public class NovelDetailInfo extends BaseBean {
 
     public void setTags(String tags) {
         this.tags = tags;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public boolean isPayed() {
+        return payed;
+    }
+
+    public void setPayed(boolean payed) {
+        this.payed = payed;
     }
 }

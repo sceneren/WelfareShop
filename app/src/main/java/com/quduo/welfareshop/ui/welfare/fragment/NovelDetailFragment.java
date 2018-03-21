@@ -24,6 +24,7 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.ReadActivity;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.base.UnlockLisenter;
 import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.db.BookList;
 import com.quduo.welfareshop.http.api.ApiUtil;
@@ -35,6 +36,7 @@ import com.quduo.welfareshop.ui.welfare.entity.NovelDetailInfo;
 import com.quduo.welfareshop.ui.welfare.entity.NovelDetailResultInfo;
 import com.quduo.welfareshop.ui.welfare.presenter.NovelDetailPresenter;
 import com.quduo.welfareshop.ui.welfare.view.INovelDetailView;
+import com.quduo.welfareshop.util.DialogUtils;
 import com.quduo.welfareshop.util.ReaderUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -92,6 +94,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
     private String fileUrl;
     private String fileName;
     private int followId = 0;
+    private NovelDetailResultInfo resultInfo;
 
     public static NovelDetailFragment newInstance(int novelId) {
         Bundle args = new Bundle();
@@ -238,7 +241,21 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
 
     @OnClick(R.id.read_now)
     public void onClickReadNow() {
-        onClickRead();
+        try {
+            if (resultInfo.getData().isPayed()) {
+                onClickRead();
+            } else {
+                DialogUtils.getInstance().showNeedUnlockDialog(_mActivity, resultInfo.getData().getPrice(), MyApplication.getInstance().getUserInfo().getScore(), new UnlockLisenter() {
+                    @Override
+                    public void unlock() {
+                        presenter.unlockNovel();
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -298,6 +315,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
     @Override
     public void bindData(NovelDetailResultInfo detailInfo) {
         try {
+            resultInfo = detailInfo;
             bindHeaderView(detailInfo.getData());
             list.clear();
             list.addAll(detailInfo.getChapters());
@@ -427,6 +445,16 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
     @Override
     public int getFollowId() {
         return followId;
+    }
+
+    @Override
+    public void unlockSuccess(int currentScore) {
+        try {
+            resultInfo.getData().setPayed(true);
+            MyApplication.getInstance().getUserInfo().setScore(currentScore);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void setFollowId(int followId) {

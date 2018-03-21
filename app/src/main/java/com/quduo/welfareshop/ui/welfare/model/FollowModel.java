@@ -84,6 +84,37 @@ public class FollowModel extends UnlockModel{
                 });
     }
 
+    public void followNovel(HttpParams params, final HttpResultListener<FollowSuccessInfo> listener) {
+        OkGo.<LzyResponse<FollowSuccessInfo>>get(ApiUtil.API_PRE + ApiUtil.FOLLOW_NOVEL)
+                .tag(ApiUtil.FOLLOW_NOVEL_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<FollowSuccessInfo>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<FollowSuccessInfo>> response) {
+                        try {
+                            listener.onSuccess(response.body().data);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<FollowSuccessInfo>> response) {
+                        super.onError(response);
+                        try {
+                            listener.onFail(response.getException().getMessage());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        listener.onFinish();
+                    }
+                });
+    }
 
     public void cancelFollow(HttpParams params, final HttpResultListener<Boolean> listener) {
         OkGo.<LzyResponse<Boolean>>get(ApiUtil.API_PRE + ApiUtil.CANCEL_FOLLOW)

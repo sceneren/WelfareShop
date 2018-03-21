@@ -5,6 +5,7 @@ import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.mvp.BasePresenter;
 import com.quduo.welfareshop.ui.welfare.entity.FollowSuccessInfo;
 import com.quduo.welfareshop.ui.welfare.entity.NovelDetailResultInfo;
+import com.quduo.welfareshop.ui.welfare.entity.UnlockResultInfo;
 import com.quduo.welfareshop.ui.welfare.model.NovelDetailModel;
 import com.quduo.welfareshop.ui.welfare.view.INovelDetailView;
 
@@ -106,7 +107,7 @@ public class NovelDetailPresenter extends BasePresenter<INovelDetailView> {
 
     public void followNovel() {
         try {
-            mView.showLoadingDialog("");
+            mView.showLoadingDialog("加载中");
             HttpParams params = new HttpParams();
             params.put("data_id", mView.getNovelId());
             model.followNovel(params, new HttpResultListener<FollowSuccessInfo>() {
@@ -165,6 +166,46 @@ public class NovelDetailPresenter extends BasePresenter<INovelDetailView> {
                         e.printStackTrace();
                     }
 
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.showMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void unlockNovel() {
+        try {
+            mView.showLoadingDialog("加载中");
+            HttpParams params = new HttpParams();
+            params.put("data_id", mView.getNovelId());
+            params.put("type", "novel");
+            model.unlock(params, new HttpResultListener<UnlockResultInfo>() {
+                @Override
+                public void onSuccess(UnlockResultInfo data) {
+                    try {
+                        mView.showMessage("解锁成功");
+                        mView.unlockSuccess(data.getScore());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 @Override
