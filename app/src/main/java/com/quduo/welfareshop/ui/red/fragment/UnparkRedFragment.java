@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.red.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
@@ -21,6 +21,7 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.dialog.RedOpenDialog;
+import com.quduo.welfareshop.event.OpenRedSuccessEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.red.adapter.RedUnparkAdapter;
@@ -32,6 +33,8 @@ import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -60,9 +63,7 @@ public class UnparkRedFragment extends BaseMvpFragment<IUnparkRedView, UnparkRed
     private List<UnparkRedInfo> list = new ArrayList<>();
     private RedUnparkAdapter adapter;
 
-    private SelectableRoundedImageView avatar;
     private TextView money;
-    private LinearLayout cash;
 
     private RedOpenDialog redOpenDialog;
 
@@ -138,19 +139,31 @@ public class UnparkRedFragment extends BaseMvpFragment<IUnparkRedView, UnparkRed
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (list.get(position).getStatus() != 1) {
                     showOpenRedDialog(list.get(position).getPool(), position);
+                } else {
+                    StyledDialog.buildIosAlert("提示", "还未到开奖时间，请耐心等待", new MyDialogListener() {
+                        @Override
+                        public void onFirst() {
+
+                        }
+
+                        @Override
+                        public void onSecond() {
+
+                        }
+                    }).setBtnText("确定").setActivity(_mActivity).show();
                 }
             }
         });
     }
 
     private void initHeaderView() {
+        @SuppressLint("InflateParams")
         View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_my_red_unpark_header, null);
-        avatar = headerView.findViewById(R.id.avatar);
+        SelectableRoundedImageView avatar = headerView.findViewById(R.id.avatar);
         money = headerView.findViewById(R.id.money);
-        cash = headerView.findViewById(R.id.cash);
         adapter.addHeaderView(headerView);
 
-        cash.setOnClickListener(new View.OnClickListener() {
+        headerView.findViewById(R.id.cash).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toCashFragment();
@@ -239,7 +252,9 @@ public class UnparkRedFragment extends BaseMvpFragment<IUnparkRedView, UnparkRed
             list.remove(position);
             adapter.notifyDataSetChanged();
             money.setText(data.getMoney());
+            MyApplication.getInstance().getUserInfo().setMoney(data.getMoney());
             showOpenRedSuccessDialog(data.getBonus());
+            EventBus.getDefault().post(new OpenRedSuccessEvent());
         } catch (Exception e) {
             e.printStackTrace();
         }

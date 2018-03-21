@@ -128,6 +128,10 @@ public class ApiUtil {
     //解锁
     public static final String UNLOCK = "personal/unlock";
     public static final String UNLOCK_TAG = "personal/unlock";
+    //红包历史
+    public static final String RED_HISTORY="personal/red_bag/history";
+    public static final String RED_HISTORY_TAG="personal/red_bag/history";
+
 
     /**
      * Case By:创建参数基础信息
