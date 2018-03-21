@@ -172,6 +172,10 @@ public class MyFollowVideoFragment extends BaseMvpFragment<IMyFollowVideoView, M
     @Override
     public void showMessage(String message) {
         try {
+            if (message.equals("积分不足")) {
+                DialogUtils.getInstance().showNeedRechargeScoreDialog(_mActivity);
+                return;
+            }
             ToastUtils.showShort(message);
         } catch (Exception e) {
             e.printStackTrace();

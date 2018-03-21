@@ -58,7 +58,7 @@ public class DialogUtils {
         }
     }
 
-    private void showNeedRechargeScoreDialog(final Activity activity) {
+    public void showNeedRechargeScoreDialog(final Activity activity) {
         try {
             StyledDialog.buildIosAlert("提示", "积分不足，请充值", new MyDialogListener() {
                 @Override

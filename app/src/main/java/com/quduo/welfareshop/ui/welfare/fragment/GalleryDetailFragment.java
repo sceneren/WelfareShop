@@ -215,6 +215,10 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     @Override
     public void showMessage(String msg) {
         try {
+            if (msg.equals("积分不足")) {
+                DialogUtils.getInstance().showNeedRechargeScoreDialog(_mActivity);
+                return;
+            }
             ToastUtils.showShort(msg);
         } catch (Exception e) {
             e.printStackTrace();

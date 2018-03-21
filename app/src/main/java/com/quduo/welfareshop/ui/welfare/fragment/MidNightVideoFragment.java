@@ -24,6 +24,7 @@ import com.quduo.welfareshop.ui.welfare.entity.VideoModelInfo;
 import com.quduo.welfareshop.ui.welfare.presenter.MidNightVideoPresenter;
 import com.quduo.welfareshop.ui.welfare.view.IMidNightVideoView;
 import com.quduo.welfareshop.util.BannerImageLoader;
+import com.quduo.welfareshop.util.DialogUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
