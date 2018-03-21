@@ -26,12 +26,18 @@ import static com.quduo.welfareshop.base.GlideOptions.bitmapTransform;
 public class GalleryDetailAdapter extends BaseQuickAdapter<ImageDetailInfo, BaseViewHolder> {
     private Context context;
     private List<ImageDetailInfo> list;
+    private boolean payed;
 
-    public GalleryDetailAdapter(Context context, List<ImageDetailInfo> list) {
+    public GalleryDetailAdapter(Context context, List<ImageDetailInfo> list, boolean payed) {
         super(R.layout.fragment_my_follow_image_item, list);
         this.context = context;
         this.list = list;
+        this.payed = payed;
+    }
 
+    public void setPayed(boolean payed) {
+        this.payed = payed;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -41,8 +47,7 @@ public class GalleryDetailAdapter extends BaseQuickAdapter<ImageDetailInfo, Base
         float scale = (float) PtrLocalDisplay.SCREEN_WIDTH_PIXELS / (float) list.get(helper.getLayoutPosition()).getWidth();
         params.height = (int) (scale * (float) list.get(helper.getLayoutPosition()).getHeight());
         image.setLayoutParams(params);
-
-        if (helper.getLayoutPosition() > 7) {
+        if (helper.getLayoutPosition() > 7 && !payed) {
             helper.setVisible(R.id.cover_image, true);
             helper.setVisible(R.id.tip, true);
             GlideApp.with(context)

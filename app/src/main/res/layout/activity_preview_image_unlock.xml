@@ -3,50 +3,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    android:gravity="center"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/photoView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-        <TextView
+    <RelativeLayout
+        android:id="@+id/no_open_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:gravity="center">
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="尽情享受每日新增上千张高清图片和尤物盛筵"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_12" />
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="只需要主人们给小姐姐一个汉堡的爱心赞助"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_12" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="尽情享受每日新增上千张高清图片和尤物盛筵"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_12" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="开通会员可解锁写真集及网红模特的联系方式"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_12" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="只需要主人们给小姐姐一个汉堡的爱心赞助"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_12" />
 
-        <TextView
-            android:id="@+id/open_vip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:background="@drawable/btn_open_vip"
-            android:paddingBottom="3dp"
-            android:paddingLeft="@dimen/dp_10"
-            android:paddingRight="@dimen/dp_10"
-            android:paddingTop="3dp"
-            android:text="立即开通会员"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_12" />
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="开通会员可解锁写真集及网红模特的联系方式"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_12" />
+
+            <TextView
+                android:id="@+id/open_vip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@drawable/btn_open_vip"
+                android:paddingBottom="3dp"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingTop="3dp"
+                android:text="立即开通会员"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_12" />
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>

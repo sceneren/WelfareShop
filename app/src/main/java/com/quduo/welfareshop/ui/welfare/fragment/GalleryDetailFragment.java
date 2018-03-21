@@ -21,7 +21,8 @@ import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
-import com.quduo.welfareshop.activity.PreviewImageActivity;
+import com.quduo.welfareshop.activity.RechargeActivity;
+import com.quduo.welfareshop.event.UnLockImageEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
@@ -34,6 +35,9 @@ import com.quduo.welfareshop.ui.welfare.view.IGalleryDetailView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +80,8 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     private Dialog noScoreDialog;
     private Dialog openVipDialog;
 
+    private GalleryDetailResultInfo resultInfo;
+
     public static GalleryDetailFragment newInstance(int id, String title) {
         Bundle args = new Bundle();
         args.putInt(ARG_ID, id);
@@ -88,6 +94,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         if (getArguments() != null) {
             id = getArguments().getInt(ARG_ID, 0);
             title = getArguments().getString(ARG_TITLE, "图库详情");
@@ -157,7 +164,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
             }
         });
 
-        adapter = new GalleryDetailAdapter(getContext(), galleryList);
+        adapter = new GalleryDetailAdapter(getContext(), galleryList, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         //防止item位置互换
@@ -168,20 +175,19 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (position > 7) {
-                    if (position == 8) {
-                        showNoScoreDialog();
-                    } else {
-                        showOpenVipDialog();
-                    }
+                if (position > 7 && !resultInfo.isPayed()) {
+                    showOpenVipDialog();
                 } else {
                     ArrayList<String> imageUrlList = new ArrayList<>();
                     for (ImageDetailInfo info : galleryList) {
                         imageUrlList.add(MyApplication.getInstance().getConfigInfo().getFile_domain() + info.getUrl());
                     }
                     Intent intent = new Intent(getContext(), WelfareImagePreviewActivity.class);
-                    intent.putExtra(PreviewImageActivity.ARG_URLS, imageUrlList);
-                    intent.putExtra(PreviewImageActivity.ARG_POSITION, position);
+                    intent.putExtra(WelfareImagePreviewActivity.ARG_URLS, imageUrlList);
+                    intent.putExtra(WelfareImagePreviewActivity.ARG_POSITION, position);
+                    intent.putExtra(WelfareImagePreviewActivity.ARG_PAYED, resultInfo.isPayed());
+                    intent.putExtra(WelfareImagePreviewActivity.ARG_PRICE, resultInfo.getPrice());
+                    intent.putExtra(WelfareImagePreviewActivity.ARG_ID, id);
                     startActivity(intent);
                     _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
                 }
@@ -197,6 +203,8 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
 
     @Override
     public void onDestroyView() {
+        EventBus.getDefault().unregister(this);
+        OkGo.getInstance().cancelTag(ApiUtil.UNLOCK_TAG);
         OkGo.getInstance().cancelTag(ApiUtil.GALLERY_DETAIL_TAG);
         super.onDestroyView();
         unbinder.unbind();
@@ -221,16 +229,15 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
         }
     }
 
-    private GalleryDetailResultInfo data;
-
     @Override
     public void bindData(GalleryDetailResultInfo data) {
         try {
-            this.data = data;
+            this.resultInfo = data;
             galleryList.clear();
             galleryList.addAll(data.getImages());
-            adapter.notifyDataSetChanged();
-            unlock.setVisibility(View.VISIBLE);
+            adapter.setPayed(data.isPayed());
+
+            unlock.setVisibility(data.isPayed() ? View.GONE : View.VISIBLE);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -238,7 +245,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
 
     @Override
     public int getFollowId() {
-        return null != data ? data.getFavor_id() : 0;
+        return null != resultInfo ? resultInfo.getFavor_id() : 0;
     }
 
     @Override
@@ -249,7 +256,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     @Override
     public void showHasFollow(int followId) {
         try {
-            data.setFavor_id(followId);
+            resultInfo.setFavor_id(followId);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -258,7 +265,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     @Override
     public void showNoFollow() {
         try {
-            data.setFavor_id(0);
+            resultInfo.setFavor_id(0);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -285,10 +292,10 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     @Override
     public void showNoScoreDialog() {
         try {
-            noScoreDialog = StyledDialog.buildIosAlert("提示", "趣币不足，请充值", new MyDialogListener() {
+            noScoreDialog = StyledDialog.buildIosAlert("提示", "积分不足，请充值", new MyDialogListener() {
                 @Override
                 public void onFirst() {
-
+                    toRechargeActivity();
                 }
 
                 @Override
@@ -315,10 +322,16 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     @Override
     public void showOpenVipDialog() {
         try {
-            openVipDialog = StyledDialog.buildIosAlert("消耗3查看", "您还剩余0趣币", new MyDialogListener() {
+            openVipDialog = StyledDialog.buildIosAlert("消耗" + resultInfo.getPrice() + "积分查看", "您还剩余" + MyApplication.getInstance().getUserInfo().getScore() + "积分", new MyDialogListener() {
                 @Override
                 public void onFirst() {
-
+                    if (MyApplication.getInstance().getUserInfo().getScore() < resultInfo.getPrice()) {
+                        //充值
+                        showNoScoreDialog();
+                    } else {
+                        //解锁
+                        presenter.unlock();
+                    }
                 }
 
                 @Override
@@ -343,8 +356,36 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
         }
     }
 
+    @Override
+    public int getDataId() {
+        return id;
+    }
+
+    @Override
+    public void unlockSuccess(int score) {
+        try {
+            resultInfo.setPayed(true);
+            MyApplication.getInstance().getUserInfo().setScore(score);
+            adapter.setPayed(true);
+            unlock.setVisibility(View.GONE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @OnClick(R.id.unlock)
     public void onClickUnlock() {
         showOpenVipDialog();
+    }
+
+    public void toRechargeActivity() {
+        Intent intent = new Intent(_mActivity, RechargeActivity.class);
+        startActivity(intent);
+        _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+    }
+
+    @Subscribe
+    public void unlockResult(UnLockImageEvent event) {
+        unlockSuccess(MyApplication.getInstance().getUserInfo().getScore());
     }
 }

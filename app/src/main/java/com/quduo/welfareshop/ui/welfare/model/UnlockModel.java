@@ -7,51 +7,46 @@ import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.http.base.LzyResponse;
 import com.quduo.welfareshop.http.callback.JsonCallback;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
-import com.quduo.welfareshop.ui.welfare.entity.GalleryDetailResultInfo;
+import com.quduo.welfareshop.ui.welfare.entity.UnlockResultInfo;
 
 /**
  * Author:scene
- * Time:2018/3/5 16:54
- * Description:图库详情
+ * Time:2018/3/20 19:58
+ * Description:解锁
  */
 
-public class GalleryDetailModel extends UnlockModel {
-    public void getGalleryDetailData(HttpParams params, final HttpResultListener<GalleryDetailResultInfo> listener) {
-        OkGo.<LzyResponse<GalleryDetailResultInfo>>get(ApiUtil.API_PRE + ApiUtil.GALLERY_DETAIL)
-                .tag(ApiUtil.GALLERY_DETAIL_TAG)
+public class UnlockModel {
+    public void unlock(HttpParams params, final HttpResultListener<UnlockResultInfo> listener) {
+        OkGo.<LzyResponse<UnlockResultInfo>>get(ApiUtil.API_PRE + ApiUtil.UNLOCK)
+                .tag(ApiUtil.UNLOCK_TAG)
                 .params(params)
-                .execute(new JsonCallback<LzyResponse<GalleryDetailResultInfo>>() {
+                .execute(new JsonCallback<LzyResponse<UnlockResultInfo>>() {
                     @Override
-                    public void onSuccess(Response<LzyResponse<GalleryDetailResultInfo>> response) {
+                    public void onSuccess(Response<LzyResponse<UnlockResultInfo>> response) {
                         try {
                             listener.onSuccess(response.body().data);
                         } catch (Exception e) {
                             e.printStackTrace();
-                            listener.onFail("数据获取失败请重试");
+                            listener.onFail("解锁失败请重试");
                         }
                     }
 
                     @Override
-                    public void onError(Response<LzyResponse<GalleryDetailResultInfo>> response) {
+                    public void onError(Response<LzyResponse<UnlockResultInfo>> response) {
                         super.onError(response);
                         try {
                             listener.onFail(response.getException().getMessage());
                         } catch (Exception e) {
                             e.printStackTrace();
+                            listener.onFail("解锁失败请重试");
                         }
                     }
 
                     @Override
                     public void onFinish() {
                         super.onFinish();
-                        try {
-                            listener.onFinish();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        listener.onFinish();
                     }
                 });
     }
-
-
 }

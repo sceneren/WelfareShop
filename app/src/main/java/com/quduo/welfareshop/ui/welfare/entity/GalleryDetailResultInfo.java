@@ -5,7 +5,9 @@ import com.quduo.welfareshop.base.BaseBean;
 import java.util.List;
 
 /**
- * Created by scene on 2018/3/9.
+ * Author:scene
+ * Time:2018/3/20 19:55
+ * Description:图库详情
  */
 
 public class GalleryDetailResultInfo extends BaseBean {
@@ -20,6 +22,8 @@ public class GalleryDetailResultInfo extends BaseBean {
     private String tags;
     private int good;
     private int favor_id;
+    private int price;
+    private boolean payed;
 
     public int getId() {
         return id;
@@ -107,5 +111,21 @@ public class GalleryDetailResultInfo extends BaseBean {
 
     public void setFavor_id(int favor_id) {
         this.favor_id = favor_id;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public boolean isPayed() {
+        return payed;
+    }
+
+    public void setPayed(boolean payed) {
+        this.payed = payed;
     }
 }

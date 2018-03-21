@@ -35,4 +35,8 @@ public interface IGalleryDetailView extends BaseView {
     void showOpenVipDialog();
 
     void hideOpenVipDialog();
+
+    int getDataId();
+
+    void unlockSuccess(int score);
 }

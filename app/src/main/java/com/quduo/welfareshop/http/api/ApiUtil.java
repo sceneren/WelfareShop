@@ -117,14 +117,18 @@ public class ApiUtil {
     public static final String UNPARK_RED = "personal/red_bag";
     public static final String UNPARK_RED_TAG = "personal/red_bag";
     //拆红包
-    public static final String OPEN_RED="red_bag/open";
-    public static final String OPEN_RED_TAG="red_bag/open";
+    public static final String OPEN_RED = "red_bag/open";
+    public static final String OPEN_RED_TAG = "red_bag/open";
     //视频详情
-    public static final String VIDEO_DETAIL="video/detail";
-    public static final String VIDEO_DETAIL_TAG="video/detail";
+    public static final String VIDEO_DETAIL = "video/detail";
+    public static final String VIDEO_DETAIL_TAG = "video/detail";
     //收藏的图片
-    public static final String MY_FOLLOW_IMAGE="personal/favor/gallery";
-    public static final String MY_FOLLOW_IMAGE_TAG="personal/favor/gallery";
+    public static final String MY_FOLLOW_IMAGE = "personal/favor/gallery";
+    public static final String MY_FOLLOW_IMAGE_TAG = "personal/favor/gallery";
+    //解锁
+    public static final String UNLOCK = "personal/unlock";
+    public static final String UNLOCK_TAG = "personal/unlock";
+
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

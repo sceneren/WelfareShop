@@ -3,8 +3,8 @@ package com.quduo.welfareshop.ui.welfare.presenter;
 import com.lzy.okgo.model.HttpParams;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.mvp.BasePresenter;
-import com.quduo.welfareshop.ui.welfare.entity.FollowSuccessInfo;
 import com.quduo.welfareshop.ui.welfare.entity.GalleryDetailResultInfo;
+import com.quduo.welfareshop.ui.welfare.entity.UnlockResultInfo;
 import com.quduo.welfareshop.ui.welfare.model.GalleryDetailModel;
 import com.quduo.welfareshop.ui.welfare.view.IGalleryDetailView;
 
@@ -70,7 +70,43 @@ public class GalleryDetailPresenter extends BasePresenter<IGalleryDetailView> {
         }
     }
 
+    public void unlock() {
+        try {
+            mView.showLoadingDialog();
+            HttpParams params = new HttpParams();
+            params.put("type", "gallery");
+            params.put("data_id", mView.getDataId());
+            model.unlock(params, new HttpResultListener<UnlockResultInfo>() {
+                @Override
+                public void onSuccess(UnlockResultInfo data) {
+                    try {
+                        mView.unlockSuccess(data.getScore());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
 
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.showMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
 
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
