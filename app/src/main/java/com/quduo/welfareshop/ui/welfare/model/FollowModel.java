@@ -15,7 +15,7 @@ import com.quduo.welfareshop.ui.welfare.entity.FollowSuccessInfo;
  * Description:收藏视频
  */
 
-public class FollowModel {
+public class FollowModel extends UnlockModel{
     public void followVideo(HttpParams params, final HttpResultListener<FollowSuccessInfo> listener) {
         OkGo.<LzyResponse<FollowSuccessInfo>>get(ApiUtil.API_PRE + ApiUtil.FOLLOW_VIDEO)
                 .tag(ApiUtil.FOLLOW_VIDEO_TAG)

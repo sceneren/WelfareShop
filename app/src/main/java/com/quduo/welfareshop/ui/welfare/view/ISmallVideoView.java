@@ -27,4 +27,6 @@ public interface ISmallVideoView extends BaseView {
     void cancelFollowSuccess(int position);
 
     void zanSuccess(int position);
+
+    void unlockSuccess(int position,int currentScore);
 }

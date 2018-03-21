@@ -174,6 +174,7 @@ public class WelfareImagePreviewActivity extends BaseBackActivity {
                 @Override
                 public void onSuccess(UnlockResultInfo data) {
                     try {
+                        ToastUtils.showShort("解锁成功");
                         payed = true;
                         MyApplication.getInstance().getUserInfo().setScore(data.getScore());
                         adapter.setPayed(true);

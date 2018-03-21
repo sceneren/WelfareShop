@@ -80,6 +80,7 @@ public class GalleryDetailPresenter extends BasePresenter<IGalleryDetailView> {
                 @Override
                 public void onSuccess(UnlockResultInfo data) {
                     try {
+                        mView.showMessage("解锁成功");
                         mView.unlockSuccess(data.getScore());
                     } catch (Exception e) {
                         e.printStackTrace();

@@ -17,7 +17,7 @@
             app:horizontal_weight="16"
             app:vertical_weight="9" />
 
-        <cn.jzvd.JZVideoPlayerStandard
+        <com.quduo.welfareshop.widgets.MyVideoPlayer
             android:id="@+id/video_player"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

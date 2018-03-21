@@ -9,13 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.base.UnlockLisenter;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.welfare.adapter.SmallVideoAdapter;
@@ -23,6 +24,7 @@ import com.quduo.welfareshop.ui.welfare.entity.SmallVideoResultInfo;
 import com.quduo.welfareshop.ui.welfare.entity.VideoInfo;
 import com.quduo.welfareshop.ui.welfare.presenter.SmallVideoPresenter;
 import com.quduo.welfareshop.ui.welfare.view.ISmallVideoView;
+import com.quduo.welfareshop.util.DialogUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -165,6 +167,18 @@ public class SmallVideoFragment extends BaseMvpFragment<ISmallVideoView, SmallVi
                 }
             }
         });
+
+        adapter.setOnClickPlayListener(new SmallVideoAdapter.OnClickPlayListener() {
+            @Override
+            public void onClickPlay(final int position) {
+                DialogUtils.getInstance().showNeedUnlockDialog(_mActivity, videoInfoList.get(position).getPrice(), MyApplication.getInstance().getUserInfo().getScore(), new UnlockLisenter() {
+                    @Override
+                    public void unlock() {
+                        presenter.unlockVideo(position, videoInfoList.get(position).getId());
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -267,6 +281,17 @@ public class SmallVideoFragment extends BaseMvpFragment<ISmallVideoView, SmallVi
         try {
             videoInfoList.get(position).setIs_good(true);
             adapter.notifyItemChanged(position, videoInfoList.get(position));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void unlockSuccess(int position, int currentScore) {
+        try {
+            MyApplication.getInstance().getUserInfo().setScore(currentScore);
+            videoInfoList.get(position).setPayed(true);
+            adapter.notifyItemChanged(position);
         } catch (Exception e) {
             e.printStackTrace();
         }

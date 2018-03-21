@@ -2,6 +2,7 @@ package com.quduo.welfareshop.ui.welfare.adapter;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -9,11 +10,11 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.welfare.entity.VideoInfo;
+import com.quduo.welfareshop.widgets.MyVideoPlayer;
 
 import java.util.List;
 
 import cn.jzvd.JZVideoPlayer;
-import cn.jzvd.JZVideoPlayerStandard;
 
 /**
  * Author:scene
@@ -23,15 +24,20 @@ import cn.jzvd.JZVideoPlayerStandard;
 
 public class SmallVideoAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder> {
     private Context context;
+    private OnClickPlayListener onClickPlayListener;
 
     public SmallVideoAdapter(Context context, List<VideoInfo> list) {
         super(R.layout.fragment_welfare_small_video_item, list);
         this.context = context;
     }
 
+    public void setOnClickPlayListener(OnClickPlayListener onClickPlayListener) {
+        this.onClickPlayListener = onClickPlayListener;
+    }
+
     @Override
-    protected void convert(BaseViewHolder helper, VideoInfo item) {
-        JZVideoPlayerStandard videoPlayer = helper.getView(R.id.video_player);
+    protected void convert(final BaseViewHolder helper, VideoInfo item) {
+        MyVideoPlayer videoPlayer = helper.getView(R.id.video_player);
         JZVideoPlayer.FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
         videoPlayer.setUp(item.getUrl(), JZVideoPlayer.SCREEN_WINDOW_LIST, item.getName());
         GlideApp.with(context)
@@ -39,6 +45,14 @@ public class SmallVideoAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolde
                 .centerCrop()
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
                 .into(videoPlayer.thumbImageView);
+        videoPlayer.setCurrentInfo(item.getScore(), item.isPayed(), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onClickPlayListener != null) {
+                    onClickPlayListener.onClickPlay(helper.getLayoutPosition());
+                }
+            }
+        });
         helper.setText(R.id.play_number, "播放：" + item.getPlay_times());
         helper.setText(R.id.follow_number, "收藏：" + item.getFavor_times());
         helper.setText(R.id.zan_number, "点赞：" + item.getGood());
@@ -56,10 +70,12 @@ public class SmallVideoAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolde
             VideoInfo item = mData.get(position);
             holder.setImageResource(R.id.btn_zan, item.isIs_good() ? R.drawable.ic_video_zan_s : R.drawable.ic_video_zan_d);
             holder.setImageResource(R.id.btn_follow, item.getFavor_id() != 0 ? R.drawable.ic_video_follow_s : R.drawable.ic_video_follow_d);
-        }else{
-            onBindViewHolder(holder,position);
+        } else {
+            onBindViewHolder(holder, position);
         }
     }
 
-
+    public interface OnClickPlayListener {
+        void onClickPlay(int position);
+    }
 }
