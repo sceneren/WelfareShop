@@ -333,7 +333,7 @@
 
                             </LinearLayout>
 
-                            <com.anbetter.danmuku.DanMuView
+                            <master.flame.danmaku.ui.widget.DanmakuView
                                 android:id="@+id/danMuView"
                                 android:layout_width="match_parent"
                                 android:layout_height="80dp" />

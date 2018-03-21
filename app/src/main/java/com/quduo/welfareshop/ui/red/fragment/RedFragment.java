@@ -1,12 +1,17 @@
 package com.quduo.welfareshop.ui.red.fragment;
 
 import android.annotation.SuppressLint;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +19,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.anbetter.danmuku.DanMuView;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hss01248.dialog.StyledDialog;
 import com.hss01248.dialog.interfaces.MyDialogListener;
@@ -34,7 +39,6 @@ import com.quduo.welfareshop.ui.red.entity.RedResultInfo;
 import com.quduo.welfareshop.ui.red.entity.RedWinInfo;
 import com.quduo.welfareshop.ui.red.presenter.RedPresenter;
 import com.quduo.welfareshop.ui.red.view.IRedView;
-import com.quduo.welfareshop.util.DanMuHelper;
 import com.quduo.welfareshop.util.NetTimeUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -47,12 +51,23 @@ import org.joda.time.DateTime;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import master.flame.danmaku.controller.DrawHandler;
+import master.flame.danmaku.danmaku.model.BaseDanmaku;
+import master.flame.danmaku.danmaku.model.DanmakuTimer;
+import master.flame.danmaku.danmaku.model.IDanmakus;
+import master.flame.danmaku.danmaku.model.IDisplayer;
+import master.flame.danmaku.danmaku.model.android.DanmakuContext;
+import master.flame.danmaku.danmaku.model.android.Danmakus;
+import master.flame.danmaku.danmaku.model.android.SpannedCacheStuffer;
+import master.flame.danmaku.danmaku.parser.BaseDanmakuParser;
+import master.flame.danmaku.ui.widget.DanmakuView;
 import wiki.scene.loadmore.StatusViewLayout;
 
 /**
@@ -114,13 +129,16 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
     @BindView(R.id.marqueeView)
     MarqueeView marqueeView;
     @BindView(R.id.danMuView)
-    DanMuView danMuView;
+    DanmakuView mDanmakuView;
+
 
     private GetRedDialog getRedDialog;
     private NeedGetDiamondDialog needGetDiamondDialog;
 
     private List<View> views = new ArrayList<>();
     private RedResultInfo redResultInfo;
+
+    private DanmakuContext danmakuContext;
 
     public static RedFragment newInstance() {
         Bundle args = new Bundle();
@@ -155,15 +173,87 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
         initDanmu();
         initRefreshLayout();
         presenter.getData(true);
-        getDataDelayed();
     }
+
+    /**
+     * 弹幕解析器
+     */
+    private BaseDanmakuParser parser = new BaseDanmakuParser() {
+        @Override
+        protected IDanmakus parse() {
+            return new Danmakus();
+        }
+    };
 
     private void initDanmu() {
         try {
-            danMuView.prepare();
+            HashMap<Integer, Integer> maxLinesPair = new HashMap<>();
+            maxLinesPair.put(BaseDanmaku.TYPE_SCROLL_RL, 3);
+            // 设置是否禁止重叠
+            HashMap<Integer, Boolean> overlappingEnablePair = new HashMap<>();
+            overlappingEnablePair.put(BaseDanmaku.TYPE_SCROLL_LR, true);
+            overlappingEnablePair.put(BaseDanmaku.TYPE_FIX_BOTTOM, true);
+            overlappingEnablePair.put(BaseDanmaku.TYPE_FIX_TOP, true);
+
+            mDanmakuView.setCallback(new DrawHandler.Callback() {
+                @Override
+                public void prepared() {
+                    mDanmakuView.start();
+                    //generateSomeDanmaku();
+                }
+
+                @Override
+                public void updateTimer(DanmakuTimer timer) {
+
+                }
+
+                @Override
+                public void danmakuShown(BaseDanmaku danmaku) {
+
+                }
+
+                @Override
+                public void drawingFinished() {
+                    presenter.getData(false);
+                }
+            });
+            //缓存，提升绘制效率
+            mDanmakuView.enableDanmakuDrawingCache(true);
+            //DanmakuContext主要用于弹幕样式的设置
+            danmakuContext = DanmakuContext.create();
+            danmakuContext.setDanmakuStyle(IDisplayer.DANMAKU_STYLE_STROKEN, 3);//描边
+            danmakuContext.setDuplicateMergingEnabled(false);//重复合并
+            danmakuContext.setScrollSpeedFactor(1.6f);//弹幕滚动速度
+            danmakuContext.setMaximumLines(maxLinesPair);
+            danmakuContext.setCacheStuffer(new BackgroundCacheStuffer(), null);
+            danmakuContext.preventOverlapping(overlappingEnablePair);
+            //让弹幕进入准备状态，传入弹幕解析器和样式设置
+            mDanmakuView.prepare(parser, danmakuContext);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 向弹幕View中添加一条弹幕
+     *
+     * @param content 弹幕的具体内容
+     */
+    private void addDanmaku(String content) {
+        try {
+            //弹幕实例BaseDanmaku,传入参数是弹幕方向
+            BaseDanmaku danmaku = danmakuContext.mDanmakuFactory.createDanmaku(BaseDanmaku.TYPE_SCROLL_RL);
+            danmaku.text = content;
+            danmaku.padding = 5;
+            danmaku.textSize = SizeUtils.sp2px(12);
+            danmaku.textColor = Color.WHITE;
+            danmaku.setTime(mDanmakuView.getCurrentTime());
+            mDanmakuView.addDanmaku(danmaku);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void getDataDelayed() {
@@ -175,7 +265,7 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
                     _mActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            DateTime dateTime=new DateTime(System.currentTimeMillis());
+                            DateTime dateTime = new DateTime(System.currentTimeMillis());
                             LogUtils.e(dateTime.toString("mm-ss"));
                             presenter.getData(false);
                         }
@@ -193,6 +283,22 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
                 presenter.getData(false);
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mDanmakuView != null && mDanmakuView.isPrepared()) {
+            mDanmakuView.pause();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mDanmakuView != null && mDanmakuView.isPrepared() && mDanmakuView.isPaused()) {
+            mDanmakuView.resume();
+        }
     }
 
     /**
@@ -311,6 +417,10 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
         OkGo.getInstance().cancelTag(ApiUtil.BUY_RED_TAG);
         EventBus.getDefault().unregister(this);
         super.onDestroyView();
+        if (mDanmakuView != null) {
+            mDanmakuView.release();
+            mDanmakuView = null;
+        }
         unbinder.unbind();
     }
 
@@ -535,20 +645,52 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
         getRedDialog.show();
     }
 
-    private DanMuHelper danMuHelper;
 
-    private void bindDanmuData(List<RedBuyInfo> data) {
+    private void bindDanmuData(final List<RedBuyInfo> data) {
         try {
-            if (danMuHelper == null) {
-                danMuHelper = new DanMuHelper(getContext());
-                danMuHelper.add(danMuView);
-            }
-            for (int i = 0; i < data.size(); i++) {
-                danMuHelper.addDanMu("恭喜" + data.get(i).getNickname() + "抢到了红包");
-            }
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for (int i = 0; i < data.size(); i++) {
+                        String content = "恭喜" + data.get(i).getNickname() + "成功抢到红包";
+                        addDanmaku(content);
+                        try {
+                            Thread.sleep(1500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }).start();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+
+    private static class BackgroundCacheStuffer extends SpannedCacheStuffer {
+        // 通过扩展SimpleTextCacheStuffer或SpannedCacheStuffer个性化你的弹幕样式
+        Paint paint = new Paint();
+
+
+        @Override
+        public void measure(BaseDanmaku danmaku, TextPaint paint, boolean fromWorkerThread) {
+            danmaku.padding = 10;  // 在背景绘制模式下增加padding
+            super.measure(danmaku, paint, fromWorkerThread);
+        }
+
+        @Override
+        public void drawBackground(BaseDanmaku danmaku, Canvas canvas, float left, float top) {
+            paint.setColor(Color.parseColor("#99000000"));  //弹幕背景颜色
+            canvas.drawRoundRect(new RectF(left + 2, top + 2, left + danmaku.paintWidth - 2, top + danmaku.paintHeight - 2),
+                    SizeUtils.dp2px(12), SizeUtils.dp2px(12), paint);
+        }
+
+
+        @Override
+        public void drawStroke(BaseDanmaku danmaku, String lineText, Canvas canvas, float left, float top, Paint paint) {
+            // 禁用描边绘制
+        }
     }
 }

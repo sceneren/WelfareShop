@@ -255,5 +255,5 @@ dependencies {
     //时间轴
     implementation 'com.github.vipulasri:timelineview:1.0.6'
     //弹幕
-    implementation 'com.anbetter:danmukulight:1.0.1'
+    implementation 'com.github.ctiao:DanmakuFlameMaster:0.9.25'
 }
