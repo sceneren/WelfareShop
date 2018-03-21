@@ -236,6 +236,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
+                        android:inputType="number"
                         android:hint="请输入银行卡卡号"
                         android:paddingBottom="@dimen/dp_10"
                         android:paddingTop="@dimen/dp_10"

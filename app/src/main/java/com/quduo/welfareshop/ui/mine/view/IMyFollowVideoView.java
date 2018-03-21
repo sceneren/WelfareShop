@@ -15,7 +15,7 @@ public interface IMyFollowVideoView extends BaseView {
 
     void bindData(List<MyFollowVideoInfo> data);
 
-    void showMessage(String message);
+    void showMessage(String message, int position);
 
     void refreshFinish();
 
@@ -23,5 +23,5 @@ public interface IMyFollowVideoView extends BaseView {
 
     void hideLoadingDialog();
 
-    void unlockSuccess(int position,int currentScore);
+    void unlockSuccess(int position, int currentScore);
 }

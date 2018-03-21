@@ -10,7 +10,7 @@ import com.quduo.welfareshop.ui.welfare.entity.SmallVideoResultInfo;
  */
 
 public interface ISmallVideoView extends BaseView {
-    void showMessage(String msg);
+    void showMessage(String msg,int position);
 
     void refreshFinish();
 

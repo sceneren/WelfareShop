@@ -56,7 +56,7 @@ public class SmallVideoPresenter extends BasePresenter<ISmallVideoView> {
                             mView.refreshFinish();
                             mView.loadmoreFinish();
                         }
-                        mView.showMessage(message);
+                        mView.showMessage(message,0);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -90,7 +90,7 @@ public class SmallVideoPresenter extends BasePresenter<ISmallVideoView> {
                 @Override
                 public void onFail(String message) {
                     try {
-                        mView.showMessage(message);
+                        mView.showMessage(message,0);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -128,7 +128,7 @@ public class SmallVideoPresenter extends BasePresenter<ISmallVideoView> {
                 @Override
                 public void onFail(String message) {
                     try {
-                        mView.showMessage(message);
+                        mView.showMessage(message,0);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -167,7 +167,7 @@ public class SmallVideoPresenter extends BasePresenter<ISmallVideoView> {
                 @Override
                 public void onFail(String message) {
                     try {
-                        mView.showMessage(message);
+                        mView.showMessage(message,0);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -197,7 +197,7 @@ public class SmallVideoPresenter extends BasePresenter<ISmallVideoView> {
                 @Override
                 public void onSuccess(UnlockResultInfo data) {
                     try {
-                        mView.showMessage("解锁成功");
+                        mView.showMessage("解锁成功",position);
                         mView.unlockSuccess(position, data.getScore());
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -207,7 +207,7 @@ public class SmallVideoPresenter extends BasePresenter<ISmallVideoView> {
                 @Override
                 public void onFail(String message) {
                     try {
-                        mView.showMessage(message);
+                        mView.showMessage(message,position);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

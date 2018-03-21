@@ -197,10 +197,10 @@ public class SmallVideoFragment extends BaseMvpFragment<ISmallVideoView, SmallVi
     }
 
     @Override
-    public void showMessage(String msg) {
+    public void showMessage(String msg,int position) {
         try {
             if (msg.equals("积分不足")) {
-                DialogUtils.getInstance().showNeedRechargeScoreDialog(_mActivity);
+                DialogUtils.getInstance().showNeedRechargeScoreDialog(_mActivity,videoInfoList.get(position).getPrice(), MyApplication.getInstance().getUserInfo().getScore());
                 return;
             }
             ToastUtils.showShort(msg);

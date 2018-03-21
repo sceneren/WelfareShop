@@ -313,7 +313,7 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
     public void showMessage(String message) {
         try {
             if (message.equals("积分不足")) {
-                DialogUtils.getInstance().showNeedRechargeScoreDialog(VideoDetailActivity.this);
+                DialogUtils.getInstance().showNeedRechargeScoreDialog(VideoDetailActivity.this,info.getPrice(),MyApplication.getInstance().getUserInfo().getScore());
                 return;
             }
             ToastUtils.showShort(message);

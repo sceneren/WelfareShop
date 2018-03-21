@@ -47,7 +47,7 @@ public class MyFollowVideoPresenter extends BasePresenter<IMyFollowVideoView> {
                 @Override
                 public void onFail(String message) {
                     try {
-                        mView.showMessage(message);
+                        mView.showMessage(message,0);
                         if (isFirst) {
                             mView.showErrorPage();
                         } else {
@@ -78,7 +78,7 @@ public class MyFollowVideoPresenter extends BasePresenter<IMyFollowVideoView> {
                 @Override
                 public void onSuccess(UnlockResultInfo data) {
                     try {
-                        mView.showMessage("解锁成功");
+                        mView.showMessage("解锁成功",position);
                         mView.unlockSuccess(position, data.getScore());
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -88,7 +88,7 @@ public class MyFollowVideoPresenter extends BasePresenter<IMyFollowVideoView> {
                 @Override
                 public void onFail(String message) {
                     try {
-                        mView.showMessage(message);
+                        mView.showMessage(message,position);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

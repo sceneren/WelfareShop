@@ -278,11 +278,11 @@ public class CashFragment extends BaseBackMvpFragment<ICashView, CashPresenter> 
     }
 
     private void saveData() {
-        SPUtils.getInstance().getString(AppConfig.CASH_BANK_BANKNAME, getBankBankName());
-        SPUtils.getInstance().getString(AppConfig.CASH_BANK_BANKCARD, getBankBankCard());
-        SPUtils.getInstance().getString(AppConfig.CASH_BANK_USERNAME, getBankUsername());
-        SPUtils.getInstance().getString(AppConfig.CASH_ALIPAY_USERNAME, getAlipayUsername());
-        SPUtils.getInstance().getString(AppConfig.CASH_ALIPAY_ALIPAYCARD, getAlipayAlipayCard());
+        SPUtils.getInstance().put(AppConfig.CASH_BANK_BANKNAME, getBankBankName());
+        SPUtils.getInstance().put(AppConfig.CASH_BANK_BANKCARD, getBankBankCard());
+        SPUtils.getInstance().put(AppConfig.CASH_BANK_USERNAME, getBankUsername());
+        SPUtils.getInstance().put(AppConfig.CASH_ALIPAY_USERNAME, getAlipayUsername());
+        SPUtils.getInstance().put(AppConfig.CASH_ALIPAY_ALIPAYCARD, getAlipayAlipayCard());
     }
 
     @OnClick(R.id.cash)

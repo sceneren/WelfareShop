@@ -4,7 +4,6 @@ import com.blankj.utilcode.util.StringUtils;
 import com.lzy.okgo.model.HttpParams;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.mvp.BasePresenter;
-import com.quduo.welfareshop.ui.red.entity.CashResultInfo;
 import com.quduo.welfareshop.ui.red.model.CashModel;
 import com.quduo.welfareshop.ui.red.view.ICashView;
 
@@ -27,6 +26,10 @@ public class CashPresenter extends BasePresenter<ICashView> {
             HttpParams params = new HttpParams();
             if (mView.getCost() == 0) {
                 mView.showMessage("请输入你要提现的金额");
+                return;
+            }
+            if(mView.getCost()<20){
+                mView.showMessage("提现金额必须大于20元");
                 return;
             }
             params.put("cost", mView.getCost());

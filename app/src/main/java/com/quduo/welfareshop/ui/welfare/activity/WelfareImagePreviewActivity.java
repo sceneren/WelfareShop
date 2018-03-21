@@ -188,7 +188,7 @@ public class WelfareImagePreviewActivity extends BaseBackActivity {
                 public void onFail(String message) {
                     try {
                         if (message.equals("积分不足")) {
-                            DialogUtils.getInstance().showNeedRechargeScoreDialog(WelfareImagePreviewActivity.this);
+                            DialogUtils.getInstance().showNeedRechargeScoreDialog(WelfareImagePreviewActivity.this, price, MyApplication.getInstance().getUserInfo().getScore());
                             return;
                         }
                         ToastUtils.showShort(message);

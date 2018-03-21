@@ -307,7 +307,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
     public void showMessage(String msg) {
         try {
             if (msg.equals("积分不足")) {
-                DialogUtils.getInstance().showNeedRechargeScoreDialog(_mActivity);
+                DialogUtils.getInstance().showNeedRechargeScoreDialog(_mActivity, resultInfo.getData().getPrice(), MyApplication.getInstance().getUserInfo().getScore());
                 return;
             }
             ToastUtils.showShort(msg);
