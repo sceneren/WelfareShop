@@ -259,12 +259,6 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
                     time4.setText(String.valueOf(0));
                     time5.setText(String.valueOf(0));
                     time6.setText(String.valueOf(0));
-                    refreshLayout.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            presenter.getData(false);
-                        }
-                    }, 2000);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -348,7 +342,7 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
             nickname.setText(MyApplication.getInstance().getUserInfo().getNickname());
             diamonds.setText(String.valueOf(MyApplication.getInstance().getUserInfo().getDiamond()));
             money.setText(String.valueOf(MyApplication.getInstance().getUserInfo().getMoney()));
-            showCountDownTimer(data.getPeriod().getStop_time(), data.getPeriod().getPool());
+            showCountDownTimer(data.getPeriod().getOpen_time(), data.getPeriod().getPool());
             bindMarqueeView(data.getWin());
 
             bindDanmuData(data.getBuy());
