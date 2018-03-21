@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anbetter.danmuku.DanMuView;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hss01248.dialog.StyledDialog;
 import com.hss01248.dialog.interfaces.MyDialogListener;
@@ -42,6 +43,7 @@ import com.sunsky.marqueeview.MarqueeView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.joda.time.DateTime;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -173,6 +175,8 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
                     _mActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            DateTime dateTime=new DateTime(System.currentTimeMillis());
+                            LogUtils.e(dateTime.toString("mm-ss"));
                             presenter.getData(false);
                         }
                     });

@@ -134,7 +134,9 @@ public class ApiUtil {
     //红包详情
     public static final String RED_DETAIL = "red_bag/detail";
     public static final String RED_DETAIL_TAG = "red_bag/detail";
-
+    //提现
+    public static final String CASH = "personal/withdraw/request";
+    public static final String CASH_TAG = "personal/withdraw/request";
 
     /**
      * Case By:创建参数基础信息

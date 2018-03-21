@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -48,10 +49,11 @@
                     android:textSize="18sp" />
 
                 <EditText
+                    android:id="@+id/cash_cost"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:lines="1"
                     android:maxLength="7"
                     android:paddingLeft="5dp"
@@ -82,12 +84,27 @@
                     android:textSize="@dimen/sp_12" />
 
                 <TextView
+                    android:id="@+id/can_cash_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="￥10000"
                     android:textColor="@color/theme_color"
                     android:textSize="@dimen/sp_12" />
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="手续费"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/des_text_color"
+                    android:textSize="@dimen/sp_12" />
+                <TextView
+                    android:id="@+id/brokerage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="2%"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/des_text_color"
+                    android:textSize="@dimen/sp_12" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -183,6 +200,7 @@
                         android:textSize="@dimen/sp_14" />
 
                     <EditText
+                        android:id="@+id/bank_bankname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
@@ -214,6 +232,7 @@
                         android:textSize="@dimen/sp_14" />
 
                     <EditText
+                        android:id="@+id/bank_bankcard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
@@ -245,6 +264,7 @@
                         android:textSize="@dimen/sp_14" />
 
                     <EditText
+                        android:id="@+id/bank_username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
@@ -265,8 +285,8 @@
                 android:id="@+id/layout_alipay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -284,6 +304,7 @@
                         android:textSize="@dimen/sp_14" />
 
                     <EditText
+                        android:id="@+id/alipay_username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
@@ -315,6 +336,7 @@
                         android:textSize="@dimen/sp_14" />
 
                     <EditText
+                        android:id="@+id/alipay_alipay_card"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
@@ -332,24 +354,26 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/cash"
                 android:layout_width="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_16"
-                android:text="立即提现"
-                android:gravity="center"
-                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/btn_cash_now"
-                android:layout_height="wrap_content" />
+                android:gravity="center"
+                android:text="立即提现"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_16" />
+
             <TextView
                 android:layout_width="wrap_content"
-                android:textColor="@color/theme_color"
-                android:textSize="@dimen/sp_12"
-                android:text="(24小时内到账)"
-                android:gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_height="wrap_content" />
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="(24小时内到账)"
+                android:textColor="@color/theme_color"
+                android:textSize="@dimen/sp_12" />
 
         </LinearLayout>
     </ScrollView>

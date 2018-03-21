@@ -12,6 +12,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.event.TabSelectedEvent;
 import com.quduo.welfareshop.ui.friend.fragment.FriendFragment;
@@ -151,7 +152,7 @@ public class MainFragment extends SupportFragment {
                 @Override
                 public void run() {
                     while (isWork) {
-                        SystemClock.sleep(15000);
+                        SystemClock.sleep(36000);
                         showMoveImage();
                     }
                 }
@@ -161,6 +162,9 @@ public class MainFragment extends SupportFragment {
     }
 
     private void initView() {
+        GlideApp.with(this)
+                .load(R.drawable.ic_move_car)
+                .into(image);
         startMoveImageThread();
 
         bottomBar

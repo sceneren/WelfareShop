@@ -64,7 +64,7 @@ public final class DanMuHelper {
         danMuView.marginLeft = DimensionUtil.dpToPx(mContext, 30);
 
         // 显示的文本内容
-        danMuView.textSize = DimensionUtil.spToPx(mContext, 14);
+        danMuView.textSize = DimensionUtil.spToPx(mContext, 12);
         danMuView.textColor = ContextCompat.getColor(mContext, R.color.white);
         danMuView.textMarginLeft = DimensionUtil.dpToPx(mContext, 5);
         danMuView.text = content;

@@ -16,4 +16,10 @@ public class AppConfig {
     public static final int VIDEO_TYPE_SMALL_VIDEO = 1;
     public static final int VIDEO_TYPE_BEAUTY_VIDEO = 2;
     public static final int VIDEO_TYPE_MIDNIGHT_VIDEO = 3;
+
+    public static final String CASH_BANK_BANKNAME = "CASH_BANK_BANKNAME";
+    public static final String CASH_BANK_BANKCARD = "CASH_BANK_BANKCARD";
+    public static final String CASH_BANK_USERNAME = "CASH_BANK_USERNAME";
+    public static final String CASH_ALIPAY_USERNAME = "CASH_ALIPAY_USERNAME";
+    public static final String CASH_ALIPAY_ALIPAYCARD = "CASH_ALIPAY_ALIPAYCARD";
 }
