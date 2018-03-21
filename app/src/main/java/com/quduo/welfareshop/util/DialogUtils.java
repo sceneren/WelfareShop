@@ -66,7 +66,7 @@ public class DialogUtils {
 
     public void showNeedRechargeScoreDialog(final Activity activity, int needPrice, int currentScore) {
         try {
-            StyledDialog.buildIosAlert("消耗" + needPrice + "积分查看", "您当前的积分：" + currentScore + "\n积分不足，请充值", new MyDialogListener() {
+            StyledDialog.buildIosAlert("消耗" + needPrice + "积分查看", "您当前的积分：" + currentScore + "\n积分不足，请先充值", new MyDialogListener() {
                 @Override
                 public void onFirst() {
                     toRechargeActivity(activity);
