@@ -28,14 +28,6 @@ public interface IGalleryDetailView extends BaseView {
 
     void hideLoadingDialog();
 
-    void showNoScoreDialog();
-
-    void hideNoScoreDialog();
-
-    void showOpenVipDialog();
-
-    void hideOpenVipDialog();
-
     int getDataId();
 
     void unlockSuccess(int score);

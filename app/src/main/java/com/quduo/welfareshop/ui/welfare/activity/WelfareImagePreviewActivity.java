@@ -1,6 +1,5 @@
 package com.quduo.welfareshop.ui.welfare.activity;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -10,12 +9,11 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.hss01248.dialog.StyledDialog;
-import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpParams;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
-import com.quduo.welfareshop.activity.RechargeActivity;
+import com.quduo.welfareshop.base.UnlockLisenter;
 import com.quduo.welfareshop.event.UnLockImageEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
@@ -23,6 +21,7 @@ import com.quduo.welfareshop.mvp.BaseBackActivity;
 import com.quduo.welfareshop.ui.welfare.adapter.WelfareGalleryPreviewImageAdapter;
 import com.quduo.welfareshop.ui.welfare.entity.UnlockResultInfo;
 import com.quduo.welfareshop.ui.welfare.model.UnlockModel;
+import com.quduo.welfareshop.util.DialogUtils;
 import com.quduo.welfareshop.widgets.HackyViewPager;
 
 import org.greenrobot.eventbus.EventBus;
@@ -60,9 +59,7 @@ public class WelfareImagePreviewActivity extends BaseBackActivity {
     private boolean payed = false;
     private int price;
     private int dataId;
-
-    private Dialog noScoreDialog;
-    private Dialog openVipDialog;
+    private UnlockModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +93,12 @@ public class WelfareImagePreviewActivity extends BaseBackActivity {
         adapter.setOnClickOpenVipListener(new WelfareGalleryPreviewImageAdapter.OnClickOpenVipListener() {
             @Override
             public void onClickOpenVip() {
-                showOpenVipDialog();
+                DialogUtils.getInstance().showNeedUnlockDialog(WelfareImagePreviewActivity.this, price, MyApplication.getInstance().getUserInfo().getScore(), new UnlockLisenter() {
+                    @Override
+                    public void unlock() {
+                        WelfareImagePreviewActivity.this.unlockImage();
+                    }
+                });
             }
         });
         viewPager.setAdapter(adapter);
@@ -158,77 +160,8 @@ public class WelfareImagePreviewActivity extends BaseBackActivity {
         }
     }
 
-    private void showNoScoreDialog() {
-        try {
-            try {
-                noScoreDialog = StyledDialog.buildIosAlert("提示", "积分不足，请充值", new MyDialogListener() {
-                    @Override
-                    public void onFirst() {
-                        toRechargeActivity();
-                    }
 
-                    @Override
-                    public void onSecond() {
-
-                    }
-                }).setBtnText("确定", "取消")
-                        .show();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void hideNoScoreDialog() {
-        try {
-            StyledDialog.dismiss(noScoreDialog);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void showOpenVipDialog() {
-        try {
-            openVipDialog = StyledDialog.buildIosAlert("消耗" + price + "积分查看", "您还剩余" + MyApplication.getInstance().getUserInfo().getScore() + "积分", new MyDialogListener() {
-                @Override
-                public void onFirst() {
-                    if (MyApplication.getInstance().getUserInfo().getScore() < price) {
-                        //充值
-                        showNoScoreDialog();
-                    } else {
-                        //解锁
-                        unlock();
-                    }
-                }
-
-                @Override
-                public void onSecond() {
-
-                }
-            }).setBtnText("确定", "取消").show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void hideOpenVipDialog() {
-        try {
-            if (openVipDialog != null) {
-                StyledDialog.dismiss(openVipDialog);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private UnlockModel model;
-
-    public void unlock() {
+    public void unlockImage() {
         try {
             showLoadingDialog();
             if (model == null) {
@@ -271,11 +204,5 @@ public class WelfareImagePreviewActivity extends BaseBackActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public void toRechargeActivity() {
-        Intent intent = new Intent(WelfareImagePreviewActivity.this, RechargeActivity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }
 }
