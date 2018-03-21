@@ -253,7 +253,7 @@ public class UnparkRedFragment extends BaseMvpFragment<IUnparkRedView, UnparkRed
             adapter.notifyDataSetChanged();
             money.setText(data.getMoney());
             MyApplication.getInstance().getUserInfo().setMoney(data.getMoney());
-            showOpenRedSuccessDialog(data.getBonus());
+            toRedOpenResultFragment(position);
             EventBus.getDefault().post(new OpenRedSuccessEvent());
         } catch (Exception e) {
             e.printStackTrace();
@@ -288,18 +288,13 @@ public class UnparkRedFragment extends BaseMvpFragment<IUnparkRedView, UnparkRed
         }
     }
 
-    private void showOpenRedSuccessDialog(String money) {
-        StyledDialog.buildIosAlert("提示", "恭喜您获得" + money + "元现金", new MyDialogListener() {
-            @Override
-            public void onFirst() {
-                onDismiss();
+    private void toRedOpenResultFragment(int position) {
+        try {
+            if (getParentFragment() != null && getParentFragment() instanceof MyRedFragment) {
+                ((MyRedFragment) getParentFragment()).start(RedOpenResultFragment.newInstance(list.get(position).getId()));
             }
-
-            @Override
-            public void onSecond() {
-
-            }
-        }).setBtnText("确定")
-                .show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
