@@ -48,12 +48,13 @@ public class VideoDetailInfo extends BaseBean {
     private int good;
     private Object description;
     private int duration;
-    private String price;
+    private int price;
     private int favor_id;
     private boolean is_good;
     private RelatedVideoBean related;
     private List<GoodsInfo> goods;
     private List<VideoCommentInfo> comment;
+    private boolean payed;
 
     public List<VideoCommentInfo> getComment() {
         return comment;
@@ -199,11 +200,11 @@ public class VideoDetailInfo extends BaseBean {
         this.duration = duration;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -229,6 +230,14 @@ public class VideoDetailInfo extends BaseBean {
 
     public void setRelated(RelatedVideoBean related) {
         this.related = related;
+    }
+
+    public boolean isPayed() {
+        return payed;
+    }
+
+    public void setPayed(boolean payed) {
+        this.payed = payed;
     }
 
     public class RelatedVideoBean extends BaseBean {

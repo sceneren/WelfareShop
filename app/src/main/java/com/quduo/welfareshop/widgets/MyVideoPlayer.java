@@ -19,7 +19,6 @@ import cn.jzvd.JZVideoPlayerStandard;
 
 public class MyVideoPlayer extends JZVideoPlayerStandard {
 
-    private int needScore = 0;
     private boolean payed = true;
     private OnClickListener onClickListener;
 
@@ -31,8 +30,7 @@ public class MyVideoPlayer extends JZVideoPlayerStandard {
         super(context, attrs);
     }
 
-    public void setCurrentInfo(int needScore, boolean payed, OnClickListener onClickListener) {
-        this.needScore = needScore;
+    public void setCurrentInfo(boolean payed, OnClickListener onClickListener) {
         this.payed = payed;
         this.onClickListener = onClickListener;
     }

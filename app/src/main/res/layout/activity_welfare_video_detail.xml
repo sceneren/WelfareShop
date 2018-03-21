@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <cn.jzvd.JZVideoPlayerStandard
+                    <com.quduo.welfareshop.widgets.MyVideoPlayer
                         android:id="@+id/video_player"
                         android:layout_width="match_parent"
                         android:layout_height="200dp" />

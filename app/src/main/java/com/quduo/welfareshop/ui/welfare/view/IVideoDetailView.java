@@ -29,4 +29,6 @@ public interface IVideoDetailView extends BaseView {
     void followSuccess(int followId);
 
     void cancelFollowSuccess();
+
+    void unlockSuccess(int currentScore);
 }

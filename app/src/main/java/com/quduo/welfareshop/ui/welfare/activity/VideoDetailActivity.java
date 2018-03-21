@@ -18,6 +18,7 @@ import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.base.UnlockLisenter;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.shop.activity.GoodsDetailActivity;
@@ -31,8 +32,10 @@ import com.quduo.welfareshop.ui.welfare.entity.VideoDetailInfo;
 import com.quduo.welfareshop.ui.welfare.entity.VideoInfo;
 import com.quduo.welfareshop.ui.welfare.presenter.VideoDetailPresenter;
 import com.quduo.welfareshop.ui.welfare.view.IVideoDetailView;
+import com.quduo.welfareshop.util.DialogUtils;
 import com.quduo.welfareshop.widgets.CustomGridView;
 import com.quduo.welfareshop.widgets.CustomListView;
+import com.quduo.welfareshop.widgets.MyVideoPlayer;
 import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -66,7 +69,7 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
     TextView toolbarTitle;
     Unbinder unbinder;
     @BindView(R.id.video_player)
-    JZVideoPlayerStandard videoPlayer;
+    MyVideoPlayer videoPlayer;
     @BindView(R.id.zan_number)
     TextView zanNumber;
     @BindView(R.id.play_number)
@@ -151,6 +154,7 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
     }
 
     private void bindVideoPlayer() {
+        JZVideoPlayer.releaseAllVideos();
         JZVideoPlayer.FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
         JZVideoPlayer.NORMAL_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         videoPlayer.setUp(info.getUrl(), JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL, info.getName());
@@ -160,6 +164,17 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + info.getThumb())
                 .into(videoPlayer.thumbImageView);
+        videoPlayer.setCurrentInfo(info.isPayed(), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogUtils.getInstance().showNeedUnlockDialog(VideoDetailActivity.this, info.getPrice(), MyApplication.getInstance().getUserInfo().getScore(), new UnlockLisenter() {
+                    @Override
+                    public void unlock() {
+                        presenter.unlockVideo(info.getId());
+                    }
+                });
+            }
+        });
     }
 
     private void initRefreshLayout() {
@@ -364,6 +379,17 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
         try {
             info.setFavor_id(0);
             btnFollow.setImageResource(R.drawable.ic_video_follow_d);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void unlockSuccess(int currentScore) {
+        try {
+            MyApplication.getInstance().getUserInfo().setScore(currentScore);
+            info.setPayed(true);
+            bindVideoPlayer();
         } catch (Exception e) {
             e.printStackTrace();
         }
