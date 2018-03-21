@@ -53,9 +53,9 @@ public class GalleryDetailAdapter extends BaseQuickAdapter<ImageDetailInfo, Base
             GlideApp.with(context)
                     .asBitmap()
                     .centerCrop()
+                    .apply(bitmapTransform(new BlurTransformation(25, 7)))
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getUrl())
-                    .apply(bitmapTransform(new BlurTransformation(25, 7)))
                     .into(image);
         } else {
             helper.setVisible(R.id.cover_image, false);
