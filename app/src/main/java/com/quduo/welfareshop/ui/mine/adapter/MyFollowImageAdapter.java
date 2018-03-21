@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.ui.mine.entity.MyFollowGalleryInfo;
 import com.quduo.welfareshop.ui.welfare.entity.WelfareGalleryInfo;
 import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 
@@ -23,17 +24,17 @@ import wiki.scene.loadmore.utils.PtrLocalDisplay;
  * Time:2018/2/8 11:39
  * Description:我收藏的图库
  */
-public class MyFollowImageAdapter extends BaseQuickAdapter<WelfareGalleryInfo, BaseViewHolder> {
+public class MyFollowImageAdapter extends BaseQuickAdapter<MyFollowGalleryInfo, BaseViewHolder> {
     private Context context;
 
-    public MyFollowImageAdapter(Context context, List<WelfareGalleryInfo> list) {
+    public MyFollowImageAdapter(Context context, List<MyFollowGalleryInfo> list) {
         super(R.layout.fragment_welfare_gallery_item, list);
         this.context = context;
     }
 
 
     @Override
-    protected void convert(BaseViewHolder holder, WelfareGalleryInfo item) {
+    protected void convert(BaseViewHolder holder, MyFollowGalleryInfo item) {
         SelectableRoundedImageView avatar = holder.getView(R.id.avatar);
         ImageView image1 = holder.getView(R.id.image1);
         ImageView image2 = holder.getView(R.id.image2);

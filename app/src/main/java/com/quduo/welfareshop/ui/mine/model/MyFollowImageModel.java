@@ -6,7 +6,7 @@ import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.http.base.LzyResponse;
 import com.quduo.welfareshop.http.callback.JsonCallback;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
-import com.quduo.welfareshop.ui.welfare.entity.WelfareGalleryInfo;
+import com.quduo.welfareshop.ui.mine.entity.MyFollowGalleryInfo;
 import com.quduo.welfareshop.ui.welfare.model.FollowModel;
 
 import java.util.List;
@@ -19,12 +19,12 @@ import java.util.List;
 
 public class MyFollowImageModel extends FollowModel {
 
-    public void getData(final HttpResultListener<List<WelfareGalleryInfo>> listener) {
-        OkGo.<LzyResponse<List<WelfareGalleryInfo>>>get(ApiUtil.API_PRE + ApiUtil.MY_FOLLOW_IMAGE)
+    public void getData(final HttpResultListener<List<MyFollowGalleryInfo>> listener) {
+        OkGo.<LzyResponse<List<MyFollowGalleryInfo>>>get(ApiUtil.API_PRE + ApiUtil.MY_FOLLOW_IMAGE)
                 .tag(ApiUtil.MY_FOLLOW_IMAGE_TAG)
-                .execute(new JsonCallback<LzyResponse<List<WelfareGalleryInfo>>>() {
+                .execute(new JsonCallback<LzyResponse<List<MyFollowGalleryInfo>>>() {
                     @Override
-                    public void onSuccess(Response<LzyResponse<List<WelfareGalleryInfo>>> response) {
+                    public void onSuccess(Response<LzyResponse<List<MyFollowGalleryInfo>>> response) {
                         try {
                             listener.onSuccess(response.body().data);
                         } catch (Exception e) {
@@ -34,7 +34,7 @@ public class MyFollowImageModel extends FollowModel {
                     }
 
                     @Override
-                    public void onError(Response<LzyResponse<List<WelfareGalleryInfo>>> response) {
+                    public void onError(Response<LzyResponse<List<MyFollowGalleryInfo>>> response) {
                         super.onError(response);
                         try {
                             listener.onFail(response.getException().getMessage());

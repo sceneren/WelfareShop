@@ -19,9 +19,10 @@ import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.mine.adapter.MyFollowImageAdapter;
+import com.quduo.welfareshop.ui.mine.entity.MyFollowGalleryInfo;
 import com.quduo.welfareshop.ui.mine.presenter.MyFollowImagePresenter;
 import com.quduo.welfareshop.ui.mine.view.IMyFollowImageView;
-import com.quduo.welfareshop.ui.welfare.entity.WelfareGalleryInfo;
+import com.quduo.welfareshop.ui.welfare.fragment.GalleryDetailFragment;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -50,7 +51,7 @@ public class MyFollowImageFragment extends BaseMvpFragment<IMyFollowImageView, M
     StatusViewLayout statusView;
     Unbinder unbinder;
 
-    private List<WelfareGalleryInfo> list;
+    private List<MyFollowGalleryInfo> list;
     private MyFollowImageAdapter adapter;
 
     public static MyFollowImageFragment newInstance() {
@@ -134,6 +135,14 @@ public class MyFollowImageFragment extends BaseMvpFragment<IMyFollowImageView, M
                 }
             }
         });
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (getParentFragment() != null && getParentFragment() instanceof MyFollowFragment) {
+                    ((MyFollowFragment) getParentFragment()).start(GalleryDetailFragment.newInstance(list.get(position).getGallery_id(), list.get(position).getName()));
+                }
+            }
+        });
     }
 
     @Override
@@ -158,7 +167,7 @@ public class MyFollowImageFragment extends BaseMvpFragment<IMyFollowImageView, M
     }
 
     @Override
-    public void bindData(List<WelfareGalleryInfo> data) {
+    public void bindData(List<MyFollowGalleryInfo> data) {
         try {
             list.clear();
             list.addAll(data);

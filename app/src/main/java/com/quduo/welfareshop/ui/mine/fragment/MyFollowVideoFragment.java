@@ -13,7 +13,10 @@ import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hss01248.dialog.StyledDialog;
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.base.UnlockLisenter;
 import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.mine.adapter.MyFollowVideoAdapter;
@@ -21,6 +24,7 @@ import com.quduo.welfareshop.ui.mine.entity.MyFollowVideoInfo;
 import com.quduo.welfareshop.ui.mine.presenter.MyFollowVideoPresenter;
 import com.quduo.welfareshop.ui.mine.view.IMyFollowVideoView;
 import com.quduo.welfareshop.ui.welfare.activity.VideoDetailActivity;
+import com.quduo.welfareshop.util.DialogUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -122,11 +126,20 @@ public class MyFollowVideoFragment extends BaseMvpFragment<IMyFollowVideoView, M
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemClick(BaseQuickAdapter adapter, View view, final int position) {
                 if (list.get(position).getCate_id() == AppConfig.VIDEO_TYPE_SMALL_VIDEO) {
-                    MyFollowVideoInfo item = list.get(position);
-                    JZVideoPlayer.FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
-                    JZVideoPlayerStandard.startFullscreen(getContext(), JZVideoPlayerStandard.class, item.getUrl(), item.getName());
+                    if (list.get(position).isPayed()) {
+                        MyFollowVideoInfo item = list.get(position);
+                        JZVideoPlayer.FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+                        JZVideoPlayerStandard.startFullscreen(getContext(), JZVideoPlayerStandard.class, item.getUrl(), item.getName());
+                    } else {
+                        DialogUtils.getInstance().showNeedUnlockDialog(_mActivity, list.get(position).getPrice(), MyApplication.getInstance().getUserInfo().getScore(), new UnlockLisenter() {
+                            @Override
+                            public void unlock() {
+                                presenter.unlockVideo(position, list.get(position).getVideo_id());
+                            }
+                        });
+                    }
                 } else {
                     toVideoDetailActivity(list.get(position).getVideo_id(), list.get(position).getCate_id());
                 }
@@ -169,6 +182,35 @@ public class MyFollowVideoFragment extends BaseMvpFragment<IMyFollowVideoView, M
     public void refreshFinish() {
         try {
             refreshLayout.finishRefresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showLoadingDialog() {
+        try {
+            StyledDialog.buildLoading().setActivity(_mActivity).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void hideLoadingDialog() {
+        try {
+            StyledDialog.dismissLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void unlockSuccess(int position, int currentScore) {
+        try {
+            MyApplication.getInstance().getUserInfo().setScore(currentScore);
+            list.get(position).setPayed(true);
+            adapter.notifyItemChanged(position);
         } catch (Exception e) {
             e.printStackTrace();
         }

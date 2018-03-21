@@ -7,6 +7,8 @@ import com.quduo.welfareshop.http.base.LzyResponse;
 import com.quduo.welfareshop.http.callback.JsonCallback;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.ui.mine.entity.MyFollowVideoInfo;
+import com.quduo.welfareshop.ui.welfare.model.FollowModel;
+import com.quduo.welfareshop.ui.welfare.model.UnlockModel;
 
 import java.util.List;
 
@@ -16,7 +18,7 @@ import java.util.List;
  * Description:收藏的视频
  */
 
-public class MyFollowVideoModel {
+public class MyFollowVideoModel extends UnlockModel{
 
     public void getData(final HttpResultListener<List<MyFollowVideoInfo>> listener) {
         OkGo.<LzyResponse<List<MyFollowVideoInfo>>>get(ApiUtil.API_PRE + ApiUtil.MY_FOLLOW_VIDEO)

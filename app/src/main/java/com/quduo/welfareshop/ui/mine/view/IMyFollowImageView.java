@@ -1,6 +1,7 @@
 package com.quduo.welfareshop.ui.mine.view;
 
 import com.quduo.welfareshop.mvp.BaseView;
+import com.quduo.welfareshop.ui.mine.entity.MyFollowGalleryInfo;
 import com.quduo.welfareshop.ui.welfare.entity.WelfareGalleryInfo;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface IMyFollowImageView extends BaseView {
 
     void showMessage(String message);
 
-    void bindData(List<WelfareGalleryInfo> data);
+    void bindData(List<MyFollowGalleryInfo> data);
 
     void refreshFinish();
 

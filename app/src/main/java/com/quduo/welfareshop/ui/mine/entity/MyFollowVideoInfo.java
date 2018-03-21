@@ -28,6 +28,8 @@ public class MyFollowVideoInfo extends BaseBean {
     private int play_times;
     private int favor_times;
     private String url;
+    private int price;
+    private boolean payed;
 
     public int getId() {
         return id;
@@ -91,5 +93,21 @@ public class MyFollowVideoInfo extends BaseBean {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public boolean isPayed() {
+        return payed;
+    }
+
+    public void setPayed(boolean payed) {
+        this.payed = payed;
     }
 }

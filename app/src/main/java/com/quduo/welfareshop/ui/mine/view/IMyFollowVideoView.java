@@ -18,4 +18,10 @@ public interface IMyFollowVideoView extends BaseView {
     void showMessage(String message);
 
     void refreshFinish();
+
+    void showLoadingDialog();
+
+    void hideLoadingDialog();
+
+    void unlockSuccess(int position,int currentScore);
 }

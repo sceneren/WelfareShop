@@ -3,10 +3,9 @@ package com.quduo.welfareshop.ui.mine.presenter;
 import com.lzy.okgo.model.HttpParams;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.mvp.BasePresenter;
+import com.quduo.welfareshop.ui.mine.entity.MyFollowGalleryInfo;
 import com.quduo.welfareshop.ui.mine.model.MyFollowImageModel;
 import com.quduo.welfareshop.ui.mine.view.IMyFollowImageView;
-import com.quduo.welfareshop.ui.welfare.entity.FollowSuccessInfo;
-import com.quduo.welfareshop.ui.welfare.entity.WelfareGalleryInfo;
 
 import java.util.List;
 
@@ -29,9 +28,9 @@ public class MyFollowImagePresenter extends BasePresenter<IMyFollowImageView> {
             if (isFirst) {
                 mView.showLoadingPage();
             }
-            model.getData(new HttpResultListener<List<WelfareGalleryInfo>>() {
+            model.getData(new HttpResultListener<List<MyFollowGalleryInfo>>() {
                 @Override
-                public void onSuccess(List<WelfareGalleryInfo> data) {
+                public void onSuccess(List<MyFollowGalleryInfo> data) {
                     try {
                         mView.bindData(data);
                         if (isFirst) {
