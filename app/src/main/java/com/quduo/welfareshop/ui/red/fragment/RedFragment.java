@@ -3,6 +3,7 @@ package com.quduo.welfareshop.ui.red.fragment;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.anbetter.danmuku.DanMuView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hss01248.dialog.StyledDialog;
 import com.hss01248.dialog.interfaces.MyDialogListener;
@@ -26,10 +28,12 @@ import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
 import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
 import com.quduo.welfareshop.ui.red.dialog.GetRedDialog;
 import com.quduo.welfareshop.ui.red.dialog.NeedGetDiamondDialog;
+import com.quduo.welfareshop.ui.red.entity.RedBuyInfo;
 import com.quduo.welfareshop.ui.red.entity.RedResultInfo;
 import com.quduo.welfareshop.ui.red.entity.RedWinInfo;
 import com.quduo.welfareshop.ui.red.presenter.RedPresenter;
 import com.quduo.welfareshop.ui.red.view.IRedView;
+import com.quduo.welfareshop.util.DanMuHelper;
 import com.quduo.welfareshop.util.NetTimeUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -107,6 +111,8 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
     StatusViewLayout statusView;
     @BindView(R.id.marqueeView)
     MarqueeView marqueeView;
+    @BindView(R.id.danMuView)
+    DanMuView danMuView;
 
     private GetRedDialog getRedDialog;
     private NeedGetDiamondDialog needGetDiamondDialog;
@@ -144,8 +150,35 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
     @Override
     public void initView() {
         super.initView();
+        initDanmu();
         initRefreshLayout();
         presenter.getData(true);
+        getDataDelayed();
+    }
+
+    private void initDanmu() {
+        try {
+            danMuView.prepare();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getDataDelayed() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    SystemClock.sleep(20000);
+                    _mActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            presenter.getData(false);
+                        }
+                    });
+                }
+            }
+        }).start();
     }
 
     private void initRefreshLayout() {
@@ -168,10 +201,9 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
             @Override
             public void onTick(long millisUntilFinished) {
                 try {
-                    long resetTime = millisUntilFinished;
-                    long minite = resetTime / 60000;
-                    long second = (resetTime - 60000 * minite) / 1000;
-                    long mills = resetTime - 60000 * minite - second * 1000;
+                    long minite = millisUntilFinished / 60000;
+                    long second = (millisUntilFinished - 60000 * minite) / 1000;
+                    long mills = millisUntilFinished - 60000 * minite - second * 1000;
 
                     if (minite > 9) {
                         char[] chars = String.valueOf(minite).toCharArray();
@@ -199,7 +231,7 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
                         time5.setText(String.valueOf(0));
                         time6.setText(String.valueOf(mills));
                     }
-                    int currentPool = (int) ((maxPool * (600 - resetTime/1000)) / 600d);
+                    int currentPool = (int) ((maxPool * (600 - millisUntilFinished / 1000)) / 600d);
                     char[] pools = String.valueOf(formatNumber(currentPool)).toCharArray();
                     jackpot6.setText(String.valueOf(pools[5]));
                     jackpot5.setText(String.valueOf(pools[4]));
@@ -312,9 +344,11 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
             nickname.setText(MyApplication.getInstance().getUserInfo().getNickname());
             diamonds.setText(String.valueOf(MyApplication.getInstance().getUserInfo().getDiamond()));
             money.setText(String.valueOf(MyApplication.getInstance().getUserInfo().getMoney()));
-
             showCountDownTimer(data.getPeriod().getStop_time(), data.getPeriod().getPool());
             bindMarqueeView(data.getWin());
+
+            bindDanmuData(data.getBuy());
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -501,5 +535,22 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
             });
         }
         getRedDialog.show();
+    }
+
+    private DanMuHelper danMuHelper;
+
+    private void bindDanmuData(List<RedBuyInfo> data) {
+        try {
+            if (danMuHelper == null) {
+                danMuHelper = new DanMuHelper(getContext());
+                danMuHelper.add(danMuView);
+            }
+            for (int i = 0; i < data.size(); i++) {
+                danMuHelper.addDanMu("恭喜" + data.get(i).getNickname() + "抢到了红包");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

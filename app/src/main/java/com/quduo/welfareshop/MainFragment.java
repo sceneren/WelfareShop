@@ -1,12 +1,16 @@
 package com.quduo.welfareshop;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.event.TabSelectedEvent;
@@ -26,6 +30,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -45,6 +50,8 @@ public class MainFragment extends SupportFragment {
     @BindView(R.id.bottomBar)
     BottomBar bottomBar;
     Unbinder unbinder;
+    @BindView(R.id.image)
+    ImageView image;
 
     private SupportFragment[] mFragments = new SupportFragment[5];
     private List<String> tabNames = new ArrayList<>();
@@ -98,7 +105,64 @@ public class MainFragment extends SupportFragment {
         initView();
     }
 
+    private TranslateAnimation animation;
+    private boolean isWork = true;
+
+    private void showMoveImage() {
+        _mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (animation == null) {
+                    animation = new TranslateAnimation(
+                            Animation.RELATIVE_TO_PARENT, 1.0f, Animation.RELATIVE_TO_PARENT, -1.0f,
+                            Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT, 0.0f
+                    );
+                    animation.setDuration(10000);
+                    animation.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                            image.setVisibility(View.VISIBLE);
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            image.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                }
+                if (bottomBar.getCurrentItemPosition() == 0 || bottomBar.getCurrentItemPosition() == 3) {
+                    image.clearAnimation();
+                    image.startAnimation(animation);
+                }
+            }
+        });
+    }
+
+    private Thread thread;
+
+    private void startMoveImageThread() {
+        if (thread == null) {
+            thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (isWork) {
+                        SystemClock.sleep(15000);
+                        showMoveImage();
+                    }
+                }
+            });
+        }
+        thread.start();
+    }
+
     private void initView() {
+        startMoveImageThread();
+
         bottomBar
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_welfare_d, R.drawable.ic_tab_welfare_s, tabNames.get(FIRST)))
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_shop_d, R.drawable.ic_tab_shop_s, tabNames.get(SECOND)))
@@ -139,6 +203,18 @@ public class MainFragment extends SupportFragment {
         EventBus.getDefault().unregister(this);
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.image)
+    public void onClickImage() {
+        try {
+            image.clearAnimation();
+            bottomBar.setCurrentItem(1);
+            image.setVisibility(View.GONE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

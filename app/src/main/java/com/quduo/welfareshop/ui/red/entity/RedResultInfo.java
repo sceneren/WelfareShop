@@ -13,6 +13,7 @@ import java.util.List;
 public class RedResultInfo extends BaseBean {
     private OpenRedIndexInfo period;
     private List<RedWinInfo> win;
+    private List<RedBuyInfo> buy;
 
     public OpenRedIndexInfo getPeriod() {
         return period;
@@ -28,5 +29,13 @@ public class RedResultInfo extends BaseBean {
 
     public void setWin(List<RedWinInfo> win) {
         this.win = win;
+    }
+
+    public List<RedBuyInfo> getBuy() {
+        return buy;
+    }
+
+    public void setBuy(List<RedBuyInfo> buy) {
+        this.buy = buy;
     }
 }

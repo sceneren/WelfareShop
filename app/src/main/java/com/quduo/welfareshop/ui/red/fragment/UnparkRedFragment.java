@@ -249,11 +249,11 @@ public class UnparkRedFragment extends BaseMvpFragment<IUnparkRedView, UnparkRed
     public void openRedSuccess(int position, OpenRedResultInfo data) {
         try {
             hideOpenRedDialog();
+            toRedOpenResultFragment(position);
             list.remove(position);
             adapter.notifyDataSetChanged();
             money.setText(data.getMoney());
             MyApplication.getInstance().getUserInfo().setMoney(data.getMoney());
-            toRedOpenResultFragment(position);
             EventBus.getDefault().post(new OpenRedSuccessEvent());
         } catch (Exception e) {
             e.printStackTrace();

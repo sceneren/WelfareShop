@@ -14,6 +14,7 @@ import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.welfare.entity.NovelInfo;
 import com.quduo.welfareshop.widgets.RatioImageView;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -68,11 +69,11 @@ public class NovelListAdapter extends BaseAdapter {
                 .centerCrop()
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position).getThumb())
                 .into(holder.image);
-        String str=info.getDescription();
-        str=str.replace("\n","");
-        str=str.replace("\r","");
+        String str = info.getDescription();
+        str = str.replace("\n", "");
+        str = str.replace("\r", "");
         holder.des.setText(str);
-        holder.readNumber.setText("阅读：" + info.getView_times());
+        holder.readNumber.setText(MessageFormat.format("阅读：{0}", info.getView_times()));
         return convertView;
     }
 

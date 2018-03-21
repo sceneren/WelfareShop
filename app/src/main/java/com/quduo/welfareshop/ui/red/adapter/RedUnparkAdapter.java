@@ -1,6 +1,8 @@
 package com.quduo.welfareshop.ui.red.adapter;
 
 
+import android.graphics.Color;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.quduo.welfareshop.R;
@@ -17,5 +19,7 @@ public class RedUnparkAdapter extends BaseQuickAdapter<UnparkRedInfo, BaseViewHo
     @Override
     protected void convert(BaseViewHolder helper, UnparkRedInfo item) {
         helper.setText(R.id.open, item.getStatus() == 1 ? "待开奖" : "可拆开");
+        helper.setTextColor(R.id.open, item.getStatus() == 1 ? Color.parseColor("#FFFFFF") : Color.parseColor("#A11103"));
+        helper.setBackgroundRes(R.id.open, item.getStatus() == 1 ? R.drawable.bg_danmu : R.drawable.bg_park_red);
     }
 }

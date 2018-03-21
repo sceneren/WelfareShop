@@ -296,37 +296,48 @@
                             </LinearLayout>
                         </LinearLayout>
 
-                        <LinearLayout
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp_10"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                            android:layout_height="wrap_content">
 
-                            <ImageView
-                                android:layout_width="wrap_content"
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/bg_red_index_red_top" />
-
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
+                                android:layout_marginTop="@dimen/dp_10"
+                                android:gravity="center"
+                                android:orientation="vertical">
 
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:src="@drawable/bg_red_index_red_bottom" />
+                                    android:src="@drawable/bg_red_index_red_top" />
 
-                                <ImageView
-                                    android:id="@+id/open"
+                                <RelativeLayout
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:layout_marginBottom="20dp"
-                                    android:src="@drawable/ic_buy_red_icon" />
-                            </RelativeLayout>
+                                    android:layout_height="wrap_content">
 
-                        </LinearLayout>
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@drawable/bg_red_index_red_bottom" />
+
+                                    <ImageView
+                                        android:id="@+id/open"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:layout_marginBottom="20dp"
+                                        android:src="@drawable/ic_buy_red_icon" />
+                                </RelativeLayout>
+
+                            </LinearLayout>
+
+                            <com.anbetter.danmuku.DanMuView
+                                android:id="@+id/danMuView"
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp" />
+                        </RelativeLayout>
 
                         <RelativeLayout
                             android:layout_width="wrap_content"
@@ -461,16 +472,13 @@
                 </ScrollView>
             </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-            <TextView
+            <ImageView
                 android:id="@+id/enter_my_red"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:background="@color/white"
-                android:padding="20dp"
-                android:text="我的红包"
-                android:textColor="#FF0000" />
+                android:src="@drawable/ic_enter_my_red" />
         </RelativeLayout>
     </wiki.scene.loadmore.StatusViewLayout>
 </LinearLayout>
