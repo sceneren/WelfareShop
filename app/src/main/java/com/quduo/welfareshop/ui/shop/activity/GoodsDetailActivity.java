@@ -36,6 +36,7 @@ import wiki.scene.loadmore.StatusViewLayout;
  * Description:商品详情
  */
 public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, GoodsDetailPresenter> implements IGoodsDetailView {
+    public static final String ARG_ID = "goods_id";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
@@ -61,11 +62,14 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
     private List<String> list;
     private GoodsDetailCommentAdapter commentAdapter;
 
+    private int goodsId;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_detail);
         unbinder = ButterKnife.bind(this);
+        goodsId = getIntent().getIntExtra(ARG_ID, 0);
         initToolBar();
         initView();
         initListView();

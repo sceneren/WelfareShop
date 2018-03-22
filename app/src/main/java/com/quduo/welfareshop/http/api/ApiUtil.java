@@ -140,7 +140,9 @@ public class ApiUtil {
     //解锁私聊
     public static final String UNLOCK_CHAT = "friend/chat";
     public static final String UNLOCK_CHAT_TAG = "friend/chat";
-
+    //商城首页
+    public static final String SHOP_INDEX="goods";
+    public static final String SHOP_INDEX_TAG="goods";
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

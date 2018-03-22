@@ -1,21 +1,17 @@
 package com.quduo.welfareshop.ui.shop.adapter;
 
 import android.content.Context;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.blankj.utilcode.util.SizeUtils;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.ui.shop.entity.GoodsInfo;
 
 import java.util.List;
-
-import wiki.scene.loadmore.utils.PtrLocalDisplay;
 
 /**
  * Author:scene
@@ -23,25 +19,27 @@ import wiki.scene.loadmore.utils.PtrLocalDisplay;
  * Description:商城
  */
 
-public class ShopAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class ShopAdapter extends BaseQuickAdapter<GoodsInfo, BaseViewHolder> {
     private Context context;
 
-    public ShopAdapter(Context context, List<String> list) {
+    public ShopAdapter(Context context, List<GoodsInfo> list) {
         super(R.layout.fragment_shop_item, list);
         this.context = context;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
+    protected void convert(BaseViewHolder helper, GoodsInfo item) {
         ImageView image = helper.getView(R.id.image);
-        String url = "http://pic19.nipic.com/20120214/3145425_134109747000_2.jpg";
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_default_shop)
-                .load(url)
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
                 .into(image);
+        helper.setText(R.id.name, item.getName());
+        helper.setText(R.id.price, "￥" + item.getPrice());
+        helper.setText(R.id.buy_number, item.getSales() + "人付款");
     }
 
 }

@@ -48,60 +48,16 @@
         android:layout_height="@dimen/dp_10"
         android:background="#F9F9F9" />
 
-    <LinearLayout
+    <com.quduo.welfareshop.widgets.CustomGridView
+        android:id="@+id/cateGridView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:horizontalSpacing="0dp"
+        android:listSelector="@color/transparent1"
+        android:numColumns="4"
         android:background="@color/white"
-        android:orientation="horizontal"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="@dimen/dp_10"
-        android:paddingTop="10dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawablePadding="@dimen/dp_10"
-            android:drawableTop="@drawable/ic_shop_nan"
-            android:gravity="center"
-            android:text="男性玩具"
-            android:textColor="@color/content_text_color"
-            android:textSize="@dimen/sp_12" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawablePadding="@dimen/dp_10"
-            android:drawableTop="@drawable/ic_shop_nv"
-            android:gravity="center"
-            android:text="女性玩具"
-            android:textColor="@color/content_text_color"
-            android:textSize="@dimen/sp_12" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawablePadding="@dimen/dp_10"
-            android:drawableTop="@drawable/ic_shop_qing"
-            android:gravity="center"
-            android:text="双人情趣"
-            android:textColor="@color/content_text_color"
-            android:textSize="@dimen/sp_12" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawablePadding="@dimen/dp_10"
-            android:drawableTop="@drawable/ic_shop_yan"
-            android:gravity="center"
-            android:text="延时锻炼"
-            android:textColor="@color/content_text_color"
-            android:textSize="@dimen/sp_12" />
-    </LinearLayout>
+        android:padding="@dimen/dp_10"
+        android:verticalSpacing="0dp" />
 
     <View
         android:layout_width="match_parent"
@@ -135,144 +91,112 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/dp_10"
-                android:paddingTop="@dimen/dp_10">
+                android:layout_weight="1">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <com.quduo.welfareshop.widgets.RatioImageView
+                    android:id="@+id/baseimage1"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="调情必备"
-                    android:textColor="@color/content_text_color"
-                    android:textSize="@dimen/sp_12" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="5秒必出水"
-                    android:textColor="@color/des_text_color"
-                    android:textSize="10sp" />
+                    app:base="horizontal"
+                    app:horizontal_weight="260"
+                    app:vertical_weight="302" />
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:src="@drawable/ic_default_shop" />
-            </LinearLayout>
+                    android:id="@+id/recommend_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/baseimage1"
+                    android:layout_alignLeft="@+id/baseimage1"
+                    android:layout_alignRight="@+id/baseimage1"
+                    android:layout_alignTop="@+id/baseimage1" />
+            </RelativeLayout>
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="#F9F9F9" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/dp_10"
-                android:paddingTop="@dimen/dp_10">
+                android:layout_weight="1">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <com.quduo.welfareshop.widgets.RatioImageView
+                    android:id="@+id/baseimage2"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="调情必备"
-                    android:textColor="@color/content_text_color"
-                    android:textSize="@dimen/sp_12" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="5秒必出水"
-                    android:textColor="@color/des_text_color"
-                    android:textSize="10sp" />
+                    app:base="horizontal"
+                    app:horizontal_weight="260"
+                    app:vertical_weight="302" />
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:src="@drawable/ic_default_shop" />
-            </LinearLayout>
+                    android:id="@+id/recommend_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/baseimage2"
+                    android:layout_alignLeft="@+id/baseimage2"
+                    android:layout_alignRight="@+id/baseimage2"
+                    android:layout_alignTop="@+id/baseimage2" />
+            </RelativeLayout>
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="#F9F9F9" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/dp_10"
-                android:paddingTop="@dimen/dp_10">
+                android:layout_weight="1">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <com.quduo.welfareshop.widgets.RatioImageView
+                    android:id="@+id/baseimage3"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="调情必备"
-                    android:textColor="@color/content_text_color"
-                    android:textSize="@dimen/sp_12" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="5秒必出水"
-                    android:textColor="@color/des_text_color"
-                    android:textSize="10sp" />
+                    app:base="horizontal"
+                    app:horizontal_weight="260"
+                    app:vertical_weight="302" />
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:src="@drawable/ic_default_shop" />
-            </LinearLayout>
+                    android:id="@+id/recommend_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/baseimage3"
+                    android:layout_alignLeft="@+id/baseimage3"
+                    android:layout_alignRight="@+id/baseimage3"
+                    android:layout_alignTop="@+id/baseimage3" />
+            </RelativeLayout>
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="#F9F9F9" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/dp_10"
-                android:paddingTop="@dimen/dp_10">
+                android:layout_weight="1">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <com.quduo.welfareshop.widgets.RatioImageView
+                    android:id="@+id/baseimage4"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="调情必备"
-                    android:textColor="@color/content_text_color"
-                    android:textSize="@dimen/sp_12" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="5秒必出水"
-                    android:textColor="@color/des_text_color"
-                    android:textSize="10sp" />
+                    app:base="horizontal"
+                    app:horizontal_weight="260"
+                    app:vertical_weight="302" />
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:src="@drawable/ic_default_shop" />
-            </LinearLayout>
+                    android:id="@+id/recommend_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/baseimage4"
+                    android:layout_alignLeft="@+id/baseimage4"
+                    android:layout_alignRight="@+id/baseimage4"
+                    android:layout_alignTop="@+id/baseimage4" />
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -286,88 +210,57 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/dp_10">
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <com.quduo.welfareshop.widgets.RatioImageView
+                    android:id="@+id/baseimage5"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:lines="1"
-                        android:text="调情必备"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="@dimen/sp_12" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:lines="1"
-                        android:text="5分钟出水"
-                        android:textColor="@color/des_text_color"
-                        android:textSize="10sp" />
-                </LinearLayout>
+                    app:base="horizontal"
+                    app:horizontal_weight="512"
+                    app:vertical_weight="286" />
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="5dp"
-                    android:src="@drawable/ic_default_shop" />
-            </LinearLayout>
+                    android:id="@+id/recommend_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/baseimage5"
+                    android:layout_alignLeft="@+id/baseimage5"
+                    android:layout_alignRight="@+id/baseimage5"
+                    android:layout_alignTop="@+id/baseimage5" />
+            </RelativeLayout>
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="#F9F9F9" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/dp_10">
+                android:layout_weight="1">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <com.quduo.welfareshop.widgets.RatioImageView
+                    android:id="@+id/baseimage6"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:lines="1"
-                        android:text="调情必备"
-                        android:textColor="@color/content_text_color"
-                        android:textSize="@dimen/sp_12" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:lines="1"
-                        android:text="5分钟出水"
-                        android:textColor="@color/des_text_color"
-                        android:textSize="10sp" />
-                </LinearLayout>
+                    app:base="horizontal"
+                    app:horizontal_weight="512"
+                    app:vertical_weight="286" />
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="5dp"
-                    android:src="@drawable/ic_default_shop" />
-            </LinearLayout>
+                    android:id="@+id/recommend_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/baseimage6"
+                    android:layout_alignLeft="@+id/baseimage6"
+                    android:layout_alignRight="@+id/baseimage6"
+                    android:layout_alignTop="@+id/baseimage6" />
+            </RelativeLayout>
+
         </LinearLayout>
     </LinearLayout>
 

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical"
     android:padding="5dp">
@@ -38,7 +39,7 @@
         android:ellipsize="end"
         android:gravity="center"
         android:lines="1"
-        android:text="双震漫舞充电飞机杯"
+        tools:text="双震漫舞充电飞机杯"
         android:textColor="@color/title_text_color"
         android:textSize="@dimen/sp_14" />
 
@@ -51,7 +52,7 @@
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="￥99.0"
+            tools:text="￥99.0"
             android:textColor="#FF4E7C"
             android:textSize="@dimen/sp_14"
             android:textStyle="bold" />
@@ -61,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_10"
-            android:text="6665人付款"
+            tools:text="6665人付款"
             android:textColor="@color/des_text_color"
             android:textSize="@dimen/sp_12" />
     </LinearLayout>
