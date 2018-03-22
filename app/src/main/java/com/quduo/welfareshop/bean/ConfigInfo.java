@@ -27,6 +27,7 @@ public class ConfigInfo extends BaseBean {
     private int withdraw_fee;
     private long server_time;
     private String ios_version;
+    private int chat_price;
 
     public String getUser_agreement() {
         return user_agreement;
@@ -74,5 +75,13 @@ public class ConfigInfo extends BaseBean {
 
     public void setIos_version(String ios_version) {
         this.ios_version = ios_version;
+    }
+
+    public int getChat_price() {
+        return chat_price;
+    }
+
+    public void setChat_price(int chat_price) {
+        this.chat_price = chat_price;
     }
 }

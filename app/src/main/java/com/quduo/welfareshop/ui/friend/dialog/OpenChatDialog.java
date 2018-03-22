@@ -8,9 +8,14 @@ import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 
+import java.text.MessageFormat;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
@@ -23,6 +28,10 @@ import wiki.scene.loadmore.utils.PtrLocalDisplay;
 
 public class OpenChatDialog extends Dialog {
 
+    @BindView(R.id.price)
+    TextView price;
+    @BindView(R.id.open)
+    TextView open;
     private OnClickOpenChatListener onClickOpenChatListener;
 
     public OpenChatDialog(@NonNull Context context) {
@@ -46,6 +55,7 @@ public class OpenChatDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_open_chat);
         ButterKnife.bind(this);
+        price.setText(MessageFormat.format("{0}积分", MyApplication.getInstance().getConfigInfo().getChat_price()));
     }
 
     @Override

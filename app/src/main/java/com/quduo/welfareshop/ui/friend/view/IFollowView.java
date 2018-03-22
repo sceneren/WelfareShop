@@ -16,4 +16,12 @@ public interface IFollowView extends BaseView {
     void showMessage(String message);
 
     void refreshFinish();
+
+    void showAlert(String message);
+
+    void showLoadingDialog();
+
+    void hideLoadingDialog();
+
+    void unlockChatSuccess(int currentScore);
 }

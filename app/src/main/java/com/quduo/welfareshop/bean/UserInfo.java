@@ -100,6 +100,8 @@ public class UserInfo extends BaseBean {
     private String alipay_name;
     private int diamond;
     private String signature;
+    private int unlock_chat;
+    private int chat_price;
 
     public int getId() {
         return id;
@@ -443,5 +445,21 @@ public class UserInfo extends BaseBean {
 
     public void setSignature(String signature) {
         this.signature = signature;
+    }
+
+    public int getUnlock_chat() {
+        return unlock_chat;
+    }
+
+    public void setUnlock_chat(int unlock_chat) {
+        this.unlock_chat = unlock_chat;
+    }
+
+    public int getChat_price() {
+        return chat_price;
+    }
+
+    public void setChat_price(int chat_price) {
+        this.chat_price = chat_price;
     }
 }

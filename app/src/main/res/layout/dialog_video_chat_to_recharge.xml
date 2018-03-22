@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="200dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/bg_dialog_to_recharge"
     android:orientation="vertical">
 
@@ -26,10 +27,11 @@
             android:textColor="@color/title_text_color"
             android:textSize="@dimen/sp_14" />
         <TextView
+            android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="(5积分/分钟)"
+            tools:text="(5积分/分钟)"
             android:textColor="#FC3C75"
             android:textSize="@dimen/sp_12" />
 

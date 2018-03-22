@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 
 import butterknife.BindView;
@@ -31,6 +32,8 @@ public class ToRechargeDialog extends Dialog {
     ImageView close;
     @BindView(R.id.to_recharge)
     TextView toRecharge;
+    @BindView(R.id.price)
+    TextView price;
 
     private OnClickToRechargeListener onClickToRechargeListener;
 
@@ -55,6 +58,7 @@ public class ToRechargeDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_to_recharge);
         ButterKnife.bind(this);
+        price.setText(MyApplication.getInstance().getConfigInfo().getChat_price() + "积分");
     }
 
     @Override

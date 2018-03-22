@@ -16,7 +16,7 @@ import com.quduo.welfareshop.ui.welfare.entity.FollowSuccessInfo;
  * Description:别人的主页
  */
 
-public class OtherInfoModel {
+public class OtherInfoModel extends UnlockChatModel {
     public void getData(HttpParams params, final HttpResultListener<OtherDetailUserInfo> listener) {
         OkGo.<LzyResponse<OtherDetailUserInfo>>get(ApiUtil.API_PRE + ApiUtil.OTHER_USER_DETAIL_INFO)
                 .tag(ApiUtil.OTHER_USER_DETAIL_INFO_TAG)

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -214,7 +215,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
+                            android:gravity="bottom"
                             android:orientation="horizontal"
                             android:padding="@dimen/dp_10">
 
@@ -226,9 +227,10 @@
                                 android:textSize="@dimen/sp_14" />
 
                             <TextView
+                                android:id="@+id/video_chat_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="5"
+                                tools:text="5"
                                 android:textColor="@color/title_text_color"
                                 android:textSize="@dimen/sp_16" />
 
@@ -363,7 +365,6 @@
                                 android:ellipsize="end"
                                 android:lines="1"
                                 android:maxLines="1"
-                                android:text="12346578"
                                 android:textColor="@color/des_text_color"
                                 android:textSize="12sp" />
                         </LinearLayout>

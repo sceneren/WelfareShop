@@ -11,7 +11,10 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+
+import java.text.MessageFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,11 +29,12 @@ import wiki.scene.loadmore.utils.PtrLocalDisplay;
 
 public class VideoChatToRechargeDialog extends Dialog {
 
-
     @BindView(R.id.close)
     ImageView close;
     @BindView(R.id.to_recharge)
     TextView toRecharge;
+    @BindView(R.id.price)
+    TextView price;
 
     private OnClickToRechargeListener onClickToRechargeListener;
 
@@ -55,6 +59,7 @@ public class VideoChatToRechargeDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_video_chat_to_recharge);
         ButterKnife.bind(this);
+        price.setText(MessageFormat.format("({0}积分/分钟)", MyApplication.getInstance().getUserInfo().getChat_price()));
     }
 
     @Override

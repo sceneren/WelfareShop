@@ -22,6 +22,43 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="开通私聊功能才能发起聊天"
+            android:textColor="@color/title_text_color"
+            android:textSize="@dimen/sp_14" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="是否消耗"
+                android:textColor="@color/des_text_color"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20积分"
+                android:textColor="#FD447B"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开通私聊功能"
+                android:textColor="@color/des_text_color"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="积分不足请先充值"
             android:textColor="@color/title_text_color"
             android:textSize="@dimen/sp_16" />

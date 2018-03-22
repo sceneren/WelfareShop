@@ -34,4 +34,7 @@ public interface IOtherInfoView extends BaseView {
 
     int getFollowId();
 
+    void showAlert(String message);
+
+    void unlockChatSuccess(int currentScore);
 }

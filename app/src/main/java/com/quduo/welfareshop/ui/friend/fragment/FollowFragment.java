@@ -13,18 +13,23 @@ import android.view.ViewGroup;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hss01248.dialog.StyledDialog;
+import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.base.UnlockLisenter;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.friend.activity.ChatActivity;
 import com.quduo.welfareshop.ui.friend.adapter.FollowAdapter;
+import com.quduo.welfareshop.ui.friend.dialog.OpenChatDialog;
 import com.quduo.welfareshop.ui.friend.entity.FollowUserInfo;
 import com.quduo.welfareshop.ui.friend.presenter.FollowPresenter;
 import com.quduo.welfareshop.ui.friend.view.IFollowView;
+import com.quduo.welfareshop.util.DialogUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -96,7 +101,16 @@ public class FollowFragment extends BaseMvpFragment<IFollowView, FollowPresenter
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if (view.getId() == R.id.chat) {
-                    toChatMessage(list.get(position));
+                    if (MyApplication.getInstance().getUserInfo().getUnlock_chat() != 0) {
+                        toChatMessage(list.get(position));
+                    } else {
+                        DialogUtils.getInstance().showUnlockChatDialog(_mActivity, new UnlockLisenter() {
+                            @Override
+                            public void unlock() {
+                                presenter.unlockChat();
+                            }
+                        });
+                    }
                 }
             }
         });
@@ -182,6 +196,60 @@ public class FollowFragment extends BaseMvpFragment<IFollowView, FollowPresenter
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void showAlert(String message) {
+        try {
+            if (message.equals("积分不足")) {
+                DialogUtils.getInstance().showChatNeedRechargeDialog(_mActivity);
+                return;
+            }
+            StyledDialog.buildIosAlert("提示", message, new MyDialogListener() {
+                @Override
+                public void onFirst() {
+
+                }
+
+                @Override
+                public void onSecond() {
+
+                }
+            }).setActivity(_mActivity).setBtnText("确定").show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    @Override
+    public void showLoadingDialog() {
+        try {
+            StyledDialog.buildLoading().setActivity(_mActivity).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void hideLoadingDialog() {
+        try {
+            StyledDialog.dismissLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void unlockChatSuccess(int currentScore) {
+        try {
+            MyApplication.getInstance().getUserInfo().setUnlock_chat(1);
+            MyApplication.getInstance().getUserInfo().setScore(currentScore);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void toChatMessage(FollowUserInfo userInfo) {
         Intent intent = new Intent(_mActivity, ChatActivity.class);

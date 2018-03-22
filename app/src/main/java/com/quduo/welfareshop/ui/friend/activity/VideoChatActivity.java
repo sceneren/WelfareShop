@@ -48,6 +48,7 @@ public class VideoChatActivity extends BaseMvpActivity<IVideoChatView, VideoChat
     Unbinder unbinder;
     @BindView(R.id.nickname)
     TextView nickname;
+    private CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +74,7 @@ public class VideoChatActivity extends BaseMvpActivity<IVideoChatView, VideoChat
                 .into(avatar);
         nickname.setText(strNickName);
 
-        new CountDownTimer(10000, 1000) {
+        countDownTimer = new CountDownTimer(10000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
@@ -131,6 +132,7 @@ public class VideoChatActivity extends BaseMvpActivity<IVideoChatView, VideoChat
     @Override
     protected void onDestroy() {
         try {
+            countDownTimer.cancel();
             connectionImage.setImageResource(R.drawable.anim_video_connection);
             AnimationDrawable animationDrawable = (AnimationDrawable) connectionImage.getDrawable();
             animationDrawable.stop();

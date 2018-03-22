@@ -28,6 +28,7 @@ import com.quduo.welfareshop.ui.friend.presenter.ChatPresenter;
 import com.quduo.welfareshop.ui.friend.userdef.QqEmoticonsKeyBoard;
 import com.quduo.welfareshop.ui.friend.userdef.QqUtils;
 import com.quduo.welfareshop.ui.friend.view.IChatView;
+import com.quduo.welfareshop.util.DialogUtils;
 import com.quduo.welfareshop.util.EmojiConstants;
 import com.quduo.welfareshop.util.ImageSelectorUtil;
 import com.quduo.welfareshop.util.SimpleCommonUtils;
@@ -190,11 +191,15 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
         ekBar.getBtnPtv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ChatActivity.this, VideoChatActivity.class);
-                intent.putExtra(VideoChatActivity.ARG_AVATAR, otherAvatar);
-                intent.putExtra(VideoChatActivity.ARG_NICKNAME, otherNickName);
-                startActivity(intent);
-                ChatActivity.this.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+                if (MyApplication.getInstance().getUserInfo().getScore() > MyApplication.getInstance().getUserInfo().getChat_price()) {
+                    Intent intent = new Intent(ChatActivity.this, VideoChatActivity.class);
+                    intent.putExtra(VideoChatActivity.ARG_AVATAR, otherAvatar);
+                    intent.putExtra(VideoChatActivity.ARG_NICKNAME, otherNickName);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+                } else {
+                    DialogUtils.getInstance().showVideoChatScoreNoEnough(ChatActivity.this);
+                }
             }
         });
 

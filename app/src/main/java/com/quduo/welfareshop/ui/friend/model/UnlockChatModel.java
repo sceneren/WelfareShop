@@ -6,38 +6,37 @@ import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.http.base.LzyResponse;
 import com.quduo.welfareshop.http.callback.JsonCallback;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
-import com.quduo.welfareshop.ui.friend.entity.FollowUserInfo;
-
-import java.util.List;
+import com.quduo.welfareshop.ui.welfare.entity.UnlockResultInfo;
 
 /**
  * Author:scene
- * Time:2018/2/1 17:05
- * Description:我的关注
+ * Time:2018/3/22 11:19
+ * Description:解锁私聊
  */
 
-public class FollowModel extends UnlockChatModel{
-    public void getData(final HttpResultListener<List<FollowUserInfo>> listener) {
-        OkGo.<LzyResponse<List<FollowUserInfo>>>get(ApiUtil.API_PRE + ApiUtil.FOLLOW_USER_LIST)
-                .tag(ApiUtil.FOLLOW_USER_LIST_TAG)
-                .execute(new JsonCallback<LzyResponse<List<FollowUserInfo>>>() {
+public class UnlockChatModel {
+    public void unlockChat(final HttpResultListener<UnlockResultInfo> listener) {
+        OkGo.<LzyResponse<UnlockResultInfo>>get(ApiUtil.API_PRE + ApiUtil.UNLOCK_CHAT)
+                .tag(ApiUtil.UNLOCK_CHAT_TAG)
+                .execute(new JsonCallback<LzyResponse<UnlockResultInfo>>() {
                     @Override
-                    public void onSuccess(Response<LzyResponse<List<FollowUserInfo>>> response) {
+                    public void onSuccess(Response<LzyResponse<UnlockResultInfo>> response) {
                         try {
                             listener.onSuccess(response.body().data);
                         } catch (Exception e) {
                             e.printStackTrace();
+                            listener.onFail("解锁失败请重试");
                         }
                     }
 
                     @Override
-                    public void onError(Response<LzyResponse<List<FollowUserInfo>>> response) {
+                    public void onError(Response<LzyResponse<UnlockResultInfo>> response) {
                         super.onError(response);
                         try {
                             listener.onFail(response.getException().getMessage());
                         } catch (Exception e) {
                             e.printStackTrace();
-                            listener.onFail("数据获取失败，请重试");
+                            listener.onFail("解锁失败请重试");
                         }
                     }
 
@@ -47,6 +46,5 @@ public class FollowModel extends UnlockChatModel{
                         listener.onFinish();
                     }
                 });
-
     }
 }

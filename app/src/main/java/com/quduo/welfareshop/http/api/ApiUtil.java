@@ -137,6 +137,9 @@ public class ApiUtil {
     //提现
     public static final String CASH = "personal/withdraw/request";
     public static final String CASH_TAG = "personal/withdraw/request";
+    //解锁私聊
+    public static final String UNLOCK_CHAT = "friend/chat";
+    public static final String UNLOCK_CHAT_TAG = "friend/chat";
 
     /**
      * Case By:创建参数基础信息

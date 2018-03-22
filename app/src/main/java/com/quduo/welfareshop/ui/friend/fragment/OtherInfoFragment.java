@@ -19,26 +19,24 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hss01248.dialog.StyledDialog;
+import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
-import com.quduo.welfareshop.activity.RechargeActivity;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.base.UnlockLisenter;
 import com.quduo.welfareshop.event.FollowEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.friend.activity.ChatActivity;
 import com.quduo.welfareshop.ui.friend.activity.VideoChatActivity;
 import com.quduo.welfareshop.ui.friend.adapter.OtherInfoImageAdapter;
-import com.quduo.welfareshop.ui.friend.dialog.EditUserInfoStep1Dialog;
-import com.quduo.welfareshop.ui.friend.dialog.OpenChatDialog;
-import com.quduo.welfareshop.ui.friend.dialog.ToRechargeDialog;
-import com.quduo.welfareshop.ui.friend.dialog.VideoChatToRechargeDialog;
 import com.quduo.welfareshop.ui.friend.entity.OtherDetailUserInfo;
 import com.quduo.welfareshop.ui.friend.presenter.OtherInfoPresenter;
 import com.quduo.welfareshop.ui.friend.view.IOtherInfoView;
 import com.quduo.welfareshop.ui.mine.activity.AlbumActivity;
 import com.quduo.welfareshop.ui.mine.entity.MyUserDetailInfo;
+import com.quduo.welfareshop.util.DialogUtils;
 import com.quduo.welfareshop.widgets.CustomGridView;
 import com.quduo.welfareshop.widgets.RatioImageView;
 import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
@@ -112,12 +110,11 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
     TextView job;
     @BindView(R.id.star)
     TextView star;
+    @BindView(R.id.video_chat_price)
+    TextView videoChatPrice;
     private String otherUserId;
     private boolean isFromNear = false;
 
-    private ToRechargeDialog rechargeDialog;
-    private OpenChatDialog openChatDialog;
-    private VideoChatToRechargeDialog videoChatToRechargeDialog;
 
     private List<String> list = new ArrayList<>();
     private OtherInfoImageAdapter adapter;
@@ -230,15 +227,16 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
 
     @OnClick(R.id.send_message)
     public void onClickSendMessage() {
-        toChatMessage();
-
-//        showRechargeDialog();
-
-//        showOpenChatDialog();
-
-//        showVideoChatRechargeDialog();
-
-//        showEditUserInfoStep1Dialog();
+        if (MyApplication.getInstance().getUserInfo().getUnlock_chat() != 0) {
+            toChatMessage();
+        } else {
+            DialogUtils.getInstance().showUnlockChatDialog(_mActivity, new UnlockLisenter() {
+                @Override
+                public void unlock() {
+                    presenter.unlockChat();
+                }
+            });
+        }
     }
 
     @OnClick(R.id.follow)
@@ -270,60 +268,22 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
 
     @OnClick(R.id.video_chat)
     public void onClickVideoChat() {
-        Intent intent = new Intent(_mActivity, VideoChatActivity.class);
-        intent.putExtra(VideoChatActivity.ARG_AVATAR, detailUserInfo.getAvatar());
-        intent.putExtra(VideoChatActivity.ARG_NICKNAME, detailUserInfo.getNickname());
-        startActivity(intent);
-        _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
-    }
-
-    private void showRechargeDialog() {
-        if (rechargeDialog == null) {
-            rechargeDialog = new ToRechargeDialog(_mActivity);
-            rechargeDialog.setOnClickToRechargeListener(new ToRechargeDialog.OnClickToRechargeListener() {
-                @Override
-                public void onClickToRecharge() {
-                    startActivity(new Intent(_mActivity, RechargeActivity.class));
-                    _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
-                }
-            });
+        try {
+            if (MyApplication.getInstance().getUserInfo().getScore() > MyApplication.getInstance().getUserInfo().getChat_price()) {
+                Intent intent = new Intent(_mActivity, VideoChatActivity.class);
+                intent.putExtra(VideoChatActivity.ARG_AVATAR, detailUserInfo.getAvatar());
+                intent.putExtra(VideoChatActivity.ARG_NICKNAME, detailUserInfo.getNickname());
+                startActivity(intent);
+                _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+            } else {
+                DialogUtils.getInstance().showVideoChatScoreNoEnough(_mActivity);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        rechargeDialog.show();
+
+
     }
-
-    private void showVideoChatRechargeDialog() {
-        if (videoChatToRechargeDialog == null) {
-            videoChatToRechargeDialog = new VideoChatToRechargeDialog(_mActivity);
-            videoChatToRechargeDialog.setOnClickToRechargeListener(new VideoChatToRechargeDialog.OnClickToRechargeListener() {
-                @Override
-                public void onClickToRecharge() {
-                    startActivity(new Intent(_mActivity, RechargeActivity.class));
-                    _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
-                }
-            });
-        }
-        videoChatToRechargeDialog.show();
-    }
-
-
-    private void showOpenChatDialog() {
-        if (openChatDialog == null) {
-            openChatDialog = new OpenChatDialog(_mActivity);
-            openChatDialog.setOnClickOpenChatListener(new OpenChatDialog.OnClickOpenChatListener() {
-                @Override
-                public void onClickOpenChat() {
-
-                }
-            });
-        }
-        openChatDialog.show();
-    }
-
-    private void showEditUserInfoStep1Dialog() {
-        Intent intent = new Intent(_mActivity, EditUserInfoStep1Dialog.class);
-        startActivity(intent);
-    }
-
 
     private void toChatMessage() {
         Intent intent = new Intent(_mActivity, ChatActivity.class);
@@ -340,6 +300,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
     public void bindData(OtherDetailUserInfo data) {
         try {
             detailUserInfo = data;
+            videoChatPrice.setText(String.valueOf(MyApplication.getInstance().getUserInfo().getChat_price()));
             GlideApp.with(this)
                     .asBitmap()
                     .centerCrop()
@@ -468,6 +429,39 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
     @Override
     public int getFollowId() {
         return detailUserInfo.getSubscribe_id();
+    }
+
+    @Override
+    public void showAlert(String message) {
+        try {
+            if (message.equals("积分不足")) {
+                DialogUtils.getInstance().showChatNeedRechargeDialog(_mActivity);
+                return;
+            }
+            StyledDialog.buildIosAlert("提示", message, new MyDialogListener() {
+                @Override
+                public void onFirst() {
+
+                }
+
+                @Override
+                public void onSecond() {
+
+                }
+            }).setActivity(_mActivity).setBtnText("确定").show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void unlockChatSuccess(int currentScore) {
+        try {
+            MyApplication.getInstance().getUserInfo().setUnlock_chat(1);
+            MyApplication.getInstance().getUserInfo().setScore(currentScore);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @OnClick(R.id.arrow)

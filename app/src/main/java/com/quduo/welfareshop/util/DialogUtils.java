@@ -9,6 +9,9 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.RechargeActivity;
 import com.quduo.welfareshop.base.UnlockLisenter;
+import com.quduo.welfareshop.ui.friend.dialog.OpenChatDialog;
+import com.quduo.welfareshop.ui.friend.dialog.ToRechargeDialog;
+import com.quduo.welfareshop.ui.friend.dialog.VideoChatToRechargeDialog;
 
 /**
  * Author:scene
@@ -66,7 +69,7 @@ public class DialogUtils {
 
     public void showNeedRechargeScoreDialog(final Activity activity, int needPrice, int currentScore) {
         try {
-            StyledDialog.buildIosAlert("消耗" + needPrice + "积分查看", "您当前的积分：" + currentScore + "\n积分不足，请先充值", new MyDialogListener() {
+            StyledDialog.buildIosAlert("消耗" + needPrice + "积分查看", "您当前的积分：" + currentScore + "\n\n积分不足，请先充值", new MyDialogListener() {
                 @Override
                 public void onFirst() {
                     toRechargeActivity(activity);
@@ -76,7 +79,7 @@ public class DialogUtils {
                 public void onSecond() {
 
                 }
-            }).setBtnText("充值").show();
+            }).setBtnText("去充值").show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -86,5 +89,60 @@ public class DialogUtils {
         Intent intent = new Intent(activity, RechargeActivity.class);
         activity.startActivity(intent);
         activity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+    }
+
+
+    //解锁私聊
+    public void showUnlockChatDialog(Activity activity, final UnlockLisenter unlockLisenter) {
+        try {
+            if (MyApplication.getInstance().getUserInfo().getScore() >= MyApplication.getInstance().getConfigInfo().getChat_price()) {
+
+                OpenChatDialog openChatDialog = new OpenChatDialog(activity);
+                openChatDialog.setOnClickOpenChatListener(new OpenChatDialog.OnClickOpenChatListener() {
+                    @Override
+                    public void onClickOpenChat() {
+                        unlockLisenter.unlock();
+                    }
+                });
+                openChatDialog.show();
+            } else {
+                showChatNeedRechargeDialog(activity);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showChatNeedRechargeDialog(final Activity activity) {
+        try {
+            ToRechargeDialog toRechargeDialog = new ToRechargeDialog(activity);
+            toRechargeDialog.setOnClickToRechargeListener(new ToRechargeDialog.OnClickToRechargeListener() {
+                @Override
+                public void onClickToRecharge() {
+                    toRechargeActivity(activity);
+                }
+            });
+            toRechargeDialog.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //视频聊天积分不足
+    public void showVideoChatScoreNoEnough(final Activity activity) {
+        try {
+            VideoChatToRechargeDialog videoChatToRechargeDialog = new VideoChatToRechargeDialog(activity);
+            videoChatToRechargeDialog.setOnClickToRechargeListener(new VideoChatToRechargeDialog.OnClickToRechargeListener() {
+                @Override
+                public void onClickToRecharge() {
+                    activity.startActivity(new Intent(activity, RechargeActivity.class));
+                    activity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+                }
+            });
+            videoChatToRechargeDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

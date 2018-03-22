@@ -7,6 +7,7 @@ import com.quduo.welfareshop.ui.friend.entity.OtherDetailUserInfo;
 import com.quduo.welfareshop.ui.friend.model.OtherInfoModel;
 import com.quduo.welfareshop.ui.friend.view.IOtherInfoView;
 import com.quduo.welfareshop.ui.welfare.entity.FollowSuccessInfo;
+import com.quduo.welfareshop.ui.welfare.entity.UnlockResultInfo;
 
 /**
  * Author:scene
@@ -131,6 +132,42 @@ public class OtherInfoPresenter extends BasePresenter<IOtherInfoView> {
                 public void onFail(String message) {
                     try {
                         mView.showMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void unlockChat() {
+        try {
+            mView.showLoadingDialog();
+            model.unlockChat(new HttpResultListener<UnlockResultInfo>() {
+                @Override
+                public void onSuccess(UnlockResultInfo data) {
+                    try {
+                        mView.unlockChatSuccess(data.getScore());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.showAlert(message);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
