@@ -1,6 +1,7 @@
 package com.quduo.welfareshop.ui.shop.view;
 
 import com.quduo.welfareshop.mvp.BaseView;
+import com.quduo.welfareshop.ui.shop.entity.GoodsCommentResultInfo;
 
 /**
 *Author:scene
@@ -9,4 +10,15 @@ import com.quduo.welfareshop.mvp.BaseView;
 */
 
 public interface IGoodsCommentView extends BaseView{
+    void bindData(GoodsCommentResultInfo data);
+
+    void showMessage(String message);
+
+    void refreshFinish();
+
+    void loadmoreFinish();
+
+    void hasLoadmore(boolean hasMore);
+
+    int getGoodsId();
 }

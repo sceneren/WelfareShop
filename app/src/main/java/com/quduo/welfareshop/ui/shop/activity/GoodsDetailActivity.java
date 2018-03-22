@@ -64,6 +64,8 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
 
     private int goodsId;
 
+    private ChooseGoodsTypePopupwindow chooseTypePopupwindow;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -165,10 +167,8 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
 
     @OnClick(R.id.see_all_comment)
     public void onClickSeeAllComment() {
-        startActivity(new Intent(GoodsDetailActivity.this, GoodsCommentActivity.class));
+        toGoodsCommentActivity();
     }
-
-    private ChooseGoodsTypePopupwindow chooseTypePopupwindow;
 
     @OnClick(R.id.buy_now)
     public void onClickBuyNow() {
@@ -184,5 +184,12 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
             });
         }
         chooseTypePopupwindow.show(buyNow);
+    }
+
+    private void toGoodsCommentActivity() {
+        Intent intent = new Intent(GoodsDetailActivity.this, GoodsCommentActivity.class);
+        intent.putExtra(GoodsCommentActivity.ARG_ID, goodsId);
+        startActivity(intent);
+        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }
 }

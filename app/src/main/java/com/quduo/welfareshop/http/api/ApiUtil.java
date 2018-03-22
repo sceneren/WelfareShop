@@ -146,6 +146,9 @@ public class ApiUtil {
     //商城分类
     public static final String SHOP_CATE_LIST = "goods/list";
     public static final String SHOP_CATE_LIST_TAG = "goods/list";
+    //商品评论
+    public static final String GOODS_COMMENT = "goods/comment";
+    public static final String GOODS_COMMENT_TAG = "goods/comment";
 
     /**
      * Case By:创建参数基础信息
