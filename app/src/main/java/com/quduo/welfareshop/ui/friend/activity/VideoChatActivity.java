@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hss01248.dialog.StyledDialog;
 import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.quduo.welfareshop.MyApplication;
@@ -65,11 +66,15 @@ public class VideoChatActivity extends BaseMvpActivity<IVideoChatView, VideoChat
         GlideApp.with(this)
                 .asBitmap()
                 .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_avatar)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + strAvatar)
                 .into(backgroundImage);
         GlideApp.with(this)
                 .asBitmap()
                 .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_avatar)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + strAvatar)
                 .into(avatar);
         nickname.setText(strNickName);

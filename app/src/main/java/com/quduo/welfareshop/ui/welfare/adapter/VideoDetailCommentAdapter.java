@@ -68,6 +68,7 @@ public class VideoDetailCommentAdapter extends BaseAdapter {
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_avatar)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + info.getAvatar())
                 .into(holder.avatar);
         return convertView;

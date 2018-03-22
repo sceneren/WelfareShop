@@ -68,6 +68,7 @@ public class VideoDetailGoodsAdapter extends BaseAdapter {
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_video)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + info.getThumb())
                 .into(holder.image);
         holder.name.setText(info.getName());

@@ -67,6 +67,7 @@ public class WelfareGalleryPreviewImageAdapter extends PagerAdapter {
         GlideApp.with(context)
                 .asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_avatar)
                 .load(list.get(position))
                 .into(photoView);
         noOpenLayout.setVisibility((!payed && position >= 8) ? View.VISIBLE : View.GONE);

@@ -129,6 +129,7 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_avatar)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + otherAvatar)
                 .into(othersAvatar);
 

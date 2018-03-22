@@ -8,6 +8,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.BaseActivity;
 import com.quduo.welfareshop.base.GlideApp;
@@ -146,6 +147,8 @@ public class EditUserInfoStep2Dialog extends BaseActivity {
         GlideApp.with(this)
                 .asBitmap()
                 .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_avatar)
                 .load(avaterPath)
                 .into(avatar);
     }
@@ -157,6 +160,8 @@ public class EditUserInfoStep2Dialog extends BaseActivity {
                 GlideApp.with(this)
                         .asBitmap()
                         .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.ic_default_avatar)
                         .load(imagePathList.get(0))
                         .into(image2);
                 image3.setImageResource(0);
@@ -169,11 +174,15 @@ public class EditUserInfoStep2Dialog extends BaseActivity {
                 GlideApp.with(this)
                         .asBitmap()
                         .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.ic_default_avatar)
                         .load(imagePathList.get(0))
                         .into(image2);
                 GlideApp.with(this)
                         .asBitmap()
                         .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.ic_default_avatar)
                         .load(imagePathList.get(1))
                         .into(image3);
                 delete1.setVisibility(View.GONE);
@@ -184,16 +193,22 @@ public class EditUserInfoStep2Dialog extends BaseActivity {
                 GlideApp.with(this)
                         .asBitmap()
                         .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.ic_default_avatar)
                         .load(imagePathList.get(0))
                         .into(image1);
                 GlideApp.with(this)
                         .asBitmap()
                         .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.ic_default_avatar)
                         .load(imagePathList.get(1))
                         .into(image2);
                 GlideApp.with(this)
                         .asBitmap()
                         .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.ic_default_avatar)
                         .load(imagePathList.get(2))
                         .into(image3);
                 delete1.setVisibility(View.VISIBLE);

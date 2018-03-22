@@ -36,6 +36,7 @@ public class MyFollowNovelAdapter extends BaseQuickAdapter<MyFollowNovelInfo, Ba
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_avatar)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb_shu())
                 .into(imageView);
     }

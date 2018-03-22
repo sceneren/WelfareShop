@@ -62,8 +62,9 @@ public class OtherInfoImageAdapter extends BaseAdapter {
 
         GlideApp.with(context)
                 .asBitmap()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_avatar)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position))
                 .into(holder.image);
         return convertView;

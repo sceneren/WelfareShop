@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 
@@ -63,6 +64,8 @@ public class OrderDetailRecommendGoodsAdapter extends BaseAdapter {
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_image)
                 .load(url)
                 .into(holder.image);
         return convertView;

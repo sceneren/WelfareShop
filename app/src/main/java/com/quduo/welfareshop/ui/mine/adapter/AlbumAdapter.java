@@ -31,6 +31,7 @@ public class AlbumAdapter extends BaseQuickAdapter<MyUserDetailInfo.PhotosBean, 
         GlideApp.with(mContext)
                 .asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_avatar)
                 .centerCrop()
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getUrl())
                 .into(imageView);

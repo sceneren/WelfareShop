@@ -2,6 +2,7 @@ package com.quduo.welfareshop.ui.friend.adapter;
 
 import android.content.Context;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.quduo.welfareshop.MyApplication;
@@ -36,8 +37,10 @@ public class NearAdapter extends BaseQuickAdapter<OtherSimpleUserInfo, BaseViewH
         CustomHeightRoundedImageView image = helper.getView(R.id.image);
         GlideApp.with(context)
                 .asBitmap()
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getAvatar())
                 .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_avatar)
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getAvatar())
                 .into(image);
     }
 

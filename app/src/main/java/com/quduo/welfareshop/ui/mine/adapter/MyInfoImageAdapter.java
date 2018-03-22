@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
@@ -62,8 +63,10 @@ public class MyInfoImageAdapter extends BaseAdapter {
 
         GlideApp.with(context)
                 .asBitmap()
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position).getUrl())
                 .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_avatar)
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position).getUrl())
                 .into(holder.image);
         return convertView;
     }

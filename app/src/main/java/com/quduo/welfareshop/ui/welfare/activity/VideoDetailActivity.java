@@ -162,6 +162,7 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_video)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + info.getThumb())
                 .into(videoPlayer.thumbImageView);
         videoPlayer.setCurrentInfo(info.isPayed(), new View.OnClickListener() {
@@ -340,6 +341,7 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
                     .asBitmap()
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.drawable.ic_default_video)
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                     .into(avatar);
 

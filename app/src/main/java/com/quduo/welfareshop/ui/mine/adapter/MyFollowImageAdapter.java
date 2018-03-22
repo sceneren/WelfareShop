@@ -12,7 +12,6 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.mine.entity.MyFollowGalleryInfo;
-import com.quduo.welfareshop.ui.welfare.entity.WelfareGalleryInfo;
 import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 
 import java.util.List;
@@ -62,30 +61,35 @@ public class MyFollowImageAdapter extends BaseQuickAdapter<MyFollowGalleryInfo, 
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_avatar)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
                 .into(image1);
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_avatar)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getAvatar())
                 .into(avatar);
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_avatar)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb_small().get(0))
                 .into(image2);
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_avatar)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb_small().get(1))
                 .into(image3);
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_avatar)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb_small().get(2))
                 .into(image4);
 

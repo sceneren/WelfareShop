@@ -174,6 +174,7 @@ public class UnparkRedFragment extends BaseMvpFragment<IUnparkRedView, UnparkRed
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_avatar)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                 .into(avatar);
         money.setText(MessageFormat.format("{0}元", MyApplication.getInstance().getUserInfo().getMoney()));

@@ -560,6 +560,7 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
                     .asBitmap()
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.drawable.ic_default_avatar)
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + resultInfo.getAvatar())
                     .into(avatar);
             EventBus.getDefault().post(new UpdateAvatarEvent(resultInfo.getAvatar()));

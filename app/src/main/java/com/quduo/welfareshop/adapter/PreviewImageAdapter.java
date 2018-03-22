@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.chrisbanes.photoview.PhotoView;
+import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 
 import java.util.List;
@@ -35,7 +36,12 @@ public class PreviewImageAdapter extends PagerAdapter {
     @Override
     public View instantiateItem(@NonNull ViewGroup container, int position) {
         PhotoView photoView = new PhotoView(container.getContext());
-        GlideApp.with(context).load(list.get(position)).into(photoView);
+        GlideApp.with(context)
+                .asBitmap()
+                .centerCrop()
+                .load(list.get(position))
+                .placeholder(R.drawable.ic_default_avatar)
+                .into(photoView);
 
         // Now just add PhotoView to ViewPager and return it
         container.addView(photoView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);

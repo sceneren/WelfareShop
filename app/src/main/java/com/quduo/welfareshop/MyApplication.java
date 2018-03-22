@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.Utils;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hss01248.dialog.ActivityStackManager;
 import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
@@ -150,7 +151,13 @@ public class MyApplication extends LitePalApplication {
         ISNav.getInstance().init(new ImageLoader() {
             @Override
             public void displayImage(Context context, String path, ImageView imageView) {
-                GlideApp.with(context).load(path).into(imageView);
+                GlideApp.with(context)
+                        .asBitmap()
+                        .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.ic_default_avatar)
+                        .load(path)
+                        .into(imageView);
             }
         });
     }

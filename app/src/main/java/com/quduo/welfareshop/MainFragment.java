@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.event.TabSelectedEvent;
@@ -167,6 +168,7 @@ public class MainFragment extends SupportFragment {
     private void initView() {
         GlideApp.with(this)
                 .load(R.drawable.ic_move_car)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(image);
         startMoveImageThread();
 

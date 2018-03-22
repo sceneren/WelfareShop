@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
@@ -226,6 +227,8 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
             GlideApp.with(this)
                     .asBitmap()
                     .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.drawable.ic_default_avatar)
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + detailInfo.getThumb_shu())
                     .into(coverImage);
 

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.event.StartBrotherEvent;
@@ -72,11 +73,12 @@ public class LimitFragment extends BaseMainMvpFragment<ILimitView, LimitPresente
     public void initView() {
         super.initView();
 
-        String url="http://e.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg";
+        String url = "http://e.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg";
         GlideApp.with(this)
                 .load(url)
-                .placeholder(R.drawable.ic_agreement)
                 .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_avatar)
                 .apply(bitmapTransform(new BlurTransformation(30)))
                 .into(image);
     }

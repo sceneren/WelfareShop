@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.w4lle.library.NineGridAdapter;
 
@@ -55,6 +56,7 @@ public class NineGridImageAdapter extends NineGridAdapter {
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_avatar)
                 .load(list.get(i))
                 .into(iv);
         return iv;

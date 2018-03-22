@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.PreviewImageActivity;
@@ -75,6 +76,8 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 GlideApp.with(context)
                         .asBitmap()
                         .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.ic_default_avatar)
                         .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                         .into(textViewHolder.mineAvatar);
                 if (position == 0) {
@@ -95,11 +98,15 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             GlideApp.with(context)
                     .asBitmap()
                     .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.drawable.ic_default_avatar)
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                     .into(imageViewHolder.mineAvatar);
             GlideApp.with(context)
                     .asBitmap()
                     .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.drawable.ic_default_avatar)
                     .load(chatMessageInfo.getMessageContent())
                     .into(imageViewHolder.image);
             imageViewHolder.image.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +136,8 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             GlideApp.with(context)
                     .asBitmap()
                     .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.drawable.ic_default_avatar)
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                     .into(audioViewHolder.mineAvatar);
             if (position == 0) {

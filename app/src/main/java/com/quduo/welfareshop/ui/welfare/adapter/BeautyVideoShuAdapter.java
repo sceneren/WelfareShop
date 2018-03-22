@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
@@ -67,6 +68,8 @@ public class BeautyVideoShuAdapter extends BaseAdapter {
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_video)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position).getThumb())
                 .into(holder.image);
         holder.playNumber.setText(MessageFormat.format("播放:{0}", info.getPlay_times()));

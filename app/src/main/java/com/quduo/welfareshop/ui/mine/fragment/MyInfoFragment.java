@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
@@ -265,11 +266,14 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
             GlideApp.with(this)
                     .asBitmap()
                     .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.drawable.ic_default_avatar)
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.getCover())
                     .into(image);
             GlideApp.with(this)
                     .asBitmap()
                     .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.ic_default_avatar)
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.getAvatar())
                     .into(avatar);
@@ -317,6 +321,7 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
             GlideApp.with(this)
                     .asBitmap()
                     .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.ic_default_avatar)
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + event.getAvatarPath())
                     .into(avatar);
@@ -332,6 +337,8 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
             GlideApp.with(this)
                     .asBitmap()
                     .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.drawable.ic_default_avatar)
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + event.getCoverPath())
                     .into(image);
         } catch (Exception e) {
