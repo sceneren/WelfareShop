@@ -1,12 +1,17 @@
 package com.quduo.welfareshop.ui.friend.activity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hss01248.dialog.StyledDialog;
+import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
@@ -67,6 +72,40 @@ public class VideoChatActivity extends BaseMvpActivity<IVideoChatView, VideoChat
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + strAvatar)
                 .into(avatar);
         nickname.setText(strNickName);
+
+        new CountDownTimer(10000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            @Override
+            public void onFinish() {
+                showDialog();
+                cancel();
+            }
+        }.start();
+
+    }
+
+    void showDialog() {
+        Dialog dialog = StyledDialog.buildIosAlert("提示", "暂时无人接听，请稍后再试", new MyDialogListener() {
+            @Override
+            public void onFirst() {
+                onBackPressed();
+            }
+
+            @Override
+            public void onSecond() {
+
+            }
+        }).setBtnText("确定").setActivity(VideoChatActivity.this).show();
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                onBackPressed();
+            }
+        });
     }
 
     @Override

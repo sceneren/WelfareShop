@@ -1,5 +1,7 @@
 package com.quduo.welfareshop;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -7,8 +9,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -34,6 +34,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import me.yokeyword.fragmentation.SupportFragment;
+import wiki.scene.loadmore.utils.PtrLocalDisplay;
 
 /**
  * 主Fragment
@@ -106,40 +107,42 @@ public class MainFragment extends SupportFragment {
         initView();
     }
 
-    private TranslateAnimation animation;
     private boolean isWork = true;
+
+    private ObjectAnimator animator;
 
     private void showMoveImage() {
         _mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (animation == null) {
-                    animation = new TranslateAnimation(
-                            Animation.RELATIVE_TO_PARENT, 1.0f, Animation.RELATIVE_TO_PARENT, -1.0f,
-                            Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT, 0.0f
-                    );
-                    animation.setDuration(10000);
-                    animation.setAnimationListener(new Animation.AnimationListener() {
+                if (animator == null) {
+                    animator = ObjectAnimator.ofFloat(image, "translationX", PtrLocalDisplay.SCREEN_WIDTH_PIXELS, -PtrLocalDisplay.SCREEN_WIDTH_PIXELS, -PtrLocalDisplay.SCREEN_WIDTH_PIXELS);
+                    animator.setTarget(image);
+                    animator.setDuration(20000);
+                    animator.addListener(new Animator.AnimatorListener() {
                         @Override
-                        public void onAnimationStart(Animation animation) {
+                        public void onAnimationStart(Animator animation) {
                             image.setVisibility(View.VISIBLE);
                         }
 
                         @Override
-                        public void onAnimationEnd(Animation animation) {
+                        public void onAnimationEnd(Animator animation) {
                             image.setVisibility(View.GONE);
                         }
 
                         @Override
-                        public void onAnimationRepeat(Animation animation) {
+                        public void onAnimationCancel(Animator animation) {
+                            image.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animation) {
 
                         }
                     });
                 }
-                if (bottomBar.getCurrentItemPosition() == 0 || bottomBar.getCurrentItemPosition() == 3) {
-                    image.clearAnimation();
-                    image.startAnimation(animation);
-                }
+                animator.start();
+
             }
         });
     }
@@ -152,7 +155,7 @@ public class MainFragment extends SupportFragment {
                 @Override
                 public void run() {
                     while (isWork) {
-                        SystemClock.sleep(36000);
+                        SystemClock.sleep(40000);
                         showMoveImage();
                     }
                 }

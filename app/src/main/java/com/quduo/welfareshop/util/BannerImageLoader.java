@@ -3,6 +3,7 @@ package com.quduo.welfareshop.util;
 import android.content.Context;
 import android.widget.ImageView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.quduo.welfareshop.base.GlideApp;
 import com.youth.banner.loader.ImageLoader;
 
@@ -19,6 +20,7 @@ public class BannerImageLoader extends ImageLoader {
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .load((String) path)
                 .into(imageView);
     }
