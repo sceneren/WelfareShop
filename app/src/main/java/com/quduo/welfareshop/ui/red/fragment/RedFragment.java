@@ -28,6 +28,7 @@ import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.event.StartBrotherEvent;
+import com.quduo.welfareshop.event.TabSelectedEvent;
 import com.quduo.welfareshop.event.UpdateMyInfoSuccessEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
@@ -600,6 +601,13 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
         try {
             if (needGetDiamondDialog == null) {
                 needGetDiamondDialog = new NeedGetDiamondDialog(_mActivity);
+                needGetDiamondDialog.setOnClickGetDiamondListener(new NeedGetDiamondDialog.OnClickGetDiamondListener() {
+                    @Override
+                    public void onClickGetDiamond() {
+                        hideGetRedDialog();
+                        EventBus.getDefault().post(new TabSelectedEvent(1));
+                    }
+                });
             }
             needGetDiamondDialog.show();
         } catch (Exception e) {

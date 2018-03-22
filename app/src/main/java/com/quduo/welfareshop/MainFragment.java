@@ -142,7 +142,9 @@ public class MainFragment extends SupportFragment {
                         }
                     });
                 }
-                animator.start();
+                if(bottomBar.getCurrentItemPosition()==0||bottomBar.getCurrentItemPosition()==3){
+                    animator.start();
+                }
 
             }
         });

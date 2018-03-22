@@ -18,6 +18,8 @@ import butterknife.OnClick;
  */
 
 public class NeedGetDiamondDialog extends Dialog {
+    private OnClickGetDiamondListener onClickGetDiamondListener;
+
     public NeedGetDiamondDialog(@NonNull Context context) {
         super(context, R.style.Dialog);
     }
@@ -30,6 +32,10 @@ public class NeedGetDiamondDialog extends Dialog {
         super(context, cancelable, cancelListener);
     }
 
+    public void setOnClickGetDiamondListener(OnClickGetDiamondListener onClickGetDiamondListener) {
+        this.onClickGetDiamondListener = onClickGetDiamondListener;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +46,13 @@ public class NeedGetDiamondDialog extends Dialog {
 
     @OnClick(R.id.get_score)
     public void onClickGetScore() {
+        if (onClickGetDiamondListener != null) {
+            onClickGetDiamondListener.onClickGetDiamond();
+        }
         dismiss();
+    }
+
+    public interface OnClickGetDiamondListener {
+        void onClickGetDiamond();
     }
 }

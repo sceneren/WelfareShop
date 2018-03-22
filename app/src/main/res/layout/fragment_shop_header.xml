@@ -40,7 +40,7 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:paddingTop="10dp"
-        android:text="商城消费1元送1积分，可抽现金红包，100%有奖"
+        android:text="商城消费1元送1积分，还送钻石抽现金100%中奖"
         android:textSize="@dimen/sp_12" />
 
     <View
@@ -163,7 +163,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="@dimen/dp_10"
-                    android:src="@drawable/ic_default_avatar" />
+                    android:src="@drawable/ic_default_shop" />
             </LinearLayout>
 
             <View
@@ -199,7 +199,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="@dimen/dp_10"
-                    android:src="@drawable/ic_default_avatar" />
+                    android:src="@drawable/ic_default_shop" />
             </LinearLayout>
 
             <View
@@ -235,7 +235,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="@dimen/dp_10"
-                    android:src="@drawable/ic_default_avatar" />
+                    android:src="@drawable/ic_default_shop" />
             </LinearLayout>
 
             <View
@@ -271,7 +271,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="@dimen/dp_10"
-                    android:src="@drawable/ic_default_avatar" />
+                    android:src="@drawable/ic_default_shop" />
             </LinearLayout>
 
         </LinearLayout>
@@ -322,7 +322,7 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginLeft="5dp"
-                    android:src="@drawable/ic_default_avatar" />
+                    android:src="@drawable/ic_default_shop" />
             </LinearLayout>
 
             <View
@@ -366,7 +366,7 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginLeft="5dp"
-                    android:src="@drawable/ic_default_avatar" />
+                    android:src="@drawable/ic_default_shop" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
