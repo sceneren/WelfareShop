@@ -141,8 +141,12 @@ public class ApiUtil {
     public static final String UNLOCK_CHAT = "friend/chat";
     public static final String UNLOCK_CHAT_TAG = "friend/chat";
     //商城首页
-    public static final String SHOP_INDEX="goods";
-    public static final String SHOP_INDEX_TAG="goods";
+    public static final String SHOP_INDEX = "goods";
+    public static final String SHOP_INDEX_TAG = "goods";
+    //商城分类
+    public static final String SHOP_CATE_LIST = "goods/list";
+    public static final String SHOP_CATE_LIST_TAG = "goods/list";
+
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

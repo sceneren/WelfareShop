@@ -41,7 +41,7 @@ public class ShopPresenter extends BasePresenter<IShopView> {
                                 mView.loadmoreFinish();
                             }
                         }
-                        mView.hasLoadmore(page > data.getData().getLast_page());
+                        mView.hasLoadmore(page < data.getData().getLast_page());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

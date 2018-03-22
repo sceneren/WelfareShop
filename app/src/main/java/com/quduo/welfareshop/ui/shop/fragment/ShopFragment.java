@@ -17,10 +17,12 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.event.StartBrotherEvent;
+import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.itemDecoration.ShopIndexItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
 import com.quduo.welfareshop.ui.shop.activity.GoodsDetailActivity;
@@ -226,6 +228,7 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
 
     @Override
     public void onDestroyView() {
+        OkGo.getInstance().cancelTag(ApiUtil.SHOP_INDEX_TAG);
         super.onDestroyView();
         unbinder.unbind();
     }
