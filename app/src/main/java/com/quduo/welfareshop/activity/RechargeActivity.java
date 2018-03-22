@@ -1,11 +1,11 @@
 package com.quduo.welfareshop.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.View;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
@@ -32,18 +32,22 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     TextView toolbarTitle;
     @BindView(R.id.money)
     TextView money;
-    @BindView(R.id.type_wechat)
-    RadioButton typeWechat;
-    @BindView(R.id.type_alipay)
-    RadioButton typeAlipay;
-    @BindView(R.id.recharge_type)
-    RadioGroup rechargeType;
-    @BindView(R.id.recharge_38)
-    TextView recharge38;
     @BindView(R.id.notice)
     TextView notice;
     @BindView(R.id.has_question)
     TextView hasQuestion;
+    @BindView(R.id.type_wechat)
+    TextView typeWechat;
+    @BindView(R.id.type_wechat_line)
+    View typeWechatLine;
+    @BindView(R.id.layout_type_wechat)
+    RelativeLayout layoutTypeWechat;
+    @BindView(R.id.type_alipay)
+    TextView typeAlipay;
+    @BindView(R.id.type_alipay_line)
+    View typeAlipayLine;
+    @BindView(R.id.layout_type_alipay)
+    RelativeLayout layoutTypeAlipay;
 
     private RechargeQuestionDialog questionDialog;
     private GetCouponDialog getCouponDialog;
@@ -117,4 +121,19 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
         getCouponDialog.show();
     }
 
+    @OnClick(R.id.layout_type_wechat)
+    public void onClickTypeWechat() {
+        typeWechat.setTextColor(Color.parseColor("#1CBA25"));
+        typeWechatLine.setBackgroundColor(Color.parseColor("#1CBA25"));
+        typeAlipay.setTextColor(Color.parseColor("#333333"));
+        typeAlipayLine.setBackgroundColor(Color.parseColor("#00000000"));
+    }
+
+    @OnClick(R.id.layout_type_alipay)
+    public void onClickTypeAlipay() {
+        typeWechat.setTextColor(Color.parseColor("#333333"));
+        typeWechatLine.setBackgroundColor(Color.parseColor("#00000000"));
+        typeAlipay.setTextColor(Color.parseColor("#2FB7FE"));
+        typeAlipayLine.setBackgroundColor(Color.parseColor("#2FB7FE"));
+    }
 }

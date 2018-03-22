@@ -1,6 +1,7 @@
 package com.quduo.welfareshop.ui.shop.view;
 
 import com.quduo.welfareshop.mvp.BaseView;
+import com.quduo.welfareshop.ui.shop.entity.GoodsDetailResultInfo;
 
 /**
  * Author:scene
@@ -8,5 +9,16 @@ import com.quduo.welfareshop.mvp.BaseView;
  * Description:商品详情
  */
 
-public interface IGoodsDetailView extends BaseView{
+public interface IGoodsDetailView extends BaseView {
+    void showLoadingDialog();
+
+    void hideLoadingDialog();
+
+    void showMessage(String message);
+
+    void bindData(GoodsDetailResultInfo data);
+
+    void refreshFinish();
+
+    int getGoodsId();
 }

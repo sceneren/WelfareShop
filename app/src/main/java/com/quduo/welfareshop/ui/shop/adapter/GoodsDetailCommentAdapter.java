@@ -1,6 +1,6 @@
 package com.quduo.welfareshop.ui.shop.adapter;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +8,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.PreviewImageActivity;
 import com.quduo.welfareshop.ui.friend.adapter.NineGridImageAdapter;
+import com.quduo.welfareshop.ui.shop.entity.GoodsCommentInfo;
 import com.w4lle.library.NineGridlayout;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,19 +29,19 @@ import butterknife.ButterKnife;
  */
 
 public class GoodsDetailCommentAdapter extends BaseAdapter {
-    private Context context;
-    private List<String> list;
+    private Activity activity;
+    private List<GoodsCommentInfo> list;
     private LayoutInflater inflater;
 
-    public GoodsDetailCommentAdapter(Context context, List<String> list) {
-        this.context = context;
+    public GoodsDetailCommentAdapter(Activity activity, List<GoodsCommentInfo> list) {
+        this.activity = activity;
         this.list = list;
-        inflater = LayoutInflater.from(context);
+        inflater = LayoutInflater.from(activity);
     }
 
     @Override
     public int getCount() {
-        return list.size();
+        return list != null ? list.size() : 0;
     }
 
     @Override
@@ -61,22 +64,26 @@ public class GoodsDetailCommentAdapter extends BaseAdapter {
         } else {
             holder = (GoodsDetailCommentViewHolder) convertView.getTag();
         }
-        String url = "http://e.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg";
+
+        GoodsCommentInfo info = list.get(position);
         final ArrayList<String> imageList = new ArrayList<>();
-        for (int i = 0; i < (position + 1); i++) {
-            imageList.add(url);
+        for (String str : info.getImages()) {
+            imageList.add(MyApplication.getInstance().getConfigInfo().getFile_domain() + str);
         }
-        NineGridImageAdapter imageAdapter = new NineGridImageAdapter(context, imageList);
+        NineGridImageAdapter imageAdapter = new NineGridImageAdapter(activity, imageList);
         holder.imageLayout.setOnItemClickListerner(new NineGridlayout.OnItemClickListerner() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(context, PreviewImageActivity.class);
+                Intent intent = new Intent(activity, PreviewImageActivity.class);
                 intent.putExtra(PreviewImageActivity.ARG_URLS, imageList);
                 intent.putExtra(PreviewImageActivity.ARG_POSITION, position);
-                context.startActivity(intent);
+                activity.startActivity(intent);
+                activity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
             }
         });
         holder.imageLayout.setAdapter(imageAdapter);
+        holder.content.setText(info.getContent());
+        holder.nicknameAndTime.setText(MessageFormat.format("{0}/{1}", info.getNick_name(), info.getCreate_time()));
         return convertView;
     }
 

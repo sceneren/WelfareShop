@@ -149,6 +149,10 @@ public class ApiUtil {
     //商品评论
     public static final String GOODS_COMMENT = "goods/comment";
     public static final String GOODS_COMMENT_TAG = "goods/comment";
+    //商品详情
+    public static final String GOODS_DETAIL="goods/detail";
+    public static final String GOODS_DETAIL_TAG="goods/detail";
+
 
     /**
      * Case By:创建参数基础信息

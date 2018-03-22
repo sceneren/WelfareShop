@@ -45,6 +45,7 @@ public class GoodsCommentAdapter extends BaseQuickAdapter<GoodsCommentInfo, Base
                 intent.putExtra(PreviewImageActivity.ARG_URLS, imageList);
                 intent.putExtra(PreviewImageActivity.ARG_POSITION, position);
                 activity.startActivity(intent);
+                activity.overridePendingTransition(R.anim.h_fragment_enter,R.anim.h_fragment_exit);
             }
         });
         imageLayout.setAdapter(imageAdapter);
