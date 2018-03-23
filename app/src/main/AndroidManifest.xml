@@ -139,6 +139,9 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.SwipeBack" />
+        <activity
+            android:name=".ui.shop.dialog.ChooseGoodsTypeDialog"
+            android:theme="@style/BottomDialogActivity" />
         <!-- ##############友盟开始################### -->
         <meta-data
             android:name="UMENG_APPKEY"

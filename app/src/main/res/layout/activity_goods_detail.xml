@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -59,7 +59,13 @@
                                 android:layout_alignBottom="@+id/baseimage"
                                 android:layout_alignLeft="@+id/baseimage"
                                 android:layout_alignRight="@+id/baseimage"
-                                android:layout_alignTop="@+id/baseimage" />
+                                android:layout_alignTop="@+id/baseimage"
+                                app:delay_time="5000"
+                                app:indicator_drawable_selected="@drawable/bg_banner_s"
+                                app:indicator_drawable_unselected="@drawable/bg_banner_d"
+                                app:title_background="#80000000"
+                                app:title_textcolor="@color/white"
+                                app:title_textsize="14sp" />
                         </RelativeLayout>
 
                         <TextView
@@ -69,9 +75,9 @@
                             android:ellipsize="end"
                             android:lines="1"
                             android:padding="10dp"
-                            tools:text="这是商品名称"
                             android:textColor="@color/title_text_color"
-                            android:textSize="@dimen/sp_14" />
+                            android:textSize="@dimen/sp_14"
+                            tools:text="这是商品名称" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -85,18 +91,18 @@
                                 android:id="@+id/goods_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                tools:text="￥369"
                                 android:textColor="#FF4386"
-                                android:textSize="@dimen/sp_16" />
+                                android:textSize="@dimen/sp_16"
+                                tools:text="￥369" />
 
                             <TextView
                                 android:id="@+id/goods_old_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dp_10"
-                                tools:text="原价：￥988"
                                 android:textColor="@color/des_text_color"
-                                android:textSize="@dimen/sp_12" />
+                                android:textSize="@dimen/sp_12"
+                                tools:text="原价：￥988" />
 
                         </LinearLayout>
 
@@ -111,9 +117,9 @@
                                 android:id="@+id/buy_give_info"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                tools:text="送369钻石+积分"
                                 android:textColor="#FECE5B"
-                                android:textSize="@dimen/sp_12" />
+                                android:textSize="@dimen/sp_12"
+                                tools:text="送369钻石+积分" />
 
                             <TextView
                                 android:id="@+id/goods_sales"
@@ -121,9 +127,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_marginLeft="@dimen/dp_10"
-                                tools:text="销量:2487"
                                 android:textColor="@color/des_text_color"
-                                android:textSize="@dimen/sp_12" />
+                                android:textSize="@dimen/sp_12"
+                                tools:text="销量:2487" />
                         </RelativeLayout>
 
                         <LinearLayout
@@ -311,9 +317,9 @@
                             android:id="@+id/tab_goods_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            tools:text="￥198"
                             android:textColor="#FFF200"
-                            android:textSize="@dimen/sp_14" />
+                            android:textSize="@dimen/sp_14"
+                            tools:text="￥198" />
 
 
                     </LinearLayout>

@@ -20,7 +20,7 @@ import com.quduo.welfareshop.activity.PreviewImageActivity;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.shop.adapter.GoodsDetailCommentAdapter;
-import com.quduo.welfareshop.ui.shop.dialog.ChooseGoodsTypePopupwindow;
+import com.quduo.welfareshop.ui.shop.dialog.ChooseGoodsTypeDialog;
 import com.quduo.welfareshop.ui.shop.entity.GoodsCommentInfo;
 import com.quduo.welfareshop.ui.shop.entity.GoodsDetailInfo;
 import com.quduo.welfareshop.ui.shop.entity.GoodsDetailResultInfo;
@@ -104,8 +104,6 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
     private List<String> bannerList = new ArrayList<>();
 
     private int goodsId;
-
-    private ChooseGoodsTypePopupwindow chooseTypePopupwindow;
 
     private GoodsDetailInfo detailInfo;
 
@@ -229,18 +227,15 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
 
     @OnClick(R.id.buy_now)
     public void onClickBuyNow() {
-        if (chooseTypePopupwindow == null) {
-            chooseTypePopupwindow = new ChooseGoodsTypePopupwindow(GoodsDetailActivity.this);
-            chooseTypePopupwindow.setOnClickChooseTypeButtonListener(new ChooseGoodsTypePopupwindow.OnClickChooseTypeButtonListener() {
-                @Override
-                public void onClickConfirm() {
-                    Intent intent = new Intent(GoodsDetailActivity.this, ConfirmOrderActivity.class);
-                    startActivity(intent);
-                    GoodsDetailActivity.this.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
-                }
-            });
+        try {
+            Intent intent = new Intent(GoodsDetailActivity.this, ChooseGoodsTypeDialog.class);
+            intent.putExtra(ChooseGoodsTypeDialog.ARG_GOODSINFO,detailInfo);
+            startActivity(intent);
+            overridePendingTransition(R.anim.pop_enter, R.anim.pop_exit);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        chooseTypePopupwindow.show(buyNow);
+
     }
 
     private void toGoodsCommentActivity() {
