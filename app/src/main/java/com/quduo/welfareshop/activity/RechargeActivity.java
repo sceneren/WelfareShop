@@ -10,12 +10,16 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.hss01248.dialog.StyledDialog;
+import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.adapter.RechargeAdapter;
 import com.quduo.welfareshop.bean.RechargeInfo;
+import com.quduo.welfareshop.bean.RechargeTypeInfo;
 import com.quduo.welfareshop.dialog.GetCouponDialog;
 import com.quduo.welfareshop.dialog.RechargeQuestionDialog;
+import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
+import com.quduo.welfareshop.ui.shop.entity.PayInfo;
 import com.quduo.welfareshop.widgets.CustomListView;
 
 import java.text.MessageFormat;
@@ -66,8 +70,10 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     private RechargeQuestionDialog questionDialog;
     private GetCouponDialog getCouponDialog;
 
-    private List<String> list = new ArrayList<>();
+    private List<RechargeTypeInfo> list = new ArrayList<>();
     private RechargeAdapter adapter;
+
+    private int payType = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +107,12 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     private void initListView() {
         adapter = new RechargeAdapter(RechargeActivity.this, list);
         listView.setAdapter(adapter);
+        adapter.setOnClickRechargeListener(new RechargeAdapter.OnClickRechargeListener() {
+            @Override
+            public void onClickRecharge(int position) {
+                presenter.recharge(list.get(position).getType(), payType);
+            }
+        });
     }
 
     @Override
@@ -144,6 +156,8 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
 
     @Override
     protected void onDestroy() {
+        OkGo.getInstance().cancelTag(ApiUtil.RECHARGE_INDEX_TAG);
+        OkGo.getInstance().cancelTag(ApiUtil.RECHARGE_TAG);
         super.onDestroy();
         unbinder.unbind();
     }
@@ -162,6 +176,7 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
         typeWechatLine.setBackgroundColor(Color.parseColor("#1CBA25"));
         typeAlipay.setTextColor(Color.parseColor("#333333"));
         typeAlipayLine.setBackgroundColor(Color.parseColor("#00000000"));
+        payType = 1;
     }
 
     @OnClick(R.id.layout_type_alipay)
@@ -170,6 +185,7 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
         typeWechatLine.setBackgroundColor(Color.parseColor("#00000000"));
         typeAlipay.setTextColor(Color.parseColor("#2FB7FE"));
         typeAlipayLine.setBackgroundColor(Color.parseColor("#2FB7FE"));
+        payType = 2;
     }
 
     @Override
@@ -221,7 +237,7 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     }
 
     @Override
-    public void getPayInfoSuccess() {
+    public void getPayInfoSuccess(PayInfo payInfo) {
         try {
 
         } catch (Exception e) {

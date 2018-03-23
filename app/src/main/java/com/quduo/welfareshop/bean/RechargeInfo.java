@@ -11,14 +11,14 @@ import java.util.List;
  */
 
 public class RechargeInfo extends BaseBean {
-    private List<String> score_recharge_type;
+    private List<RechargeTypeInfo> score_recharge_type;
     private int score;
 
-    public List<String> getScore_recharge_type() {
+    public List<RechargeTypeInfo> getScore_recharge_type() {
         return score_recharge_type;
     }
 
-    public void setScore_recharge_type(List<String> score_recharge_type) {
+    public void setScore_recharge_type(List<RechargeTypeInfo> score_recharge_type) {
         this.score_recharge_type = score_recharge_type;
     }
 

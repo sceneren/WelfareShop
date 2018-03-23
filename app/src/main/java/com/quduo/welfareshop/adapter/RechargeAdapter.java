@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.bean.RechargeTypeInfo;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -23,13 +24,19 @@ import butterknife.ButterKnife;
 
 public class RechargeAdapter extends BaseAdapter {
     private Context context;
-    private List<String> list;
+    private List<RechargeTypeInfo> list;
     private LayoutInflater inflater;
 
-    public RechargeAdapter(Context context, List<String> list) {
+    private OnClickRechargeListener onClickRechargeListener;
+
+    public RechargeAdapter(Context context, List<RechargeTypeInfo> list) {
         this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
+    }
+
+    public void setOnClickRechargeListener(OnClickRechargeListener onClickRechargeListener) {
+        this.onClickRechargeListener = onClickRechargeListener;
     }
 
     @Override
@@ -48,7 +55,7 @@ public class RechargeAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         RechargeViewHolder holder;
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.activity_recharge_item, parent, false);
@@ -57,9 +64,19 @@ public class RechargeAdapter extends BaseAdapter {
         } else {
             holder = (RechargeViewHolder) convertView.getTag();
         }
-        holder.price.setText(MessageFormat.format("{0}积分", list.get(position)));
-        holder.sendPrice.setText(MessageFormat.format("赠{0}积分", list.get(position)));
-        holder.money.setText(MessageFormat.format("￥{0}", list.get(position)));
+        RechargeTypeInfo info = list.get(position);
+        holder.price.setText(MessageFormat.format("{0}积分", info.getScore()));
+        holder.sendPrice.setText(MessageFormat.format("赠{0}积分", info.getGift()));
+        holder.sendPrice.setVisibility(info.getGift() == 0 ? View.INVISIBLE : View.VISIBLE);
+        holder.money.setText(MessageFormat.format("￥{0}", info.getMoney()));
+        holder.money.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onClickRechargeListener != null) {
+                    onClickRechargeListener.onClickRecharge(position);
+                }
+            }
+        });
         return convertView;
     }
 
@@ -74,5 +91,9 @@ public class RechargeAdapter extends BaseAdapter {
         RechargeViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
+    }
+
+    public interface OnClickRechargeListener {
+        void onClickRecharge(int position);
     }
 }

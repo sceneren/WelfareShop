@@ -182,6 +182,9 @@ public class ApiUtil {
     //充值首页
     public static final String RECHARGE_INDEX="score";
     public static final String RECHARGE_INDEX_TAG="score";
+    //充值
+    public static final String RECHARGE="score/submit";
+    public static final String RECHARGE_TAG="score/submit";
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19
