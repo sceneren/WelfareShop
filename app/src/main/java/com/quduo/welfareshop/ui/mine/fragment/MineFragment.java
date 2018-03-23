@@ -163,8 +163,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
 
     @OnClick(R.id.user_agreement)
     public void onClickUserAgreement() {
-        startActivity(new Intent(_mActivity, ServiceCenterActivity.class));
-        _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+
     }
 
     @OnClick(R.id.to_recharge)

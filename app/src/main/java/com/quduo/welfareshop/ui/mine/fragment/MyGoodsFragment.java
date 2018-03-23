@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.mine.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,14 +12,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.mine.adapter.MyGoodsAdapter;
+import com.quduo.welfareshop.ui.mine.entity.MyFollowGoodsInfo;
 import com.quduo.welfareshop.ui.mine.presenter.MyGoodsPresenter;
 import com.quduo.welfareshop.ui.mine.view.IMyGoodsView;
+import com.quduo.welfareshop.ui.shop.activity.GoodsDetailActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
@@ -48,7 +54,7 @@ public class MyGoodsFragment extends BaseBackMvpFragment<IMyGoodsView, MyGoodsPr
     StatusViewLayout statusView;
     Unbinder unbinder;
 
-    private List<String> list;
+    private List<MyFollowGoodsInfo> list = new ArrayList<>();
     private MyGoodsAdapter adapter;
 
     public static MyGoodsFragment newInstance() {
@@ -96,7 +102,7 @@ public class MyGoodsFragment extends BaseBackMvpFragment<IMyGoodsView, MyGoodsPr
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            presenter.getData(true);
         }
     };
 
@@ -108,8 +114,8 @@ public class MyGoodsFragment extends BaseBackMvpFragment<IMyGoodsView, MyGoodsPr
 
     @Override
     public void initView() {
-        showContentPage();
         initRecyclerView();
+        presenter.getData(true);
     }
 
     private void initRecyclerView() {
@@ -117,22 +123,20 @@ public class MyGoodsFragment extends BaseBackMvpFragment<IMyGoodsView, MyGoodsPr
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(final RefreshLayout refreshLayout) {
-                refreshLayout.finishRefresh(5000);
+                presenter.getData(false);
             }
         });
-        list = new ArrayList<>();
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
         adapter = new MyGoodsAdapter(getContext(), list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (list.get(position).getStatus() == 1) {
+                    toGoodsDetailActivity(list.get(position).getProduct_id());
+                }
+            }
+        });
     }
 
     @Override
@@ -142,7 +146,44 @@ public class MyGoodsFragment extends BaseBackMvpFragment<IMyGoodsView, MyGoodsPr
 
     @Override
     public void onDestroyView() {
+        OkGo.getInstance().cancelTag(ApiUtil.MY_FOLLOW_GOODS_TAG);
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void bindData(List<MyFollowGoodsInfo> data) {
+        try {
+            list.clear();
+            list.addAll(data);
+            adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showMessage(String message) {
+        try {
+            ToastUtils.showShort(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void refreshFinish() {
+        try {
+            refreshLayout.finishRefresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void toGoodsDetailActivity(int goodsId) {
+        Intent intent = new Intent(_mActivity, GoodsDetailActivity.class);
+        intent.putExtra(GoodsDetailActivity.ARG_ID, goodsId);
+        startActivity(intent);
+        _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }
 }

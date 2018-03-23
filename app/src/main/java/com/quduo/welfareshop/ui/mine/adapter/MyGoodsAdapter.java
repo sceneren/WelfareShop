@@ -2,13 +2,17 @@ package com.quduo.welfareshop.ui.mine.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.ui.mine.entity.MyFollowGoodsInfo;
 
 import java.util.List;
 
@@ -21,35 +25,30 @@ import butterknife.ButterKnife;
  * Description:收藏的商品
  */
 
-public class MyGoodsAdapter extends RecyclerView.Adapter<MyGoodsAdapter.MyGoodsViewHolder> {
+public class MyGoodsAdapter extends BaseQuickAdapter<MyFollowGoodsInfo, BaseViewHolder> {
     private Context context;
-    private List<String> list;
 
-    public MyGoodsAdapter(Context context, List<String> list) {
+    public MyGoodsAdapter(Context context, List<MyFollowGoodsInfo> list) {
+        super(R.layout.fragment_my_goods_item, list);
         this.context = context;
-        this.list = list;
 
     }
 
     @Override
-    public MyGoodsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MyGoodsViewHolder(LayoutInflater.from(context).inflate(R.layout.fragment_my_goods_item, parent, false));
-    }
-
-    @Override
-    public void onBindViewHolder(MyGoodsViewHolder holder, int position) {
-        if (position % 2 == 0) {
-            holder.buyNow.setVisibility(View.VISIBLE);
-            holder.hasNo.setVisibility(View.GONE);
-        } else {
-            holder.buyNow.setVisibility(View.GONE);
-            holder.hasNo.setVisibility(View.VISIBLE);
-        }
-    }
-
-    @Override
-    public int getItemCount() {
-        return list.size();
+    protected void convert(BaseViewHolder helper, MyFollowGoodsInfo item) {
+        ImageView goodsImage = helper.getView(R.id.goods_image);
+        GlideApp.with(context)
+                .asBitmap()
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_shop)
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
+                .into(goodsImage);
+        helper.setText(R.id.goods_name, item.getName());
+        helper.setText(R.id.goods_price, "￥" + item.getPrice());
+        helper.setText(R.id.sales, item.getSales() + "人付款");
+        helper.setGone(R.id.buy_now, item.getStatus() == 1);
+        helper.setGone(R.id.has_no, item.getStatus() != 1);
     }
 
     static class MyGoodsViewHolder extends RecyclerView.ViewHolder {

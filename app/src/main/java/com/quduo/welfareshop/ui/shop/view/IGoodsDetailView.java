@@ -21,4 +21,8 @@ public interface IGoodsDetailView extends BaseView {
     void refreshFinish();
 
     int getGoodsId();
+
+    void followGoodsSuccess(int followId);
+
+    void cancelFollowSuccess();
 }

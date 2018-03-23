@@ -8,6 +8,7 @@ import com.quduo.welfareshop.http.base.LzyResponse;
 import com.quduo.welfareshop.http.callback.JsonCallback;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.ui.shop.entity.GoodsDetailResultInfo;
+import com.quduo.welfareshop.ui.welfare.model.FollowModel;
 
 /**
  * Author:scene
@@ -15,7 +16,7 @@ import com.quduo.welfareshop.ui.shop.entity.GoodsDetailResultInfo;
  * Description:商品详情
  */
 
-public class GoodsDetailModel {
+public class GoodsDetailModel extends FollowModel{
     public void getData(HttpParams params, final HttpResultListener<GoodsDetailResultInfo> listener) {
         OkGo.<LzyResponse<GoodsDetailResultInfo>>get(ApiUtil.API_PRE + ApiUtil.GOODS_DETAIL_TAG)
                 .tag(ApiUtil.GOODS_DETAIL_TAG)

@@ -54,6 +54,7 @@ public class GoodsDetailInfo extends BaseBean {
     private List<String> images;
     private List<String> model;
     private int comment_count;
+    private int favor_id;
 
     public int getId() {
         return id;
@@ -213,5 +214,13 @@ public class GoodsDetailInfo extends BaseBean {
 
     public void setComment_count(int comment_count) {
         this.comment_count = comment_count;
+    }
+
+    public int getFavor_id() {
+        return favor_id;
+    }
+
+    public void setFavor_id(int favor_id) {
+        this.favor_id = favor_id;
     }
 }

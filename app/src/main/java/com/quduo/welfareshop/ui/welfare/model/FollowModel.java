@@ -15,7 +15,43 @@ import com.quduo.welfareshop.ui.welfare.entity.FollowSuccessInfo;
  * Description:收藏视频
  */
 
-public class FollowModel extends UnlockModel{
+public class FollowModel extends UnlockModel {
+
+    public void followGoods(HttpParams params, final HttpResultListener<FollowSuccessInfo> listener) {
+        OkGo.<LzyResponse<FollowSuccessInfo>>get(ApiUtil.API_PRE + ApiUtil.FOLLOW_GOODS)
+                .tag(ApiUtil.FOLLOW_GOODS_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<FollowSuccessInfo>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<FollowSuccessInfo>> response) {
+                        try {
+                            listener.onSuccess(response.body().data);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            listener.onFail("操作失败请重试");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<FollowSuccessInfo>> response) {
+                        super.onError(response);
+                        try {
+                            listener.onFail(response.getException().getMessage());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            listener.onFail("操作失败请重试");
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        listener.onFinish();
+                    }
+                });
+    }
+
+
     public void followVideo(HttpParams params, final HttpResultListener<FollowSuccessInfo> listener) {
         OkGo.<LzyResponse<FollowSuccessInfo>>get(ApiUtil.API_PRE + ApiUtil.FOLLOW_VIDEO)
                 .tag(ApiUtil.FOLLOW_VIDEO_TAG)

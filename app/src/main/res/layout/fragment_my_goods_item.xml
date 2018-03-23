@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -14,8 +15,7 @@
         <ImageView
             android:id="@+id/goods_image"
             android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="#FF0000" />
+            android:layout_height="100dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="商品名称"
+                tools:text="商品名称"
                 android:textColor="@color/title_text_color"
                 android:textSize="@dimen/sp_16" />
 
@@ -45,16 +45,17 @@
                     android:id="@+id/goods_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="￥799"
+                    tools:text="￥799"
                     android:textColor="@color/theme_color"
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/sales"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_weight="1"
-                    android:text="6655人付款"
+                    tools:text="6655人付款"
                     android:textSize="10sp" />
 
                 <TextView

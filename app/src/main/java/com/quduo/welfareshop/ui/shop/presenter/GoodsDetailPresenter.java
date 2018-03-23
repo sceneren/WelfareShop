@@ -6,6 +6,7 @@ import com.quduo.welfareshop.mvp.BasePresenter;
 import com.quduo.welfareshop.ui.shop.entity.GoodsDetailResultInfo;
 import com.quduo.welfareshop.ui.shop.model.GoodsDetailModel;
 import com.quduo.welfareshop.ui.shop.view.IGoodsDetailView;
+import com.quduo.welfareshop.ui.welfare.entity.FollowSuccessInfo;
 
 /**
  * Author:scene
@@ -33,9 +34,9 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
                 public void onSuccess(GoodsDetailResultInfo data) {
                     try {
                         mView.bindData(data);
-                        if(isFirst){
+                        if (isFirst) {
                             mView.showContentPage();
-                        }else{
+                        } else {
                             mView.refreshFinish();
                         }
                     } catch (Exception e) {
@@ -46,9 +47,9 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
                 @Override
                 public void onFail(String message) {
                     try {
-                        if(isFirst){
+                        if (isFirst) {
                             mView.showErrorPage();
-                        }else{
+                        } else {
                             mView.refreshFinish();
                         }
                         mView.showMessage(message);
@@ -60,6 +61,82 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodsDetailView> {
                 @Override
                 public void onFinish() {
 
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void followGoods() {
+        try {
+            mView.showLoadingDialog();
+            HttpParams params = new HttpParams();
+            params.put("data_id", mView.getGoodsId());
+            model.followGoods(params, new HttpResultListener<FollowSuccessInfo>() {
+                @Override
+                public void onSuccess(FollowSuccessInfo data) {
+                    try {
+                        mView.followGoodsSuccess(data.getId());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.showMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void cancelFollowGoods(int followId) {
+        try {
+            mView.showLoadingDialog();
+            HttpParams params = new HttpParams();
+            params.put("id", followId);
+            model.cancelFollow(params, new HttpResultListener<Boolean>() {
+                @Override
+                public void onSuccess(Boolean data) {
+                    try {
+                        mView.cancelFollowSuccess();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.showMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         } catch (Exception e) {

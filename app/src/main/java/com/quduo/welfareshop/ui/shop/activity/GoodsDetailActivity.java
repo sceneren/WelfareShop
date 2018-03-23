@@ -1,6 +1,7 @@
 package com.quduo.welfareshop.ui.shop.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -23,6 +24,7 @@ import com.quduo.welfareshop.ui.shop.dialog.ChooseGoodsTypePopupwindow;
 import com.quduo.welfareshop.ui.shop.entity.GoodsCommentInfo;
 import com.quduo.welfareshop.ui.shop.entity.GoodsDetailInfo;
 import com.quduo.welfareshop.ui.shop.entity.GoodsDetailResultInfo;
+import com.quduo.welfareshop.ui.shop.fragment.ServiceCenterActivity;
 import com.quduo.welfareshop.ui.shop.presenter.GoodsDetailPresenter;
 import com.quduo.welfareshop.ui.shop.view.IGoodsDetailView;
 import com.quduo.welfareshop.util.BannerImageLoader;
@@ -40,6 +42,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -86,6 +89,14 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
     TextView goodsOldPrice;
     @BindView(R.id.goods_sales)
     TextView goodsSales;
+    @BindView(R.id.comment_num)
+    TextView commentNum;
+    @BindView(R.id.tab_goods_price)
+    TextView tabGoodsPrice;
+    @BindView(R.id.btn_service_center)
+    TextView btnServiceCenter;
+    @BindView(R.id.btn_follow)
+    TextView btnFollow;
 
     private List<GoodsCommentInfo> commentList = new ArrayList<>();
     private GoodsDetailCommentAdapter commentAdapter;
@@ -95,6 +106,13 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
     private int goodsId;
 
     private ChooseGoodsTypePopupwindow chooseTypePopupwindow;
+
+    private GoodsDetailInfo detailInfo;
+
+    @BindDrawable(R.drawable.ic_goods_follow_d)
+    public Drawable iconNoFollow;
+    @BindDrawable(R.drawable.ic_goods_follow_s)
+    public Drawable iconHasFollow;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -259,8 +277,6 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
         }
     }
 
-    private GoodsDetailInfo detailInfo;
-
     @Override
     public void bindData(GoodsDetailResultInfo data) {
         try {
@@ -270,12 +286,15 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
 
             goodsName.setText(detailInfo.getName());
             goodsPrice.setText(MessageFormat.format("￥{0}", detailInfo.getPrice()));
+            tabGoodsPrice.setText(MessageFormat.format("￥{0}", detailInfo.getPrice()));
             SpannableStringBuilder stringBuilder = new SpanUtils().append("原价:￥" + detailInfo.getOld_price()).setStrikethrough().create();
             goodsOldPrice.setText(stringBuilder);
             goodsSales.setText(MessageFormat.format("销量:{0}", detailInfo.getSales()));
             Number num = Float.parseFloat(detailInfo.getPrice()) * 100;
             int giveNum = num.intValue() / 100;
             buyGiveInfo.setText(MessageFormat.format("送{0}钻石+积分", giveNum));
+
+            btnFollow.setCompoundDrawablesWithIntrinsicBounds(null, detailInfo.getFavor_id() == 0 ? iconNoFollow : iconHasFollow, null, null);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -299,12 +318,13 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
 
     private void bindCommentLisView(List<GoodsCommentInfo> data) {
         try {
+            commentNum.setText(MessageFormat.format("买家秀（{0}）", detailInfo.getComment_count()));
             commentList.clear();
             commentList.addAll(data);
             commentAdapter.notifyDataSetChanged();
-            if (commentList.size() > 0) {
+            if (detailInfo.getComment_count() > 0) {
                 layoutComment.setVisibility(View.VISIBLE);
-                if (commentList.size() > 2) {
+                if (detailInfo.getComment_count() > 2) {
                     seeAllComment.setVisibility(View.VISIBLE);
                 } else {
                     seeAllComment.setVisibility(View.GONE);
@@ -332,11 +352,46 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
         return goodsId;
     }
 
+    @Override
+    public void followGoodsSuccess(int followId) {
+        try {
+            detailInfo.setFavor_id(followId);
+            btnFollow.setCompoundDrawablesWithIntrinsicBounds(null, detailInfo.getFavor_id() == 0 ? iconNoFollow : iconHasFollow, null, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void cancelFollowSuccess() {
+        try {
+            detailInfo.setFavor_id(0);
+            btnFollow.setCompoundDrawablesWithIntrinsicBounds(null, detailInfo.getFavor_id() == 0 ? iconNoFollow : iconHasFollow, null, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void toPriviewActivity(ArrayList<String> imageList, int position) {
         Intent intent = new Intent(GoodsDetailActivity.this, PreviewImageActivity.class);
         intent.putExtra(PreviewImageActivity.ARG_URLS, imageList);
         intent.putExtra(PreviewImageActivity.ARG_POSITION, position);
         startActivity(intent);
         overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+    }
+
+    @OnClick(R.id.btn_service_center)
+    public void onClickServiceCenter() {
+        startActivity(new Intent(GoodsDetailActivity.this, ServiceCenterActivity.class));
+        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+    }
+
+    @OnClick(R.id.btn_follow)
+    void onClickBtnFollow() {
+        if (detailInfo.getFavor_id() == 0) {
+            presenter.followGoods();
+        } else {
+            presenter.cancelFollowGoods(detailInfo.getFavor_id());
+        }
     }
 }

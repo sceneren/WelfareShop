@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.widget.ImageView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.lzy.okgo.OkGo;
@@ -22,11 +23,17 @@ import com.quduo.welfareshop.util.ResourceUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import me.weyye.hipermission.HiPermission;
 import me.weyye.hipermission.PermissionCallback;
 import me.weyye.hipermission.PermissionItem;
 
 public class EnterActivity extends BaseActivity {
+    @BindView(R.id.image)
+    ImageView image;
+    Unbinder unbinder;
     private long beginTime = 0;
     private static final long MIN_SHOW_TIME = 3 * 1000;
 
@@ -34,6 +41,7 @@ public class EnterActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter);
+        unbinder = ButterKnife.bind(this);
         beginTime = System.currentTimeMillis();
         MyApplication.getInstance().setResourceId(ResourceUtil.getResouyceId(EnterActivity.this));
         applyExternalStorage();
@@ -56,10 +64,10 @@ public class EnterActivity extends BaseActivity {
                     @Override
                     public void onClose() {
                         if (!HiPermission.checkPermission(EnterActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                            MyApplication.getInstance().exit();
+                            exitApp();
                         }
                         if (!HiPermission.checkPermission(EnterActivity.this, Manifest.permission.READ_PHONE_STATE)) {
-                            MyApplication.getInstance().exit();
+                            exitApp();
                         }
                     }
 
@@ -69,7 +77,7 @@ public class EnterActivity extends BaseActivity {
                                 && HiPermission.checkPermission(EnterActivity.this, Manifest.permission.READ_PHONE_STATE)) {
                             login();
                         } else {
-                            MyApplication.getInstance().exit();
+                            exitApp();
                         }
                     }
 
@@ -99,7 +107,7 @@ public class EnterActivity extends BaseActivity {
                                 toMainActivity();
                             } else {
                                 ToastUtils.showShort("网络连接异常，请检查网络");
-                                MyApplication.getInstance().exit();
+                                exitApp();
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -112,8 +120,7 @@ public class EnterActivity extends BaseActivity {
                         super.onError(response);
                         try {
                             ToastUtils.showShort("网络连接异常，请检查网络");
-                            //toMainActivity();
-                            MyApplication.getInstance().exit();
+                            exitApp();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -140,5 +147,24 @@ public class EnterActivity extends BaseActivity {
 
     @Override
     public void onBackPressedSupport() {
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+    }
+
+    private void exitApp() {
+        try {
+            image.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    MyApplication.getInstance().exit();
+                }
+            }, 1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

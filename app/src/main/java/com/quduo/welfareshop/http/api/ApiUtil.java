@@ -150,10 +150,14 @@ public class ApiUtil {
     public static final String GOODS_COMMENT = "goods/comment";
     public static final String GOODS_COMMENT_TAG = "goods/comment";
     //商品详情
-    public static final String GOODS_DETAIL="goods/detail";
-    public static final String GOODS_DETAIL_TAG="goods/detail";
-
-
+    public static final String GOODS_DETAIL = "goods/detail";
+    public static final String GOODS_DETAIL_TAG = "goods/detail";
+    //收藏商品
+    public static final String FOLLOW_GOODS = "personal/favor/add_product";
+    public static final String FOLLOW_GOODS_TAG = "personal/favor/add_product";
+    //我收藏的商品列表
+    public static final String MY_FOLLOW_GOODS="personal/favor/product";
+    public static final String MY_FOLLOW_GOODS_TAG="personal/favor/product";
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19
