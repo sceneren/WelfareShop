@@ -164,7 +164,12 @@ public class ApiUtil {
     //我的代金券
     public static final String MY_COUPON = "personal/coupon";
     public static final String MY_COUPON_TAG = "personal/coupon";
-
+    //创建订单
+    public static final String CREATE_ORDER="order";
+    public static final String CREATE_ORDER_TAG="order";
+    //订单列表
+    public static final String ORDER_LIST="personal/order";
+    public static final String ORDER_LIST_TAG="personal/order";
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

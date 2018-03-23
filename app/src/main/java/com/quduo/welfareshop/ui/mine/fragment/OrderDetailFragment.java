@@ -40,6 +40,7 @@ import wiki.scene.loadmore.StatusViewLayout;
 
 public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, OrderDetailPresenter> implements IOrderDetailView {
     private static final String ARG_ID = "order_id";
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
@@ -174,7 +175,7 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
         logisticsList.add("");
         logisticsList.add("");
         logisticsList.add("");
-        timeLineAdapter=new TimeLineAdapter(getContext(),logisticsList);
+        timeLineAdapter = new TimeLineAdapter(getContext(), logisticsList);
         logisticsListView.setAdapter(timeLineAdapter);
     }
 

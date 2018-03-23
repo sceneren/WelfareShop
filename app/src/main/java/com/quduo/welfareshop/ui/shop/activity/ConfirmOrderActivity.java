@@ -11,8 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.RegexUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
@@ -20,9 +23,9 @@ import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.mine.activity.MyReceiverActivity;
-import com.quduo.welfareshop.ui.shop.dialog.BuySuccessDialog;
 import com.quduo.welfareshop.ui.shop.entity.ConfirmOrderResultInfo;
 import com.quduo.welfareshop.ui.shop.entity.CreateOrderInfo;
+import com.quduo.welfareshop.ui.shop.entity.PayInfo;
 import com.quduo.welfareshop.ui.shop.presenter.ConfirmOrderPresenter;
 import com.quduo.welfareshop.ui.shop.view.IConfirmOrderView;
 
@@ -72,8 +75,6 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
     TextView totalPrice;
     @BindView(R.id.total_score)
     TextView totalScore;
-    @BindView(R.id.wechat_pay)
-    TextView wechatPay;
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
     @BindView(R.id.show_receiver_name)
@@ -84,7 +85,6 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
     TextView showReceiverAddress;
     @BindView(R.id.coupon)
     TextView coupon;
-    private BuySuccessDialog buySuccessDialog;
 
     private CreateOrderInfo orderInfo;
     private ConfirmOrderResultInfo resultInfo;
@@ -177,16 +177,9 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
     protected void onDestroy() {
         KeyboardUtils.hideSoftInput(ConfirmOrderActivity.this);
         OkGo.getInstance().cancelTag(ApiUtil.ORDER_USER_INFO_TAG);
+        OkGo.getInstance().cancelTag(ApiUtil.CREATE_ORDER_TAG);
         super.onDestroy();
         unbinder.unbind();
-    }
-
-    @OnClick(R.id.wechat_pay)
-    public void onClickWeChatPay() {
-        if (buySuccessDialog == null) {
-            buySuccessDialog = new BuySuccessDialog(ConfirmOrderActivity.this);
-        }
-        buySuccessDialog.show();
     }
 
     @Override
@@ -228,6 +221,33 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
         }
     }
 
+    @Override
+    public void showLoadingDialog() {
+        try {
+            StyledDialog.buildLoading().setActivity(ConfirmOrderActivity.this).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void hideLaodingDialog() {
+        try {
+            StyledDialog.dismissLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void createOrderSuccess(PayInfo data) {
+        try {
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @OnClick(R.id.layout_has_receiver)
     public void onClickLayoutHasReceiver() {
         Intent intent = new Intent(ConfirmOrderActivity.this, MyReceiverActivity.class);
@@ -243,6 +263,84 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
             showReceiverName.setText(data.getStringExtra("name"));
             showReceiverAddress.setText(data.getStringExtra("address"));
             showReceiverPhone.setText(data.getStringExtra("phone"));
+        }
+    }
+
+    @OnClick(R.id.btn_wechat)
+    public void onClickBtnWechat() {
+        createOrder(1);
+    }
+
+    @OnClick(R.id.btn_alipay)
+    public void onClickBtnAlipay() {
+        createOrder(2);
+    }
+
+
+    private String getReceiverName() {
+        try {
+            if (resultInfo != null && resultInfo.getAddress() != null) {
+                return showReceiverName.getText().toString().trim();
+            } else {
+                return receiverName.getText().toString().trim();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    private String getReceiverPhone() {
+        try {
+            if (resultInfo != null && resultInfo.getAddress() != null) {
+                return showReceiverPhone.getText().toString().trim();
+            } else {
+                return receiverPhone.getText().toString().trim();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    private String getReceiverAddress() {
+        try {
+            if (resultInfo != null && resultInfo.getAddress() != null) {
+                return showReceiverAddress.getText().toString().trim();
+            } else {
+                return receiverAddress.getText().toString().trim();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    private void createOrder(int type) {
+        try {
+            String strReceiverName = getReceiverName();
+            String strReceiverPhone = getReceiverPhone();
+            String strReceiverAddress = getReceiverAddress();
+            if (StringUtils.isEmpty(strReceiverName)) {
+                showMessage("请输入收货人");
+                return;
+            }
+            if (StringUtils.isEmpty(strReceiverPhone)) {
+                showMessage("请输入收货电话");
+                return;
+            }
+            if (!RegexUtils.isMobileSimple(strReceiverPhone)) {
+                showMessage("请输入正确的收货电话");
+                return;
+            }
+            if (StringUtils.isEmpty(strReceiverAddress)) {
+                showMessage("请输入收货地址");
+                return;
+            }
+            presenter.createOrder(orderInfo.getGoodsId(), orderInfo.getChoosedNum(), orderInfo.getChooseModel(), strReceiverName,
+                    strReceiverPhone, strReceiverAddress, resultInfo.getCoupon() != null ? resultInfo.getCoupon().getId() : 0, type);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

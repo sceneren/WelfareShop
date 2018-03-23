@@ -250,6 +250,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginLeft="20dp"
                             android:background="@null"
+                            android:maxLines="1"
                             android:gravity="center_vertical"
                             android:hint="请输入收货人姓名"
                             android:lines="1"
@@ -284,7 +285,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="20dp"
+                            android:inputType="phone"
                             android:background="@null"
+                            android:maxLines="1"
                             android:gravity="center_vertical"
                             android:hint="请输入正确的手机号码"
                             android:lines="1"
@@ -505,7 +508,7 @@
                         tools:text="送799钻石+积分" />
 
                     <TextView
-                        android:id="@+id/wechat_pay"
+                        android:id="@+id/btn_wechat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_40"
@@ -520,6 +523,7 @@
                         android:textSize="@dimen/sp_16" />
 
                     <TextView
+                        android:id="@+id/btn_alipay"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_40"

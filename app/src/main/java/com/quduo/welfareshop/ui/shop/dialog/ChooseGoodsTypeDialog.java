@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
@@ -136,11 +138,13 @@ public class ChooseGoodsTypeDialog extends BaseActivity {
                 }
             };
             modelAdapter.setSelectedList(0);
+            choosedModel = goodsModelList.get(0);
             tagLayout.setAdapter(modelAdapter);
             tagLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
                 @Override
                 public boolean onTagClick(View view, int position, FlowLayout parent) {
                     choosedModel = goodsModelList.get(position);
+
                     return true;
                 }
             });
@@ -193,7 +197,12 @@ public class ChooseGoodsTypeDialog extends BaseActivity {
         orderInfo.setThumb(detailInfo.getThumb());
         orderInfo.setGoodsPrice(detailInfo.getPrice());
         orderInfo.setChoosedNum(number);
-        orderInfo.setChooseModel(choosedModel);
+        if (goodsModelList != null && goodsModelList.size() > 0 && !StringUtils.isEmpty(choosedModel)) {
+            orderInfo.setChooseModel(choosedModel);
+        } else {
+            ToastUtils.showShort("请选择您要购买的型号");
+            return;
+        }
         Intent intent = new Intent(ChooseGoodsTypeDialog.this, ConfirmOrderActivity.class);
         intent.putExtra(ConfirmOrderActivity.ARG_ORDER_INFO, orderInfo);
         startActivity(intent);

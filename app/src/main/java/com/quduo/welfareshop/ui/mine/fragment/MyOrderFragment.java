@@ -12,8 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.BaseViewPagerAdapter;
+import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.mine.presenter.MyOrderPresenter;
 import com.quduo.welfareshop.ui.mine.view.IMyOrderView;
@@ -80,18 +82,16 @@ public class MyOrderFragment extends BaseBackMvpFragment<IMyOrderView, MyOrderPr
 
     @Override
     public void initView() {
-        String tabTitle[] = {"待付款", "待发货","待收货", "待评价"};
+        String tabTitle[] = {"待付款", "待发货", "已发货"};
         List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(MyOrderChildFragment.newInstance(0));
         fragmentList.add(MyOrderChildFragment.newInstance(1));
         fragmentList.add(MyOrderChildFragment.newInstance(2));
         fragmentList.add(MyOrderChildFragment.newInstance(3));
         tab.addTab(tab.newTab().setText(tabTitle[0]));
         tab.addTab(tab.newTab().setText(tabTitle[1]));
         tab.addTab(tab.newTab().setText(tabTitle[2]));
-        tab.addTab(tab.newTab().setText(tabTitle[3]));
         viewPager.setAdapter(new BaseViewPagerAdapter(getChildFragmentManager(), tabTitle, fragmentList));
-        viewPager.setOffscreenPageLimit(4);
+        viewPager.setOffscreenPageLimit(3);
         tab.setupWithViewPager(viewPager);
     }
 
@@ -102,6 +102,7 @@ public class MyOrderFragment extends BaseBackMvpFragment<IMyOrderView, MyOrderPr
 
     @Override
     public void onDestroyView() {
+        OkGo.getInstance().cancelTag(ApiUtil.ORDER_LIST_TAG);
         super.onDestroyView();
         unbinder.unbind();
     }

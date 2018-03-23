@@ -1,8 +1,10 @@
 package com.quduo.welfareshop.ui.shop.presenter;
 
+import com.lzy.okgo.model.HttpParams;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.mvp.BasePresenter;
 import com.quduo.welfareshop.ui.shop.entity.ConfirmOrderResultInfo;
+import com.quduo.welfareshop.ui.shop.entity.PayInfo;
 import com.quduo.welfareshop.ui.shop.model.ConfirmOrderModel;
 import com.quduo.welfareshop.ui.shop.view.IConfirmOrderView;
 
@@ -47,6 +49,51 @@ public class ConfirmOrderPresenter extends BasePresenter<IConfirmOrderView> {
                 @Override
                 public void onFinish() {
 
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createOrder(int goodsId, int number, String choosedModel, String receiverName, String receiverPhone, String receiverAddress, int couponId, int payType) {
+        try {
+            mView.showLoadingDialog();
+            HttpParams params = new HttpParams();
+            params.put("product_id", goodsId);
+            params.put("number", number);
+            params.put("model", choosedModel);
+            params.put("name", receiverName);
+            params.put("mobile", receiverPhone);
+            params.put("address", receiverAddress);
+            params.put("coupon_id", couponId);
+            params.put("pay_type", payType);
+            model.createOrder(params, new HttpResultListener<PayInfo>() {
+                @Override
+                public void onSuccess(PayInfo data) {
+                    try {
+                        mView.createOrderSuccess(data);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.showMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLaodingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         } catch (Exception e) {

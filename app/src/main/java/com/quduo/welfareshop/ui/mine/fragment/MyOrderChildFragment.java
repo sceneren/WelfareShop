@@ -10,15 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.SizeUtils;
+import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.mine.adapter.MyOrderChildAdapter;
 import com.quduo.welfareshop.ui.mine.entity.OrderInfo;
+import com.quduo.welfareshop.ui.mine.entity.OrderListResultInfo;
 import com.quduo.welfareshop.ui.mine.presenter.MyOrderChildPresenter;
 import com.quduo.welfareshop.ui.mine.view.IMyOrderChildView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
@@ -49,6 +53,7 @@ public class MyOrderChildFragment extends BaseMvpFragment<IMyOrderChildView, MyO
     private int type = 0;
     private List<OrderInfo> list = new ArrayList<>();
     private MyOrderChildAdapter adapter;
+    private int page = 1;
 
     public static MyOrderChildFragment newInstance(int type) {
         Bundle args = new Bundle();
@@ -104,14 +109,14 @@ public class MyOrderChildFragment extends BaseMvpFragment<IMyOrderChildView, MyO
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            presenter.getData(1, true);
         }
     };
 
     @Override
     public void initView() {
-        showContentPage();
         initRecyclerView();
+        presenter.getData(1, true);
     }
 
     public void initRecyclerView() {
@@ -119,25 +124,24 @@ public class MyOrderChildFragment extends BaseMvpFragment<IMyOrderChildView, MyO
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
-                refreshLayout.finishRefresh(2000);
+                presenter.getData(1, false);
             }
         });
-        for (int i = 0; i < 10; i++) {
-            OrderInfo orderInfo = new OrderInfo();
-            orderInfo.setType(type);
-            orderInfo.setGoods_name("商品名称" + i);
-            list.add(orderInfo);
-        }
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshLayout) {
+                presenter.getData(page + 1, false);
+            }
+        });
         adapter = new MyOrderChildAdapter(getContext(), list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new SpacesItemDecoration(SizeUtils.dp2px(10), true, false));
         recyclerView.setAdapter(adapter);
-
-        adapter.setOnClickOrderItemListener(new MyOrderChildAdapter.OnClickOrderItemListener() {
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onClickOrderItem(int position) {
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if ((getParentFragment()) != null && getParentFragment() instanceof MyOrderFragment) {
-                    ((MyOrderFragment) getParentFragment()).start(OrderDetailFragment.newInstance(type));
+                    ((MyOrderFragment) getParentFragment()).start(OrderDetailFragment.newInstance(list.get(position).getId()));
                 }
             }
         });
@@ -165,5 +169,60 @@ public class MyOrderChildFragment extends BaseMvpFragment<IMyOrderChildView, MyO
         }
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public int getOrderType() {
+        return type;
+    }
+
+    @Override
+    public void bindData(OrderListResultInfo data) {
+        try {
+            page = data.getInfo().getPage();
+            if (page == 1) {
+                list.clear();
+            }
+            list.addAll(data.getData());
+            adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showMessage(String message) {
+        try {
+            ToastUtils.showShort(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void refreshFinish() {
+        try {
+            refreshLayout.finishRefresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void loadmoreFinish() {
+        try {
+            refreshLayout.finishLoadMore();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void setHasmore(boolean hasmore) {
+        try {
+            refreshLayout.setEnableLoadMore(hasmore);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
