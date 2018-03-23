@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -47,6 +48,7 @@
                             android:textSize="@dimen/sp_14" />
 
                         <ImageView
+                            android:id="@+id/status_icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -81,11 +83,12 @@
                                 android:textSize="@dimen/sp_12" />
 
                             <TextView
+                                android:id="@+id/receiver_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="黄超超"
                                 android:textColor="@color/title_text_color"
-                                android:textSize="@dimen/sp_12" />
+                                android:textSize="@dimen/sp_12"
+                                tools:text="黄超超" />
 
                             <View
                                 android:layout_width="0dp"
@@ -93,11 +96,12 @@
                                 android:layout_weight="1" />
 
                             <TextView
+                                android:id="@+id/receiver_phone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="13509419130"
                                 android:textColor="@color/des_text_color"
-                                android:textSize="@dimen/sp_12" />
+                                android:textSize="@dimen/sp_12"
+                                tools:text="13509419130" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -119,11 +123,12 @@
                                 android:textSize="@dimen/sp_12" />
 
                             <TextView
+                                android:id="@+id/receiver_address"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="收货地址"
                                 android:textColor="@color/title_text_color"
-                                android:textSize="@dimen/sp_12" />
+                                android:textSize="@dimen/sp_12"
+                                tools:text="收货地址" />
                         </LinearLayout>
 
 
@@ -143,8 +148,7 @@
                         <ImageView
                             android:id="@+id/goods_image"
                             android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:background="#FF0000" />
+                            android:layout_height="80dp" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -161,12 +165,12 @@
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
                                 android:lines="2"
-                                android:text="商品名称商品名称商品名称商品名称商品名称"
                                 android:textColor="@color/title_text_color"
-                                android:textSize="@dimen/sp_14" />
+                                android:textSize="@dimen/sp_14"
+                                tools:text="商品名称商品名称商品名称商品名称商品名称" />
 
                             <TextView
-                                android:id="@+id/goods_number"
+                                android:id="@+id/goods_score"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
@@ -186,21 +190,50 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/goods_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="金额：799"
                                 android:textColor="@color/theme_color"
-                                android:textSize="@dimen/sp_14" />
+                                android:textSize="@dimen/sp_14"
+                                tools:text="￥799" />
 
                             <TextView
+                                android:id="@+id/goods_number"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="right"
                                 android:layout_marginTop="5dp"
-                                android:text="x1"
                                 android:textColor="@color/title_text_color"
-                                android:textSize="@dimen/sp_12" />
+                                android:textSize="@dimen/sp_12"
+                                tools:text="x1" />
+
+                            <TextView
+                                android:id="@+id/goods_model"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:layout_marginTop="5dp"
+                                android:textColor="@color/title_text_color"
+                                android:textSize="@dimen/sp_12"
+                                tools:text="小号" />
                         </LinearLayout>
                     </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#EFEFEF" />
+
+                    <TextView
+                        android:id="@+id/total_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="right"
+                        android:padding="@dimen/dp_10"
+                        android:textColor="@color/title_text_color"
+                        android:textSize="@dimen/sp_14"
+                        tools:text="合计：1888" />
 
                     <View
                         android:layout_width="match_parent"
@@ -215,8 +248,7 @@
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
                         android:paddingBottom="30dp"
-                        android:paddingTop="30dp"
-                        android:visibility="gone">
+                        android:paddingTop="30dp">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -231,6 +263,7 @@
                                 android:textSize="16sp" />
 
                             <TextView
+                                android:id="@+id/need_pay_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dp_10"
@@ -240,6 +273,7 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/coupon_info"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -248,7 +282,7 @@
                             android:textSize="@dimen/sp_12" />
 
                         <TextView
-                            android:id="@+id/wechat_pay"
+                            android:id="@+id/btn_wechat"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_40"
@@ -263,6 +297,7 @@
                             android:textSize="@dimen/sp_16" />
 
                         <TextView
+                            android:id="@+id/btn_alipay"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_40"
@@ -282,7 +317,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -328,16 +364,58 @@
                                 android:textSize="@dimen/sp_14" />
 
                             <TextView
+                                android:id="@+id/order_number"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:ellipsize="end"
                                 android:lines="1"
-                                android:text="12345678951245"
+                                android:textColor="@color/content_text_color"
+                                android:textSize="@dimen/sp_14"
+                                tools:text="12345678951245" />
+
+                            <TextView
+                                android:id="@+id/copy_order_number"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/btn_copy"
+                                android:paddingBottom="2dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingTop="2dp"
+                                android:text="复制"
+                                android:textColor="@color/content_text_color"
+                                android:textSize="@dimen/sp_12" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/layout_ship"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="物流编号："
                                 android:textColor="@color/content_text_color"
                                 android:textSize="@dimen/sp_14" />
 
                             <TextView
+                                android:id="@+id/ship_number"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:ellipsize="end"
+                                android:lines="1"
+                                android:textColor="@color/content_text_color"
+                                android:textSize="@dimen/sp_14"
+                                tools:text="12345678951245" />
+
+                            <TextView
+                                android:id="@+id/copy_ship_number"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/btn_copy"
@@ -365,13 +443,14 @@
                                 android:textSize="@dimen/sp_14" />
 
                             <TextView
+                                android:id="@+id/order_time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
                                 android:lines="1"
-                                android:text="2018-3-14 10:48:35"
                                 android:textColor="@color/content_text_color"
-                                android:textSize="@dimen/sp_14" />
+                                android:textSize="@dimen/sp_14"
+                                tools:text="2018-3-14 10:48:35" />
                         </LinearLayout>
                     </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.quduo.welfareshop.ui.mine.view;
 
 import com.quduo.welfareshop.mvp.BaseView;
+import com.quduo.welfareshop.ui.mine.entity.OrderDetailResultInfo;
 
 /**
  * Author:scene
@@ -10,4 +11,11 @@ import com.quduo.welfareshop.mvp.BaseView;
  */
 
 public interface IOrderDetailView extends BaseView {
+    int getOrderId();
+
+    void showMessage(String message);
+
+    void refreshFinish();
+
+    void bindData(OrderDetailResultInfo data);
 }

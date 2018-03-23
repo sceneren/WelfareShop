@@ -173,6 +173,9 @@ public class ApiUtil {
     //取消订单
     public static final String CANCEL_ORDER = "order/cancel";
     public static final String CANCEL_ORDER_TAG = "order/cancel";
+    //订单详情
+    public static final String ORDER_DETAIL="personal/order/detail";
+    public static final String ORDER_DETAIL_TAG="personal/order/detail";
 
     /**
      * Case By:创建参数基础信息

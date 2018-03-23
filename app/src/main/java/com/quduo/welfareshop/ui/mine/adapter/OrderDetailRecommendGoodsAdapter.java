@@ -9,9 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.ui.mine.entity.OrderInfo;
+import com.quduo.welfareshop.ui.shop.entity.GoodsInfo;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -25,10 +29,10 @@ import butterknife.ButterKnife;
 
 public class OrderDetailRecommendGoodsAdapter extends BaseAdapter {
     private Context context;
-    private List<String> list;
+    private List<GoodsInfo> list;
     private LayoutInflater inflater;
 
-    public OrderDetailRecommendGoodsAdapter(Context context, List<String> list) {
+    public OrderDetailRecommendGoodsAdapter(Context context, List<GoodsInfo> list) {
         this.context = context;
         this.list = list;
         inflater = LayoutInflater.from(context);
@@ -60,20 +64,25 @@ public class OrderDetailRecommendGoodsAdapter extends BaseAdapter {
         } else {
             holder = (RecommendGoodsViewHolder) convertView.getTag();
         }
-        String url = "http://pic19.nipic.com/20120214/3145425_134109747000_2.jpg";
+        GoodsInfo info = list.get(position);
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_image)
-                .load(url)
+                .placeholder(R.drawable.ic_default_shop)
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + info.getThumb())
                 .into(holder.image);
+        holder.name.setText(info.getName());
+        holder.price.setText(MessageFormat.format("￥{0}", info.getPrice()));
+        holder.buyNumber.setText(MessageFormat.format("{0}人购买", info.getSales()));
         return convertView;
     }
 
     static class RecommendGoodsViewHolder {
         @BindView(R.id.image)
         ImageView image;
+        @BindView(R.id.name)
+        TextView name;
         @BindView(R.id.price)
         TextView price;
         @BindView(R.id.buy_number)

@@ -314,7 +314,7 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
     public void showMessage(String message) {
         try {
             if (message.equals("积分不足")) {
-                DialogUtils.getInstance().showNeedRechargeScoreDialog(VideoDetailActivity.this,info.getPrice(),MyApplication.getInstance().getUserInfo().getScore());
+                DialogUtils.getInstance().showNeedRechargeScoreDialog(VideoDetailActivity.this, info.getPrice(), MyApplication.getInstance().getUserInfo().getScore());
                 return;
             }
             ToastUtils.showShort(message);
@@ -494,6 +494,7 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
     private void toGoodsDetailActivity(int goodsId) {
         try {
             Intent intent = new Intent(VideoDetailActivity.this, GoodsDetailActivity.class);
+            intent.putExtra(GoodsDetailActivity.ARG_ID, goodsId);
             startActivity(intent);
             overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
         } catch (Exception e) {

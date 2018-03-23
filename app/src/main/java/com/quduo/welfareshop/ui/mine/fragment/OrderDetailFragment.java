@@ -1,5 +1,8 @@
 package com.quduo.welfareshop.ui.mine.fragment;
 
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,27 +10,42 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.lzy.okgo.OkGo;
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.mine.adapter.OrderDetailRecommendGoodsAdapter;
-import com.quduo.welfareshop.ui.mine.adapter.TimeLineAdapter;
+import com.quduo.welfareshop.ui.mine.entity.OrderDetailInfo;
+import com.quduo.welfareshop.ui.mine.entity.OrderDetailResultInfo;
 import com.quduo.welfareshop.ui.mine.presenter.OrderDetailPresenter;
 import com.quduo.welfareshop.ui.mine.view.IOrderDetailView;
+import com.quduo.welfareshop.ui.shop.activity.GoodsDetailActivity;
+import com.quduo.welfareshop.ui.shop.entity.GoodsInfo;
 import com.quduo.welfareshop.widgets.CustomGridView;
 import com.quduo.welfareshop.widgets.CustomListView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import org.joda.time.DateTime;
+
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.loadmore.StatusViewLayout;
 
@@ -53,8 +71,6 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
     TextView goodsName;
     @BindView(R.id.goods_number)
     TextView goodsNumber;
-    @BindView(R.id.wechat_pay)
-    TextView wechatPay;
     @BindView(R.id.layout_type_unpay)
     LinearLayout layoutTypeUnpay;
     @BindView(R.id.logisticsListView)
@@ -68,13 +84,49 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
     Unbinder unbinder;
+    @BindView(R.id.status_icon)
+    ImageView statusIcon;
+    @BindView(R.id.receiver_name)
+    TextView receiverName;
+    @BindView(R.id.receiver_phone)
+    TextView receiverPhone;
+    @BindView(R.id.receiver_address)
+    TextView receiverAddress;
+    @BindView(R.id.goods_score)
+    TextView goodsScore;
+    @BindView(R.id.goods_model)
+    TextView goodsModel;
+    @BindView(R.id.total_price)
+    TextView totalPrice;
+    @BindView(R.id.goods_price)
+    TextView goodsPrice;
+    @BindView(R.id.need_pay_price)
+    TextView needPayPrice;
+    @BindView(R.id.coupon_info)
+    TextView couponInfo;
+    @BindView(R.id.btn_wechat)
+    TextView btnWechat;
+    @BindView(R.id.btn_alipay)
+    TextView btnAlipay;
+    @BindView(R.id.order_number)
+    TextView orderNumber;
+    @BindView(R.id.order_time)
+    TextView orderTime;
+    @BindView(R.id.copy_order_number)
+    TextView copyOrderNumber;
+    @BindView(R.id.ship_number)
+    TextView shipNumber;
+    @BindView(R.id.copy_ship_number)
+    TextView copyShipNumber;
+    @BindView(R.id.layout_ship)
+    LinearLayout layoutShip;
     private int orderId;
 
-    private List<String> goodsList = new ArrayList<>();
+    private List<GoodsInfo> goodsList = new ArrayList<>();
     private OrderDetailRecommendGoodsAdapter recommendGoodsAdapter;
 
-    private List<String> logisticsList = new ArrayList<>();
-    private TimeLineAdapter timeLineAdapter;
+//    private List<String> logisticsList = new ArrayList<>();
+//    private TimeLineAdapter timeLineAdapter;
 
     public static OrderDetailFragment newInstance(int orderId) {
         Bundle args = new Bundle();
@@ -130,7 +182,7 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            presenter.getData(true);
         }
     };
 
@@ -142,10 +194,9 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
 
     @Override
     public void initView() {
-        showContentPage();
         initRefreshLayout();
-        showType();
         initRecommendGoodsGridView();
+        presenter.getData(true);
     }
 
     private void initRefreshLayout() {
@@ -153,43 +204,45 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
-                refreshLayout.finishRefresh(2000);
+                presenter.getData(false);
             }
         });
     }
 
     private void initRecommendGoodsGridView() {
-        goodsList.add("");
-        goodsList.add("");
-        goodsList.add("");
-        goodsList.add("");
         recommendGoodsAdapter = new OrderDetailRecommendGoodsAdapter(getContext(), goodsList);
         goodsGridView.setAdapter(recommendGoodsAdapter);
+        goodsGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                toGoodsDetailActivity(goodsList.get(position).getId());
+            }
+        });
     }
 
-    private void initLogisticsListView() {
-        logisticsList.add("");
-        logisticsList.add("");
-        logisticsList.add("");
-        logisticsList.add("");
-        logisticsList.add("");
-        logisticsList.add("");
-        logisticsList.add("");
-        timeLineAdapter = new TimeLineAdapter(getContext(), logisticsList);
-        logisticsListView.setAdapter(timeLineAdapter);
-    }
+//    private void initLogisticsListView() {
+//        logisticsList.add("");
+//        logisticsList.add("");
+//        logisticsList.add("");
+//        logisticsList.add("");
+//        logisticsList.add("");
+//        logisticsList.add("");
+//        logisticsList.add("");
+//        timeLineAdapter = new TimeLineAdapter(getContext(), logisticsList);
+//        logisticsListView.setAdapter(timeLineAdapter);
+//    }
 
-    private void showType() {
-        if (orderId == 0) {
+    private void showType(int orderStatus) {
+        if (orderStatus == 1) {
             layoutTypeUnpay.setVisibility(View.VISIBLE);
             layoutTypeHasSend.setVisibility(View.GONE);
-        } else if (orderId == 1) {
+        } else if (orderStatus == 2) {
             layoutTypeUnpay.setVisibility(View.GONE);
             layoutTypeHasSend.setVisibility(View.GONE);
-        } else if (orderId == 2) {
+        } else if (orderStatus == 3) {
             layoutTypeUnpay.setVisibility(View.GONE);
             layoutTypeHasSend.setVisibility(View.VISIBLE);
-            initLogisticsListView();
+            //initLogisticsListView();
         }
     }
 
@@ -200,7 +253,142 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
 
     @Override
     public void onDestroyView() {
+        OkGo.getInstance().cancelTag(ApiUtil.ORDER_DETAIL_TAG);
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public int getOrderId() {
+        return orderId;
+    }
+
+    @Override
+    public void showMessage(String message) {
+        try {
+            ToastUtils.showShort(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void refreshFinish() {
+        try {
+            refreshLayout.finishRefresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void bindData(OrderDetailResultInfo data) {
+        try {
+            showType(data.getData().getStatus());
+            bindOrderData(data.getData());
+            bindRecommendGoods(data.getProducts());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void bindOrderData(OrderDetailInfo orderDetailInfo) {
+        try {
+            if (orderDetailInfo.getStatus() == 1) {
+                statusText.setText("等待买家付款");
+                statusIcon.setImageResource(R.drawable.ic_order_detail_unpay);
+                needPayPrice.setText(MessageFormat.format("￥{0}", orderDetailInfo.getActual_pay()));
+                if (orderDetailInfo.getCoupon_id() == 0) {
+                    couponInfo.setVisibility(View.GONE);
+                } else {
+                    couponInfo.setVisibility(View.VISIBLE);
+                    couponInfo.setText(MessageFormat.format("￥{0}", orderDetailInfo.getCoupon_money()));
+                }
+            } else if (orderDetailInfo.getStatus() == 2) {
+                statusText.setText("买家已付款等待卖家发货");
+                statusIcon.setImageResource(R.drawable.ic_order_detail_unsend);
+            } else {
+                statusText.setText("卖家已发货");
+                statusIcon.setImageResource(R.drawable.ic_order_detail_unreveiver);
+            }
+            receiverName.setText(orderDetailInfo.getName());
+            receiverPhone.setText(orderDetailInfo.getMobile());
+            receiverAddress.setText(orderDetailInfo.getAddress());
+            GlideApp.with(this)
+                    .asBitmap()
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.drawable.ic_default_shop)
+                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + orderDetailInfo.getThumb())
+                    .into(goodsImage);
+            goodsName.setText(orderDetailInfo.getProduct_name());
+            goodsPrice.setText(MessageFormat.format("￥{0}", orderDetailInfo.getPrice()));
+            goodsNumber.setText(MessageFormat.format("x{0}", orderDetailInfo.getNumber()));
+            totalPrice.setText(MessageFormat.format("合计：￥{0}", orderDetailInfo.getActual_pay()));
+            goodsModel.setText(orderDetailInfo.getModel());
+            Number num = Float.parseFloat(orderDetailInfo.getPrice()) * 100;
+            int giveNum = num.intValue() / 100 * orderDetailInfo.getNumber();
+            goodsScore.setText(MessageFormat.format("赠送{0}钻石+积分", giveNum));
+            orderNumber.setText(orderDetailInfo.getOrder_id());
+            DateTime dateTime = new DateTime(orderDetailInfo.getCreate_time() * 1000);
+            orderTime.setText(dateTime.toString("yyyy-MM-dd HH-mm-ss"));
+
+            if (StringUtils.isTrimEmpty(orderDetailInfo.getShipment_number()) || orderDetailInfo.getShipment_number().equals("null")) {
+                layoutShip.setVisibility(View.GONE);
+            } else {
+                layoutShip.setVisibility(View.VISIBLE);
+                shipNumber.setText(orderDetailInfo.getShipment_number());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void bindRecommendGoods(List<GoodsInfo> data) {
+        try {
+            goodsList.clear();
+            goodsList.addAll(data);
+            recommendGoodsAdapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void toGoodsDetailActivity(int goodsId) {
+        try {
+            Intent intent = new Intent(_mActivity, GoodsDetailActivity.class);
+            intent.putExtra(GoodsDetailActivity.ARG_ID, goodsId);
+            startActivity(intent);
+            _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @OnClick(R.id.copy_ship_number)
+    public void onClickCopyShipNumber() {
+        try {
+            ClipboardManager cm = (ClipboardManager) _mActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+            if (cm != null) {
+                cm.setText(shipNumber.getText().toString());
+                showMessage("物流编号已复制到剪切板");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @OnClick(R.id.copy_order_number)
+    public void onClickCopyOrderNumber() {
+        try {
+            ClipboardManager cm = (ClipboardManager) _mActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+            if (cm != null) {
+                cm.setText(orderNumber.getText().toString());
+                showMessage("物流编号已复制到剪切板");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

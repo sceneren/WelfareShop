@@ -3,12 +3,12 @@ package com.quduo.welfareshop.ui.shop.entity;
 import com.quduo.welfareshop.base.BaseBean;
 
 /**
-*Author:scene
-*Time:2018/3/20 18:16
-*Description:商品列表信息
-*/
+ * Author:scene
+ * Time:2018/3/20 18:16
+ * Description:商品列表信息
+ */
 
-public class GoodsInfo extends BaseBean{
+public class GoodsInfo extends BaseBean {
 
     /**
      * thumb : /goods/1.jpg
