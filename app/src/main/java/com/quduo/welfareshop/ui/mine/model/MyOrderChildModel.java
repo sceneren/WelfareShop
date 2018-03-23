@@ -49,4 +49,42 @@ public class MyOrderChildModel {
                     }
                 });
     }
+
+    public void cancelOrder(HttpParams params, final HttpResultListener<Boolean> listener) {
+        OkGo.<LzyResponse<Boolean>>get(ApiUtil.API_PRE + ApiUtil.CANCEL_ORDER)
+                .tag(ApiUtil.CANCEL_ORDER_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<Boolean>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<Boolean>> response) {
+                        try {
+                            if (response.body().status) {
+                                listener.onSuccess(true);
+                            } else {
+                                listener.onFail("订单取消失败请重试");
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            listener.onFail("订单取消失败请重试");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<Boolean>> response) {
+                        super.onError(response);
+                        try {
+                            listener.onFail(response.getException().getMessage());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            listener.onFail("订单取消失败请重试");
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        listener.onFinish();
+                    }
+                });
+    }
 }

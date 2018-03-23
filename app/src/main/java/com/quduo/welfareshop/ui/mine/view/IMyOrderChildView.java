@@ -22,4 +22,10 @@ public interface IMyOrderChildView extends BaseView {
 
     void setHasmore(boolean hasmore);
 
+    void showLoadingDialog();
+
+    void hideLoadingDialog();
+
+    void cancelOrderSuccess(int position);
+
 }

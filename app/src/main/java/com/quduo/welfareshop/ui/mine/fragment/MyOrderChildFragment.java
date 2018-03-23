@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hss01248.dialog.StyledDialog;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
@@ -145,6 +146,14 @@ public class MyOrderChildFragment extends BaseMvpFragment<IMyOrderChildView, MyO
                 }
             }
         });
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (view.getId() == R.id.cancel_order) {
+                    presenter.cancelOrder(position, list.get(position).getId());
+                }
+            }
+        });
     }
 
     @Override
@@ -221,6 +230,34 @@ public class MyOrderChildFragment extends BaseMvpFragment<IMyOrderChildView, MyO
     public void setHasmore(boolean hasmore) {
         try {
             refreshLayout.setEnableLoadMore(hasmore);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showLoadingDialog() {
+        try {
+            StyledDialog.buildLoading().setActivity(_mActivity).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void hideLoadingDialog() {
+        try {
+            StyledDialog.dismissLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void cancelOrderSuccess(int position) {
+        try {
+            list.remove(position);
+            adapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();
         }

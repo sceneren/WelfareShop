@@ -6,6 +6,7 @@ import com.quduo.welfareshop.mvp.BasePresenter;
 import com.quduo.welfareshop.ui.mine.entity.OrderListResultInfo;
 import com.quduo.welfareshop.ui.mine.model.MyOrderChildModel;
 import com.quduo.welfareshop.ui.mine.view.IMyOrderChildView;
+import com.quduo.welfareshop.widgets.MyVideoPlayer;
 
 /**
  * Author:scene
@@ -71,6 +72,44 @@ public class MyOrderChildPresenter extends BasePresenter<IMyOrderChildView> {
                 @Override
                 public void onFinish() {
 
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void cancelOrder(final int position, int orderId) {
+        try {
+            mView.showLoadingDialog();
+            HttpParams params = new HttpParams();
+            params.put("order_id", orderId);
+            model.cancelOrder(params, new HttpResultListener<Boolean>() {
+                @Override
+                public void onSuccess(Boolean data) {
+                    try {
+                        mView.cancelOrderSuccess(position);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.showMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         } catch (Exception e) {

@@ -103,6 +103,7 @@ public class MyOrderFragment extends BaseBackMvpFragment<IMyOrderView, MyOrderPr
     @Override
     public void onDestroyView() {
         OkGo.getInstance().cancelTag(ApiUtil.ORDER_LIST_TAG);
+        OkGo.getInstance().cancelTag(ApiUtil.CANCEL_ORDER_TAG);
         super.onDestroyView();
         unbinder.unbind();
     }

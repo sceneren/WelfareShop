@@ -29,6 +29,7 @@ import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -140,14 +141,20 @@ public class ChooseGoodsTypeDialog extends BaseActivity {
             modelAdapter.setSelectedList(0);
             choosedModel = goodsModelList.get(0);
             tagLayout.setAdapter(modelAdapter);
-            tagLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
-                @Override
-                public boolean onTagClick(View view, int position, FlowLayout parent) {
-                    choosedModel = goodsModelList.get(position);
 
-                    return true;
+            tagLayout.setOnSelectListener(new TagFlowLayout.OnSelectListener() {
+                @Override
+                public void onSelected(Set<Integer> selectPosSet) {
+                    if (selectPosSet.size() > 0) {
+                        for (int position : selectPosSet) {
+                            choosedModel = goodsModelList.get(position);
+                        }
+                    } else {
+                        choosedModel = "";
+                    }
                 }
             });
+
         } else {
             layoutModel.setVisibility(View.GONE);
         }
@@ -197,14 +204,15 @@ public class ChooseGoodsTypeDialog extends BaseActivity {
         orderInfo.setThumb(detailInfo.getThumb());
         orderInfo.setGoodsPrice(detailInfo.getPrice());
         orderInfo.setChoosedNum(number);
-        if (goodsModelList != null && goodsModelList.size() > 0 && !StringUtils.isEmpty(choosedModel)) {
-            orderInfo.setChooseModel(choosedModel);
-        } else {
+        if (goodsModelList != null && goodsModelList.size() > 0 && StringUtils.isEmpty(choosedModel)) {
             ToastUtils.showShort("请选择您要购买的型号");
             return;
+        } else {
+            orderInfo.setChooseModel(choosedModel);
         }
         Intent intent = new Intent(ChooseGoodsTypeDialog.this, ConfirmOrderActivity.class);
         intent.putExtra(ConfirmOrderActivity.ARG_ORDER_INFO, orderInfo);
         startActivity(intent);
+        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }
 }
