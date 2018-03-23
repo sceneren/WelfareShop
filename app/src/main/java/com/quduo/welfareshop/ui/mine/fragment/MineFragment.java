@@ -18,9 +18,9 @@ import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.event.UpdateAvatarEvent;
 import com.quduo.welfareshop.event.UpdateMyInfoSuccessEvent;
 import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
+import com.quduo.welfareshop.ui.mine.activity.MyReceiverActivity;
 import com.quduo.welfareshop.ui.mine.presenter.MinePresenter;
 import com.quduo.welfareshop.ui.mine.view.IMineView;
-import com.quduo.welfareshop.ui.shop.fragment.ServiceCenterActivity;
 import com.quduo.welfareshop.widgets.CircleImageView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -123,7 +123,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
 
     @OnClick(R.id.avatar)
     public void onClickAvatar() {
-       EventBus.getDefault().post(new StartBrotherEvent(MyInfoFragment.newInstance()));
+        EventBus.getDefault().post(new StartBrotherEvent(MyInfoFragment.newInstance()));
     }
 
     @OnClick(R.id.my_order)
@@ -158,7 +158,8 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
 
     @OnClick(R.id.my_receiver)
     public void onClickMyReceiver() {
-        EventBus.getDefault().post(new StartBrotherEvent(MyReceiverFragment.newInstance()));
+        startActivity(new Intent(_mActivity, MyReceiverActivity.class));
+        _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }
 
     @OnClick(R.id.user_agreement)

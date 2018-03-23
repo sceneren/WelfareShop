@@ -1,6 +1,7 @@
 package com.quduo.welfareshop.ui.shop.view;
 
 import com.quduo.welfareshop.mvp.BaseView;
+import com.quduo.welfareshop.ui.shop.entity.ConfirmOrderResultInfo;
 
 /**
  * Author:scene
@@ -9,4 +10,7 @@ import com.quduo.welfareshop.mvp.BaseView;
  */
 
 public interface IConfirmOrderView extends BaseView {
+    void bindData(ConfirmOrderResultInfo data);
+
+    void showMessage(String message);
 }

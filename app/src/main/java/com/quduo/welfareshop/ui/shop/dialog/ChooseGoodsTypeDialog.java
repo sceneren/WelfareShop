@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.shop.dialog;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Gravity;
@@ -16,6 +17,8 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.BaseActivity;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.ui.shop.activity.ConfirmOrderActivity;
+import com.quduo.welfareshop.ui.shop.entity.CreateOrderInfo;
 import com.quduo.welfareshop.ui.shop.entity.GoodsDetailInfo;
 import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -65,7 +68,7 @@ public class ChooseGoodsTypeDialog extends BaseActivity {
     private GoodsDetailInfo detailInfo;
 
     private int number = 1;
-    private String choosedModel;
+    private String choosedModel = "";
 
     private List<String> goodsModelList;
 
@@ -94,6 +97,7 @@ public class ChooseGoodsTypeDialog extends BaseActivity {
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         lp.gravity = Gravity.BOTTOM;//设置对话框置顶显示
         win.setAttributes(lp);
+        setFinishOnTouchOutside(true);
     }
 
     private void initView() {
@@ -103,6 +107,7 @@ public class ChooseGoodsTypeDialog extends BaseActivity {
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_default_shop)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + detailInfo.getThumb())
                 .into(goodsImage);
         goodsName.setText(detailInfo.getName());
@@ -110,6 +115,7 @@ public class ChooseGoodsTypeDialog extends BaseActivity {
         Number num = Float.parseFloat(detailInfo.getPrice()) * 100;
         int giveNum = num.intValue() / 100;
         goodsScore.setText(MessageFormat.format("送{0}钻石+积分", giveNum));
+
     }
 
     private void initModelLayout() {
@@ -177,5 +183,19 @@ public class ChooseGoodsTypeDialog extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.btnConfirm)
+    public void onClickConfirm() {
+        CreateOrderInfo orderInfo = new CreateOrderInfo();
+        orderInfo.setGoodsId(detailInfo.getId());
+        orderInfo.setGoodsName(detailInfo.getName());
+        orderInfo.setThumb(detailInfo.getThumb());
+        orderInfo.setGoodsPrice(detailInfo.getPrice());
+        orderInfo.setChoosedNum(number);
+        orderInfo.setChooseModel(choosedModel);
+        Intent intent = new Intent(ChooseGoodsTypeDialog.this, ConfirmOrderActivity.class);
+        intent.putExtra(ConfirmOrderActivity.ARG_ORDER_INFO, orderInfo);
+        startActivity(intent);
     }
 }

@@ -23,4 +23,6 @@ public interface IMyReceiverView extends BaseView {
     String getPhone();
 
     String getAddress();
+
+    void bindSuccess();
 }

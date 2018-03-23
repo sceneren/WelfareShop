@@ -67,7 +67,7 @@ public class MyReceiverPresenter extends BasePresenter<IMyReceiverView> {
                 return;
             }
 
-            if (RegexUtils.isMobileSimple(mView.getPhone())) {
+            if (!RegexUtils.isMobileSimple(mView.getPhone())) {
                 mView.showMessage("请输入正确的联系电话");
                 return;
             }
@@ -88,6 +88,7 @@ public class MyReceiverPresenter extends BasePresenter<IMyReceiverView> {
                 public void onSuccess(Boolean data) {
                     try {
                         mView.showMessage("修改成功");
+                        mView.bindSuccess();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

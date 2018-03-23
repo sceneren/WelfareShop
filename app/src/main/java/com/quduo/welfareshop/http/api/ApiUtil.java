@@ -156,8 +156,15 @@ public class ApiUtil {
     public static final String FOLLOW_GOODS = "personal/favor/add_product";
     public static final String FOLLOW_GOODS_TAG = "personal/favor/add_product";
     //我收藏的商品列表
-    public static final String MY_FOLLOW_GOODS="personal/favor/product";
-    public static final String MY_FOLLOW_GOODS_TAG="personal/favor/product";
+    public static final String MY_FOLLOW_GOODS = "personal/favor/product";
+    public static final String MY_FOLLOW_GOODS_TAG = "personal/favor/product";
+    //订单相关的信息
+    public static final String ORDER_USER_INFO = "order/info";
+    public static final String ORDER_USER_INFO_TAG = "order/info";
+    //我的代金券
+    public static final String MY_COUPON = "personal/coupon";
+    public static final String MY_COUPON_TAG = "personal/coupon";
+
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

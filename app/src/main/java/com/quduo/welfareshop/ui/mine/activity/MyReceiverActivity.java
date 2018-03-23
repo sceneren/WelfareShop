@@ -1,12 +1,9 @@
-package com.quduo.welfareshop.ui.mine.fragment;
+package com.quduo.welfareshop.ui.mine.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -15,7 +12,7 @@ import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.http.api.ApiUtil;
-import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
+import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.mine.entity.ReceiverInfo;
 import com.quduo.welfareshop.ui.mine.presenter.MyReceiverPresenter;
 import com.quduo.welfareshop.ui.mine.view.IMyReceiverView;
@@ -32,7 +29,7 @@ import wiki.scene.loadmore.StatusViewLayout;
  * Description:收货地址
  */
 
-public class MyReceiverFragment extends BaseBackMvpFragment<IMyReceiverView, MyReceiverPresenter> implements IMyReceiverView {
+public class MyReceiverActivity extends BaseMvpActivity<IMyReceiverView, MyReceiverPresenter> implements IMyReceiverView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
@@ -46,21 +43,18 @@ public class MyReceiverFragment extends BaseBackMvpFragment<IMyReceiverView, MyR
     EditText receiverPhone;
     @BindView(R.id.receiver_address)
     EditText receiverAddress;
+    private boolean isFromUpdate = false;
 
-    public static MyReceiverFragment newInstance() {
-        Bundle args = new Bundle();
-        MyReceiverFragment fragment = new MyReceiverFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_receiver, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        return attachToSwipeBack(view);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_my_receiver);
+        unbinder = ButterKnife.bind(this);
+        initToolbar();
+        initView();
+        isFromUpdate = getIntent().getBooleanExtra("isFromUpdate", false);
     }
+
 
     @Override
     public void showLoadingPage() {
@@ -96,13 +90,18 @@ public class MyReceiverFragment extends BaseBackMvpFragment<IMyReceiverView, MyR
         }
     };
 
-    @Override
-    public void initToolbar() {
+    private void initToolbar() {
         toolbarTitle.setText("收货信息");
-        initToolbarNav(toolbar, true);
+        toolbar.setNavigationIcon(R.drawable.ic_toolbar_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
-    @Override
+
     public void initView() {
         presenter.getData();
     }
@@ -113,17 +112,17 @@ public class MyReceiverFragment extends BaseBackMvpFragment<IMyReceiverView, MyR
     }
 
     @Override
-    public void onDestroyView() {
+    protected void onDestroy() {
         OkGo.getInstance().cancelTag(ApiUtil.RECEIVER_ADDRESS_TAG);
         OkGo.getInstance().cancelTag(ApiUtil.EDIT_RECEIVER_ADDRESS_TAG);
-        super.onDestroyView();
+        super.onDestroy();
         unbinder.unbind();
     }
 
     @Override
     public void showLaodingDialog() {
         try {
-            StyledDialog.buildLoading().setActivity(_mActivity).show();
+            StyledDialog.buildLoading().setActivity(MyReceiverActivity.this).show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -173,6 +172,22 @@ public class MyReceiverFragment extends BaseBackMvpFragment<IMyReceiverView, MyR
     @Override
     public String getAddress() {
         return receiverAddress.getText().toString().trim();
+    }
+
+    @Override
+    public void bindSuccess() {
+        try {
+            if (isFromUpdate) {
+                Intent intent = new Intent();
+                intent.putExtra("name", getName());
+                intent.putExtra("address", getAddress());
+                intent.putExtra("phone", getPhone());
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @OnClick(R.id.save)

@@ -12,15 +12,23 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SizeUtils;
+import com.blankj.utilcode.util.ToastUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.event.TabSelectedEvent;
+import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.mine.adapter.MyCouponAdapter;
+import com.quduo.welfareshop.ui.mine.entity.CouponInfo;
 import com.quduo.welfareshop.ui.mine.presenter.MyCouponPresenter;
 import com.quduo.welfareshop.ui.mine.view.IMyCouponView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +58,7 @@ public class MyCouponFragment extends BaseBackMvpFragment<IMyCouponView, MyCoupo
     StatusViewLayout statusView;
     Unbinder unbinder;
 
-    private List<String> list;
+    private List<CouponInfo> list = new ArrayList<>();
     private MyCouponAdapter adapter;
 
     public static MyCouponFragment newInstance() {
@@ -98,7 +106,7 @@ public class MyCouponFragment extends BaseBackMvpFragment<IMyCouponView, MyCoupo
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            presenter.getData(true);
         }
     };
 
@@ -110,8 +118,8 @@ public class MyCouponFragment extends BaseBackMvpFragment<IMyCouponView, MyCoupo
 
     @Override
     public void initView() {
-        showContentPage();
         initRecyclerView();
+        presenter.getData(true);
     }
 
     private void initRecyclerView() {
@@ -119,20 +127,25 @@ public class MyCouponFragment extends BaseBackMvpFragment<IMyCouponView, MyCoupo
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(final RefreshLayout refreshLayout) {
-                refreshLayout.finishRefresh(2000);
+                presenter.getData(false);
             }
         });
-        list = new ArrayList<>();
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        adapter = new MyCouponAdapter(getContext(), list);
+
+        adapter = new MyCouponAdapter(list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new SpacesItemDecoration(SizeUtils.dp2px(10), true, true));
         recyclerView.setAdapter(adapter);
-
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                try {
+                    EventBus.getDefault().post(new TabSelectedEvent(1));
+                    _mActivity.onBackPressed();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
@@ -142,7 +155,37 @@ public class MyCouponFragment extends BaseBackMvpFragment<IMyCouponView, MyCoupo
 
     @Override
     public void onDestroyView() {
+        OkGo.getInstance().cancelTag(ApiUtil.MY_COUPON_TAG);
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void showMessage(String message) {
+        try {
+            ToastUtils.showShort(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void bindData(List<CouponInfo> data) {
+        try {
+            list.clear();
+            list.addAll(data);
+            adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void refreshFinish() {
+        try {
+            refreshLayout.finishRefresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
