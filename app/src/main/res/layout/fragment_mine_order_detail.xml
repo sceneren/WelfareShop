@@ -326,6 +326,7 @@
                             android:layout_gravity="center_horizontal"
                             android:padding="@dimen/dp_10"
                             android:text="物流追踪"
+                            android:visibility="gone"
                             android:textColor="@color/title_text_color"
                             android:textSize="@dimen/sp_16" />
 
@@ -335,6 +336,7 @@
                             android:layout_height="match_parent"
                             android:divider="@color/transparent1"
                             android:dividerHeight="0dp"
+                            android:visibility="gone"
                             android:listSelector="@color/transparent1" />
                     </LinearLayout>
                     <!--###订单时间###-->

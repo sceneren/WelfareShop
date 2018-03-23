@@ -8,6 +8,7 @@ import com.quduo.welfareshop.http.base.LzyResponse;
 import com.quduo.welfareshop.http.callback.JsonCallback;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.ui.mine.entity.OrderDetailResultInfo;
+import com.quduo.welfareshop.ui.shop.entity.PayInfo;
 
 /**
  * Author:scene
@@ -40,6 +41,41 @@ public class OrderDetailModel {
                         } catch (Exception e) {
                             e.printStackTrace();
                             listener.onFail("数据获取失败请重试");
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        listener.onFinish();
+                    }
+                });
+    }
+
+    //重新发起支付
+    public void rePay(HttpParams params, final HttpResultListener<PayInfo> listener) {
+        OkGo.<LzyResponse<PayInfo>>post(ApiUtil.API_PRE + ApiUtil.REPAY_ORDER)
+                .tag(ApiUtil.REPAY_ORDER_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<PayInfo>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<PayInfo>> response) {
+                        try {
+                            listener.onSuccess(response.body().data);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            listener.onFail("支付信息获取失败请重试");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<PayInfo>> response) {
+                        super.onError(response);
+                        try {
+                            listener.onFail(response.getException().getMessage());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            listener.onFail("支付信息获取失败请重试");
                         }
                     }
 

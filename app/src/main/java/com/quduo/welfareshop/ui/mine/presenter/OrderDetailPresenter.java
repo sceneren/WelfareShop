@@ -6,6 +6,7 @@ import com.quduo.welfareshop.mvp.BasePresenter;
 import com.quduo.welfareshop.ui.mine.entity.OrderDetailResultInfo;
 import com.quduo.welfareshop.ui.mine.model.OrderDetailModel;
 import com.quduo.welfareshop.ui.mine.view.IOrderDetailView;
+import com.quduo.welfareshop.ui.shop.entity.PayInfo;
 
 /**
  * Author:scene
@@ -57,6 +58,45 @@ public class OrderDetailPresenter extends BasePresenter<IOrderDetailView> {
                 @Override
                 public void onFinish() {
 
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void rePayOrder(int orderId, int payType) {
+        try {
+            mView.showLoadingDialog();
+            HttpParams params = new HttpParams();
+            params.put("order_id", orderId);
+            params.put("pay_type", payType);
+            model.rePay(params, new HttpResultListener<PayInfo>() {
+                @Override
+                public void onSuccess(PayInfo data) {
+                    try {
+                        mView.repayOrderSuccess(data);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.alert(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         } catch (Exception e) {

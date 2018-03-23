@@ -2,6 +2,7 @@ package com.quduo.welfareshop.ui.mine.view;
 
 import com.quduo.welfareshop.mvp.BaseView;
 import com.quduo.welfareshop.ui.mine.entity.OrderDetailResultInfo;
+import com.quduo.welfareshop.ui.shop.entity.PayInfo;
 
 /**
  * Author:scene
@@ -18,4 +19,12 @@ public interface IOrderDetailView extends BaseView {
     void refreshFinish();
 
     void bindData(OrderDetailResultInfo data);
+
+    void showLoadingDialog();
+
+    void hideLoadingDialog();
+
+    void alert(String message);
+
+    void repayOrderSuccess(PayInfo payInfo);
 }

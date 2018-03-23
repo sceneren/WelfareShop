@@ -174,8 +174,11 @@ public class ApiUtil {
     public static final String CANCEL_ORDER = "order/cancel";
     public static final String CANCEL_ORDER_TAG = "order/cancel";
     //订单详情
-    public static final String ORDER_DETAIL="personal/order/detail";
-    public static final String ORDER_DETAIL_TAG="personal/order/detail";
+    public static final String ORDER_DETAIL = "personal/order/detail";
+    public static final String ORDER_DETAIL_TAG = "personal/order/detail";
+    //重新发起支付
+    public static final String REPAY_ORDER = "order/pay";
+    public static final String REPAY_ORDER_TAG = "order/pay";
 
     /**
      * Case By:创建参数基础信息
