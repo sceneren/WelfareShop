@@ -1,5 +1,7 @@
 package com.quduo.welfareshop.activity;
 
+import com.quduo.welfareshop.bean.RechargeInfo;
+import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.mvp.BasePresenter;
 
 /**
@@ -14,5 +16,39 @@ public class RechargePresenter extends BasePresenter<IRechargeView> {
     public RechargePresenter(IRechargeView view) {
         super(view);
         this.model = new RechargeModel();
+    }
+
+    public void getData() {
+        try {
+            mView.showLoadingPage();
+            model.getData(new HttpResultListener<RechargeInfo>() {
+                @Override
+                public void onSuccess(RechargeInfo data) {
+                    try {
+                        mView.bindRechargeListView(data);
+                        mView.showContentPage();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.showErrorPage();
+                        mView.showMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

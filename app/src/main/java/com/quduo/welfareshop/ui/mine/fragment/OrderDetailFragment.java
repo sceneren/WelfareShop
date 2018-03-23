@@ -372,7 +372,7 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
             goodsScore.setText(MessageFormat.format("赠送{0}钻石+积分", giveNum));
             orderNumber.setText(orderDetailInfo.getOrder_id());
             DateTime dateTime = new DateTime(orderDetailInfo.getCreate_time() * 1000);
-            orderTime.setText(dateTime.toString("yyyy-MM-dd HH-mm-ss"));
+            orderTime.setText(dateTime.toString("yyyy-MM-dd HH:mm:ss"));
 
             if (StringUtils.isTrimEmpty(orderDetailInfo.getShipment_number()) || orderDetailInfo.getShipment_number().equals("null")) {
                 layoutShip.setVisibility(View.GONE);

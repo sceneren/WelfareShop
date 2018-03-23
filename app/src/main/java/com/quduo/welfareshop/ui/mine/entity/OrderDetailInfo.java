@@ -44,7 +44,7 @@ public class OrderDetailInfo extends BaseBean{
     private String price;
     private String cost;
     private String actual_pay;
-    private int create_time;
+    private long create_time;
     private int status;
     private String name;
     private String address;
@@ -130,11 +130,11 @@ public class OrderDetailInfo extends BaseBean{
         this.actual_pay = actual_pay;
     }
 
-    public int getCreate_time() {
+    public long getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(int create_time) {
+    public void setCreate_time(long create_time) {
         this.create_time = create_time;
     }
 
