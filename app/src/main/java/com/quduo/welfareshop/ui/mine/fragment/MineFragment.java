@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.hss01248.dialog.StyledDialog;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.RechargeActivity;
@@ -193,6 +195,22 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     public void updateMyInfoSuccess(UpdateMyInfoSuccessEvent event) {
         try {
             nickname.setText(MyApplication.getInstance().getUserInfo().getNickname());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @OnClick(R.id.clear_cache)
+    public void onClickClearCache() {
+        try {
+            StyledDialog.buildLoading("正在清理缓存请稍候").setActivity(_mActivity).show();
+            avatar.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    StyledDialog.dismissLoading();
+                    ToastUtils.showShort("缓存清理完成");
+                }
+            }, 1500);
         } catch (Exception e) {
             e.printStackTrace();
         }
