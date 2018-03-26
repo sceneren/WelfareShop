@@ -34,6 +34,8 @@ public class OtherSimpleUserInfo extends BaseBean {
     private int distance;
     private List<String> photo;
     private int subscribe_id;
+    private int avatar_width;
+    private int avatar_height;
 
     public int getId() {
         return id;
@@ -113,5 +115,21 @@ public class OtherSimpleUserInfo extends BaseBean {
 
     public void setSubscribe_id(int subscribe_id) {
         this.subscribe_id = subscribe_id;
+    }
+
+    public int getAvatar_width() {
+        return avatar_width;
+    }
+
+    public void setAvatar_width(int avatar_width) {
+        this.avatar_width = avatar_width;
+    }
+
+    public int getAvatar_height() {
+        return avatar_height;
+    }
+
+    public void setAvatar_height(int avatar_height) {
+        this.avatar_height = avatar_height;
     }
 }

@@ -1,6 +1,7 @@
 package com.quduo.welfareshop.ui.friend.adapter;
 
 import android.content.Context;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.SizeUtils;
@@ -19,6 +20,7 @@ import com.quduo.welfareshop.util.DistanceUtil;
 import java.util.List;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+import wiki.scene.loadmore.utils.PtrLocalDisplay;
 
 /**
  * Author:scene
@@ -41,6 +43,21 @@ public class NearAdapter extends BaseQuickAdapter<OtherSimpleUserInfo, BaseViewH
         helper.setText(R.id.name, item.getNickname());
         helper.setText(R.id.distance, DistanceUtil.formatDistance(item.getDistance()));
         ImageView image = helper.getView(R.id.image);
+        if (item.getAvatar_width() == 0) {
+            item.setAvatar_width(1);
+            item.setAvatar_height(1);
+        } else {
+            item.setAvatar_height(item.getAvatar_height());
+            item.setAvatar_width(item.getAvatar_width());
+        }
+
+        int itemWidth = PtrLocalDisplay.SCREEN_WIDTH_PIXELS / 2 - SizeUtils.dp2px(5);
+        ViewGroup.LayoutParams params = image.getLayoutParams();
+        float scale = (float) itemWidth / (float) item.getAvatar_width();
+        params.width = itemWidth;
+        params.height = (int) (scale * (float) item.getAvatar_height());
+        image.setLayoutParams(params);
+
         MultiTransformation multi = new MultiTransformation(
                 new CenterCrop(),
                 new RoundedCornersTransformation(SizeUtils.dp2px(10), 0, RoundedCornersTransformation.CornerType.TOP));
