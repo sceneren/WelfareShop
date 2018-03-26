@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.shop.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -147,9 +148,8 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
         });
     }
 
-
     private void initHeaderView() {
-        View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_shop_header, null);
+        @SuppressLint("InflateParams") View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_shop_header, null);
         CustomGridView cateGridView = headerView.findViewById(R.id.cateGridView);
         banner = headerView.findViewById(R.id.banner);
         recommend1 = headerView.findViewById(R.id.recommend_1);
@@ -158,6 +158,13 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
         recommend4 = headerView.findViewById(R.id.recommend_4);
         recommend5 = headerView.findViewById(R.id.recommend_5);
         recommend6 = headerView.findViewById(R.id.recommend_6);
+        ImageView hotImage = headerView.findViewById(R.id.hot_image);
+
+        GlideApp.with(this)
+                .asGif()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .load(R.drawable.ic_shop_hot_icon)
+                .into(hotImage);
 
 
         banner = headerView.findViewById(R.id.banner);

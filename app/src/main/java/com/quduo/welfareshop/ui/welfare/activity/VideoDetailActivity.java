@@ -99,6 +99,12 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
     EditText commentContent;
     @BindView(R.id.comment)
     TextView comment;
+    @BindView(R.id.arrow)
+    ImageView arrow;
+    @BindView(R.id.des)
+    TextView des;
+    @BindView(R.id.video_name)
+    TextView videoName;
 
     private List<GoodsInfo> goodsList = new ArrayList<>();
     private VideoDetailGoodsAdapter goodsAdapter;
@@ -346,7 +352,8 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
                     .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                     .into(avatar);
-
+            des.setText(data.getDescription());
+            videoName.setText(data.getName());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -505,6 +512,21 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
             intent.putExtra(GoodsDetailActivity.ARG_ID, goodsId);
             startActivity(intent);
             overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @OnClick(R.id.layout_see_des)
+    public void onClicklayoutSeeDes() {
+        try {
+            if (des.getVisibility() == View.VISIBLE) {
+                des.setVisibility(View.GONE);
+                arrow.setImageResource(R.drawable.ic_arrow_top);
+            } else {
+                des.setVisibility(View.VISIBLE);
+                arrow.setImageResource(R.drawable.ic_arrow_bottom);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

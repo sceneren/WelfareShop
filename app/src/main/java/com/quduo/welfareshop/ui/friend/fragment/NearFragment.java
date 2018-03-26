@@ -3,8 +3,9 @@ package com.quduo.welfareshop.ui.friend.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,7 +112,10 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
             }
         });
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        //防止item位置互换
+        layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, SizeUtils.dp2px(5), true));
         adapter = new NearAdapter(getContext(), list);
