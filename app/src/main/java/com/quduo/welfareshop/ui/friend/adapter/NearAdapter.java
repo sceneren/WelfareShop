@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.SizeUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -42,6 +43,8 @@ public class NearAdapter extends BaseQuickAdapter<OtherSimpleUserInfo, BaseViewH
         helper.setText(R.id.age, item.getSex() + "岁");
         helper.setText(R.id.name, item.getNickname());
         helper.setText(R.id.distance, DistanceUtil.formatDistance(item.getDistance()));
+        helper.setText(R.id.des, item.getSignature());
+        helper.setGone(R.id.des, !StringUtils.isTrimEmpty(item.getSignature()));
         ImageView image = helper.getView(R.id.image);
         if (item.getAvatar_width() == 0) {
             item.setAvatar_width(1);
@@ -69,6 +72,9 @@ public class NearAdapter extends BaseQuickAdapter<OtherSimpleUserInfo, BaseViewH
                 .apply(RequestOptions.bitmapTransform(multi))
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getAvatar())
                 .into(image);
+
+        helper.setText(R.id.status_text, item.getIs_busy() == 1 ? "忙碌" : "在线");
+        helper.setImageResource(R.id.status_view, item.getIs_busy() == 1 ? R.drawable.ic_friend_status_1 : R.drawable.ic_friend_status_0);
     }
 
 }

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -58,7 +59,7 @@
                 android:ellipsize="end"
                 android:lines="1"
                 android:layout_marginTop="@dimen/dp_10"
-                android:text="我的小姨子"
+                tools:text="我的小姨子"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_16" />
 
@@ -69,7 +70,7 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:ellipsize="end"
                 android:lines="1"
-                android:text="69992人读过"
+                tools:text="69992人读过"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_12" />
 
@@ -80,7 +81,7 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:ellipsize="end"
                 android:lines="1"
-                android:text="评分:7.8"
+                tools:text="评分:7.8"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_12" />
 

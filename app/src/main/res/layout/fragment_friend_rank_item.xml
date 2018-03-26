@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -82,6 +83,17 @@
             android:textColor="@color/white"
             android:textSize="12sp" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="@color/des_text_color"
+        android:textSize="10sp"
+        tools:text="这是简介" />
 
     <com.w4lle.library.NineGridlayout
         android:id="@+id/image_layout"

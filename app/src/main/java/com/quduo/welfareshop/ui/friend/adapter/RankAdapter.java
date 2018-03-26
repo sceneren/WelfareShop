@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.SizeUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -56,6 +57,8 @@ public class RankAdapter extends BaseQuickAdapter<OtherSimpleUserInfo, BaseViewH
         helper.setText(R.id.nickname, item.getNickname());
         helper.setText(R.id.age, item.getSex() + "岁");
         helper.setText(R.id.follow_number, item.getSubscribe() + "人关注");
+        helper.setText(R.id.des,item.getSignature());
+        helper.setGone(R.id.des, !StringUtils.isTrimEmpty(item.getSignature()));
         final ArrayList<String> images = new ArrayList<>();
         for (String str : item.getPhoto()) {
             images.add(MyApplication.getInstance().getConfigInfo().getFile_domain() + str);

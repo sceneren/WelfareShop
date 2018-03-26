@@ -36,6 +36,8 @@ public class OtherSimpleUserInfo extends BaseBean {
     private int subscribe_id;
     private int avatar_width;
     private int avatar_height;
+    private String signature;
+    private int is_busy;
 
     public int getId() {
         return id;
@@ -131,5 +133,21 @@ public class OtherSimpleUserInfo extends BaseBean {
 
     public void setAvatar_height(int avatar_height) {
         this.avatar_height = avatar_height;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
+
+    public int getIs_busy() {
+        return is_busy;
+    }
+
+    public void setIs_busy(int is_busy) {
+        this.is_busy = is_busy;
     }
 }
