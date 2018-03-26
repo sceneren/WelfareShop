@@ -5,6 +5,8 @@ import android.content.pm.ActivityInfo;
 import android.view.View;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.quduo.welfareshop.MyApplication;
@@ -46,6 +48,7 @@ public class SmallVideoAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolde
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_default_video)
+                .apply(RequestOptions.bitmapTransform(new CenterCrop()))
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
                 .into(videoPlayer.thumbImageView);
         videoPlayer.setCurrentInfo(item.isPayed(), new View.OnClickListener() {

@@ -9,10 +9,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hss01248.dialog.StyledDialog;
 import com.hss01248.dialog.interfaces.MyDialogListener;
@@ -29,7 +34,6 @@ import com.quduo.welfareshop.ui.red.entity.OpenRedResultInfo;
 import com.quduo.welfareshop.ui.red.entity.UnparkRedInfo;
 import com.quduo.welfareshop.ui.red.presenter.UnparkRedPresenter;
 import com.quduo.welfareshop.ui.red.view.IUnparkRedView;
-import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -43,6 +47,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import wiki.scene.loadmore.StatusViewLayout;
 
 /**
@@ -159,7 +164,7 @@ public class UnparkRedFragment extends BaseMvpFragment<IUnparkRedView, UnparkRed
     private void initHeaderView() {
         @SuppressLint("InflateParams")
         View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_my_red_unpark_header, null);
-        SelectableRoundedImageView avatar = headerView.findViewById(R.id.avatar);
+        ImageView avatar = headerView.findViewById(R.id.avatar);
         money = headerView.findViewById(R.id.money);
         adapter.addHeaderView(headerView);
 
@@ -169,12 +174,15 @@ public class UnparkRedFragment extends BaseMvpFragment<IUnparkRedView, UnparkRed
                 toCashFragment();
             }
         });
-
+        MultiTransformation multiTransformation = new MultiTransformation(
+                new CenterCrop(), new RoundedCornersTransformation(SizeUtils.dp2px(5), 0)
+        );
         GlideApp.with(this)
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_default_avatar)
+                .apply(RequestOptions.bitmapTransform(multiTransformation))
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                 .into(avatar);
         money.setText(MessageFormat.format("{0}元", MyApplication.getInstance().getUserInfo().getMoney()));

@@ -110,10 +110,7 @@
             android:id="@+id/des"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ellipsize="end"
-            android:maxLines="4"
-            android:text="这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介这是简介简介" />
+            android:layout_marginTop="10dp" />
     </LinearLayout>
 
     <View

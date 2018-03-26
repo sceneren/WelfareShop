@@ -33,7 +33,7 @@ public class VideoInfo implements Serializable {
     private String tags;
     private int play_times;
     private int good;
-    private int score;
+    private double score;
     private boolean is_favor;
     private boolean is_good;
     private String description;
@@ -122,11 +122,11 @@ public class VideoInfo implements Serializable {
         this.good = good;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 

@@ -9,10 +9,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
@@ -25,7 +30,6 @@ import com.quduo.welfareshop.ui.red.entity.RedHistoryDetailInfo;
 import com.quduo.welfareshop.ui.red.entity.RedHistoryResultInfo;
 import com.quduo.welfareshop.ui.red.presenter.HistoryRedPresenter;
 import com.quduo.welfareshop.ui.red.view.IHistoryRedView;
-import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -41,6 +45,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import wiki.scene.loadmore.StatusViewLayout;
 
 /**
@@ -151,7 +156,7 @@ public class HistoryRedFragment extends BaseMvpFragment<IHistoryRedView, History
     private void initHeaderView() {
         @SuppressLint("InflateParams")
         View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_my_red_history_header, null);
-        SelectableRoundedImageView avatar = headerView.findViewById(R.id.avatar);
+        ImageView avatar = headerView.findViewById(R.id.avatar);
         money = headerView.findViewById(R.id.money);
         totalWin = headerView.findViewById(R.id.total_win);
         luckTime = headerView.findViewById(R.id.luck_time);
@@ -162,12 +167,15 @@ public class HistoryRedFragment extends BaseMvpFragment<IHistoryRedView, History
                 toCashFragment();
             }
         });
-
+        MultiTransformation multiTransformation = new MultiTransformation(
+                new CenterCrop(), new RoundedCornersTransformation(SizeUtils.dp2px(5), 0)
+        );
         GlideApp.with(this)
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_default_avatar)
+                .apply(RequestOptions.bitmapTransform(multiTransformation))
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                 .into(avatar);
         money.setText(MessageFormat.format("{0}元", MyApplication.getInstance().getUserInfo().getMoney()));

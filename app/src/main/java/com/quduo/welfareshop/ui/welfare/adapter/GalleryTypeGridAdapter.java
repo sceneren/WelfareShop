@@ -8,11 +8,14 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.welfare.entity.GalleryCateInfo;
-import com.quduo.welfareshop.widgets.CustomHeightRoundedImageView;
+import com.quduo.welfareshop.widgets.RatioImageView;
 
 import java.util.List;
 
@@ -67,6 +70,7 @@ public class GalleryTypeGridAdapter extends BaseAdapter {
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_default_avatar)
+                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain()+info.getThumb())
                 .into(holder.image);
         holder.name.setText(info.getName());
@@ -75,7 +79,7 @@ public class GalleryTypeGridAdapter extends BaseAdapter {
 
     static class TypeGridViewHolder {
         @BindView(R.id.image)
-        CustomHeightRoundedImageView image;
+        RatioImageView image;
         @BindView(R.id.name)
         TextView name;
 

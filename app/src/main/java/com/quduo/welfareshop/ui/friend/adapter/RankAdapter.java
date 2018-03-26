@@ -3,8 +3,13 @@ package com.quduo.welfareshop.ui.friend.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.blankj.utilcode.util.SizeUtils;
+import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.quduo.welfareshop.MyApplication;
@@ -12,11 +17,12 @@ import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.PreviewImageActivity;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.friend.entity.OtherSimpleUserInfo;
-import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 import com.w4lle.library.NineGridlayout;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * Author:scene
@@ -33,13 +39,17 @@ public class RankAdapter extends BaseQuickAdapter<OtherSimpleUserInfo, BaseViewH
 
     @Override
     protected void convert(BaseViewHolder helper, final OtherSimpleUserInfo item) {
-        SelectableRoundedImageView avatar = helper.getView(R.id.avatar);
+        ImageView avatar = helper.getView(R.id.avatar);
         NineGridlayout imageLayout = helper.getView(R.id.image_layout);
+        MultiTransformation multiTransformation = new MultiTransformation(
+                new CenterCrop(), new RoundedCornersTransformation(SizeUtils.dp2px(5), 0)
+        );
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_default_avatar)
+                .apply(RequestOptions.bitmapTransform(multiTransformation))
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getAvatar())
                 .into(avatar);
         helper.setImageResource(R.id.sex, item.getSex() == 1 ? R.drawable.ic_male : R.drawable.ic_female);

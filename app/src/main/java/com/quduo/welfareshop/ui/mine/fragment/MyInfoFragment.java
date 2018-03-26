@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
@@ -34,7 +36,6 @@ import com.quduo.welfareshop.ui.mine.presenter.MyInfoPresenter;
 import com.quduo.welfareshop.ui.mine.view.IMyInfoView;
 import com.quduo.welfareshop.widgets.CustomGridView;
 import com.quduo.welfareshop.widgets.RatioImageView;
-import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -72,7 +73,7 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
     @BindView(R.id.back)
     ImageView back;
     @BindView(R.id.avatar)
-    SelectableRoundedImageView avatar;
+    ImageView avatar;
     @BindView(R.id.nickname)
     TextView nickname;
     @BindView(R.id.follow_number)
@@ -275,6 +276,7 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.ic_default_avatar)
+                    .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.getAvatar())
                     .into(avatar);
             nickname.setText(data.getNickname());
@@ -323,6 +325,7 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.ic_default_avatar)
+                    .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + event.getAvatarPath())
                     .into(avatar);
         } catch (Exception e) {

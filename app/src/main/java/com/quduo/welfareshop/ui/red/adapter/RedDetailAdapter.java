@@ -2,19 +2,25 @@ package com.quduo.welfareshop.ui.red.adapter;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.widget.ImageView;
 
+import com.blankj.utilcode.util.SizeUtils;
+import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.red.entity.RedOtherResultInfo;
-import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 
 import org.joda.time.DateTime;
 
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * Author:scene
@@ -32,12 +38,16 @@ public class RedDetailAdapter extends BaseQuickAdapter<RedOtherResultInfo, BaseV
 
     @Override
     protected void convert(BaseViewHolder helper, RedOtherResultInfo item) {
-        SelectableRoundedImageView avatar = helper.getView(R.id.avatar);
+        ImageView avatar = helper.getView(R.id.avatar);
+        MultiTransformation multiTransformation = new MultiTransformation(
+                new CenterCrop(), new RoundedCornersTransformation(SizeUtils.dp2px(5), 0)
+        );
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_default_avatar)
+                .apply(RequestOptions.bitmapTransform(multiTransformation))
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getAvatar())
                 .into(avatar);
         helper.setText(R.id.nickname, item.getNickname());

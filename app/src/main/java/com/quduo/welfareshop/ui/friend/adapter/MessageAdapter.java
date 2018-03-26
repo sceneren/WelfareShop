@@ -5,22 +5,27 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SizeUtils;
+import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.friend.entity.ChatMessageInfo;
 import com.quduo.welfareshop.ui.friend.userdef.QqUtils;
 import com.quduo.welfareshop.util.Time2StringUtils;
-import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * Author:scene
@@ -54,11 +59,15 @@ public class MessageAdapter extends RecyclerView.Adapter {
         if (!url.startsWith("http")) {
             url = MyApplication.getInstance().getConfigInfo().getFile_domain() + info.getOtherAvatar();
         }
+        MultiTransformation multiTransformation = new MultiTransformation(
+                new CenterCrop(), new RoundedCornersTransformation(SizeUtils.dp2px(5), 0)
+        );
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_default_avatar)
+                .apply(RequestOptions.bitmapTransform(multiTransformation))
                 .load(url)
                 .into(viewHolder.avatar);
         viewHolder.nickname.setText(info.getOtherNickName());
@@ -95,7 +104,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
     static class MessageViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.avatar)
-        SelectableRoundedImageView avatar;
+        ImageView avatar;
         @BindView(R.id.nickname)
         TextView nickname;
         @BindView(R.id.message)

@@ -11,14 +11,13 @@
     android:paddingTop="20dp"
     tools:context="com.quduo.welfareshop.ui.welfare.activity.VideoDetailActivity">
 
-    <com.quduo.welfareshop.widgets.SelectableRoundedImageView
+    <ImageView
         android:id="@+id/avatar"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="center_horizontal"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_default_avatar"
-        app:sriv_oval="true" />
+        android:src="@drawable/ic_default_avatar" />
 
     <LinearLayout
         android:layout_width="wrap_content"

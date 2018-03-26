@@ -25,16 +25,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10">
 
-        <com.quduo.welfareshop.widgets.SelectableRoundedImageView
+        <ImageView
             android:id="@+id/mine_avatar"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            app:sriv_left_bottom_corner_radius="360dp"
-            app:sriv_left_top_corner_radius="360dp"
-            app:sriv_oval="true"
-            app:sriv_right_bottom_corner_radius="360dp"
-            app:sriv_right_top_corner_radius="360dp" />
+            android:layout_alignParentRight="true" />
 
         <TextView
             android:id="@+id/content"

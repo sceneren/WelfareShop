@@ -18,6 +18,8 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.hss01248.dialog.StyledDialog;
 import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.lzy.okgo.OkGo;
@@ -39,7 +41,6 @@ import com.quduo.welfareshop.ui.mine.entity.MyUserDetailInfo;
 import com.quduo.welfareshop.util.DialogUtils;
 import com.quduo.welfareshop.widgets.CustomGridView;
 import com.quduo.welfareshop.widgets.RatioImageView;
-import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -74,7 +75,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
     @BindView(R.id.image)
     ImageView image;
     @BindView(R.id.avatar)
-    SelectableRoundedImageView avatar;
+    ImageView avatar;
     @BindView(R.id.follow)
     TextView follow;
     @BindView(R.id.no_photo)
@@ -313,6 +314,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.ic_default_avatar)
+                    .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.getAvatar())
                     .into(avatar);
             nickname.setText(data.getNickname());

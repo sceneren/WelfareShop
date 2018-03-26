@@ -9,11 +9,14 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.hss01248.dialog.StyledDialog;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
@@ -32,7 +35,6 @@ import com.quduo.welfareshop.util.DialogUtils;
 import com.quduo.welfareshop.util.EmojiConstants;
 import com.quduo.welfareshop.util.ImageSelectorUtil;
 import com.quduo.welfareshop.util.SimpleCommonUtils;
-import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 import com.sj.emoji.EmojiBean;
 
 import org.greenrobot.eventbus.EventBus;
@@ -72,7 +74,7 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
     TextView toolbarTitle;
     Unbinder unbinder;
     @BindView(R.id.others_avatar)
-    SelectableRoundedImageView othersAvatar;
+    ImageView othersAvatar;
     @BindView(R.id.others_nickname)
     TextView othersNickname;
     @BindView(R.id.ptr_layout)
@@ -130,6 +132,7 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_default_avatar)
+                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + otherAvatar)
                 .into(othersAvatar);
 

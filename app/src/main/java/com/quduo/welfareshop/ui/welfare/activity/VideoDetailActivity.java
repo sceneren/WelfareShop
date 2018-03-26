@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
@@ -36,7 +38,6 @@ import com.quduo.welfareshop.util.DialogUtils;
 import com.quduo.welfareshop.widgets.CustomGridView;
 import com.quduo.welfareshop.widgets.CustomListView;
 import com.quduo.welfareshop.widgets.MyVideoPlayer;
-import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -91,7 +92,7 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
     @BindView(R.id.commentListView)
     CustomListView commentListView;
     @BindView(R.id.avatar)
-    SelectableRoundedImageView avatar;
+    ImageView avatar;
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.comment_content)
@@ -342,6 +343,7 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.ic_default_video)
+                    .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                     .into(avatar);
 

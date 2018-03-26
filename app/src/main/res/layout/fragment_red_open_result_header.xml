@@ -15,15 +15,11 @@
         android:paddingBottom="20dp"
         android:paddingTop="20dp">
 
-        <com.quduo.welfareshop.widgets.SelectableRoundedImageView
+        <ImageView
             android:id="@+id/avatar"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"
-            app:sriv_left_bottom_corner_radius="5dp"
-            app:sriv_left_top_corner_radius="5dp"
-            app:sriv_right_bottom_corner_radius="5dp"
-            app:sriv_right_top_corner_radius="5dp" />
+            android:layout_gravity="center_horizontal" />
 
         <TextView
             android:id="@+id/nickname"

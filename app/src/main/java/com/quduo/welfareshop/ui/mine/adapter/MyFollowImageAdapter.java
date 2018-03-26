@@ -6,13 +6,14 @@ import android.widget.ImageView;
 
 import com.blankj.utilcode.util.SizeUtils;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.mine.entity.MyFollowGalleryInfo;
-import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class MyFollowImageAdapter extends BaseQuickAdapter<MyFollowGalleryInfo, 
 
     @Override
     protected void convert(BaseViewHolder holder, MyFollowGalleryInfo item) {
-        SelectableRoundedImageView avatar = holder.getView(R.id.avatar);
+        ImageView avatar = holder.getView(R.id.avatar);
         ImageView image1 = holder.getView(R.id.image1);
         ImageView image2 = holder.getView(R.id.image2);
         ImageView image3 = holder.getView(R.id.image3);
@@ -62,6 +63,7 @@ public class MyFollowImageAdapter extends BaseQuickAdapter<MyFollowGalleryInfo, 
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_default_avatar)
+                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
                 .into(image1);
         GlideApp.with(context)

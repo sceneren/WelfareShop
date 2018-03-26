@@ -43,10 +43,10 @@ public class VideoDetailInfo extends BaseBean {
     private int view_times;
     private int favor_times;
     private Object tags;
-    private int score;
+    private double score;
     private int play_times;
     private int good;
-    private Object description;
+    private String description;
     private int duration;
     private int price;
     private int favor_id;
@@ -160,11 +160,11 @@ public class VideoDetailInfo extends BaseBean {
         this.tags = tags;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 
@@ -184,11 +184,11 @@ public class VideoDetailInfo extends BaseBean {
         this.good = good;
     }
 
-    public Object getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(Object description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 

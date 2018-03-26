@@ -211,14 +211,13 @@
                         android:paddingLeft="@dimen/dp_10"
                         android:paddingRight="@dimen/dp_10">
 
-                        <com.quduo.welfareshop.widgets.SelectableRoundedImageView
+                        <ImageView
                             android:id="@+id/avatar"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_gravity="center_horizontal"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/ic_default_avatar"
-                            app:sriv_oval="true" />
+                            android:src="@drawable/ic_default_avatar" />
 
                         <EditText
                             android:id="@+id/comment_content"

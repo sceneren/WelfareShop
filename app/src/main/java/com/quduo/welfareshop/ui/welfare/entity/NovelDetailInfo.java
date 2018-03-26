@@ -46,7 +46,7 @@ public class NovelDetailInfo extends BaseBean {
     private String thumb_shu;
     private int view_times;
     private int favor_times;
-    private int score;
+    private double score;
     private String description;
     private int good;
     private int position_id;
@@ -113,11 +113,11 @@ public class NovelDetailInfo extends BaseBean {
         this.favor_times = favor_times;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 

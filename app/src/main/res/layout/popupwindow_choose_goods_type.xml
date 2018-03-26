@@ -75,15 +75,11 @@
                 android:src="@drawable/ic_popupwindow_close" />
         </LinearLayout>
 
-        <com.quduo.welfareshop.widgets.SelectableRoundedImageView
+        <ImageView
             android:id="@+id/goods_image"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:layout_marginLeft="@dimen/dp_10"
-            app:sriv_left_bottom_corner_radius="5dp"
-            app:sriv_left_top_corner_radius="5dp"
-            app:sriv_right_bottom_corner_radius="5dp"
-            app:sriv_right_top_corner_radius="5dp" />
+            android:layout_marginLeft="@dimen/dp_10" />
     </RelativeLayout>
 
     <LinearLayout

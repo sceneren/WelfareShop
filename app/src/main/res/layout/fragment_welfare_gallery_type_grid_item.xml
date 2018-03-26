@@ -6,15 +6,11 @@
     android:orientation="vertical"
     android:padding="@dimen/dp_10">
 
-    <com.quduo.welfareshop.widgets.CustomHeightRoundedImageView
+    <com.quduo.welfareshop.widgets.RatioImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:custom_sriv_left_bottom_corner_radius="360dp"
-        app:custom_sriv_left_top_corner_radius="360dp"
-        app:custom_sriv_right_bottom_corner_radius="360dp"
-        app:custom_sriv_right_top_corner_radius="360dp"
-        app:tintMode="src_over" />
+        app:base="horizontal"/>
 
     <TextView
         android:id="@+id/name"

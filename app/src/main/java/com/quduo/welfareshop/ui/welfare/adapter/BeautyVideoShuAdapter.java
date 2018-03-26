@@ -12,7 +12,7 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.welfare.entity.VideoInfo;
-import com.quduo.welfareshop.widgets.CustomHeightRoundedImageView;
+import com.quduo.welfareshop.widgets.RatioImageView;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -79,7 +79,7 @@ public class BeautyVideoShuAdapter extends BaseAdapter {
 
     static class BeautyVideoShuHolder {
         @BindView(R.id.image)
-        CustomHeightRoundedImageView image;
+        RatioImageView image;
         @BindView(R.id.title)
         TextView title;
         @BindView(R.id.play_number)

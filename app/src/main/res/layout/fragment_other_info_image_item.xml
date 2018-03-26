@@ -5,13 +5,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.quduo.welfareshop.widgets.CustomHeightRoundedImageView
+    <com.quduo.welfareshop.widgets.RatioImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:custom_base="horizontal"
-        app:custom_sriv_left_bottom_corner_radius="5dp"
-        app:custom_sriv_left_top_corner_radius="5dp"
-        app:custom_sriv_right_bottom_corner_radius="5dp"
-        app:custom_sriv_right_top_corner_radius="5dp" />
+        app:base="horizontal" />
 </LinearLayout>

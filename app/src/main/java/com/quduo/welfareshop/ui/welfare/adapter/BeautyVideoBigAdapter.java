@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -12,7 +13,6 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.welfare.entity.VideoInfo;
-import com.quduo.welfareshop.widgets.CustomHeightRoundedImageView;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -80,7 +80,7 @@ public class BeautyVideoBigAdapter extends BaseAdapter {
 
     static class BeautyVideoBigHolder {
         @BindView(R.id.image)
-        CustomHeightRoundedImageView image;
+        ImageView image;
         @BindView(R.id.title)
         TextView title;
         @BindView(R.id.play_number)

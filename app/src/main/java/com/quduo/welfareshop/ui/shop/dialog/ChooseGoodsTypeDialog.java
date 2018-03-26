@@ -12,9 +12,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.BaseActivity;
@@ -22,7 +26,6 @@ import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.shop.activity.ConfirmOrderActivity;
 import com.quduo.welfareshop.ui.shop.entity.CreateOrderInfo;
 import com.quduo.welfareshop.ui.shop.entity.GoodsDetailInfo;
-import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -35,6 +38,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * Author:scene
@@ -53,7 +57,7 @@ public class ChooseGoodsTypeDialog extends BaseActivity {
     @BindView(R.id.close)
     ImageView close;
     @BindView(R.id.goods_image)
-    SelectableRoundedImageView goodsImage;
+    ImageView goodsImage;
     @BindView(R.id.tagLayout)
     TagFlowLayout tagLayout;
     @BindView(R.id.layout_model)
@@ -106,11 +110,13 @@ public class ChooseGoodsTypeDialog extends BaseActivity {
     private void initView() {
         inflater = LayoutInflater.from(ChooseGoodsTypeDialog.this);
         initModelLayout();
+        MultiTransformation multiTransformation = new MultiTransformation(new CenterCrop(), new RoundedCornersTransformation(SizeUtils.dp2px(10), 0));
         GlideApp.with(this)
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_default_shop)
+                .apply(RequestOptions.bitmapTransform(multiTransformation))
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + detailInfo.getThumb())
                 .into(goodsImage);
         goodsName.setText(detailInfo.getName());

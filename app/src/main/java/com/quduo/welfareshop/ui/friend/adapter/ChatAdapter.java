@@ -13,7 +13,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SizeUtils;
+import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.PreviewImageActivity;
@@ -21,7 +26,6 @@ import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.friend.audio.MediaManager;
 import com.quduo.welfareshop.ui.friend.entity.ChatMessageInfo;
 import com.quduo.welfareshop.ui.friend.userdef.QqUtils;
-import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 
 import org.joda.time.DateTime;
 
@@ -31,6 +35,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * Author:scene
@@ -73,11 +78,16 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if (holder != null && holder instanceof TextViewHolder) {
                 TextViewHolder textViewHolder = (TextViewHolder) holder;
                 QqUtils.spannableEmoticonFilter(textViewHolder.content, chatMessageInfo.getMessageContent());
+                MultiTransformation multi = new MultiTransformation(
+                        new CenterCrop(),
+                        new CircleCrop());
+
                 GlideApp.with(context)
                         .asBitmap()
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .placeholder(R.drawable.ic_default_avatar)
+                        .apply(RequestOptions.bitmapTransform(multi))
                         .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                         .into(textViewHolder.mineAvatar);
                 if (position == 0) {
@@ -100,13 +110,18 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.ic_default_avatar)
+                    .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                     .into(imageViewHolder.mineAvatar);
+            MultiTransformation multi = new MultiTransformation(
+                    new CenterCrop(),
+                    new RoundedCornersTransformation(SizeUtils.dp2px(10), 0));
             GlideApp.with(context)
                     .asBitmap()
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.ic_default_avatar)
+                    .apply(RequestOptions.bitmapTransform(multi))
                     .load(chatMessageInfo.getMessageContent())
                     .into(imageViewHolder.image);
             imageViewHolder.image.setOnClickListener(new View.OnClickListener() {
@@ -138,6 +153,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.ic_default_avatar)
+                    .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                     .into(audioViewHolder.mineAvatar);
             if (position == 0) {
@@ -230,7 +246,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         @BindView(R.id.time)
         TextView time;
         @BindView(R.id.mine_avatar)
-        SelectableRoundedImageView mineAvatar;
+        ImageView mineAvatar;
         @BindView(R.id.content)
         TextView content;
 
@@ -244,9 +260,9 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         @BindView(R.id.time)
         TextView time;
         @BindView(R.id.mine_avatar)
-        SelectableRoundedImageView mineAvatar;
+        ImageView mineAvatar;
         @BindView(R.id.image)
-        SelectableRoundedImageView image;
+        ImageView image;
 
         ImageViewHolder(View view) {
             super(view);
@@ -258,7 +274,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         @BindView(R.id.time)
         TextView time;
         @BindView(R.id.mine_avatar)
-        SelectableRoundedImageView mineAvatar;
+        ImageView mineAvatar;
         @BindView(R.id.audio_time)
         TextView audioTime;
         @BindView(R.id.audio_image)

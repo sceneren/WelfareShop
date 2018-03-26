@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.hss01248.dialog.StyledDialog;
 import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.quduo.welfareshop.MyApplication;
@@ -19,7 +21,6 @@ import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.friend.model.VideoChatPresenter;
 import com.quduo.welfareshop.ui.friend.view.IVideoChatView;
-import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,7 +40,7 @@ public class VideoChatActivity extends BaseMvpActivity<IVideoChatView, VideoChat
     @BindView(R.id.background_image)
     ImageView backgroundImage;
     @BindView(R.id.avatar)
-    SelectableRoundedImageView avatar;
+    ImageView avatar;
     @BindView(R.id.connection_image)
     ImageView connectionImage;
     @BindView(R.id.cancel_video)
@@ -75,6 +76,7 @@ public class VideoChatActivity extends BaseMvpActivity<IVideoChatView, VideoChat
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_default_avatar)
+                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + strAvatar)
                 .into(avatar);
         nickname.setText(strNickName);

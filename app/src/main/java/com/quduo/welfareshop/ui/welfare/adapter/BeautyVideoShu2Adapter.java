@@ -12,7 +12,7 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.welfare.entity.VideoInfo;
-import com.quduo.welfareshop.widgets.CustomHeightRoundedImageView;
+import com.quduo.welfareshop.widgets.RatioImageView;
 
 import java.util.List;
 
@@ -69,14 +69,14 @@ public class BeautyVideoShu2Adapter extends BaseAdapter {
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_default_video)
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain()+list.get(position).getThumb())
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position).getThumb())
                 .into(holder.image);
         return convertView;
     }
 
     static class BeautyVideoShu2Holder {
         @BindView(R.id.image)
-        CustomHeightRoundedImageView image;
+        RatioImageView image;
         @BindView(R.id.title)
         TextView title;
 

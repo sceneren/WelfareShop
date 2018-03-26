@@ -12,14 +12,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <com.quduo.welfareshop.widgets.SelectableRoundedImageView
+        <ImageView
             android:id="@+id/avatar"
             android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:sriv_left_bottom_corner_radius="5dp"
-            app:sriv_left_top_corner_radius="5dp"
-            app:sriv_right_bottom_corner_radius="5dp"
-            app:sriv_right_top_corner_radius="5dp" />
+            android:layout_height="40dp" />
 
         <RelativeLayout
             android:layout_width="0dp"

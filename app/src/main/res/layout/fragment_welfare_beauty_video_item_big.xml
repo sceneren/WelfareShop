@@ -9,14 +9,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.quduo.welfareshop.widgets.CustomHeightRoundedImageView
-            android:id="@+id/image"
+        <com.quduo.welfareshop.widgets.RatioImageView
+            android:id="@+id/baseimage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:custom_base="horizontal"
-            app:custom_horizontal_weight="1080"
-            app:custom_vertical_weight="608" />
+            app:base="horizontal"
+            app:horizontal_weight="1080"
+            app:vertical_weight="608" />
 
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/baseimage"
+            android:layout_alignLeft="@+id/baseimage"
+            android:layout_alignRight="@+id/baseimage"
+            android:layout_alignTop="@+id/baseimage" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/jz_play_normal" />
     </RelativeLayout>
 
 

@@ -5,14 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.welfare.entity.VideoCommentInfo;
-import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 
 import java.util.List;
 
@@ -69,6 +71,7 @@ public class VideoDetailCommentAdapter extends BaseAdapter {
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_default_avatar)
+                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + info.getAvatar())
                 .into(holder.avatar);
         return convertView;
@@ -76,7 +79,7 @@ public class VideoDetailCommentAdapter extends BaseAdapter {
 
     static class VideoDetailCommentViewHolder {
         @BindView(R.id.avatar)
-        SelectableRoundedImageView avatar;
+        ImageView avatar;
         @BindView(R.id.nickname)
         TextView nickname;
         @BindView(R.id.content)

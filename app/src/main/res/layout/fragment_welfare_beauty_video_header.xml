@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:base="horizontal"
-        app:horizontal_weight="12"
-        app:vertical_weight="5" />
+        app:horizontal_weight="2"
+        app:vertical_weight="1" />
 
     <com.youth.banner.Banner
         android:id="@+id/banner"

@@ -9,11 +9,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
@@ -26,7 +30,6 @@ import com.quduo.welfareshop.ui.red.entity.RedOpenResultInfo;
 import com.quduo.welfareshop.ui.red.entity.RedOtherResultInfo;
 import com.quduo.welfareshop.ui.red.presenter.RedOpenResultPresenter;
 import com.quduo.welfareshop.ui.red.view.IRedOpenResultView;
-import com.quduo.welfareshop.widgets.SelectableRoundedImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +37,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import wiki.scene.loadmore.StatusViewLayout;
 
 /**
@@ -173,16 +177,20 @@ public class RedOpenResultFragment extends BaseBackMvpFragment<IRedOpenResultVie
 
     private void initHeaderView() {
         View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_red_open_result_header, recyclerView, false);
-        SelectableRoundedImageView avatar = headerView.findViewById(R.id.avatar);
+        ImageView avatar = headerView.findViewById(R.id.avatar);
         TextView nickname = headerView.findViewById(R.id.nickname);
         bonus = headerView.findViewById(R.id.bonus);
         totalNumber = headerView.findViewById(R.id.total_number);
         totalMoney = headerView.findViewById(R.id.total_money);
+        MultiTransformation multiTransformation = new MultiTransformation(
+                new CenterCrop(), new RoundedCornersTransformation(SizeUtils.dp2px(5), 0)
+        );
         GlideApp.with(this)
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_default_avatar)
+                .apply(RequestOptions.bitmapTransform(multiTransformation))
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                 .into(avatar);
         nickname.setText(MyApplication.getInstance().getUserInfo().getNickname());

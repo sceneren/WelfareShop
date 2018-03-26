@@ -5,17 +5,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
+import com.blankj.utilcode.util.SizeUtils;
+import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
-import com.quduo.welfareshop.widgets.CustomHeightRoundedImageView;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 
 /**
@@ -59,12 +64,15 @@ public class OtherInfoImageAdapter extends BaseAdapter {
         } else {
             holder = (OtherInfoImageViewHolder) convertView.getTag();
         }
-
+        MultiTransformation multiTransformation = new MultiTransformation(
+                new CenterCrop(), new RoundedCornersTransformation(SizeUtils.dp2px(5), 0)
+        );
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_default_avatar)
+                .apply(RequestOptions.bitmapTransform(multiTransformation))
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position))
                 .into(holder.image);
         return convertView;
@@ -72,7 +80,7 @@ public class OtherInfoImageAdapter extends BaseAdapter {
 
     static class OtherInfoImageViewHolder {
         @BindView(R.id.image)
-        CustomHeightRoundedImageView image;
+        ImageView image;
 
         OtherInfoImageViewHolder(View view) {
             ButterKnife.bind(this, view);

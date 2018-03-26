@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -13,7 +12,7 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.welfare.entity.VideoInfo;
-import com.quduo.welfareshop.widgets.CustomHeightRoundedImageView;
+import com.quduo.welfareshop.widgets.RatioImageView;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -80,7 +79,7 @@ public class BeautyVideoHengAdapter extends BaseAdapter {
 
     static class BeautyVideoHengHolder {
         @BindView(R.id.image)
-        ImageView image;
+        RatioImageView image;
         @BindView(R.id.title)
         TextView title;
         @BindView(R.id.play_number)

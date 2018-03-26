@@ -22,17 +22,12 @@
             android:background="@color/white"
             android:padding="@dimen/dp_10">
 
-            <com.quduo.welfareshop.widgets.SelectableRoundedImageView
+            <ImageView
                 android:id="@+id/others_avatar"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_default_avatar"
-                app:sriv_left_bottom_corner_radius="360dp"
-                app:sriv_left_top_corner_radius="360dp"
-                app:sriv_oval="true"
-                app:sriv_right_bottom_corner_radius="360dp"
-                app:sriv_right_top_corner_radius="360dp" />
+                android:src="@drawable/ic_default_avatar" />
 
             <TextView
                 android:id="@+id/others_nickname"
