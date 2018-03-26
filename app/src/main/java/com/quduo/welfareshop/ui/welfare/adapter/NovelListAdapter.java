@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
@@ -65,12 +66,18 @@ public class NovelListAdapter extends BaseAdapter {
         }
         NovelInfo info = list.get(position);
         holder.title.setText(info.getTitle());
+        String url;
+        if (StringUtils.isTrimEmpty(list.get(position).getThumb())) {
+            url = list.get(position).getThumb_shu();
+        } else {
+            url = list.get(position).getThumb();
+        }
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_default_avatar)
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position).getThumb())
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + url)
                 .into(holder.image);
         String str = info.getDescription();
         str = str.replace("\n", "");

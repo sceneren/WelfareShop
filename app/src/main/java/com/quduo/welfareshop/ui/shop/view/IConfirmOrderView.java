@@ -20,4 +20,6 @@ public interface IConfirmOrderView extends BaseView {
     void hideLaodingDialog();
 
     void createOrderSuccess(PayInfo data);
+
+    void showBuySuccessDialog();
 }

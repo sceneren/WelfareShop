@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
 
+import java.text.MessageFormat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -27,7 +29,7 @@ public class BuySuccessDialog extends Dialog {
     ImageView ok;
 
     public BuySuccessDialog(@NonNull Context context) {
-        super(context,R.style.Dialog);
+        super(context, R.style.Dialog);
     }
 
     public BuySuccessDialog(@NonNull Context context, int themeResId) {
@@ -43,6 +45,10 @@ public class BuySuccessDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_buy_success);
         ButterKnife.bind(this);
+    }
+
+    public void setNumber(int score) {
+        number.setText(MessageFormat.format("{0}钻石", score));
     }
 
     @OnClick(R.id.ok)

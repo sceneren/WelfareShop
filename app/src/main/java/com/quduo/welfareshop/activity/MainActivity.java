@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.activity;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.ViewTreeObserver;
@@ -14,6 +15,7 @@ import com.quduo.welfareshop.MainFragment;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.BaseActivity;
+import com.quduo.welfareshop.ui.shop.dialog.BuySuccessDialog;
 import com.quduo.welfareshop.util.keyboard.OnSoftKeyboardStateChangedListener;
 
 import java.util.ArrayList;
@@ -156,5 +158,10 @@ public class MainActivity extends BaseActivity {
     protected void onPause() {
         super.onPause();
         JZVideoPlayer.releaseAllVideos();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

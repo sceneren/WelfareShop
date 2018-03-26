@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -239,9 +240,31 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     @Override
     public void getPayInfoSuccess(PayInfo payInfo) {
         try {
-
+            Intent intent = new Intent(RechargeActivity.this, OpenPayActivity.class);
+            intent.putExtra(OpenPayActivity.ARG_URL, payInfo.getUrl());
+            startActivityForResult(intent, 1);
+            overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        showCouponDialog();
+    }
+
+    private void showCouponDialog() {
+        if (getCouponDialog == null) {
+            getCouponDialog = new GetCouponDialog(RechargeActivity.this);
+            getCouponDialog.setOnClickToShopListener(new GetCouponDialog.OnClickToShopListener() {
+                @Override
+                public void onClickToShop() {
+                    onBackPressed();
+                }
+            });
+        }
+        getCouponDialog.show();
     }
 }

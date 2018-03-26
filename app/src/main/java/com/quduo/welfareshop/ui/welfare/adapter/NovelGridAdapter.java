@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
@@ -15,6 +16,7 @@ import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.welfare.entity.NovelInfo;
 import com.quduo.welfareshop.widgets.RatioImageView;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -64,14 +66,20 @@ public class NovelGridAdapter extends BaseAdapter {
         }
         NovelInfo info = list.get(position);
         holder.title.setText(info.getTitle());
+        String url;
+        if (StringUtils.isTrimEmpty(list.get(position).getThumb_shu())) {
+            url = list.get(position).getThumb();
+        } else {
+            url = list.get(position).getThumb_shu();
+        }
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_default_avatar)
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position).getThumb_shu())
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + url)
                 .into(holder.image);
-        holder.readNumber.setText("阅读：" + info.getView_times());
+        holder.readNumber.setText(MessageFormat.format("阅读：{0}", info.getView_times()));
         return convertView;
     }
 

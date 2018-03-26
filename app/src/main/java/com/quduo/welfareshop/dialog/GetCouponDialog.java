@@ -22,6 +22,12 @@ import wiki.scene.loadmore.utils.PtrLocalDisplay;
 
 public class GetCouponDialog extends Dialog {
 
+    private OnClickToShopListener onClickToShopListener;
+
+    public void setOnClickToShopListener(OnClickToShopListener onClickToShopListener) {
+        this.onClickToShopListener = onClickToShopListener;
+    }
+
     public GetCouponDialog(@NonNull Context context) {
         super(context, R.style.Dialog);
     }
@@ -44,6 +50,9 @@ public class GetCouponDialog extends Dialog {
     @OnClick(R.id.to_shop)
     void onClickToShop() {
         dismiss();
+        if (onClickToShopListener != null) {
+            onClickToShopListener.onClickToShop();
+        }
     }
 
     @OnClick(R.id.close)
@@ -66,4 +75,7 @@ public class GetCouponDialog extends Dialog {
         }
     }
 
+    public interface OnClickToShopListener {
+        void onClickToShop();
+    }
 }

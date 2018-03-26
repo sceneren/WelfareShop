@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.shop.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -19,10 +20,12 @@ import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.activity.OpenPayActivity;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.mine.activity.MyReceiverActivity;
+import com.quduo.welfareshop.ui.shop.dialog.BuySuccessDialog;
 import com.quduo.welfareshop.ui.shop.entity.ConfirmOrderResultInfo;
 import com.quduo.welfareshop.ui.shop.entity.CreateOrderInfo;
 import com.quduo.welfareshop.ui.shop.entity.PayInfo;
@@ -88,6 +91,8 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
 
     private CreateOrderInfo orderInfo;
     private ConfirmOrderResultInfo resultInfo;
+
+    public BuySuccessDialog buySuccessDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -242,10 +247,30 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
     @Override
     public void createOrderSuccess(PayInfo data) {
         try {
-
+            Intent intent = new Intent(ConfirmOrderActivity.this, OpenPayActivity.class);
+            intent.putExtra(OpenPayActivity.ARG_URL, data.getUrl());
+            startActivityForResult(intent, 40001);
+            overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void showBuySuccessDialog() {
+        if (buySuccessDialog == null) {
+            buySuccessDialog = new BuySuccessDialog(ConfirmOrderActivity.this);
+            buySuccessDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    onBackPressed();
+                }
+            });
+        }
+        Number num = Float.parseFloat(orderInfo.getGoodsPrice()) * 100;
+        int giveNum = num.intValue() / 100;
+        buySuccessDialog.show();
+        buySuccessDialog.setNumber(giveNum * orderInfo.getChoosedNum());
     }
 
     @OnClick(R.id.layout_has_receiver)
@@ -263,6 +288,8 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
             showReceiverName.setText(data.getStringExtra("name"));
             showReceiverAddress.setText(data.getStringExtra("address"));
             showReceiverPhone.setText(data.getStringExtra("phone"));
+        } else {
+            showBuySuccessDialog();
         }
     }
 
@@ -343,4 +370,5 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
             e.printStackTrace();
         }
     }
+
 }

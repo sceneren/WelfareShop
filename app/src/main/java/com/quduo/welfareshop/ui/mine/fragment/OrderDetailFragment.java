@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -22,6 +23,7 @@ import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.activity.OpenPayActivity;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
@@ -31,6 +33,7 @@ import com.quduo.welfareshop.ui.mine.entity.OrderDetailResultInfo;
 import com.quduo.welfareshop.ui.mine.presenter.OrderDetailPresenter;
 import com.quduo.welfareshop.ui.mine.view.IOrderDetailView;
 import com.quduo.welfareshop.ui.shop.activity.GoodsDetailActivity;
+import com.quduo.welfareshop.ui.shop.dialog.BuySuccessDialog;
 import com.quduo.welfareshop.ui.shop.entity.GoodsInfo;
 import com.quduo.welfareshop.ui.shop.entity.PayInfo;
 import com.quduo.welfareshop.widgets.CustomGridView;
@@ -327,7 +330,10 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
     @Override
     public void repayOrderSuccess(PayInfo payInfo) {
         try {
-
+            Intent intent = new Intent(_mActivity, OpenPayActivity.class);
+            intent.putExtra(OpenPayActivity.ARG_URL, payInfo.getUrl());
+            startActivityForResult(intent, 40001);
+            _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -443,4 +449,26 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
         presenter.rePayOrder(orderId, 2);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        LogUtils.e("requestCode=====>" + requestCode);
+        if (requestCode == 40001) {
+            showBuySuccessDialog();
+        }
+    }
+
+    private BuySuccessDialog buySuccessDialog;
+
+    private void showBuySuccessDialog() {
+        if (buySuccessDialog == null) {
+            buySuccessDialog = new BuySuccessDialog(_mActivity);
+        }
+        buySuccessDialog.show();
+        try {
+            buySuccessDialog.setNumber(Integer.parseInt(totalPrice.getText().toString().substring(1)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
