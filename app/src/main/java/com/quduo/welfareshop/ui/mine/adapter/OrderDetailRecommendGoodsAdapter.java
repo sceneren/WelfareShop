@@ -12,7 +12,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
-import com.quduo.welfareshop.ui.mine.entity.OrderInfo;
 import com.quduo.welfareshop.ui.shop.entity.GoodsInfo;
 
 import java.text.MessageFormat;
@@ -75,6 +74,9 @@ public class OrderDetailRecommendGoodsAdapter extends BaseAdapter {
         holder.name.setText(info.getName());
         holder.price.setText(MessageFormat.format("￥{0}", info.getPrice()));
         holder.buyNumber.setText(MessageFormat.format("{0}人购买", info.getSales()));
+        Number num = Float.parseFloat(info.getPrice()) * 100;
+        int giveNum = num.intValue() / 100;
+        holder.zeng.setText(MessageFormat.format("{0}积分+{1}钻石", giveNum, giveNum));
         return convertView;
     }
 
@@ -89,6 +91,8 @@ public class OrderDetailRecommendGoodsAdapter extends BaseAdapter {
         TextView buyNumber;
         @BindView(R.id.btn_buy)
         TextView btnBuy;
+        @BindView(R.id.zeng)
+        TextView zeng;
 
         RecommendGoodsViewHolder(View view) {
             ButterKnife.bind(this, view);

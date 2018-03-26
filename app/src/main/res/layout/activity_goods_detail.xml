@@ -115,8 +115,12 @@
 
                             <TextView
                                 android:id="@+id/buy_give_info"
+                                android:drawableLeft="@drawable/ic_zeng"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
                                 android:textColor="#FECE5B"
                                 android:textSize="@dimen/sp_12"
                                 tools:text="送369钻石+积分" />

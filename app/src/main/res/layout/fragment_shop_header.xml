@@ -54,7 +54,7 @@
         android:layout_height="match_parent"
         android:horizontalSpacing="0dp"
         android:listSelector="@color/transparent1"
-        android:numColumns="4"
+        android:numColumns="5"
         android:background="@color/white"
         android:padding="@dimen/dp_10"
         android:verticalSpacing="0dp" />

@@ -74,6 +74,9 @@ public class VideoDetailGoodsAdapter extends BaseAdapter {
         holder.name.setText(info.getName());
         holder.price.setText(MessageFormat.format("￥{0}", info.getPrice()));
         holder.buyNumber.setText(MessageFormat.format("{0}人付款", info.getSales()));
+        Number num = Float.parseFloat(info.getPrice()) * 100;
+        int giveNum = num.intValue() / 100;
+        holder.zeng.setText(MessageFormat.format("{0}积分+{1}钻石", giveNum, giveNum));
         return convertView;
     }
 
@@ -88,6 +91,8 @@ public class VideoDetailGoodsAdapter extends BaseAdapter {
         TextView btnBuy;
         @BindView(R.id.name)
         TextView name;
+        @BindView(R.id.zeng)
+        TextView zeng;
 
         VideoDetailGoodsViewHolder(View view) {
             ButterKnife.bind(this, view);

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical"
     android:padding="5dp">
@@ -39,11 +39,11 @@
         android:ellipsize="end"
         android:gravity="center"
         android:lines="1"
-        tools:text="双震漫舞充电飞机杯"
         android:textColor="@color/title_text_color"
-        android:textSize="@dimen/sp_14" />
+        android:textSize="@dimen/sp_14"
+        tools:text="双震漫舞充电飞机杯" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -52,20 +52,23 @@
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="￥99.0"
             android:textColor="#FF4E7C"
-            android:textSize="@dimen/sp_14"
-            android:textStyle="bold" />
+            android:textSize="@dimen/sp_16"
+            android:textStyle="bold"
+            tools:text="￥99.0" />
 
-        <TextView
-            android:id="@+id/buy_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_10"
-            tools:text="6665人付款"
-            android:textColor="@color/des_text_color"
-            android:textSize="@dimen/sp_12" />
-    </LinearLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/zeng"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_zeng"
+        android:gravity="center_vertical"
+        android:textColor="#FCA816"
+        android:textSize="@dimen/sp_14"
+        tools:text="送积分送钻石" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -74,16 +77,13 @@
         android:layout_marginTop="3dp">
 
         <TextView
+            android:id="@+id/buy_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_yellow_stroke_2dp"
-            android:paddingBottom="2dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="2dp"
-            android:text="送积分送钻石"
-            android:textColor="#FCA816"
-            android:textSize="@dimen/sp_12" />
+            android:layout_marginLeft="@dimen/dp_10"
+            android:textColor="@color/des_text_color"
+            android:textSize="@dimen/sp_12"
+            tools:text="6665人付款" />
 
         <TextView
             android:id="@+id/btn_buy"

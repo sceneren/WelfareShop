@@ -229,7 +229,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
     public void onClickBuyNow() {
         try {
             Intent intent = new Intent(GoodsDetailActivity.this, ChooseGoodsTypeDialog.class);
-            intent.putExtra(ChooseGoodsTypeDialog.ARG_GOODSINFO,detailInfo);
+            intent.putExtra(ChooseGoodsTypeDialog.ARG_GOODSINFO, detailInfo);
             startActivity(intent);
             overridePendingTransition(R.anim.pop_enter, R.anim.pop_exit);
         } catch (Exception e) {
@@ -287,10 +287,10 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
             goodsSales.setText(MessageFormat.format("销量:{0}", detailInfo.getSales()));
             Number num = Float.parseFloat(detailInfo.getPrice()) * 100;
             int giveNum = num.intValue() / 100;
-            buyGiveInfo.setText(MessageFormat.format("送{0}钻石+积分", giveNum));
+            buyGiveInfo.setText(MessageFormat.format("{0}钻石+{1}积分", giveNum, giveNum));
 
             btnFollow.setCompoundDrawablesWithIntrinsicBounds(null, detailInfo.getFavor_id() == 0 ? iconNoFollow : iconHasFollow, null, null);
-
+            webView.loadUrl(data.getData().getContent());
         } catch (Exception e) {
             e.printStackTrace();
         }
