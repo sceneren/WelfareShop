@@ -166,7 +166,7 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
                 .placeholder(R.drawable.ic_default_video)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + info.getThumb())
                 .into(videoPlayer.thumbImageView);
-        videoPlayer.setCurrentInfo(info.isPayed(), new View.OnClickListener() {
+        videoPlayer.setCurrentInfo(info.isPayed(), info.getId(), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogUtils.getInstance().showNeedUnlockDialog(VideoDetailActivity.this, info.getPrice(), MyApplication.getInstance().getUserInfo().getScore(), new UnlockLisenter() {

@@ -6,6 +6,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.HttpParams;
+import com.lzy.okgo.model.Response;
+import com.quduo.welfareshop.http.api.ApiUtil;
+import com.quduo.welfareshop.http.base.LzyResponse;
+import com.quduo.welfareshop.http.callback.JsonCallback;
+
 import cn.jzvd.JZMediaManager;
 import cn.jzvd.JZUserAction;
 import cn.jzvd.JZUtils;
@@ -21,6 +28,7 @@ public class MyVideoPlayer extends JZVideoPlayerStandard {
 
     private boolean payed = true;
     private OnClickListener onClickListener;
+    private int videoId;
 
     public MyVideoPlayer(Context context) {
         super(context);
@@ -30,8 +38,9 @@ public class MyVideoPlayer extends JZVideoPlayerStandard {
         super(context, attrs);
     }
 
-    public void setCurrentInfo(boolean payed, OnClickListener onClickListener) {
+    public void setCurrentInfo(boolean payed, int videoId, OnClickListener onClickListener) {
         this.payed = payed;
+        this.videoId = videoId;
         this.onClickListener = onClickListener;
     }
 
@@ -72,6 +81,17 @@ public class MyVideoPlayer extends JZVideoPlayerStandard {
                 } else {
                     onClickListener.onClick(startButton);
                 }
+                HttpParams params = new HttpParams();
+                params.put("video_id", videoId);
+                OkGo.<LzyResponse<String>>get(ApiUtil.API_PRE + ApiUtil.VIDEO_PLAY)
+                        .tag(ApiUtil.VIDEO_PLAY_TAG)
+                        .params(params)
+                        .execute(new JsonCallback<LzyResponse<String>>() {
+                            @Override
+                            public void onSuccess(Response<LzyResponse<String>> response) {
+
+                            }
+                        });
             }
         });
     }

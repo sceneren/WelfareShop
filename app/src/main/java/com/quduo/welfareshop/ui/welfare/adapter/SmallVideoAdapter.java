@@ -51,7 +51,7 @@ public class SmallVideoAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolde
                 .apply(RequestOptions.bitmapTransform(new CenterCrop()))
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
                 .into(videoPlayer.thumbImageView);
-        videoPlayer.setCurrentInfo(item.isPayed(), new View.OnClickListener() {
+        videoPlayer.setCurrentInfo(item.isPayed(), item.getId(), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onClickPlayListener != null) {
