@@ -152,7 +152,7 @@
                         android:layout_height="match_parent"
                         android:horizontalSpacing="2dp"
                         android:listSelector="@color/transparent1"
-                        android:numColumns="2"
+                        android:numColumns="3"
                         android:verticalSpacing="10dp" />
 
                     <com.quduo.welfareshop.widgets.CustomGridView

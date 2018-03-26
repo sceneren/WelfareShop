@@ -53,6 +53,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="昵称："
+                                android:visibility="gone"
                                 android:textColor="@color/white"
                                 android:textSize="12sp" />
 
@@ -61,6 +62,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="黄超超"
+                                android:visibility="gone"
                                 android:textColor="#FF9E00"
                                 android:textSize="12sp" />
 
@@ -68,7 +70,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dp_10"
-                                android:text="钻石："
+                                android:text="我的钻石："
                                 android:textColor="@color/white"
                                 android:textSize="12sp" />
 
@@ -84,7 +86,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dp_10"
-                                android:text="现金："
+                                android:text="我的现金："
                                 android:textColor="@color/white"
                                 android:textSize="12sp" />
 

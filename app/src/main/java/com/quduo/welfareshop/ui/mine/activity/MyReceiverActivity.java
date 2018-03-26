@@ -92,7 +92,7 @@ public class MyReceiverActivity extends BaseMvpActivity<IMyReceiverView, MyRecei
 
     private void initToolbar() {
         toolbarTitle.setText("收货信息");
-        toolbar.setNavigationIcon(R.drawable.ic_toolbar_back);
+        toolbar.setNavigationIcon(R.drawable.ic_toolbar_back_black);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

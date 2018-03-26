@@ -17,11 +17,6 @@
             app:horizontal_weight="538"
             app:vertical_weight="300" />
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/jz_play_normal" />
     </RelativeLayout>
 
 

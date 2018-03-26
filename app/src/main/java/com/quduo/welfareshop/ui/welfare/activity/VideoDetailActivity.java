@@ -26,6 +26,7 @@ import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.shop.activity.GoodsDetailActivity;
 import com.quduo.welfareshop.ui.shop.entity.GoodsInfo;
 import com.quduo.welfareshop.ui.welfare.adapter.BeautyVideoHengAdapter;
+import com.quduo.welfareshop.ui.welfare.adapter.BeautyVideoShu2Adapter;
 import com.quduo.welfareshop.ui.welfare.adapter.BeautyVideoShuAdapter;
 import com.quduo.welfareshop.ui.welfare.adapter.VideoDetailCommentAdapter;
 import com.quduo.welfareshop.ui.welfare.adapter.VideoDetailGoodsAdapter;
@@ -107,7 +108,7 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
     private BeautyVideoHengAdapter videoHengAdapter;
 
     private List<VideoInfo> videoHengList = new ArrayList<>();
-    private BeautyVideoShuAdapter videoShuAdapter;
+    private BeautyVideoShu2Adapter videoShuAdapter;
 
     private List<VideoCommentInfo> commentList = new ArrayList<>();
     private VideoDetailCommentAdapter commentAdapter;
@@ -201,7 +202,7 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
     }
 
     private void initVideoShuGridView() {
-        videoShuAdapter = new BeautyVideoShuAdapter(VideoDetailActivity.this, videoShuList);
+        videoShuAdapter = new BeautyVideoShu2Adapter(VideoDetailActivity.this, videoShuList);
         videoShuGridView.setAdapter(videoShuAdapter);
         videoShuGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
