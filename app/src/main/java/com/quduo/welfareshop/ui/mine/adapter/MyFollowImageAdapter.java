@@ -63,7 +63,6 @@ public class MyFollowImageAdapter extends BaseQuickAdapter<MyFollowGalleryInfo, 
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_default_avatar)
-                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
                 .into(image1);
         GlideApp.with(context)
@@ -71,6 +70,7 @@ public class MyFollowImageAdapter extends BaseQuickAdapter<MyFollowGalleryInfo, 
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_default_avatar)
+                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getAvatar())
                 .into(avatar);
         GlideApp.with(context)
@@ -96,9 +96,15 @@ public class MyFollowImageAdapter extends BaseQuickAdapter<MyFollowGalleryInfo, 
                 .into(image4);
 
         holder.setText(R.id.title, item.getName());
-        holder.setText(R.id.follow_number, String.valueOf(item.getFavor_times()));
-        holder.setImageResource(R.id.follow, R.drawable.ic_gallery_follow_s);
-        holder.addOnClickListener(R.id.layout_follow);
+        holder.setText(R.id.view_number, String.valueOf(item.getView_times()));
+        holder.setImageResource(R.id.btn_follow, R.drawable.ic_gallery_follow_s);
+        if (item.isIs_goods()) {
+            holder.setImageResource(R.id.btn_zan, R.drawable.ic_video_zan_s);
+        } else {
+            holder.setImageResource(R.id.btn_zan, R.drawable.ic_video_zan_d);
+        }
+        holder.addOnClickListener(R.id.btn_zan);
+        holder.addOnClickListener(R.id.btn_follow);
     }
 
 }

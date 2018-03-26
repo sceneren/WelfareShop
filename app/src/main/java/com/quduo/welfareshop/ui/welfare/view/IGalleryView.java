@@ -20,9 +20,11 @@ public interface IGalleryView extends BaseView {
 
     void showLoadingDialog();
 
-    void followSuccess(int position,int followId);
+    void followSuccess(int position, int followId);
 
     void hideLoadingDialog();
 
     void cancelFollowSuccess(int position);
+
+    void zanSuccess(int position);
 }

@@ -26,4 +26,6 @@ public interface IGalleryCateView extends BaseView {
     void cancelFollowSuccess(int position);
 
     void showLoadingDialog();
+
+    void zanSuccess(int position);
 }

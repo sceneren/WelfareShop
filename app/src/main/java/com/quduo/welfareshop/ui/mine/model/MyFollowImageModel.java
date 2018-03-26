@@ -8,6 +8,7 @@ import com.quduo.welfareshop.http.callback.JsonCallback;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.ui.mine.entity.MyFollowGalleryInfo;
 import com.quduo.welfareshop.ui.welfare.model.FollowModel;
+import com.quduo.welfareshop.ui.welfare.model.ZanModel;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
  * Description:收藏的图片
  */
 
-public class MyFollowImageModel extends FollowModel {
+public class MyFollowImageModel extends ZanModel {
 
     public void getData(final HttpResultListener<List<MyFollowGalleryInfo>> listener) {
         OkGo.<LzyResponse<List<MyFollowGalleryInfo>>>get(ApiUtil.API_PRE + ApiUtil.MY_FOLLOW_IMAGE)

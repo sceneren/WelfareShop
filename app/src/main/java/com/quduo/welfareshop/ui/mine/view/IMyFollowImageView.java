@@ -26,4 +26,5 @@ public interface IMyFollowImageView extends BaseView {
 
     void cancelFollowSuccess(int position);
 
+    void zanSuccess(int position);
 }

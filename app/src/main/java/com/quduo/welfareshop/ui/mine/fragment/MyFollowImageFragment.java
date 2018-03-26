@@ -130,8 +130,10 @@ public class MyFollowImageFragment extends BaseMvpFragment<IMyFollowImageView, M
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.layout_follow) {
+                if (view.getId() == R.id.btn_follow) {
                     presenter.cancelFollowImage(position, list.get(position).getId());
+                } else if (view.getId() == R.id.btn_zan) {
+                    presenter.zanGallery(position, list.get(position).getGallery_id());
                 }
             }
         });
@@ -209,6 +211,16 @@ public class MyFollowImageFragment extends BaseMvpFragment<IMyFollowImageView, M
         try {
             list.remove(position);
             adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void zanSuccess(int position) {
+        try {
+            list.get(position).setIs_goods(true);
+            adapter.notifyItemChanged(position);
         } catch (Exception e) {
             e.printStackTrace();
         }

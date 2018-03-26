@@ -31,6 +31,8 @@ public class MyFollowGalleryInfo extends BaseBean {
     private int favor_times;
     private int price;
     private List<String> thumb_small;
+    private boolean is_goods;
+    private int view_times;
 
     public int getId() {
         return id;
@@ -94,5 +96,21 @@ public class MyFollowGalleryInfo extends BaseBean {
 
     public void setThumb_small(List<String> thumb_small) {
         this.thumb_small = thumb_small;
+    }
+
+    public boolean isIs_goods() {
+        return is_goods;
+    }
+
+    public void setIs_goods(boolean is_goods) {
+        this.is_goods = is_goods;
+    }
+
+    public int getView_times() {
+        return view_times;
+    }
+
+    public void setView_times(int view_times) {
+        this.view_times = view_times;
     }
 }

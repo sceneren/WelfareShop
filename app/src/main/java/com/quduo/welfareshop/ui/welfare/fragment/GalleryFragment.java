@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.welfare.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -125,17 +126,24 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (galleryList.get(position).getFavor_id() == 0) {
-                    presenter.followGallery(position, galleryList.get(position).getId());
-                } else {
-                    presenter.cancelFollow(position, galleryList.get(position).getFavor_id());
+                if (view.getId() == R.id.btn_follow) {
+                    if (galleryList.get(position).getFavor_id() == 0) {
+                        presenter.followGallery(position, galleryList.get(position).getId());
+                    } else {
+                        presenter.cancelFollow(position, galleryList.get(position).getFavor_id());
+                    }
+                } else if (view.getId() == R.id.btn_zan) {
+                    if (!galleryList.get(position).isIs_good()) {
+                        presenter.zanGallery(position, galleryList.get(position).getId());
+                    }
                 }
+
             }
         });
     }
 
     private void initHeaderView() {
-        View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_welfare_gallery_header, null);
+        @SuppressLint("InflateParams") View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_welfare_gallery_header, null);
         banner = headerView.findViewById(R.id.banner);
         banner.setImageLoader(new BannerImageLoader());
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
@@ -318,6 +326,16 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
         try {
             galleryList.get(position).setFavor_id(0);
             galleryList.get(position).setFavor_times(galleryList.get(position).getFavor_times() > 0 ? galleryList.get(position).getFavor_times() - 1 : 0);
+            adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void zanSuccess(int position) {
+        try {
+            galleryList.get(position).setIs_good(true);
             adapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();

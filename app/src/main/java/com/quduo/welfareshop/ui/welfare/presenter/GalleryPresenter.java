@@ -157,4 +157,43 @@ public class GalleryPresenter extends BasePresenter<IGalleryView> {
         }
     }
 
+    public void zanGallery(final int position, int dataId) {
+        try {
+            mView.showLoadingDialog();
+            HttpParams params = new HttpParams();
+            params.put("type", 2);
+            params.put("data_id", dataId);
+            model.zan(params, new HttpResultListener<Boolean>() {
+                @Override
+                public void onSuccess(Boolean data) {
+                    try {
+                        mView.zanSuccess(position);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.showMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

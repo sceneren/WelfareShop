@@ -217,11 +217,18 @@ public class GalleryCateFragment extends BaseBackMvpFragment<IGalleryCateView, G
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (list.get(position).getFavor_id() == 0) {
-                    presenter.followGallery(position, list.get(position).getId());
+                if (view.getId() == R.id.btn_follow) {
+                    if (list.get(position).getFavor_id() == 0) {
+                        presenter.followGallery(position, list.get(position).getId());
+                    } else {
+                        presenter.cancelFollow(position, list.get(position).getFavor_id());
+                    }
                 } else {
-                    presenter.cancelFollow(position, list.get(position).getFavor_id());
+                    if (!list.get(position).isIs_good()) {
+                        presenter.zanGallery(position, list.get(position).getId());
+                    }
                 }
+
             }
         });
     }
@@ -242,6 +249,16 @@ public class GalleryCateFragment extends BaseBackMvpFragment<IGalleryCateView, G
     public void showLoadingDialog() {
         try {
             StyledDialog.buildLoading().show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void zanSuccess(int position) {
+        try {
+            list.get(position).setIs_good(true);
+            adapter.notifyItemChanged(position);
         } catch (Exception e) {
             e.printStackTrace();
         }

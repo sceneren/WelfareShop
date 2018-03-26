@@ -15,7 +15,7 @@ import com.quduo.welfareshop.ui.welfare.entity.GalleryResultInfo;
  * Description:图库
  */
 
-public class GalleryModel extends FollowModel {
+public class GalleryModel extends ZanModel {
 
     public void getGalleryData(HttpParams params, final HttpResultListener<GalleryResultInfo> listener) {
         OkGo.<LzyResponse<GalleryResultInfo>>get(ApiUtil.API_PRE + ApiUtil.GALLERY)

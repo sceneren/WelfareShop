@@ -166,7 +166,6 @@ public class MainFragment extends SupportFragment {
                     animatorEnd.addListener(new Animator.AnimatorListener() {
                         @Override
                         public void onAnimationStart(Animator animation) {
-                            image.setVisibility(View.VISIBLE);
                         }
 
                         @Override
@@ -185,7 +184,7 @@ public class MainFragment extends SupportFragment {
                         }
                     });
                 }
-                if (bottomBar.getCurrentItemPosition() == 0 || bottomBar.getCurrentItemPosition() == 3) {
+                if (bottomBar.getCurrentItemPosition() == 0 || bottomBar.getCurrentItemPosition() == 3 || image.getVisibility() == View.VISIBLE) {
                     animatorEnd.start();
                 }
 

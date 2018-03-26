@@ -77,7 +77,7 @@ public class GalleryCatePresenter extends BasePresenter<IGalleryCateView> {
             mView.showLoadingDialog();
             HttpParams params = new HttpParams();
             params.put("data_id", id);
-            model.followGallery(params, new HttpResultListener<FollowSuccessInfo>() {
+            model.followImage(params, new HttpResultListener<FollowSuccessInfo>() {
                 @Override
                 public void onSuccess(FollowSuccessInfo data) {
                     try {
@@ -157,5 +157,42 @@ public class GalleryCatePresenter extends BasePresenter<IGalleryCateView> {
             e.printStackTrace();
         }
     }
+    public void zanGallery(final int position, int dataId) {
+        try {
+            mView.showLoadingDialog();
+            HttpParams params = new HttpParams();
+            params.put("type", 2);
+            params.put("data_id", dataId);
+            model.zan(params, new HttpResultListener<Boolean>() {
+                @Override
+                public void onSuccess(Boolean data) {
+                    try {
+                        mView.zanSuccess(position);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
 
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.showMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
