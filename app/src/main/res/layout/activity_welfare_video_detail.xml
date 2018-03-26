@@ -80,7 +80,7 @@
                             android:drawableLeft="@drawable/ic_video_zan_number"
                             android:drawablePadding="5dp"
                             android:gravity="center"
-                            android:text="点赞:36544"
+                            tools:text="点赞:36544"
                             android:textColor="@color/content_text_color"
                             android:textSize="10sp" />
 

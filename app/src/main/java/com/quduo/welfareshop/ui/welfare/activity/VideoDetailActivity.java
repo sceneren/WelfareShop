@@ -27,7 +27,6 @@ import com.quduo.welfareshop.ui.shop.activity.GoodsDetailActivity;
 import com.quduo.welfareshop.ui.shop.entity.GoodsInfo;
 import com.quduo.welfareshop.ui.welfare.adapter.BeautyVideoHengAdapter;
 import com.quduo.welfareshop.ui.welfare.adapter.BeautyVideoShu2Adapter;
-import com.quduo.welfareshop.ui.welfare.adapter.BeautyVideoShuAdapter;
 import com.quduo.welfareshop.ui.welfare.adapter.VideoDetailCommentAdapter;
 import com.quduo.welfareshop.ui.welfare.adapter.VideoDetailGoodsAdapter;
 import com.quduo.welfareshop.ui.welfare.entity.VideoCommentInfo;
@@ -367,6 +366,8 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
     public void zanSuccess() {
         try {
             info.setIs_good(true);
+            info.setGood(info.getGood() + 1);
+            zanNumber.setText(MessageFormat.format("点赞:{0}", info.getGood()));
             btnZan.setImageResource(R.drawable.ic_video_zan_s);
         } catch (Exception e) {
             e.printStackTrace();
@@ -377,6 +378,8 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
     public void followSuccess(int followId) {
         try {
             info.setFavor_id(followId);
+            info.setFavor_times(info.getFavor_times() + 1);
+            followNumber.setText(MessageFormat.format("收藏:{0}", info.getFavor_times()));
             btnFollow.setImageResource(R.drawable.ic_video_follow_s);
         } catch (Exception e) {
             e.printStackTrace();
@@ -387,6 +390,8 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
     public void cancelFollowSuccess() {
         try {
             info.setFavor_id(0);
+            info.setFavor_times(info.getFavor_times() > 0 ? info.getFavor_times() - 1 : 0);
+            followNumber.setText(MessageFormat.format("收藏:{0}", info.getFavor_times()));
             btnFollow.setImageResource(R.drawable.ic_video_follow_d);
         } catch (Exception e) {
             e.printStackTrace();
