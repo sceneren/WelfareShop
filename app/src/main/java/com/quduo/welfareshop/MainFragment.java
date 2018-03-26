@@ -110,17 +110,60 @@ public class MainFragment extends SupportFragment {
 
     private boolean isWork = true;
 
-    private ObjectAnimator animator;
+    private ObjectAnimator animatorStar;
+    private ObjectAnimator animatorEnd;
 
-    private void showMoveImage() {
+    private void showStartMoveImage() {
         _mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (animator == null) {
-                    animator = ObjectAnimator.ofFloat(image, "translationX", PtrLocalDisplay.SCREEN_WIDTH_PIXELS, -PtrLocalDisplay.SCREEN_WIDTH_PIXELS, -PtrLocalDisplay.SCREEN_WIDTH_PIXELS);
-                    animator.setTarget(image);
-                    animator.setDuration(20000);
-                    animator.addListener(new Animator.AnimatorListener() {
+                if (animatorStar == null) {
+                    animatorStar = ObjectAnimator.ofFloat(image, "translationX", PtrLocalDisplay.SCREEN_WIDTH_PIXELS, 0, 0);
+                    animatorStar.setTarget(image);
+                    animatorStar.setDuration(3000);
+                    animatorStar.addListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+                            image.setVisibility(View.VISIBLE);
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            image.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    showEndMoveImage();
+                                }
+                            }, 7000);
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animation) {
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animation) {
+
+                        }
+                    });
+                }
+                if (bottomBar.getCurrentItemPosition() == 0 || bottomBar.getCurrentItemPosition() == 3) {
+                    animatorStar.start();
+                }
+
+            }
+        });
+    }
+
+    public void showEndMoveImage() {
+        _mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (animatorEnd == null) {
+                    animatorEnd = ObjectAnimator.ofFloat(image, "translationX", 0, -PtrLocalDisplay.SCREEN_WIDTH_PIXELS, -PtrLocalDisplay.SCREEN_WIDTH_PIXELS);
+                    animatorEnd.setTarget(image);
+                    animatorEnd.setDuration(3000);
+                    animatorEnd.addListener(new Animator.AnimatorListener() {
                         @Override
                         public void onAnimationStart(Animator animation) {
                             image.setVisibility(View.VISIBLE);
@@ -142,8 +185,8 @@ public class MainFragment extends SupportFragment {
                         }
                     });
                 }
-                if(bottomBar.getCurrentItemPosition()==0||bottomBar.getCurrentItemPosition()==3){
-                    animator.start();
+                if (bottomBar.getCurrentItemPosition() == 0 || bottomBar.getCurrentItemPosition() == 3) {
+                    animatorEnd.start();
                 }
 
             }
@@ -159,7 +202,7 @@ public class MainFragment extends SupportFragment {
                 public void run() {
                     while (isWork) {
                         SystemClock.sleep(40000);
-                        showMoveImage();
+                        showStartMoveImage();
                     }
                 }
             });
