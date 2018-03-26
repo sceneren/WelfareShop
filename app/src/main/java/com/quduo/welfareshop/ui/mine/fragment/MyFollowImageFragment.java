@@ -219,7 +219,7 @@ public class MyFollowImageFragment extends BaseMvpFragment<IMyFollowImageView, M
     @Override
     public void zanSuccess(int position) {
         try {
-            list.get(position).setIs_goods(true);
+            list.get(position).setIs_good(true);
             adapter.notifyItemChanged(position);
         } catch (Exception e) {
             e.printStackTrace();

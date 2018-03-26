@@ -31,7 +31,7 @@ public class MyFollowGalleryInfo extends BaseBean {
     private int favor_times;
     private int price;
     private List<String> thumb_small;
-    private boolean is_goods;
+    private boolean is_good;
     private int view_times;
 
     public int getId() {
@@ -98,13 +98,6 @@ public class MyFollowGalleryInfo extends BaseBean {
         this.thumb_small = thumb_small;
     }
 
-    public boolean isIs_goods() {
-        return is_goods;
-    }
-
-    public void setIs_goods(boolean is_goods) {
-        this.is_goods = is_goods;
-    }
 
     public int getView_times() {
         return view_times;
@@ -112,5 +105,13 @@ public class MyFollowGalleryInfo extends BaseBean {
 
     public void setView_times(int view_times) {
         this.view_times = view_times;
+    }
+
+    public boolean isIs_good() {
+        return is_good;
+    }
+
+    public void setIs_good(boolean is_good) {
+        this.is_good = is_good;
     }
 }
