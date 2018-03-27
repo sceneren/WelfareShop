@@ -245,6 +245,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
     @OnClick(R.id.read_now)
     public void onClickReadNow() {
         try {
+            presenter.novelSee(novelId);
             if (resultInfo.getData().isPayed()) {
                 onClickRead();
             } else {

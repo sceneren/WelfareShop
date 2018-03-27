@@ -230,4 +230,10 @@ public class NovelDetailPresenter extends BasePresenter<INovelDetailView> {
             e.printStackTrace();
         }
     }
+
+    public void novelSee(int novelId) {
+        HttpParams params = new HttpParams();
+        params.put("novel_id", novelId);
+        model.novelSee(params);
+    }
 }

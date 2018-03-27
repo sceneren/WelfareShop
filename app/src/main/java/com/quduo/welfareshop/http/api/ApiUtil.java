@@ -188,6 +188,9 @@ public class ApiUtil {
     //视频统计
     public static final String VIDEO_PLAY = "video/play";
     public static final String VIDEO_PLAY_TAG = "video/play";
+    //小说统计
+    public static final String NOVEL_SEE = "novel/view";
+    public static final String NOVEL_SEE_TAG = "novel/view";
 
     /**
      * Case By:创建参数基础信息

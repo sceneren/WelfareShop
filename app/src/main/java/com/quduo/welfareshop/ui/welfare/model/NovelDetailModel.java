@@ -20,7 +20,7 @@ import java.io.File;
  * Description:小说详情
  */
 
-public class NovelDetailModel extends FollowModel{
+public class NovelDetailModel extends FollowModel {
     public void getNovelDetailData(HttpParams params, final HttpResultListener<NovelDetailResultInfo> listener) {
         OkGo.<LzyResponse<NovelDetailResultInfo>>get(ApiUtil.API_PRE + ApiUtil.NOVEL_DETAIL)
                 .tag(ApiUtil.NOVEL_DETAIL_TAG)
@@ -92,5 +92,16 @@ public class NovelDetailModel extends FollowModel{
 
     }
 
+    public void novelSee(HttpParams params) {
+        OkGo.<LzyResponse<Boolean>>get(ApiUtil.API_PRE + ApiUtil.NOVEL_SEE)
+                .tag(ApiUtil.NOVEL_SEE_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<Boolean>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<Boolean>> response) {
+
+                    }
+                });
+    }
 
 }
