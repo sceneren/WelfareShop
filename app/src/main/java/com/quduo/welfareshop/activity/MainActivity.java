@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -11,16 +12,26 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.HttpParams;
+import com.lzy.okgo.model.Response;
 import com.quduo.welfareshop.MainFragment;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.BaseActivity;
+import com.quduo.welfareshop.http.api.ApiUtil;
+import com.quduo.welfareshop.http.callback.JsonCallback;
 import com.quduo.welfareshop.util.keyboard.OnSoftKeyboardStateChangedListener;
 
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import cn.jzvd.JZVideoPlayer;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
@@ -50,6 +61,7 @@ public class MainActivity extends BaseActivity {
         }
         getLocation();
         checkUpdate();
+        uploadStayInfo();
     }
 
     private void init() {
@@ -163,6 +175,38 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @SuppressLint("CheckResult")
+    private void uploadStayInfo() {
+
+        Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                for (int i = 0; ; i++) {    //无限循环发事件
+                    Thread.sleep(60000);
+                    emitter.onNext(i);
+                }
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        HttpParams params = new HttpParams();
+                        OkGo.<String>get(ApiUtil.API_PRE + ApiUtil.APP_STAY)
+                                .tag(ApiUtil.APP_STAY_TAG)
+                                .params(params)
+                                .execute(new JsonCallback<String>() {
+                                    @Override
+                                    public void onSuccess(Response<String> response) {
+
+                                    }
+                                });
+                    }
+                });
+
+
     }
 
     //检查更新

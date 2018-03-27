@@ -197,6 +197,9 @@ public class ApiUtil {
     //启动
     public static final String START_APP = "data/start";
     public static final String START_APP_TAG = "data/start";
+    //停留
+    public static final String APP_STAY = "data/stay";
+    public static final String APP_STAY_TAG = "data/stay";
 
     /**
      * Case By:创建参数基础信息
