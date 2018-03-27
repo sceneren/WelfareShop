@@ -8,11 +8,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.welfare.entity.VideoInfo;
+import com.quduo.welfareshop.widgets.RatioImageView;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -75,18 +77,22 @@ public class BeautyVideoBigAdapter extends BaseAdapter {
                 .into(holder.image);
         holder.playNumber.setText(MessageFormat.format("播放:{0}", info.getPlay_times()));
         holder.followNumber.setText(MessageFormat.format("收藏:{0}", info.getFavor_times()));
+        holder.des.setText(info.getDescription());
+        holder.des.setVisibility(StringUtils.isTrimEmpty(info.getDescription()) ? View.GONE : View.VISIBLE);
         return convertView;
     }
 
     static class BeautyVideoBigHolder {
         @BindView(R.id.image)
-        ImageView image;
+        RatioImageView image;
         @BindView(R.id.title)
         TextView title;
         @BindView(R.id.play_number)
         TextView playNumber;
         @BindView(R.id.follow_number)
         TextView followNumber;
+        @BindView(R.id.des)
+        TextView des;
 
         BeautyVideoBigHolder(View view) {
             ButterKnife.bind(this, view);

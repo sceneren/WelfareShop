@@ -86,10 +86,8 @@ public class NovelGridAdapter extends BaseAdapter {
     static class NovelIGridtemViewHolder {
         @BindView(R.id.title)
         TextView title;
-        @BindView(R.id.baseimage)
-        RatioImageView baseimage;
         @BindView(R.id.image)
-        ImageView image;
+        RatioImageView image;
         @BindView(R.id.read_number)
         TextView readNumber;
 

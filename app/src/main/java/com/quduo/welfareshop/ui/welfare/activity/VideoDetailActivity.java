@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.StringUtils;
@@ -105,6 +106,8 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
     TextView des;
     @BindView(R.id.video_name)
     TextView videoName;
+    @BindView(R.id.layout_see_des)
+    LinearLayout layoutSeeDes;
 
     private List<GoodsInfo> goodsList = new ArrayList<>();
     private VideoDetailGoodsAdapter goodsAdapter;
@@ -354,6 +357,7 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
                     .into(avatar);
             des.setText(data.getDescription());
             videoName.setText(data.getName());
+            layoutSeeDes.setVisibility(cateId == 2 ? View.GONE : View.VISIBLE);
         } catch (Exception e) {
             e.printStackTrace();
         }

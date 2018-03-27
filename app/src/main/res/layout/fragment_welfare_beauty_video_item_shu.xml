@@ -14,8 +14,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:base="horizontal"
-            app:horizontal_weight="538"
-            app:vertical_weight="620" />
+            app:horizontal_weight="10"
+            app:vertical_weight="14" />
     </RelativeLayout>
 
     <TextView

@@ -6,28 +6,13 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-
-    <RelativeLayout
+    <com.quduo.welfareshop.widgets.RatioImageView
+        android:id="@+id/image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.quduo.welfareshop.widgets.RatioImageView
-            android:id="@+id/baseimage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:base="horizontal"
-            app:horizontal_weight="243"
-            app:vertical_weight="324" />
-
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignBottom="@+id/baseimage"
-            android:layout_alignLeft="@+id/baseimage"
-            android:layout_alignRight="@+id/baseimage"
-            android:layout_alignTop="@+id/baseimage" />
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        app:base="horizontal"
+        app:horizontal_weight="10"
+        app:vertical_weight="14" />
 
     <TextView
         android:id="@+id/title"
@@ -36,10 +21,10 @@
         android:ellipsize="end"
         android:gravity="center"
         android:lines="1"
-        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="5dp"
         android:paddingLeft="@dimen/dp_10"
         android:paddingRight="@dimen/dp_10"
-        android:paddingBottom="5dp"
+        android:paddingTop="@dimen/dp_10"
         android:text="我的小姨子"
         android:textColor="@color/title_text_color"
         android:textSize="@dimen/sp_14" />
