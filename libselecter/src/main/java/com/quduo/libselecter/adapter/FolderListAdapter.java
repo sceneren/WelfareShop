@@ -5,12 +5,12 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.quduo.libselecter.ISNav;
-import com.quduo.libselecter.R;
 import com.quduo.libselecter.bean.Folder;
 import com.quduo.libselecter.common.OnFolderChangeListener;
 import com.quduo.libselecter.config.ISListConfig;
 import com.yuyh.easyadapter.abslistview.EasyLVAdapter;
 import com.yuyh.easyadapter.abslistview.EasyLVHolder;
+import com.yuyh.library.imgsel.R;
 
 import java.util.List;
 

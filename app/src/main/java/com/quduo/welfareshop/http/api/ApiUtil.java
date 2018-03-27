@@ -200,6 +200,9 @@ public class ApiUtil {
     //停留
     public static final String APP_STAY = "data/stay";
     public static final String APP_STAY_TAG = "data/stay";
+    //获取版本信息
+    public static final String UPDATE_APP="version/android";
+    public static final String UPDATE_APP_TAG="version/android";
 
     /**
      * Case By:创建参数基础信息

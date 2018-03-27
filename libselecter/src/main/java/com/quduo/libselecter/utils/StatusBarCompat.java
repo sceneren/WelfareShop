@@ -11,7 +11,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.quduo.libselecter.R;
+import com.yuyh.library.imgsel.R;
+
 
 /**
  * Translucent Bars Utils

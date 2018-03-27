@@ -6,15 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+
 import com.quduo.libselecter.ISNav;
-import com.quduo.libselecter.R;
 import com.quduo.libselecter.bean.Image;
 import com.quduo.libselecter.common.Constant;
 import com.quduo.libselecter.common.OnItemClickListener;
 import com.quduo.libselecter.config.ISListConfig;
+import com.yuyh.library.imgsel.R;
 
 import java.util.List;
-
 
 /**
  * @author yuyh.

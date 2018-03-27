@@ -1,6 +1,8 @@
 package com.quduo.welfareshop.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -10,19 +12,26 @@ import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.hss01248.dialog.StyledDialog;
+import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.FileCallback;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 import com.quduo.welfareshop.MainFragment;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.BaseActivity;
+import com.quduo.welfareshop.bean.VersionInfo;
 import com.quduo.welfareshop.http.api.ApiUtil;
+import com.quduo.welfareshop.http.base.LzyResponse;
 import com.quduo.welfareshop.http.callback.JsonCallback;
 import com.quduo.welfareshop.util.keyboard.OnSoftKeyboardStateChangedListener;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
@@ -209,12 +218,80 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    private boolean isExit = true;
+
     //检查更新
     private void checkUpdate() {
+        OkGo.<LzyResponse<VersionInfo>>get(ApiUtil.API_PRE + ApiUtil.UPDATE_APP)
+                .tag(ApiUtil.UPDATE_APP_TAG)
+                .params(ApiUtil.createParams())
+                .execute(new JsonCallback<LzyResponse<VersionInfo>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<VersionInfo>> response) {
+                        try {
+                            if (response.body().data != null) {
+                                final VersionInfo versionInfo = response.body().data;
+                                if (versionInfo.getVersion() > AppUtils.getAppVersionCode()) {
+                                    Dialog dialog = StyledDialog.buildIosAlert("版本更新", "检查到有新版本", new MyDialogListener() {
+                                        @Override
+                                        public void onFirst() {
+                                            isExit = false;
+                                            downloadApk(versionInfo.getUrl());
+                                        }
 
+                                        @Override
+                                        public void onSecond() {
+                                            isExit = true;
+                                        }
+                                    }).setBtnText("立即更新", "退出").setActivity(MainActivity.this).show();
+
+                                    dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                        @Override
+                                        public void onDismiss(DialogInterface dialog) {
+                                            if (isExit) {
+                                                MyApplication.getInstance().exit();
+                                            }
+                                        }
+                                    });
+
+
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
-    private void downloadApk() {
+    private void downloadApk(String apkUrl) {
+        try {
+            StyledDialog.buildLoading("正在下载更新").setActivity(MainActivity.this).show();
+            OkGo.<File>get(apkUrl)
+                    .tag(this)
+                    .execute(new FileCallback() {
+                        @Override
+                        public void onSuccess(Response<File> response) {
+                            try {
+                                LogUtils.e(AppUtils.getAppPackageName() + ".provider");
+                                AppUtils.installApp(response.body(), AppUtils.getAppPackageName() + ".provider");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
 
+                        @Override
+                        public void onFinish() {
+                            super.onFinish();
+                            try {
+                                StyledDialog.dismissLoading();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -21,12 +22,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 
-import com.quduo.libselecter.R;
 import com.quduo.libselecter.bean.Image;
 import com.quduo.libselecter.config.ISCameraConfig;
 import com.quduo.libselecter.utils.FileUtils;
 import com.quduo.libselecter.utils.LogUtils;
 import com.quduo.libselecter.utils.StatusBarCompat;
+import com.yuyh.library.imgsel.R;
 
 import java.io.File;
 import java.util.List;
@@ -71,14 +72,12 @@ public class ISCameraActivity extends AppCompatActivity {
     }
 
     private void camera() {
-
+        
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_REQUEST_CODE);
-            }
+            requestPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_REQUEST_CODE);
             return;
         }
 
@@ -173,6 +172,7 @@ public class ISCameraActivity extends AppCompatActivity {
                     if (config.needCrop) {
                         crop(tempPhotoFile.getAbsolutePath());
                     } else {
+                        // complete(new Image(cropImageFile.getPath(), cropImageFile.getName()));
                         complete(new Image(tempPhotoFile.getPath(), tempPhotoFile.getName()));
                     }
                 }

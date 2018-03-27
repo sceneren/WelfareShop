@@ -9,7 +9,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
-        versionName "1.0.0"
+        versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         flavorDimensions "versionCode"
@@ -117,7 +117,7 @@ android {
     android.applicationVariants.all { variant ->
         variant.outputs.all { output ->
             def flavorFlag = "${variant.productFlavors.get(0).name}"
-            def file_pre = flavorFlag.replace("NNY", "lottery")
+            def file_pre = flavorFlag.replace("NNY", "xq")
             outputFileName = "../../${file_pre}_${defaultConfig.versionCode}.apk"
         }
     }
