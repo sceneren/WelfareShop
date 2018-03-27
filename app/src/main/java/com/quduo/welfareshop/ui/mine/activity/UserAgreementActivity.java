@@ -28,7 +28,6 @@ public class UserAgreementActivity extends BaseActivity {
         setContentView(R.layout.activity_user_agreement);
         ButterKnife.bind(this);
         toolbarTitle.setText("用户协议");
-        toolbarTitle.setText("收货信息");
         toolbar.setNavigationIcon(R.drawable.ic_toolbar_back_black);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
