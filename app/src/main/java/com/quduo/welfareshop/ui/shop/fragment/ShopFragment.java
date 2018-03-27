@@ -22,6 +22,7 @@ import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.itemDecoration.ShopIndexItemDecoration;
@@ -117,6 +118,7 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
     @Override
     public void initView() {
         super.initView();
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_SHOP_INDEX,0);
         initRecyclerView();
         initHeaderView();
         presenter.getData(1, true);

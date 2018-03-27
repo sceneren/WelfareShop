@@ -3,6 +3,7 @@ package com.quduo.welfareshop;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 import android.widget.ImageView;
 
@@ -15,10 +16,13 @@ import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
+import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.cookie.CookieJarImpl;
 import com.lzy.okgo.cookie.store.MemoryCookieStore;
 import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
+import com.lzy.okgo.model.HttpParams;
+import com.lzy.okgo.model.Response;
 import com.quduo.libselecter.ISNav;
 import com.quduo.libselecter.common.ImageLoader;
 import com.quduo.welfareshop.activity.MainActivity;
@@ -27,6 +31,7 @@ import com.quduo.welfareshop.bean.ConfigInfo;
 import com.quduo.welfareshop.bean.UserInfo;
 import com.quduo.welfareshop.config.Config;
 import com.quduo.welfareshop.greendao.GreenDaoManager;
+import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.recovery.core.Recovery;
 import com.quduo.welfareshop.util.DynamicTimeFormat;
 import com.quduo.welfareshop.util.PageFactory;
@@ -78,16 +83,18 @@ public class MyApplication extends LitePalApplication {
     static {
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
+            @NonNull
             @Override
-            public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
+            public RefreshHeader createRefreshHeader(@NonNull Context context, @NonNull RefreshLayout layout) {
                 //layout.setPrimaryColorsId(R.color.colorPrimary, android.R.color.white);//全局设置主题颜色
                 return new ClassicsHeader(context).setTimeFormat(new DynamicTimeFormat("更新于 %s"));//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
             }
         });
         //设置全局的Footer构建器
         SmartRefreshLayout.setDefaultRefreshFooterCreator(new DefaultRefreshFooterCreator() {
+            @NonNull
             @Override
-            public RefreshFooter createRefreshFooter(Context context, RefreshLayout layout) {
+            public RefreshFooter createRefreshFooter(@NonNull Context context, @NonNull RefreshLayout layout) {
                 //指定为经典Footer，默认是 BallPulseFooter
                 return new ClassicsFooter(context).setDrawableSize(20);
             }
@@ -240,9 +247,9 @@ public class MyApplication extends LitePalApplication {
     }
 
     /*
-    *给临时Activitys
-    * 添加activity
-    * */
+     *给临时Activitys
+     * 添加activity
+     * */
     public void addTemActivity(Activity activity) {
         activitys.add(activity);
     }
@@ -256,8 +263,8 @@ public class MyApplication extends LitePalApplication {
     }
 
     /*
-    * 退出指定的Activity
-    * */
+     * 退出指定的Activity
+     * */
     public void exitActivitys() {
         for (Activity activity : activitys) {
             if (activity != null) {
@@ -357,5 +364,22 @@ public class MyApplication extends LitePalApplication {
                 .setCacheMode(CacheMode.NO_CACHE)               //全局统一缓存模式，默认不使用缓存，可以不传
                 .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE)   //全局统一缓存时间，默认永不过期，可以不传
                 .setRetryCount(0);                         //全局统一超时重连次数，默认为三次，那么最差的情况会请求4次(一次原始请求，三次重连请求)，不需要可以设置为0
+    }
+
+    //上传也没信息
+    public void uploadPageInfo(int positionId, int dataId) {
+        HttpParams params = new HttpParams();
+        params.put(ApiUtil.createParams());
+        params.put("position_id", positionId);
+        params.put("data_id", dataId);
+        OkGo.<String>get(ApiUtil.API_PRE + ApiUtil.UPLOAD_PAGE_INFO)
+                .tag(ApiUtil.UPLOAD_PAGE_INFO_TAG)
+                .params(params)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+
+                    }
+                });
     }
 }

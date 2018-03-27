@@ -15,7 +15,9 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.OkGo;
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.mine.adapter.MyGoodsAdapter;
@@ -114,6 +116,7 @@ public class MyGoodsFragment extends BaseBackMvpFragment<IMyGoodsView, MyGoodsPr
 
     @Override
     public void initView() {
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_FOLLOW_GOODS,0);
         initRecyclerView();
         presenter.getData(true);
     }

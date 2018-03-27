@@ -108,6 +108,7 @@ public class MyFollowVideoFragment extends BaseMvpFragment<IMyFollowVideoView, M
 
     @Override
     public void initView() {
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_FOLLOW_VIDEO,0);
         initRecyclerView();
         presenter.getData(true);
     }

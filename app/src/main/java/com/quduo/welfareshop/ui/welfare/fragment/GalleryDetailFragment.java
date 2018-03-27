@@ -20,6 +20,7 @@ import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.UnlockLisenter;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.UnLockImageEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
@@ -149,6 +150,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     public void initView() {
         initRecyclerView();
         presenter.getGalleryDetailData(id, true);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_GELLERY_DETAIL,id);
     }
 
     private void initRecyclerView() {

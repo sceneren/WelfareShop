@@ -17,6 +17,7 @@ import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.EditMyInfoEvent;
 import com.quduo.welfareshop.event.UpdateAvatarEvent;
 import com.quduo.welfareshop.event.UpdateMyInfoSuccessEvent;
@@ -118,6 +119,7 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
         detailUserInfo = (MyUserDetailInfo) getIntent().getSerializableExtra(ARG_USER_INFO);
         initToolbar();
         initView();
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_EDIT_MY_INFO,0);
     }
 
     private void initToolbar() {

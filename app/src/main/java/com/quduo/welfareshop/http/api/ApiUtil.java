@@ -191,6 +191,12 @@ public class ApiUtil {
     //小说统计
     public static final String NOVEL_SEE = "novel/view";
     public static final String NOVEL_SEE_TAG = "novel/view";
+    //上传页面统计
+    public static final String UPLOAD_PAGE_INFO = "data/position";
+    public static final String UPLOAD_PAGE_INFO_TAG = "data/position";
+    //启动
+    public static final String START_APP = "data/start";
+    public static final String START_APP_TAG = "data/start";
 
     /**
      * Case By:创建参数基础信息

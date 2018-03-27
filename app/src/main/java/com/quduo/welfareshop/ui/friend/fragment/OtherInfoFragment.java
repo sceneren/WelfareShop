@@ -27,6 +27,7 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.base.UnlockLisenter;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.FollowEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
@@ -191,6 +192,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
 
     @Override
     public void initView() {
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_FRIEND_OTHERS_INFO,0);
         refreshLayout.setEnableLoadMore(false);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override

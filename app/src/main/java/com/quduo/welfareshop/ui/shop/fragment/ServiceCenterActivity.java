@@ -5,7 +5,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.mvp.BaseBackActivity;
 import com.quduo.welfareshop.widgets.X5WebView;
 import com.tencent.smtt.sdk.ValueCallback;
@@ -34,6 +36,7 @@ public class ServiceCenterActivity extends BaseBackActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_service_center);
         unbinder = ButterKnife.bind(this);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_SHOP_SERVICE_CENTER,0);
         initView();
     }
 

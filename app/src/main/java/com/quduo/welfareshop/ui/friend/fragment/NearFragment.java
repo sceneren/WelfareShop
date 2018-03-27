@@ -18,6 +18,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.itemDecoration.GridSpacingItemDecoration;
@@ -83,6 +84,7 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
 
     @Override
     public void initView() {
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_FRIEND_NEAR,0);
         if (MyApplication.getInstance().getLatitude() == 0) {
             refreshLayout.postDelayed(new Runnable() {
                 @Override

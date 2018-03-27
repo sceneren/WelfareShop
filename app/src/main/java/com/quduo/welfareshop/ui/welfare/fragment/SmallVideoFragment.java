@@ -17,6 +17,7 @@ import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.UnlockLisenter;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.welfare.adapter.SmallVideoAdapter;
@@ -112,6 +113,7 @@ public class SmallVideoFragment extends BaseMvpFragment<ISmallVideoView, SmallVi
 
     @Override
     public void initView() {
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_SMALL_VIDEO,0);
         refreshLayout.setEnableLoadMore(false);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override

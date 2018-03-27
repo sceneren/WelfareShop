@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
@@ -43,8 +44,23 @@ public class EnterActivity extends BaseActivity {
         setContentView(R.layout.activity_enter);
         unbinder = ButterKnife.bind(this);
         beginTime = System.currentTimeMillis();
+        uploadStartApp();
         MyApplication.getInstance().setResourceId(ResourceUtil.getResouyceId(EnterActivity.this));
         applyExternalStorage();
+    }
+
+    private void uploadStartApp() {
+        HttpParams params = new HttpParams();
+        params.put(ApiUtil.createParams());
+        OkGo.<String>get(ApiUtil.API_PRE + ApiUtil.START_APP)
+                .tag(ApiUtil.START_APP_TAG)
+                .params(params)
+                .execute(new JsonCallback<String>() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+
+                    }
+                });
     }
 
     //申请内部存储权限

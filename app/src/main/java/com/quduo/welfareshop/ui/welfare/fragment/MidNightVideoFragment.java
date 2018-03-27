@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.welfare.activity.VideoDetailActivity;
@@ -24,7 +25,6 @@ import com.quduo.welfareshop.ui.welfare.entity.VideoModelInfo;
 import com.quduo.welfareshop.ui.welfare.presenter.MidNightVideoPresenter;
 import com.quduo.welfareshop.ui.welfare.view.IMidNightVideoView;
 import com.quduo.welfareshop.util.BannerImageLoader;
-import com.quduo.welfareshop.util.DialogUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -114,6 +114,7 @@ public class MidNightVideoFragment extends BaseMvpFragment<IMidNightVideoView, M
 
     @Override
     public void initView() {
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MIDNIGHT_VIDEO, 0);
         initRecyclerView();
         initHeaderView();
         presenter.getMidNightVideoData(true);

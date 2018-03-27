@@ -25,6 +25,7 @@ import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.dialog.RedOpenDialog;
 import com.quduo.welfareshop.event.OpenRedSuccessEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
@@ -123,6 +124,7 @@ public class UnparkRedFragment extends BaseMvpFragment<IUnparkRedView, UnparkRed
 
     @Override
     public void initView() {
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_UNPARK_RED,0);
         initRecyclerView();
         initHeaderView();
         presenter.getData(true);

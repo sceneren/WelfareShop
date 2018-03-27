@@ -13,6 +13,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
@@ -111,6 +112,7 @@ public class NovelFragment extends BaseMvpFragment<INovelView, NovelPresenter> i
 
     @Override
     public void initView() {
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_NOVEL_INDEX,0);
         initRecyclerView();
         initHeaderView();
         presenter.getNovelListData(true);

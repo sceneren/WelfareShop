@@ -10,7 +10,9 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.mine.entity.ReceiverInfo;
@@ -53,6 +55,7 @@ public class MyReceiverActivity extends BaseMvpActivity<IMyReceiverView, MyRecei
         initToolbar();
         initView();
         isFromUpdate = getIntent().getBooleanExtra("isFromUpdate", false);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_RECEIVER_INFO,0);
     }
 
 

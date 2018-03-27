@@ -22,6 +22,7 @@ import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.OpenRedSuccessEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
@@ -129,6 +130,7 @@ public class HistoryRedFragment extends BaseMvpFragment<IHistoryRedView, History
 
     @Override
     public void initView() {
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_RED_HISTORY,0);
         initRecyclerView();
         initHeaderView();
         presenter.getData(1, true);

@@ -17,6 +17,7 @@ import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.PreviewImageActivity;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.shop.adapter.GoodsDetailCommentAdapter;
@@ -134,6 +135,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
     }
 
     private void initView() {
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_SHOP_DETAIL,goodsId);
         initRefreshLayout();
         initBanner();
         initCommentListView();

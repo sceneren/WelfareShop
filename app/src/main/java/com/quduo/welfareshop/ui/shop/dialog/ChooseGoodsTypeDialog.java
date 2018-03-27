@@ -23,6 +23,7 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.BaseActivity;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.ui.shop.activity.ConfirmOrderActivity;
 import com.quduo.welfareshop.ui.shop.entity.CreateOrderInfo;
 import com.quduo.welfareshop.ui.shop.entity.GoodsDetailInfo;
@@ -108,6 +109,7 @@ public class ChooseGoodsTypeDialog extends BaseActivity {
     }
 
     private void initView() {
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_SHOP_CHOOSE_MODEL,detailInfo.getId());
         inflater = LayoutInflater.from(ChooseGoodsTypeDialog.this);
         initModelLayout();
         MultiTransformation multiTransformation = new MultiTransformation(new CenterCrop(), new RoundedCornersTransformation(SizeUtils.dp2px(10), 0));

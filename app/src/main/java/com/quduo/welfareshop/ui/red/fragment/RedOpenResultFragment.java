@@ -22,6 +22,7 @@ import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
@@ -163,6 +164,7 @@ public class RedOpenResultFragment extends BaseBackMvpFragment<IRedOpenResultVie
 
     @Override
     public void initView() {
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_OPEN_RED_RESULT,0);
         initRecyclerView();
         initHeaderView();
         presenter.getData(redId);

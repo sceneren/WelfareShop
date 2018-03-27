@@ -22,6 +22,7 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.OpenPayActivity;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.mine.activity.MyReceiverActivity;
@@ -156,6 +157,7 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
     }
 
     private void initView() {
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_SHOP_CONFIRM_ORDER,orderInfo.getGoodsId());
         GlideApp.with(this)
                 .asBitmap()
                 .centerCrop()

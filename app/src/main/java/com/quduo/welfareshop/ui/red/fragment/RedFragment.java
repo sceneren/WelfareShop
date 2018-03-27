@@ -27,6 +27,7 @@ import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.event.TabSelectedEvent;
 import com.quduo.welfareshop.event.UpdateMyInfoSuccessEvent;
@@ -171,6 +172,7 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
     @Override
     public void initView() {
         super.initView();
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_RED_INDEX,0);
         initDanmu();
         initRefreshLayout();
         presenter.getData(true);
@@ -651,6 +653,7 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
             });
         }
         getRedDialog.show();
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_BUY_RED_DIALOG,0);
     }
 
 
@@ -660,9 +663,10 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
                 @Override
                 public void run() {
                     for (int i = 0; i < data.size(); i++) {
-                        String content = "恭喜" + data.get(i).getNickname() + "成功抢到红包";
-                        addDanmaku(content);
+
                         try {
+                            String content = "恭喜" + data.get(i).getNickname() + "成功抢到红包";
+                            addDanmaku(content);
                             Thread.sleep(1500);
                         } catch (InterruptedException e) {
                             e.printStackTrace();

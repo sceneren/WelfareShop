@@ -16,7 +16,9 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
@@ -184,6 +186,7 @@ public class GalleryCateFragment extends BaseBackMvpFragment<IGalleryCateView, G
     public void initView() {
         initRecyclerView();
         presenter.getGalleryData(1, true);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_GELLERY_CATE,cateId);
     }
 
     private void initRecyclerView() {

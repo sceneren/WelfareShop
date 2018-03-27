@@ -13,7 +13,9 @@ import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hss01248.dialog.StyledDialog;
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.mine.adapter.MyOrderChildAdapter;
@@ -118,6 +120,13 @@ public class MyOrderChildFragment extends BaseMvpFragment<IMyOrderChildView, MyO
     public void initView() {
         initRecyclerView();
         presenter.getData(1, true);
+        if (getOrderType() == 1) {
+            MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_ORDER_UNPAY, 0);
+        } else if (getOrderType() == 2) {
+            MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_ORDER_UNSEND, 0);
+        } else {
+            MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_ORDER_UNRECEIVER, 0);
+        }
     }
 
     public void initRecyclerView() {

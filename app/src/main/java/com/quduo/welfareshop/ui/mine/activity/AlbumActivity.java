@@ -17,6 +17,7 @@ import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.PreviewImageActivity;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.UpdateCoverImageEvent;
 import com.quduo.welfareshop.event.UploadImageEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
@@ -82,6 +83,7 @@ public class AlbumActivity extends BaseMvpActivity<IAlbumView, AlbumPresenter> i
 
     private void initView() {
         try {
+            MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_MY_ALBUM,0);
             list = (List<MyUserDetailInfo.PhotosBean>) getIntent().getSerializableExtra(ARG_IMAGES);
             initRecyclerView();
         } catch (Exception e) {

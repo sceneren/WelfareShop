@@ -18,6 +18,7 @@ import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.friend.model.VideoChatPresenter;
 import com.quduo.welfareshop.ui.friend.view.IVideoChatView;
@@ -58,6 +59,7 @@ public class VideoChatActivity extends BaseMvpActivity<IVideoChatView, VideoChat
         setContentView(R.layout.activity_video_chat);
         unbinder = ButterKnife.bind(this);
         initView();
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_FRIEND_VIDEO_CHAT,0);
     }
 
     private void initView() {

@@ -6,7 +6,6 @@ import com.quduo.welfareshop.mvp.BasePresenter;
 import com.quduo.welfareshop.ui.mine.entity.OrderListResultInfo;
 import com.quduo.welfareshop.ui.mine.model.MyOrderChildModel;
 import com.quduo.welfareshop.ui.mine.view.IMyOrderChildView;
-import com.quduo.welfareshop.widgets.MyVideoPlayer;
 
 /**
  * Author:scene

@@ -18,6 +18,7 @@ import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
@@ -95,6 +96,7 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
         initRecyclerView();
         initHeaderView();
         presenter.getGalleryData(1, true);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_GELLERY_INDEX,0);
     }
 
     private void initRecyclerView() {

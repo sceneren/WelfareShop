@@ -15,7 +15,6 @@ import com.quduo.welfareshop.MainFragment;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.BaseActivity;
-import com.quduo.welfareshop.ui.shop.dialog.BuySuccessDialog;
 import com.quduo.welfareshop.util.keyboard.OnSoftKeyboardStateChangedListener;
 
 import java.util.ArrayList;
@@ -50,6 +49,7 @@ public class MainActivity extends BaseActivity {
             initKeyBoardHeightListener();
         }
         getLocation();
+        checkUpdate();
     }
 
     private void init() {
@@ -163,5 +163,14 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    //检查更新
+    private void checkUpdate() {
+
+    }
+
+    private void downloadApk() {
+
     }
 }

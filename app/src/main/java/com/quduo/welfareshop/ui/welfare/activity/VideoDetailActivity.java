@@ -22,6 +22,7 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.base.UnlockLisenter;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.shop.activity.GoodsDetailActivity;
@@ -133,6 +134,7 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
         unbinder = ButterKnife.bind(this);
         videoId = getIntent().getIntExtra(ARG_VIDEO_ID, 0);
         cateId = getIntent().getIntExtra(ARG_CATE_ID, 0);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_VIDEO_DETAIL,videoId);
         initToolbar();
         initView();
     }

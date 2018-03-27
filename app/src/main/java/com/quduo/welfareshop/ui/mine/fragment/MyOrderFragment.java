@@ -82,6 +82,7 @@ public class MyOrderFragment extends BaseBackMvpFragment<IMyOrderView, MyOrderPr
 
     @Override
     public void initView() {
+
         String tabTitle[] = {"待付款", "待发货", "已发货"};
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(MyOrderChildFragment.newInstance(1));

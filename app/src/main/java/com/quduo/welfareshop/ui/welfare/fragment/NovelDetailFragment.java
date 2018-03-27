@@ -167,6 +167,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
 
     @Override
     public void initView() {
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_NOVEL_DETAIL,novelId);
         initRecyclerView();
         initHeaderView();
         presenter.getNovelDetailData(true);
@@ -273,6 +274,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
 
     private void onClickRead() {
         try {
+            MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_NOVEL_READ,novelId);
             String fileUrl = AppConfig.NOVEL_DIR + novelTitle.getText().toString();
             //判断小说是否在本地
             if (com.blankj.utilcode.util.FileUtils.isFileExists(fileUrl)) {

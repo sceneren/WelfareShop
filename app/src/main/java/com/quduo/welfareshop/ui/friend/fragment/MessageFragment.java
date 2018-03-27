@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.SizeUtils;
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.UpdateSessionEvent;
@@ -80,6 +81,7 @@ public class MessageFragment extends BaseMvpFragment<IMessageView, MessagePresen
 
     @Override
     public void initView() {
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_FRIEND_MESSAGE,0);
         showContentPage();
         refreshLayout.setEnableLoadMore(false);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {

@@ -110,6 +110,7 @@ public class CashFragment extends BaseBackMvpFragment<ICashView, CashPresenter> 
 
     @Override
     public void initView() {
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_CASH,0);
         brokerage.setText(MessageFormat.format("{0}%", MyApplication.getInstance().getConfigInfo().getWithdraw_fee()));
         canCashMoney.setText(MessageFormat.format("￥{0}", MyApplication.getInstance().getUserInfo().getMoney()));
         getData();

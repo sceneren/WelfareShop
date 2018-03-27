@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.welfare.activity.VideoDetailActivity;
@@ -112,6 +113,7 @@ public class BeautyVideoFragment extends BaseMvpFragment<IBeautyVideoView, Beaut
 
     @Override
     public void initView() {
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_BEAUTY_VIDEO,0);
         initRecyclerView();
         initHeaderView();
         //initFooterView();

@@ -12,10 +12,12 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.adapter.RechargeAdapter;
 import com.quduo.welfareshop.bean.RechargeInfo;
 import com.quduo.welfareshop.bean.RechargeTypeInfo;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.dialog.GetCouponDialog;
 import com.quduo.welfareshop.dialog.RechargeQuestionDialog;
 import com.quduo.welfareshop.http.api.ApiUtil;
@@ -84,6 +86,7 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
         initToolBar();
         initView();
         presenter.getData();
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_RECHARGE, 0);
     }
 
     private void initToolBar() {
