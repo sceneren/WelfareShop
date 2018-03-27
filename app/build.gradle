@@ -240,7 +240,7 @@ dependencies {
     implementation 'com.github.w446108264:AndroidEmoji:1.0.0'
 
     //播放器
-    implementation 'cn.jzvd:jiaozivideoplayer:6.2.7'
+    implementation 'cn.jzvd:jiaozivideoplayer:6.2.9'
 
     //查看大图
     implementation 'com.github.chrisbanes:PhotoView:2.1.3'
