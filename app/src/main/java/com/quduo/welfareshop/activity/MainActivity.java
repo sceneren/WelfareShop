@@ -30,6 +30,7 @@ import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.http.base.LzyResponse;
 import com.quduo.welfareshop.http.callback.JsonCallback;
 import com.quduo.welfareshop.util.keyboard.OnSoftKeyboardStateChangedListener;
+import com.tencent.smtt.sdk.QbSdk;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -71,8 +72,22 @@ public class MainActivity extends BaseActivity {
         getLocation();
         checkUpdate();
         uploadStayInfo();
-    }
 
+        uploadStartApp();
+    }
+    private void uploadStartApp() {
+        HttpParams params = new HttpParams();
+        params.put(ApiUtil.createParams());
+        OkGo.<String>get(ApiUtil.API_PRE + ApiUtil.START_APP)
+                .tag(ApiUtil.START_APP_TAG)
+                .params(params)
+                .execute(new JsonCallback<String>() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+
+                    }
+                });
+    }
     private void init() {
         if (findFragment(MainFragment.class) == null) {
             loadRootFragment(R.id.fl_container, MainFragment.newInstance());
