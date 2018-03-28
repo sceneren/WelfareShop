@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_white_2" />
+    <include layout="@layout/toolbar_menu_white" />
 
     <View
         android:layout_width="match_parent"

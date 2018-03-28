@@ -37,6 +37,7 @@ import com.quduo.welfareshop.ui.shop.activity.GoodsDetailActivity;
 import com.quduo.welfareshop.ui.shop.dialog.BuySuccessDialog;
 import com.quduo.welfareshop.ui.shop.entity.GoodsInfo;
 import com.quduo.welfareshop.ui.shop.entity.PayInfo;
+import com.quduo.welfareshop.ui.shop.fragment.ServiceCenterActivity;
 import com.quduo.welfareshop.widgets.CustomGridView;
 import com.quduo.welfareshop.widgets.CustomListView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -126,6 +127,8 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
     TextView copyShipNumber;
     @BindView(R.id.layout_ship)
     LinearLayout layoutShip;
+    @BindView(R.id.toolbar_image_menu)
+    ImageView toolbarImageMenu;
     private int orderId;
 
     private List<GoodsInfo> goodsList = new ArrayList<>();
@@ -195,12 +198,23 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
     @Override
     public void initToolbar() {
         toolbarTitle.setText("订单详情");
+        toolbarImageMenu.setImageResource(R.drawable.ic_order_detail_server_center);
         initToolbarNav(toolbar, true);
+    }
+
+    @OnClick(R.id.toolbar_image_menu)
+    public void onClickToolbarImageMenu() {
+        try {
+            startActivity(new Intent(_mActivity, ServiceCenterActivity.class));
+            _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void initView() {
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_ORDER_DETAIL,orderId);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_ORDER_DETAIL, orderId);
         initRefreshLayout();
         initRecommendGoodsGridView();
         presenter.getData(true);

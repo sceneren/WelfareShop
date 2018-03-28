@@ -143,7 +143,7 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
 
     @Override
     public void initView() {
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_MY_DETAIL_INFO,0);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_MY_DETAIL_INFO, 0);
         refreshLayout.setEnableLoadMore(false);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -313,6 +313,7 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
             bloodType.setText(data.getBlood_type());
             job.setText(data.getJob());
             star.setText(data.getStar());
+
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
@@ -167,7 +168,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
 
     @Override
     public void initView() {
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_NOVEL_DETAIL,novelId);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_NOVEL_DETAIL, novelId);
         initRecyclerView();
         initHeaderView();
         presenter.getNovelDetailData(true);
@@ -186,6 +187,12 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
         adapter = new NovelDetailAdapter(getContext(), list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                onClickReadNow();
+            }
+        });
     }
 
     private void initHeaderView() {
@@ -274,7 +281,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
 
     private void onClickRead() {
         try {
-            MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_NOVEL_READ,novelId);
+            MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_NOVEL_READ, novelId);
             String fileUrl = AppConfig.NOVEL_DIR + novelTitle.getText().toString();
             //判断小说是否在本地
             if (com.blankj.utilcode.util.FileUtils.isFileExists(fileUrl)) {

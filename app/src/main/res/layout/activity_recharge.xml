@@ -148,6 +148,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
                     android:text="支付遇到问题 >"
+                    android:visibility="gone"
                     android:textColor="@color/content_text_color"
                     android:textSize="@dimen/sp_12" />
 
@@ -173,6 +174,7 @@
                         android:textSize="10sp" />
 
                     <TextView
+                        android:id="@+id/user_agreement"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="《用户支付协议》"

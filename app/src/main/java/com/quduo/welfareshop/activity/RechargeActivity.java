@@ -22,6 +22,7 @@ import com.quduo.welfareshop.dialog.GetCouponDialog;
 import com.quduo.welfareshop.dialog.RechargeQuestionDialog;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
+import com.quduo.welfareshop.ui.mine.activity.UserAgreementActivity;
 import com.quduo.welfareshop.ui.shop.entity.PayInfo;
 import com.quduo.welfareshop.widgets.CustomListView;
 
@@ -269,5 +270,11 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
             });
         }
         getCouponDialog.show();
+    }
+
+    @OnClick(R.id.user_agreement)
+    public void onClickUserAgreement() {
+        startActivity(new Intent(RechargeActivity.this, UserAgreementActivity.class));
+        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }
 }
