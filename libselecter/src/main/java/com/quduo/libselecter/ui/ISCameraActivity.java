@@ -22,12 +22,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 
+import com.quduo.libselecter.R;
 import com.quduo.libselecter.bean.Image;
 import com.quduo.libselecter.config.ISCameraConfig;
 import com.quduo.libselecter.utils.FileUtils;
 import com.quduo.libselecter.utils.LogUtils;
 import com.quduo.libselecter.utils.StatusBarCompat;
-import com.yuyh.library.imgsel.R;
 
 import java.io.File;
 import java.util.List;

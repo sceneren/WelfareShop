@@ -36,6 +36,7 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 
 
+import com.quduo.libselecter.R;
 import com.quduo.libselecter.adapter.FolderListAdapter;
 import com.quduo.libselecter.adapter.ImageListAdapter;
 import com.quduo.libselecter.adapter.PreviewAdapter;
@@ -51,7 +52,6 @@ import com.quduo.libselecter.utils.FileUtils;
 import com.quduo.libselecter.utils.LogUtils;
 import com.quduo.libselecter.widget.CustomViewPager;
 import com.quduo.libselecter.widget.DividerGridItemDecoration;
-import com.yuyh.library.imgsel.R;
 
 import java.io.File;
 import java.util.ArrayList;

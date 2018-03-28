@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.yuyh.library.imgsel.R;
+import com.quduo.libselecter.R;
 
 
 /**

@@ -25,13 +25,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.quduo.libselecter.R;
 import com.quduo.libselecter.common.Callback;
 import com.quduo.libselecter.common.Constant;
 import com.quduo.libselecter.config.ISListConfig;
 import com.quduo.libselecter.ui.fragment.ImgSelFragment;
 import com.quduo.libselecter.utils.FileUtils;
 import com.quduo.libselecter.utils.StatusBarCompat;
-import com.yuyh.library.imgsel.R;
 
 import java.io.File;
 import java.util.ArrayList;
