@@ -62,14 +62,14 @@ public class MyFollowImageAdapter extends BaseQuickAdapter<MyFollowGalleryInfo, 
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_avatar)
+                .placeholder(R.drawable.ic_default_image)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
                 .into(image1);
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_avatar)
+                .placeholder(R.drawable.ic_default_image)
                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getAvatar())
                 .into(avatar);
@@ -77,21 +77,21 @@ public class MyFollowImageAdapter extends BaseQuickAdapter<MyFollowGalleryInfo, 
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_avatar)
+                .placeholder(R.drawable.ic_default_image)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb_small().get(0))
                 .into(image2);
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_avatar)
+                .placeholder(R.drawable.ic_default_image)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb_small().get(1))
                 .into(image3);
         GlideApp.with(context)
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_avatar)
+                .placeholder(R.drawable.ic_default_image)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb_small().get(2))
                 .into(image4);
 

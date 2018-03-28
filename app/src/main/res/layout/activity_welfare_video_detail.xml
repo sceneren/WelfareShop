@@ -269,7 +269,7 @@
                             android:layout_height="40dp"
                             android:layout_gravity="center_horizontal"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/ic_default_avatar" />
+                            android:src="@drawable/ic_default_image" />
 
                         <EditText
                             android:id="@+id/comment_content"

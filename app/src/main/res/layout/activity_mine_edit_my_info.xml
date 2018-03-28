@@ -49,7 +49,7 @@
                     android:layout_height="50dp"
                     android:layout_marginLeft="20dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_default_avatar" />
+                    android:src="@drawable/ic_default_image" />
 
                 <View
                     android:layout_width="match_parent"
@@ -137,7 +137,7 @@
                         android:lines="1"
                         android:maxLines="1"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_default_avatar"
+                        android:src="@drawable/ic_default_image"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
                 </LinearLayout>
@@ -177,7 +177,7 @@
                         android:lines="1"
                         android:maxLines="1"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_default_avatar"
+                        android:src="@drawable/ic_default_image"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
 
@@ -218,7 +218,7 @@
                         android:lines="1"
                         android:maxLines="1"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_default_avatar"
+                        android:src="@drawable/ic_default_image"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
 
@@ -263,7 +263,7 @@
                         android:lines="1"
                         android:maxLines="1"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_default_avatar"
+                        android:src="@drawable/ic_default_image"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
                 </LinearLayout>
@@ -303,7 +303,7 @@
                         android:lines="1"
                         android:maxLines="1"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_default_avatar"
+                        android:src="@drawable/ic_default_image"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
 
@@ -344,7 +344,7 @@
                         android:lines="1"
                         android:maxLines="1"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_default_avatar"
+                        android:src="@drawable/ic_default_image"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
 
@@ -385,7 +385,7 @@
                         android:lines="1"
                         android:maxLines="1"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_default_avatar"
+                        android:src="@drawable/ic_default_image"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
 
@@ -426,7 +426,7 @@
                         android:lines="1"
                         android:maxLines="1"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_default_avatar"
+                        android:src="@drawable/ic_default_image"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
 
@@ -467,7 +467,7 @@
                         android:lines="1"
                         android:maxLines="1"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_default_avatar"
+                        android:src="@drawable/ic_default_image"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
 
@@ -511,7 +511,7 @@
                         android:lines="1"
                         android:maxLines="1"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_default_avatar"
+                        android:src="@drawable/ic_default_image"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
                 </LinearLayout>
@@ -551,7 +551,7 @@
                         android:lines="1"
                         android:maxLines="1"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_default_avatar"
+                        android:src="@drawable/ic_default_image"
                         android:textColor="@color/title_text_color"
                         android:textSize="@dimen/sp_14" />
 

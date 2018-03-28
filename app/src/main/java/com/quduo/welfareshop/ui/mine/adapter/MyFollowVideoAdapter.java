@@ -38,7 +38,7 @@ public class MyFollowVideoAdapter extends BaseQuickAdapter<MyFollowVideoInfo, Ba
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_avatar)
+                .placeholder(R.drawable.ic_default_image)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
                 .into(image);
     }

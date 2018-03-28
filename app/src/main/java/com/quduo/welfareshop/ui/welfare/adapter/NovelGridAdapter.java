@@ -75,7 +75,7 @@ public class NovelGridAdapter extends BaseAdapter {
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_avatar)
+                .placeholder(R.drawable.ic_default_image)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + url)
                 .into(holder.image);
         holder.readNumber.setText(MessageFormat.format("阅读：{0}", info.getView_times()));

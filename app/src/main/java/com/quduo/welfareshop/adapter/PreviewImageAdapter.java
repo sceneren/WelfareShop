@@ -40,7 +40,7 @@ public class PreviewImageAdapter extends PagerAdapter {
                 .asBitmap()
                 .centerCrop()
                 .load(list.get(position))
-                .placeholder(R.drawable.ic_default_avatar)
+                .placeholder(R.drawable.ic_default_image)
                 .into(photoView);
 
         // Now just add PhotoView to ViewPager and return it

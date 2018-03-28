@@ -120,7 +120,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     .asBitmap()
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.ic_default_avatar)
+                    .placeholder(R.drawable.ic_default_image)
                     .apply(RequestOptions.bitmapTransform(multi))
                     .load(chatMessageInfo.getMessageContent())
                     .into(imageViewHolder.image);

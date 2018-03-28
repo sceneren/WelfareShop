@@ -69,7 +69,7 @@ public class GalleryTypeGridAdapter extends BaseAdapter {
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_avatar)
+                .placeholder(R.drawable.ic_default_image)
                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain()+info.getThumb())
                 .into(holder.image);

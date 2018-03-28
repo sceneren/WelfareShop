@@ -78,7 +78,7 @@ public class LimitFragment extends BaseMainMvpFragment<ILimitView, LimitPresente
                 .load(url)
                 .fitCenter()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_avatar)
+                .placeholder(R.drawable.ic_default_image)
                 .apply(bitmapTransform(new BlurTransformation(30)))
                 .into(image);
     }

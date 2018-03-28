@@ -22,7 +22,7 @@ public class BannerImageLoader extends ImageLoader {
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_avatar)
+                .placeholder(R.drawable.ic_default_image)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .load((String) path)
                 .into(imageView);
