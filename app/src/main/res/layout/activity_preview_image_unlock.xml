@@ -26,22 +26,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="尽情享受每日新增上千张高清图片和尤物盛筵"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_12" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="只需要主人们给小姐姐一个汉堡的爱心赞助"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_12" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="开通会员可解锁写真集及网红模特的联系方式"
+                android:drawablePadding="@dimen/dp_10"
+                android:drawableTop="@drawable/ic_gallery_preview_unlock"
+                android:text="观看全套私聊图片，请先使用积分解锁"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_12" />
 
@@ -49,13 +36,13 @@
                 android:id="@+id/open_vip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/btn_open_vip"
-                android:paddingBottom="3dp"
-                android:paddingLeft="@dimen/dp_10"
-                android:paddingRight="@dimen/dp_10"
-                android:paddingTop="3dp"
-                android:text="立即开通会员"
+                android:paddingBottom="5dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="5dp"
+                android:text="立即解锁"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_12" />
         </LinearLayout>

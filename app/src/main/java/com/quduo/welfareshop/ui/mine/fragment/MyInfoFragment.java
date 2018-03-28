@@ -270,7 +270,7 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
                     .asBitmap()
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.ic_default_image)
+                    .placeholder(R.drawable.ic_default_cover)
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.getCover())
                     .into(image);
             GlideApp.with(this)
@@ -344,7 +344,7 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
                     .asBitmap()
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.ic_default_image)
+                    .placeholder(R.drawable.ic_default_cover)
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + event.getCoverPath())
                     .into(image);
         } catch (Exception e) {

@@ -23,10 +23,11 @@
         android:id="@+id/tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/image"
-        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:drawablePadding="5dp"
+        android:drawableTop="@drawable/ic_gallery_detail_unlock"
         android:padding="@dimen/dp_10"
-        android:text="更多私密美图，请使用积分进行解锁"
-        android:textColor="@color/white"
+        android:text="观看全套私密图片，请先使用积分进行解锁"
+        android:textColor="#828282"
         android:textSize="@dimen/sp_12" />
 </RelativeLayout>

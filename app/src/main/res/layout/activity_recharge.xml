@@ -137,6 +137,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
+                    android:drawableLeft="@drawable/ic_recharge_package"
+                    android:drawablePadding="3dp"
+                    android:gravity="center_vertical"
                     android:text="充值豪礼：充值任意金额送38元商城代金券"
                     android:textColor="@color/title_text_color"
                     android:textSize="@dimen/sp_14" />
@@ -148,9 +151,9 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
                     android:text="支付遇到问题 >"
-                    android:visibility="gone"
                     android:textColor="@color/content_text_color"
-                    android:textSize="@dimen/sp_12" />
+                    android:textSize="@dimen/sp_12"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
