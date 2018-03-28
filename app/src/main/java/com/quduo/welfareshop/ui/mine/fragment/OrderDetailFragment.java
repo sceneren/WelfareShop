@@ -393,7 +393,7 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
             goodsModel.setText(orderDetailInfo.getModel());
             Number num = Float.parseFloat(orderDetailInfo.getPrice()) * 100;
             int giveNum = num.intValue() / 100 * orderDetailInfo.getNumber();
-            goodsScore.setText(MessageFormat.format("赠送{0}钻石+积分", giveNum));
+            goodsScore.setText(MessageFormat.format("赠送{0}钻石+{1}积分", giveNum, giveNum));
             orderNumber.setText(orderDetailInfo.getOrder_id());
             DateTime dateTime = new DateTime(orderDetailInfo.getCreate_time() * 1000);
             orderTime.setText(dateTime.toString("yyyy-MM-dd HH:mm:ss"));
@@ -479,12 +479,14 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
     private BuySuccessDialog buySuccessDialog;
 
     private void showBuySuccessDialog() {
-        if (buySuccessDialog == null) {
-            buySuccessDialog = new BuySuccessDialog(_mActivity);
-        }
-        buySuccessDialog.show();
         try {
-            buySuccessDialog.setNumber(Integer.parseInt(totalPrice.getText().toString().substring(1)));
+            if (buySuccessDialog == null) {
+                buySuccessDialog = new BuySuccessDialog(_mActivity);
+            }
+            buySuccessDialog.show();
+            Number num = Float.parseFloat(totalPrice.getText().toString().substring(4)) * 100;
+            int giveNum = num.intValue() / 100;
+            buySuccessDialog.setNumber(giveNum);
         } catch (Exception e) {
             e.printStackTrace();
         }
