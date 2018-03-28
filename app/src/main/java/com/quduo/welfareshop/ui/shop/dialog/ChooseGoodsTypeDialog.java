@@ -109,7 +109,7 @@ public class ChooseGoodsTypeDialog extends BaseActivity {
     }
 
     private void initView() {
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_SHOP_CHOOSE_MODEL,detailInfo.getId());
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_SHOP_CHOOSE_MODEL, detailInfo.getId());
         inflater = LayoutInflater.from(ChooseGoodsTypeDialog.this);
         initModelLayout();
         MultiTransformation multiTransformation = new MultiTransformation(new CenterCrop(), new RoundedCornersTransformation(SizeUtils.dp2px(10), 0));
@@ -125,7 +125,7 @@ public class ChooseGoodsTypeDialog extends BaseActivity {
         goodsPrice.setText(MessageFormat.format("￥{0}", detailInfo.getPrice()));
         Number num = Float.parseFloat(detailInfo.getPrice()) * 100;
         int giveNum = num.intValue() / 100;
-        goodsScore.setText(MessageFormat.format("送{0}钻石+积分", giveNum));
+        goodsScore.setText(MessageFormat.format("送{0}钻石+{0}积分", giveNum, giveNum));
 
     }
 

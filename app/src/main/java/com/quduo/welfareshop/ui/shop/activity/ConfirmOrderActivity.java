@@ -157,7 +157,7 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
     }
 
     private void initView() {
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_SHOP_CONFIRM_ORDER,orderInfo.getGoodsId());
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_SHOP_CONFIRM_ORDER, orderInfo.getGoodsId());
         GlideApp.with(this)
                 .asBitmap()
                 .centerCrop()
@@ -172,7 +172,7 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
         int giveNum = num.intValue() / 100;
         goodsModel.setText(orderInfo.getChooseModel());
         totalPrice.setText(MessageFormat.format("￥{0}", giveNum * orderInfo.getChoosedNum()));
-        totalScore.setText(MessageFormat.format("送{0}钻石+积分", giveNum * orderInfo.getChoosedNum()));
+        totalScore.setText(MessageFormat.format("送{0}钻石+{0}积分", giveNum * orderInfo.getChoosedNum(), giveNum * orderInfo.getChoosedNum()));
     }
 
     @Override
@@ -291,7 +291,9 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
             showReceiverAddress.setText(data.getStringExtra("address"));
             showReceiverPhone.setText(data.getStringExtra("phone"));
         } else {
-            showBuySuccessDialog();
+            if (requestCode == 40001) {
+                showBuySuccessDialog();
+            }
         }
     }
 
