@@ -200,6 +200,13 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
             list.addAll(data.getScore_recharge_type());
             adapter.notifyDataSetChanged();
             money.setText(MessageFormat.format("{0}积分", data.getScore()));
+            layoutTypeWechat.setVisibility(data.isWx_pay_enable() ? View.VISIBLE : View.GONE);
+            layoutTypeAlipay.setVisibility(data.isAli_pay_enable() ? View.VISIBLE : View.GONE);
+            if ((!data.isWx_pay_enable()) && data.isAli_pay_enable()) {
+                onClickTypeAlipay();
+            } else {
+                onClickTypeWechat();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

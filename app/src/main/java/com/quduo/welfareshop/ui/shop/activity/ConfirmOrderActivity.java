@@ -89,6 +89,10 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
     TextView showReceiverAddress;
     @BindView(R.id.coupon)
     TextView coupon;
+    @BindView(R.id.btn_wechat)
+    TextView btnWechat;
+    @BindView(R.id.btn_alipay)
+    TextView btnAlipay;
 
     private CreateOrderInfo orderInfo;
     private ConfirmOrderResultInfo resultInfo;
@@ -213,6 +217,8 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
                 int giveNum = num.intValue() / 100;
                 totalPrice.setText(MessageFormat.format("￥{0}", (giveNum * orderInfo.getChoosedNum() - data.getCoupon().getCost())));
             }
+            btnAlipay.setVisibility(data.isAli_pay_enable() ? View.VISIBLE : View.GONE);
+            btnWechat.setVisibility(data.isWx_pay_enable() ? View.VISIBLE : View.GONE);
 
         } catch (Exception e) {
             e.printStackTrace();
