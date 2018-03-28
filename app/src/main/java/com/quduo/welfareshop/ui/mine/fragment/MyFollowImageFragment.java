@@ -107,7 +107,7 @@ public class MyFollowImageFragment extends BaseMvpFragment<IMyFollowImageView, M
 
     @Override
     public void initView() {
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_FOLLOW_GALLERY,0);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_FOLLOW_GALLERY, 0);
         initRecyclerView();
         presenter.getData(true);
     }
@@ -133,9 +133,9 @@ public class MyFollowImageFragment extends BaseMvpFragment<IMyFollowImageView, M
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.btn_follow) {
+                if (view.getId() == R.id.layout_follow) {
                     presenter.cancelFollowImage(position, list.get(position).getId());
-                } else if (view.getId() == R.id.btn_zan) {
+                } else if (view.getId() == R.id.layout_zan) {
                     presenter.zanGallery(position, list.get(position).getGallery_id());
                 }
             }
@@ -222,6 +222,7 @@ public class MyFollowImageFragment extends BaseMvpFragment<IMyFollowImageView, M
     @Override
     public void zanSuccess(int position) {
         try {
+            list.get(position).setGood(list.get(position).getGood() + 1);
             list.get(position).setIs_good(true);
             adapter.notifyItemChanged(position);
         } catch (Exception e) {

@@ -186,7 +186,7 @@ public class GalleryCateFragment extends BaseBackMvpFragment<IGalleryCateView, G
     public void initView() {
         initRecyclerView();
         presenter.getGalleryData(1, true);
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_GELLERY_CATE,cateId);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_GELLERY_CATE, cateId);
     }
 
     private void initRecyclerView() {
@@ -220,7 +220,7 @@ public class GalleryCateFragment extends BaseBackMvpFragment<IGalleryCateView, G
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.btn_follow) {
+                if (view.getId() == R.id.layout_follow) {
                     if (list.get(position).getFavor_id() == 0) {
                         presenter.followGallery(position, list.get(position).getId());
                     } else {
@@ -260,6 +260,7 @@ public class GalleryCateFragment extends BaseBackMvpFragment<IGalleryCateView, G
     @Override
     public void zanSuccess(int position) {
         try {
+            list.get(position).setGood(list.get(position).getGood() + 1);
             list.get(position).setIs_good(true);
             adapter.notifyItemChanged(position);
         } catch (Exception e) {

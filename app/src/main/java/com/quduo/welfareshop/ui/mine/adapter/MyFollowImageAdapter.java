@@ -98,13 +98,15 @@ public class MyFollowImageAdapter extends BaseQuickAdapter<MyFollowGalleryInfo, 
         holder.setText(R.id.title, item.getName());
         holder.setText(R.id.view_number, String.valueOf(item.getView_times()));
         holder.setImageResource(R.id.btn_follow, R.drawable.ic_gallery_follow_s);
+        holder.setText(R.id.follow_number, String.valueOf(item.getFavor_times()));
+        holder.setText(R.id.zan_number, String.valueOf(item.getGood()));
         if (item.isIs_good()) {
             holder.setImageResource(R.id.btn_zan, R.drawable.ic_video_zan_s);
         } else {
             holder.setImageResource(R.id.btn_zan, R.drawable.ic_video_zan_d);
         }
-        holder.addOnClickListener(R.id.btn_zan);
-        holder.addOnClickListener(R.id.btn_follow);
+        holder.addOnClickListener(R.id.layout_zan);
+        holder.addOnClickListener(R.id.layout_follow);
     }
 
 }

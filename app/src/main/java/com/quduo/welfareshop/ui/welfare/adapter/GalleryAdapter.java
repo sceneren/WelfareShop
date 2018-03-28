@@ -98,6 +98,10 @@ public class GalleryAdapter extends BaseQuickAdapter<WelfareGalleryInfo, BaseVie
 
         holder.setText(R.id.title, item.getName());
         holder.setText(R.id.view_number, String.valueOf(item.getView_times()));
+        holder.setText(R.id.follow_number, String.valueOf(item.getFavor_times()));
+        holder.setText(R.id.zan_number, String.valueOf(item.getGood()));
+        holder.setText(R.id.follow_number, String.valueOf(item.getFavor_times()));
+        holder.setText(R.id.zan_number, String.valueOf(item.getGood()));
         if (item.getFavor_id() != 0) {
             holder.setImageResource(R.id.btn_follow, R.drawable.ic_gallery_follow_s);
         } else {
@@ -108,8 +112,8 @@ public class GalleryAdapter extends BaseQuickAdapter<WelfareGalleryInfo, BaseVie
         } else {
             holder.setImageResource(R.id.btn_zan, R.drawable.ic_video_zan_d);
         }
-        holder.addOnClickListener(R.id.btn_follow);
-        holder.addOnClickListener(R.id.btn_zan);
+        holder.addOnClickListener(R.id.layout_zan);
+        holder.addOnClickListener(R.id.layout_follow);
     }
 
 }

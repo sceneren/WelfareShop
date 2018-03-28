@@ -33,6 +33,7 @@ public class MyFollowGalleryInfo extends BaseBean {
     private List<String> thumb_small;
     private boolean is_good;
     private int view_times;
+    private int good;
 
     public int getId() {
         return id;
@@ -113,5 +114,13 @@ public class MyFollowGalleryInfo extends BaseBean {
 
     public void setIs_good(boolean is_good) {
         this.is_good = is_good;
+    }
+
+    public int getGood() {
+        return good;
+    }
+
+    public void setGood(int good) {
+        this.good = good;
     }
 }

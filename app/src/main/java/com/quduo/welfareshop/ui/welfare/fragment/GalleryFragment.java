@@ -96,7 +96,7 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
         initRecyclerView();
         initHeaderView();
         presenter.getGalleryData(1, true);
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_GELLERY_INDEX,0);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_GELLERY_INDEX, 0);
     }
 
     private void initRecyclerView() {
@@ -128,13 +128,13 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.btn_follow) {
+                if (view.getId() == R.id.layout_follow) {
                     if (galleryList.get(position).getFavor_id() == 0) {
                         presenter.followGallery(position, galleryList.get(position).getId());
                     } else {
                         presenter.cancelFollow(position, galleryList.get(position).getFavor_id());
                     }
-                } else if (view.getId() == R.id.btn_zan) {
+                } else if (view.getId() == R.id.layout_zan) {
                     if (!galleryList.get(position).isIs_good()) {
                         presenter.zanGallery(position, galleryList.get(position).getId());
                     }
@@ -337,6 +337,7 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
     @Override
     public void zanSuccess(int position) {
         try {
+            galleryList.get(position).setGood(galleryList.get(position).getGood() + 1);
             galleryList.get(position).setIs_good(true);
             adapter.notifyDataSetChanged();
         } catch (Exception e) {
