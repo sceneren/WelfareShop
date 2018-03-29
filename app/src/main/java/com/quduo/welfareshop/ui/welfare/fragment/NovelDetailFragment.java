@@ -88,6 +88,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
     private TextView novelTitle;
     private TextView readTimes;
     private RatingView ratingView;
+    private TextView score;
     private TextView des;
 
     private int novelId;
@@ -202,6 +203,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
         novelTitle = headerView.findViewById(R.id.novel_title);
         readTimes = headerView.findViewById(R.id.read_times);
         ratingView = headerView.findViewById(R.id.ratingView);
+        score = headerView.findViewById(R.id.score);
         des = headerView.findViewById(R.id.des);
         headerView.findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,6 +234,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
             readTimes.setText(MessageFormat.format("{0}人读过", detailInfo.getView_times()));
             des.setText(detailInfo.getDescription());
             ratingView.setRating((float) (detailInfo.getScore() / 2));
+            score.setText(MessageFormat.format("评分：{0}分", detailInfo.getScore()));
             GlideApp.with(this)
                     .asBitmap()
                     .centerCrop()

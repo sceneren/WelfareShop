@@ -106,19 +106,23 @@
                 <TextView
                     android:id="@+id/score"
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_height="12dp"
+                    android:layout_margin="0dp"
                     android:ellipsize="end"
-                    android:gravity="bottom"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
                     android:lines="1"
+                    android:padding="0dp"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_12"
-                    android:text="评分:" />
+                    tools:text="评分:" />
 
                 <com.github.ornolfr.ratingview.RatingView
                     android:id="@+id/ratingView"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="12dp"
                     android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
                     app:drawable_empty="@drawable/ic_empty_star"
                     app:drawable_filled="@drawable/ic_star"
                     app:drawable_half="@drawable/ic_half_star"
@@ -126,7 +130,7 @@
                     app:drawable_size="12dp"
                     app:is_indicator="false"
                     app:max_count="5"
-                    app:rating="3.5" />
+                    app:rating="5" />
 
 
             </LinearLayout>
