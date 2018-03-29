@@ -13,6 +13,7 @@ import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hss01248.dialog.StyledDialog;
+import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.config.AppConfig;
@@ -124,8 +125,10 @@ public class MyOrderChildFragment extends BaseMvpFragment<IMyOrderChildView, MyO
             MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_ORDER_UNPAY, 0);
         } else if (getOrderType() == 2) {
             MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_ORDER_UNSEND, 0);
-        } else {
+        } else if (getOrderType() == 3) {
             MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_ORDER_UNRECEIVER, 0);
+        } else {
+            MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_ORDER_UNCOMMENT, 0);
         }
     }
 
@@ -157,9 +160,20 @@ public class MyOrderChildFragment extends BaseMvpFragment<IMyOrderChildView, MyO
         });
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
                 if (view.getId() == R.id.cancel_order) {
-                    presenter.cancelOrder(position, list.get(position).getId());
+                    StyledDialog.buildIosAlert("取消订单", "是否取消购买本商品？", new MyDialogListener() {
+                        @Override
+                        public void onFirst() {
+                            presenter.cancelOrder(position, list.get(position).getId());
+                        }
+
+                        @Override
+                        public void onSecond() {
+
+                        }
+                    }).setBtnText("确定", "取消").setActivity(_mActivity).show();
+
                 }
             }
         });
@@ -203,6 +217,10 @@ public class MyOrderChildFragment extends BaseMvpFragment<IMyOrderChildView, MyO
             }
             list.addAll(data.getData());
             adapter.notifyDataSetChanged();
+            if (list.size() == 0) {
+                View notDataView = getLayoutInflater().inflate(R.layout.status_none_layout, (ViewGroup) recyclerView.getParent(), false);
+                adapter.setEmptyView(notDataView);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

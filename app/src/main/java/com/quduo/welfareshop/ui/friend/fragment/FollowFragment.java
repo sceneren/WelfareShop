@@ -26,7 +26,6 @@ import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.friend.activity.ChatActivity;
 import com.quduo.welfareshop.ui.friend.adapter.FollowAdapter;
-import com.quduo.welfareshop.ui.friend.dialog.OpenChatDialog;
 import com.quduo.welfareshop.ui.friend.entity.FollowUserInfo;
 import com.quduo.welfareshop.ui.friend.presenter.FollowPresenter;
 import com.quduo.welfareshop.ui.friend.view.IFollowView;
@@ -80,7 +79,7 @@ public class FollowFragment extends BaseMvpFragment<IFollowView, FollowPresenter
 
     @Override
     public void initView() {
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_FRIEND_FOLLOW,0);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_FRIEND_FOLLOW, 0);
         initRecyclerView();
         presenter.getData(true);
     }
@@ -176,6 +175,10 @@ public class FollowFragment extends BaseMvpFragment<IFollowView, FollowPresenter
             list.clear();
             list.addAll(data);
             adapter.notifyDataSetChanged();
+            if (list.size() == 0) {
+                View notDataView = getLayoutInflater().inflate(R.layout.status_none_layout, (ViewGroup) recyclerView.getParent(), false);
+                adapter.setEmptyView(notDataView);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

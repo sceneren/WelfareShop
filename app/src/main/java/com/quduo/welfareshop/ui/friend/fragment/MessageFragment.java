@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.SizeUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.config.AppConfig;
@@ -81,7 +82,7 @@ public class MessageFragment extends BaseMvpFragment<IMessageView, MessagePresen
 
     @Override
     public void initView() {
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_FRIEND_MESSAGE,0);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_FRIEND_MESSAGE, 0);
         showContentPage();
         refreshLayout.setEnableLoadMore(false);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -93,24 +94,24 @@ public class MessageFragment extends BaseMvpFragment<IMessageView, MessagePresen
 
         list = new ArrayList<>();
         adapter = new MessageAdapter(getContext(), list);
-        adapter.setOnClickMessageItemListener(new MessageAdapter.OnClickMessageItemListener() {
-            @Override
-            public void onClickContent(int position) {
-                Intent intent = new Intent(_mActivity, ChatActivity.class);
-                intent.putExtra("ID", list.get(position).getOtherUserId());
-                intent.putExtra("NICKNAME", list.get(position).getOtherNickName());
-                intent.putExtra("IS_FOLLOW", true);
-                intent.putExtra("NEARBY", true);
-                intent.putExtra("OTHERAVATAR", list.get(position).getOtherAvatar());
-                startActivity(intent);
-                _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
-            }
 
+        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onClickDelete(int position) {
-                presenter.deleteSession(AppConfig.userId, list.get(position).getOtherUserId());
-                list.remove(position);
-                adapter.notifyDataSetChanged();
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (view.getId() == R.id.content_layout) {
+                    Intent intent = new Intent(_mActivity, ChatActivity.class);
+                    intent.putExtra("ID", list.get(position).getOtherUserId());
+                    intent.putExtra("NICKNAME", list.get(position).getOtherNickName());
+                    intent.putExtra("IS_FOLLOW", true);
+                    intent.putExtra("NEARBY", true);
+                    intent.putExtra("OTHERAVATAR", list.get(position).getOtherAvatar());
+                    startActivity(intent);
+                    _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+                } else if (view.getId() == R.id.delete) {
+                    presenter.deleteSession(AppConfig.userId, list.get(position).getOtherUserId());
+                    list.remove(position);
+                    adapter.notifyDataSetChanged();
+                }
             }
         });
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -118,6 +119,8 @@ public class MessageFragment extends BaseMvpFragment<IMessageView, MessagePresen
         recyclerView.addItemDecoration(new SpacesItemDecoration(SizeUtils.dp2px(1)));
         recyclerView.setAdapter(adapter);
         presenter.getAllSeesion();
+        View notDataView = getLayoutInflater().inflate(R.layout.status_none_layout, (ViewGroup) recyclerView.getParent(), false);
+        adapter.setEmptyView(notDataView);
     }
 
     @Override

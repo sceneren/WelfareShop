@@ -20,6 +20,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.github.ornolfr.ratingview.RatingView;
 import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
@@ -86,7 +87,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
     private ImageView coverImage;
     private TextView novelTitle;
     private TextView readTimes;
-    private TextView score;
+    private RatingView ratingView;
     private TextView des;
 
     private int novelId;
@@ -200,9 +201,8 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
         coverImage = headerView.findViewById(R.id.cover_image);
         novelTitle = headerView.findViewById(R.id.novel_title);
         readTimes = headerView.findViewById(R.id.read_times);
-        score = headerView.findViewById(R.id.score);
+        ratingView = headerView.findViewById(R.id.ratingView);
         des = headerView.findViewById(R.id.des);
-
         headerView.findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -230,8 +230,8 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
         try {
             novelTitle.setText(detailInfo.getTitle());
             readTimes.setText(MessageFormat.format("{0}人读过", detailInfo.getView_times()));
-            score.setText(MessageFormat.format("评分：{0}", detailInfo.getScore()));
             des.setText(detailInfo.getDescription());
+            ratingView.setRating((float) (detailInfo.getScore() / 2));
             GlideApp.with(this)
                     .asBitmap()
                     .centerCrop()

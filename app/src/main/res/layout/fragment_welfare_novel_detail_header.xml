@@ -38,32 +38,32 @@
             android:textSize="@dimen/sp_16" />
 
         <!--<LinearLayout-->
-            <!--android:id="@+id/cover_layout"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_alignBottom="@+id/baseimage"-->
-            <!--android:layout_below="@+id/title_back"-->
-            <!--android:layout_marginBottom="@dimen/dp_10"-->
-            <!--android:layout_marginLeft="@dimen/dp_10"-->
-            <!--android:layout_marginTop="@dimen/dp_10">-->
+        <!--android:id="@+id/cover_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_alignBottom="@+id/baseimage"-->
+        <!--android:layout_below="@+id/title_back"-->
+        <!--android:layout_marginBottom="@dimen/dp_10"-->
+        <!--android:layout_marginLeft="@dimen/dp_10"-->
+        <!--android:layout_marginTop="@dimen/dp_10">-->
 
-            <!--<com.quduo.welfareshop.widgets.RatioImageView-->
-                <!--android:id="@+id/cover_image"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--app:base="vertical"-->
-                <!--app:horizontal_weight="10"-->
-                <!--app:vertical_weight="14" />-->
+        <!--<com.quduo.welfareshop.widgets.RatioImageView-->
+        <!--android:id="@+id/cover_image"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:base="vertical"-->
+        <!--app:horizontal_weight="10"-->
+        <!--app:vertical_weight="14" />-->
         <!--</LinearLayout>-->
 
         <ImageView
             android:id="@+id/cover_image"
             android:layout_width="100dp"
             android:layout_height="140dp"
-            android:layout_marginTop="8.5dp"
-            android:layout_marginRight="@dimen/dp_10"
+            android:layout_below="@+id/title_back"
             android:layout_marginLeft="@dimen/dp_10"
-            android:layout_below="@+id/title_back"/>
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginTop="8.5dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -78,8 +78,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="top"
                 android:ellipsize="end"
+                android:gravity="top"
                 android:lines="1"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_16"
@@ -89,25 +89,47 @@
                 android:id="@+id/read_times"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:layout_weight="1"
                 android:lines="1"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_12"
                 tools:text="69992人读过" />
 
-            <TextView
-                android:id="@+id/score"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="bottom"
                 android:layout_weight="1"
-                android:ellipsize="end"
-                android:lines="1"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_12"
-                tools:text="评分:7.8" />
+                android:gravity="bottom">
+
+                <TextView
+                    android:id="@+id/score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:ellipsize="end"
+                    android:gravity="bottom"
+                    android:lines="1"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_12"
+                    android:text="评分:" />
+
+                <com.github.ornolfr.ratingview.RatingView
+                    android:id="@+id/ratingView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    app:drawable_empty="@drawable/ic_empty_star"
+                    app:drawable_filled="@drawable/ic_star"
+                    app:drawable_half="@drawable/ic_half_star"
+                    app:drawable_margin="4dp"
+                    app:drawable_size="12dp"
+                    app:is_indicator="false"
+                    app:max_count="5"
+                    app:rating="3.5" />
+
+
+            </LinearLayout>
 
         </LinearLayout>
     </RelativeLayout>

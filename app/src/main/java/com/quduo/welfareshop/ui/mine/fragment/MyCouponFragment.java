@@ -149,6 +149,8 @@ public class MyCouponFragment extends BaseBackMvpFragment<IMyCouponView, MyCoupo
                 }
             }
         });
+        View notDataView = getLayoutInflater().inflate(R.layout.status_none_layout, (ViewGroup) recyclerView.getParent(), false);
+        adapter.setEmptyView(notDataView);
     }
 
     @Override
