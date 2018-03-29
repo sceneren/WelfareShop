@@ -27,4 +27,6 @@ public interface IRankView extends BaseView {
     double getLongitude();
 
     void followSuccess(int position, int followId);
+
+    void cancelFollowSuccess(int position);
 }

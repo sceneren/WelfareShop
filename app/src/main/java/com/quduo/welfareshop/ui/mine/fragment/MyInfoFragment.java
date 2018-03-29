@@ -281,7 +281,7 @@ public class MyInfoFragment extends BaseBackMvpFragment<IMyInfoView, MyInfoPrese
                     .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.getAvatar())
                     .into(avatar);
-            nickname.setText(data.getNickname());
+            nickname.setText(StringUtils.isTrimEmpty(data.getNickname()) ? "游客" : data.getNickname());
             followNumber.setText(MessageFormat.format("粉丝：{0}", data.getSubscribe()));
             othersShowId.setText(MessageFormat.format("ID:{0}", data.getId()));
             if (data.getPhotos().size() > 0) {

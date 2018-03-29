@@ -192,7 +192,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
 
     @Override
     public void initView() {
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_FRIEND_OTHERS_INFO,0);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_FRIEND_OTHERS_INFO, 0);
         refreshLayout.setEnableLoadMore(false);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -319,7 +319,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
                     .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.getAvatar())
                     .into(avatar);
-            nickname.setText(data.getNickname());
+            nickname.setText(StringUtils.isTrimEmpty(data.getNickname()) ? "游客" : data.getNickname());
             followNumber.setText(MessageFormat.format("粉丝：{0}", data.getSubscribe()));
             othersShowId.setText(MessageFormat.format("ID:{0}", data.getId()));
             showFollowStates();

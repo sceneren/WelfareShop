@@ -100,4 +100,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10" />
+
+    <com.quduo.welfareshop.widgets.CustomGridView
+        android:id="@+id/imageGridView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:horizontalSpacing="3dp"
+        android:listSelector="@color/transparent1"
+        android:numColumns="3"
+        android:verticalSpacing="3dp" />
 </LinearLayout>

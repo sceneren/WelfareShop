@@ -3,6 +3,7 @@ package com.quduo.welfareshop.ui.friend.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.SizeUtils;
@@ -18,7 +19,7 @@ import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.PreviewImageActivity;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.friend.entity.OtherSimpleUserInfo;
-import com.w4lle.library.NineGridlayout;
+import com.quduo.welfareshop.widgets.CustomGridView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class RankAdapter extends BaseQuickAdapter<OtherSimpleUserInfo, BaseViewH
     @Override
     protected void convert(BaseViewHolder helper, final OtherSimpleUserInfo item) {
         ImageView avatar = helper.getView(R.id.avatar);
-        NineGridlayout imageLayout = helper.getView(R.id.image_layout);
+        CustomGridView imageGridView = helper.getView(R.id.imageGridView);
         MultiTransformation multiTransformation = new MultiTransformation(
                 new CenterCrop(), new RoundedCornersTransformation(SizeUtils.dp2px(5), 0)
         );
@@ -57,25 +58,25 @@ public class RankAdapter extends BaseQuickAdapter<OtherSimpleUserInfo, BaseViewH
         helper.setText(R.id.nickname, item.getNickname());
         helper.setText(R.id.age, item.getSex() + "岁");
         helper.setText(R.id.follow_number, item.getSubscribe() + "人关注");
-        helper.setText(R.id.des,item.getSignature());
+        helper.setText(R.id.des, item.getSignature());
         helper.setGone(R.id.des, !StringUtils.isTrimEmpty(item.getSignature()));
         final ArrayList<String> images = new ArrayList<>();
         for (String str : item.getPhoto()) {
             images.add(MyApplication.getInstance().getConfigInfo().getFile_domain() + str);
         }
 
-        NineGridImageAdapter imageAdapter = new NineGridImageAdapter(context, images);
-        imageLayout.setOnItemClickListerner(new NineGridlayout.OnItemClickListerner() {
+        RankImageGridAdapter gridAdapter = new RankImageGridAdapter(context, item.getPhoto());
+        imageGridView.setAdapter(gridAdapter);
+        imageGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(context, PreviewImageActivity.class);
                 intent.putExtra(PreviewImageActivity.ARG_URLS, images);
                 intent.putExtra(PreviewImageActivity.ARG_POSITION, position);
                 context.startActivity(intent);
             }
         });
-        imageLayout.setAdapter(imageAdapter);
-        helper.setVisible(R.id.follow, item.getSubscribe_id() == 0);
+        helper.setText(R.id.follow, item.getSubscribe_id() == 0 ? "+关注" : "已关注");
         helper.addOnClickListener(R.id.follow);
     }
 

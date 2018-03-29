@@ -18,13 +18,26 @@ public class BannerImageLoader extends ImageLoader {
     public void displayImage(Context context, Object path, ImageView imageView) {
         //Glide 加载图片简单用法
         //GlideApp.with(context).load(path).into(imageView);
-        GlideApp.with(context)
-                .asBitmap()
-                .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_image)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .load((String) path)
-                .into(imageView);
+        String url= (String) path;
+        if(url.endsWith("gif")){
+            GlideApp.with(context)
+                    .asGif()
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.drawable.ic_default_image)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .load((String) path)
+                    .into(imageView);
+        }else{
+            GlideApp.with(context)
+                    .asBitmap()
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.drawable.ic_default_image)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .load((String) path)
+                    .into(imageView);
+        }
+
     }
 }

@@ -76,7 +76,7 @@ public class RankFragment extends BaseMvpFragment<IRankView, RankPresenter> impl
 
     @Override
     public void initView() {
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_FRIEND_RANK,0);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_FRIEND_RANK, 0);
         if (MyApplication.getInstance().getLatitude() == 0) {
             refreshLayout.postDelayed(new Runnable() {
                 @Override
@@ -112,7 +112,11 @@ public class RankFragment extends BaseMvpFragment<IRankView, RankPresenter> impl
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if (view.getId() == R.id.follow) {
-                    presenter.followUser(position, list.get(position).getId());
+                    if (list.get(position).getSubscribe_id() == 0) {
+                        presenter.followUser(position, list.get(position).getId());
+                    } else {
+                        presenter.cancelFollowUser(position, list.get(position).getSubscribe_id());
+                    }
                 }
             }
         });
@@ -237,6 +241,17 @@ public class RankFragment extends BaseMvpFragment<IRankView, RankPresenter> impl
             list.get(position).setSubscribe_id(followId);
             list.get(position).setSubscribe(list.get(position).getSubscribe() + 1);
             adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void cancelFollowSuccess(int position) {
+        try {
+            list.get(position).setSubscribe_id(0);
+            list.get(position).setSubscribe(list.get(position).getSubscribe() > 0 ? list.get(position).getSubscribe() - 1 : 0);
+            adapter.notifyItemChanged(position);
         } catch (Exception e) {
             e.printStackTrace();
         }

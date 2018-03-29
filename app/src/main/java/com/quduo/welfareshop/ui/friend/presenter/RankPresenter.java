@@ -7,6 +7,7 @@ import com.quduo.welfareshop.ui.friend.entity.OtherSimpleUserInfo;
 import com.quduo.welfareshop.ui.friend.model.RankModel;
 import com.quduo.welfareshop.ui.friend.view.IRankView;
 import com.quduo.welfareshop.ui.welfare.entity.FollowSuccessInfo;
+import com.quduo.welfareshop.ui.welfare.entity.UnlockResultInfo;
 
 import java.util.List;
 
@@ -108,4 +109,45 @@ public class RankPresenter extends BasePresenter<IRankView> {
             e.printStackTrace();
         }
     }
+
+
+    public void cancelFollowUser(final int position, int subscribeId) {
+        try {
+            mView.showLoadingDialog();
+            HttpParams params = new HttpParams();
+            params.put("subscribe_id", subscribeId);
+            model.cancelFollowUser(params, new HttpResultListener<String>() {
+                @Override
+                public void onSuccess(String data) {
+                    try {
+                        mView.cancelFollowSuccess(position);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.showMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

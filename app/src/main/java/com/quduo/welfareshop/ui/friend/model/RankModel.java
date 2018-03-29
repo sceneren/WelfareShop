@@ -84,4 +84,35 @@ public class RankModel {
                     }
                 });
     }
+    public void cancelFollowUser(HttpParams params, final HttpResultListener<String> listener) {
+        OkGo.<LzyResponse<String>>get(ApiUtil.API_PRE + ApiUtil.CENCEL_FOLLOW_USER)
+                .tag(ApiUtil.CENCEL_FOLLOW_USER_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<String>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<String>> response) {
+                        try {
+                            listener.onSuccess(response.body().data);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<String>> response) {
+                        super.onError(response);
+                        try {
+                            listener.onFail(response.getException().getMessage());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        listener.onFinish();
+                    }
+                });
+    }
 }

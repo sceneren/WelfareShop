@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hss01248.dialog.StyledDialog;
@@ -86,7 +87,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
                 .placeholder(R.drawable.ic_default_avatar)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                 .into(avatar);
-        nickname.setText(MyApplication.getInstance().getUserInfo().getNickname());
+        nickname.setText(StringUtils.isTrimEmpty(MyApplication.getInstance().getUserInfo().getNickname()) ? "游客" : MyApplication.getInstance().getUserInfo().getNickname());
         scoreNumber.setText(String.valueOf(MyApplication.getInstance().getUserInfo().getScore()));
         diamondsNumber.setText(String.valueOf(MyApplication.getInstance().getUserInfo().getDiamond()));
         showId.setText(String.valueOf(MyApplication.getInstance().getUserInfo().getId()));
@@ -198,7 +199,7 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     @Subscribe
     public void updateMyInfoSuccess(UpdateMyInfoSuccessEvent event) {
         try {
-            nickname.setText(MyApplication.getInstance().getUserInfo().getNickname());
+            nickname.setText(StringUtils.isTrimEmpty(MyApplication.getInstance().getUserInfo().getNickname()) ? "游客" : MyApplication.getInstance().getUserInfo().getNickname());
         } catch (Exception e) {
             e.printStackTrace();
         }
