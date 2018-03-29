@@ -16,7 +16,7 @@
         app:tabIndicatorColor="#FFFDBA"
         app:tabSelectedTextColor="#FFFDBA"
         app:tabTextAppearance="@style/tab_appearance"
-        app:tabTextColor="@color/title_text_color" />
+        app:tabTextColor="@color/white" />
 
     <View
         android:layout_width="match_parent"

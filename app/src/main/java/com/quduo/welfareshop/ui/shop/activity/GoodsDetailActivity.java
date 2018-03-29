@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableStringBuilder;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -35,6 +36,10 @@ import com.quduo.welfareshop.widgets.X5WebView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.tencent.smtt.sdk.WebChromeClient;
+import com.tencent.smtt.sdk.WebSettings;
+import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebViewClient;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -135,10 +140,20 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
     }
 
     private void initView() {
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_SHOP_DETAIL,goodsId);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_SHOP_DETAIL, goodsId);
         initRefreshLayout();
         initBanner();
         initCommentListView();
+
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView webView, String s) {
+                webView.loadUrl("javascript:App.resize(document.body.getBoundingClientRect().height)");
+                super.onPageFinished(webView, s);
+            }
+        });
+        webView.addJavascriptInterface(this, "App");
+
         presenter.getData(true);
     }
 
@@ -222,6 +237,21 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
         unbinder.unbind();
     }
 
+    @JavascriptInterface
+    public void resize(final float height) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //Toast.makeText(getActivity(), height + "", Toast.LENGTH_LONG).show();
+                try {
+                    webView.setLayoutParams(new LinearLayout.LayoutParams(getResources().getDisplayMetrics().widthPixels, (int) (height * getResources().getDisplayMetrics().density)));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
     @OnClick(R.id.see_all_comment)
     public void onClickSeeAllComment() {
         toGoodsCommentActivity();
@@ -292,6 +322,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
             buyGiveInfo.setText(MessageFormat.format("{0}钻石+{1}积分", giveNum, giveNum));
 
             btnFollow.setCompoundDrawablesWithIntrinsicBounds(null, detailInfo.getFavor_id() == 0 ? iconNoFollow : iconHasFollow, null, null);
+
             webView.loadUrl(data.getData().getContent());
         } catch (Exception e) {
             e.printStackTrace();
