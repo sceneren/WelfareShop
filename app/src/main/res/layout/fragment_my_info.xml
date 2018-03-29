@@ -74,13 +74,14 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:background="#000000"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:background="#000000">
 
                             <com.quduo.welfareshop.widgets.RatioImageView
                                 android:id="@+id/baseimage"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:background="@color/theme_color"
                                 app:base="horizontal"
                                 app:horizontal_weight="1080"
                                 app:vertical_weight="840" />
@@ -92,7 +93,8 @@
                                 android:layout_alignBottom="@+id/baseimage"
                                 android:layout_alignLeft="@+id/baseimage"
                                 android:layout_alignRight="@+id/baseimage"
-                                android:layout_alignTop="@+id/baseimage" />
+                                android:layout_alignTop="@+id/baseimage"
+                                android:src="@drawable/ic_default_cover" />
 
                             <ImageView
                                 android:id="@+id/back"

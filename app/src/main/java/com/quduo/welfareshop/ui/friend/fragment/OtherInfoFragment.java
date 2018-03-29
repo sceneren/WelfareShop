@@ -308,7 +308,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
                     .asBitmap()
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.ic_default_image)
+                    .placeholder(R.drawable.ic_default_cover)
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.getCover())
                     .into(image);
             GlideApp.with(this)
