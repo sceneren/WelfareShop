@@ -370,13 +370,12 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.4"
-                    android:background="@color/theme_color"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/btn_goods_detail_buy_now"
                     android:gravity="center"
-                    android:paddingBottom="@dimen/dp_10"
-                    android:paddingTop="@dimen/dp_10"
                     android:text="立即购买"
                     android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
     </wiki.scene.loadmore.StatusViewLayout>

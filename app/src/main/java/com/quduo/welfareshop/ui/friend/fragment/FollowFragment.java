@@ -176,7 +176,7 @@ public class FollowFragment extends BaseMvpFragment<IFollowView, FollowPresenter
             list.addAll(data);
             adapter.notifyDataSetChanged();
             if (list.size() == 0) {
-                View notDataView = getLayoutInflater().inflate(R.layout.status_none_layout, (ViewGroup) recyclerView.getParent(), false);
+                View notDataView = getLayoutInflater().inflate(R.layout.layout_empty, (ViewGroup) recyclerView.getParent(), false);
                 adapter.setEmptyView(notDataView);
             }
         } catch (Exception e) {

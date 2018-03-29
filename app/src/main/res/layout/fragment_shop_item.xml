@@ -67,7 +67,8 @@
         android:drawableLeft="@drawable/ic_zeng"
         android:gravity="center_vertical"
         android:textColor="#FCA816"
-        android:textSize="@dimen/sp_14"
+        android:textSize="@dimen/sp_12"
+        android:drawablePadding="3dp"
         tools:text="送积分送钻石" />
 
     <RelativeLayout
@@ -80,7 +81,6 @@
             android:id="@+id/buy_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_10"
             android:textColor="@color/des_text_color"
             android:textSize="@dimen/sp_12"
             tools:text="6665人付款" />

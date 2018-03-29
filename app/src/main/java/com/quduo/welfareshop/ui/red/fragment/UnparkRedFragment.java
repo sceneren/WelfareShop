@@ -161,10 +161,6 @@ public class UnparkRedFragment extends BaseMvpFragment<IUnparkRedView, UnparkRed
                 }
             }
         });
-        View notDataView = getLayoutInflater().inflate(R.layout.status_none_layout, (ViewGroup) recyclerView.getParent(), false);
-        adapter.setEmptyView(notDataView);
-        adapter.setHeaderAndEmpty(true);
-
     }
 
     private void initHeaderView() {

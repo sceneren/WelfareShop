@@ -140,7 +140,7 @@ public class MyGoodsFragment extends BaseBackMvpFragment<IMyGoodsView, MyGoodsPr
                 }
             }
         });
-        View notDataView = getLayoutInflater().inflate(R.layout.status_none_layout, (ViewGroup) recyclerView.getParent(), false);
+        View notDataView = getLayoutInflater().inflate(R.layout.layout_empty, (ViewGroup) recyclerView.getParent(), false);
         adapter.setEmptyView(notDataView);
     }
 

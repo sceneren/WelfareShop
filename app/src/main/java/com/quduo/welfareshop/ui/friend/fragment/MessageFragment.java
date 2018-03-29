@@ -119,7 +119,7 @@ public class MessageFragment extends BaseMvpFragment<IMessageView, MessagePresen
         recyclerView.addItemDecoration(new SpacesItemDecoration(SizeUtils.dp2px(1)));
         recyclerView.setAdapter(adapter);
         presenter.getAllSeesion();
-        View notDataView = getLayoutInflater().inflate(R.layout.status_none_layout, (ViewGroup) recyclerView.getParent(), false);
+        View notDataView = getLayoutInflater().inflate(R.layout.layout_empty, (ViewGroup) recyclerView.getParent(), false);
         adapter.setEmptyView(notDataView);
     }
 

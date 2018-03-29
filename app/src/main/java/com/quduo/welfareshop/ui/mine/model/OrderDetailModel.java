@@ -86,4 +86,7 @@ public class OrderDetailModel {
                     }
                 });
     }
+    public void checkPaySuccess(HttpParams params){
+
+    }
 }
