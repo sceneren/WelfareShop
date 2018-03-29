@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.welfare.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +18,8 @@ import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
+import com.quduo.welfareshop.ui.shop.activity.GoodsDetailActivity;
+import com.quduo.welfareshop.ui.welfare.activity.VideoDetailActivity;
 import com.quduo.welfareshop.ui.welfare.adapter.NovelAdapter;
 import com.quduo.welfareshop.ui.welfare.entity.BannerInfo;
 import com.quduo.welfareshop.ui.welfare.entity.NovelModelInfo;
@@ -112,7 +115,7 @@ public class NovelFragment extends BaseMvpFragment<INovelView, NovelPresenter> i
 
     @Override
     public void initView() {
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_NOVEL_INDEX,0);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_NOVEL_INDEX, 0);
         initRecyclerView();
         initHeaderView();
         presenter.getNovelListData(true);
@@ -150,7 +153,23 @@ public class NovelFragment extends BaseMvpFragment<INovelView, NovelPresenter> i
             @Override
             public void OnBannerClick(int position) {
                 try {
-                    EventBus.getDefault().post(new StartBrotherEvent(NovelDetailFragment.newInstance(bannerList.get(position).getData_id())));
+                    switch (bannerList.get(position).getType()) {
+                        case "gallery":
+                            EventBus.getDefault().post(new StartBrotherEvent(GalleryDetailFragment.newInstance(bannerList.get(position).getData_id(), bannerList.get(position).getName())));
+                            break;
+                        case "video":
+                            toVideoDetailActivity(bannerList.get(position).getData_id(), 2);
+                            break;
+                        case "movie":
+                            toVideoDetailActivity(bannerList.get(position).getData_id(), 3);
+                            break;
+                        case "novel":
+                            EventBus.getDefault().post(new StartBrotherEvent(NovelDetailFragment.newInstance(bannerList.get(position).getData_id())));
+                            break;
+                        case "goods":
+                            toGoodsDetailActivity(bannerList.get(position).getData_id());
+                            break;
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -218,5 +237,24 @@ public class NovelFragment extends BaseMvpFragment<INovelView, NovelPresenter> i
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void toVideoDetailActivity(int videoId, int type) {
+        try {
+            Intent intent = new Intent(getContext(), VideoDetailActivity.class);
+            intent.putExtra(VideoDetailActivity.ARG_VIDEO_ID, videoId);
+            intent.putExtra(VideoDetailActivity.ARG_CATE_ID, type);
+            startActivity(intent);
+            _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void toGoodsDetailActivity(int goodsId) {
+        Intent intent = new Intent(_mActivity, GoodsDetailActivity.class);
+        intent.putExtra(GoodsDetailActivity.ARG_ID, goodsId);
+        startActivity(intent);
+        _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }
 }

@@ -36,7 +36,10 @@ import com.quduo.welfareshop.ui.shop.entity.ShopHotInfo;
 import com.quduo.welfareshop.ui.shop.entity.ShopResultInfo;
 import com.quduo.welfareshop.ui.shop.presenter.ShopPresenter;
 import com.quduo.welfareshop.ui.shop.view.IShopView;
+import com.quduo.welfareshop.ui.welfare.activity.VideoDetailActivity;
 import com.quduo.welfareshop.ui.welfare.entity.BannerInfo;
+import com.quduo.welfareshop.ui.welfare.fragment.GalleryDetailFragment;
+import com.quduo.welfareshop.ui.welfare.fragment.NovelDetailFragment;
 import com.quduo.welfareshop.util.BannerImageLoader;
 import com.quduo.welfareshop.widgets.CustomGridView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -118,7 +121,7 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
     @Override
     public void initView() {
         super.initView();
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_SHOP_INDEX,0);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_SHOP_INDEX, 0);
         initRecyclerView();
         initHeaderView();
         presenter.getData(1, true);
@@ -176,7 +179,23 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
             @Override
             public void OnBannerClick(int position) {
                 try {
-                    toGoodsDetailActivity(bannerList.get(position).getData_id());
+                    switch (bannerList.get(position).getType()) {
+                        case "gallery":
+                            EventBus.getDefault().post(new StartBrotherEvent(GalleryDetailFragment.newInstance(bannerList.get(position).getData_id(), bannerList.get(position).getName())));
+                            break;
+                        case "video":
+                            toVideoDetailActivity(bannerList.get(position).getData_id(), 2);
+                            break;
+                        case "movie":
+                            toVideoDetailActivity(bannerList.get(position).getData_id(), 3);
+                            break;
+                        case "novel":
+                            EventBus.getDefault().post(new StartBrotherEvent(NovelDetailFragment.newInstance(bannerList.get(position).getData_id())));
+                            break;
+                        case "goods":
+                            toGoodsDetailActivity(bannerList.get(position).getData_id());
+                            break;
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -431,6 +450,18 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
     public void hasLoadmore(boolean hasMore) {
         try {
             refreshLayout.setEnableLoadMore(hasMore);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void toVideoDetailActivity(int videoId, int type) {
+        try {
+            Intent intent = new Intent(getContext(), VideoDetailActivity.class);
+            intent.putExtra(VideoDetailActivity.ARG_VIDEO_ID, videoId);
+            intent.putExtra(VideoDetailActivity.ARG_CATE_ID, type);
+            startActivity(intent);
+            _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
         } catch (Exception e) {
             e.printStackTrace();
         }

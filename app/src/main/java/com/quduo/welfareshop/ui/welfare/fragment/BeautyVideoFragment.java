@@ -15,8 +15,10 @@ import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.config.AppConfig;
+import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
+import com.quduo.welfareshop.ui.shop.activity.GoodsDetailActivity;
 import com.quduo.welfareshop.ui.welfare.activity.VideoDetailActivity;
 import com.quduo.welfareshop.ui.welfare.adapter.BeautyVideoAdapter;
 import com.quduo.welfareshop.ui.welfare.entity.BannerInfo;
@@ -31,6 +33,8 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,7 +117,7 @@ public class BeautyVideoFragment extends BaseMvpFragment<IBeautyVideoView, Beaut
 
     @Override
     public void initView() {
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_BEAUTY_VIDEO,0);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_BEAUTY_VIDEO, 0);
         initRecyclerView();
         initHeaderView();
         //initFooterView();
@@ -133,7 +137,7 @@ public class BeautyVideoFragment extends BaseMvpFragment<IBeautyVideoView, Beaut
             @Override
             public void onItemClickVideo(int position, int position1, int position2) {
                 try {
-                    toVideoDetailActivity(list.get(position - 1).getPositions().get(position1).getVideos().get(position2).getId());
+                    toVideoDetailActivity(list.get(position - 1).getPositions().get(position1).getVideos().get(position2).getId(), 2);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -154,7 +158,23 @@ public class BeautyVideoFragment extends BaseMvpFragment<IBeautyVideoView, Beaut
             @Override
             public void OnBannerClick(int position) {
                 if (bannerList != null) {
-                    toVideoDetailActivity(bannerList.get(position).getData_id());
+                    switch (bannerList.get(position).getType()) {
+                        case "gallery":
+                            EventBus.getDefault().post(new StartBrotherEvent(GalleryDetailFragment.newInstance(bannerList.get(position).getData_id(), bannerList.get(position).getName())));
+                            break;
+                        case "video":
+                            toVideoDetailActivity(bannerList.get(position).getData_id(), 2);
+                            break;
+                        case "movie":
+                            toVideoDetailActivity(bannerList.get(position).getData_id(), 3);
+                            break;
+                        case "novel":
+                            EventBus.getDefault().post(new StartBrotherEvent(NovelDetailFragment.newInstance(bannerList.get(position).getData_id())));
+                            break;
+                        case "goods":
+                            toGoodsDetailActivity(bannerList.get(position).getData_id());
+                            break;
+                    }
                 }
             }
         });
@@ -226,15 +246,22 @@ public class BeautyVideoFragment extends BaseMvpFragment<IBeautyVideoView, Beaut
         }
     }
 
-    private void toVideoDetailActivity(int videoId) {
+    private void toVideoDetailActivity(int videoId, int type) {
         try {
             Intent intent = new Intent(getContext(), VideoDetailActivity.class);
             intent.putExtra(VideoDetailActivity.ARG_VIDEO_ID, videoId);
-            intent.putExtra(VideoDetailActivity.ARG_CATE_ID, 2);
+            intent.putExtra(VideoDetailActivity.ARG_CATE_ID, type);
             startActivity(intent);
             _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void toGoodsDetailActivity(int goodsId) {
+        Intent intent = new Intent(_mActivity, GoodsDetailActivity.class);
+        intent.putExtra(GoodsDetailActivity.ARG_ID, goodsId);
+        startActivity(intent);
+        _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }
 }
