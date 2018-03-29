@@ -14,6 +14,7 @@ public class RedResultInfo extends BaseBean {
     private OpenRedIndexInfo period;
     private List<RedWinInfo> win;
     private List<RedBuyInfo> buy;
+    private boolean never_buy;
 
     public OpenRedIndexInfo getPeriod() {
         return period;
@@ -37,5 +38,13 @@ public class RedResultInfo extends BaseBean {
 
     public void setBuy(List<RedBuyInfo> buy) {
         this.buy = buy;
+    }
+
+    public boolean isNever_buy() {
+        return never_buy;
+    }
+
+    public void setNever_buy(boolean never_buy) {
+        this.never_buy = never_buy;
     }
 }

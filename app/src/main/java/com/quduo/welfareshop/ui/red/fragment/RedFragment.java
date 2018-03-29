@@ -36,6 +36,7 @@ import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
 import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
 import com.quduo.welfareshop.ui.red.dialog.GetRedDialog;
 import com.quduo.welfareshop.ui.red.dialog.NeedGetDiamondDialog;
+import com.quduo.welfareshop.ui.red.dialog.NoRedDialog;
 import com.quduo.welfareshop.ui.red.entity.RedResultInfo;
 import com.quduo.welfareshop.ui.red.entity.RedWinInfo;
 import com.quduo.welfareshop.ui.red.presenter.RedPresenter;
@@ -189,7 +190,7 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
 
     private void initDanmu() {
         try {
-             @SuppressLint("UseSparseArrays") HashMap<Integer, Integer> maxLinesPair = new HashMap<>();
+            @SuppressLint("UseSparseArrays") HashMap<Integer, Integer> maxLinesPair = new HashMap<>();
             maxLinesPair.put(BaseDanmaku.TYPE_SCROLL_RL, 3);
             // 设置是否禁止重叠
             @SuppressLint("UseSparseArrays") HashMap<Integer, Boolean> overlappingEnablePair = new HashMap<>();
@@ -438,7 +439,11 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
 
     @OnClick(R.id.enter_my_red)
     public void onClickEnterMyRed() {
-        EventBus.getDefault().post(new StartBrotherEvent(MyRedFragment.newInstance()));
+        if (redResultInfo.isNever_buy()) {
+            showNoRedDialog();
+        } else {
+            EventBus.getDefault().post(new StartBrotherEvent(MyRedFragment.newInstance()));
+        }
     }
 
     @OnClick(R.id.cash)
@@ -561,6 +566,7 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
 
                 }
             }).setBtnText("确定").show();
+            redResultInfo.setNever_buy(false);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -701,6 +707,19 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
         @Override
         public void drawStroke(BaseDanmaku danmaku, String lineText, Canvas canvas, float left, float top, Paint paint) {
             // 禁用描边绘制
+        }
+    }
+
+    private NoRedDialog noRedDialog;
+
+    private void showNoRedDialog() {
+        try {
+            if (noRedDialog == null) {
+                noRedDialog = new NoRedDialog(_mActivity);
+            }
+            noRedDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
