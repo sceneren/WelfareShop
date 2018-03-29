@@ -80,15 +80,15 @@ public class MainFragment extends SupportFragment {
         super.onActivityCreated(savedInstanceState);
         SupportFragment firstFragment = findChildFragment(WelfareFragment.class);
         tabNames.add(getString(R.string.tab_welfare));
+        tabNames.add(getString(R.string.tab_friend));
         tabNames.add(getString(R.string.tab_shop));
         tabNames.add(getString(R.string.tab_red));
-        tabNames.add(getString(R.string.tab_friend));
         tabNames.add(getString(R.string.tab_mine));
         if (firstFragment == null) {
             mFragments[FIRST] = WelfareFragment.newInstance();
-            mFragments[SECOND] = ShopFragment.newInstance();
-            mFragments[THIRD] = RedFragment.newInstance();
-            mFragments[FOUR] = FriendFragment.newInstance();
+            mFragments[SECOND] = FriendFragment.newInstance();
+            mFragments[THIRD] = ShopFragment.newInstance();
+            mFragments[FOUR] = RedFragment.newInstance();
             mFragments[FIVE] = MineFragment.newInstance();
 
             loadMultipleRootFragment(R.id.fl_tab_container, FIRST,
@@ -100,9 +100,9 @@ public class MainFragment extends SupportFragment {
         } else {
             // 这里我们需要拿到mFragments的引用,也可以通过getChildFragmentManager.findFragmentByTag自行进行判断查找(效率更高些),用下面的方法查找更方便些
             mFragments[FIRST] = firstFragment;
-            mFragments[SECOND] = findChildFragment(ShopFragment.class);
-            mFragments[THIRD] = findChildFragment(RedFragment.class);
-            mFragments[FOUR] = findChildFragment(FriendFragment.class);
+            mFragments[SECOND] = findChildFragment(FriendFragment.class);
+            mFragments[THIRD] = findChildFragment(ShopFragment.class);
+            mFragments[FOUR] = findChildFragment(RedFragment.class);
             mFragments[FIVE] = findChildFragment(MineFragment.class);
         }
         initView();
@@ -147,7 +147,7 @@ public class MainFragment extends SupportFragment {
                         }
                     });
                 }
-                if (bottomBar.getCurrentItemPosition() == 0 || bottomBar.getCurrentItemPosition() == 3) {
+                if (bottomBar.getCurrentItemPosition() == 0 || bottomBar.getCurrentItemPosition() == 1) {
                     animatorStar.start();
                 }
 
@@ -184,7 +184,7 @@ public class MainFragment extends SupportFragment {
                         }
                     });
                 }
-                if (bottomBar.getCurrentItemPosition() == 0 || bottomBar.getCurrentItemPosition() == 3 || image.getVisibility() == View.VISIBLE) {
+                if (bottomBar.getCurrentItemPosition() == 0 || bottomBar.getCurrentItemPosition() == 1 || image.getVisibility() == View.VISIBLE) {
                     animatorEnd.start();
                 }
 
@@ -218,15 +218,24 @@ public class MainFragment extends SupportFragment {
 
         bottomBar
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_welfare_d, R.drawable.ic_tab_welfare_s, tabNames.get(FIRST)))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_shop_d, R.drawable.ic_tab_shop_s, tabNames.get(SECOND)))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_red_d, R.drawable.ic_tab_red_s, tabNames.get(THIRD)))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_friend_d, R.drawable.ic_tab_friend_s, tabNames.get(FOUR)))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_friend_d, R.drawable.ic_tab_friend_s, tabNames.get(SECOND)))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_shop_d, R.drawable.ic_tab_shop_s, tabNames.get(THIRD)))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_red_d, R.drawable.ic_tab_red_s, tabNames.get(FOUR)))
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_mine_d, R.drawable.ic_tab_mine_s, tabNames.get(FIVE)));
 
         bottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position, int prePosition) {
-                showHideFragment(mFragments[position], mFragments[prePosition]);
+                try {
+                    showHideFragment(mFragments[position], mFragments[prePosition]);
+                    if (position == 1 || position == 0) {
+                        image.clearAnimation();
+                        image.setVisibility(View.GONE);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
 
             @Override
