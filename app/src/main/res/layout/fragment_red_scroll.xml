@@ -48,10 +48,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
-            android:textColor="#FF0000"
-            android:lines="1"
             android:ellipsize="end"
+            android:lines="1"
+            android:textColor="#FF0000"
             android:textSize="@dimen/sp_12"
+            android:textStyle="bold"
             tools:text="100元现金" />
     </LinearLayout>
 
@@ -99,10 +100,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
-            android:textColor="#FF0000"
-            android:lines="1"
             android:ellipsize="end"
+            android:lines="1"
+            android:textColor="#FF0000"
             android:textSize="@dimen/sp_12"
+            android:textStyle="bold"
             tools:text="100元现金" />
     </LinearLayout>
 
@@ -134,10 +136,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
+            android:ellipsize="end"
+            android:maxLength="6"
             android:textColor="#FF0000"
             android:textSize="@dimen/sp_12"
-            android:maxLength="6"
-            android:ellipsize="end"
             tools:text="黄超超" />
 
         <TextView
@@ -152,10 +154,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
-            android:lines="1"
             android:ellipsize="end"
+            android:lines="1"
             android:textColor="#FF0000"
             android:textSize="@dimen/sp_12"
+            android:textStyle="bold"
             tools:text="100元现金" />
     </LinearLayout>
 </LinearLayout>

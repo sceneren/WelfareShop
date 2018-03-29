@@ -29,6 +29,7 @@ import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.mine.adapter.OrderDetailRecommendGoodsAdapter;
+import com.quduo.welfareshop.ui.mine.entity.CheckPayResultInfo;
 import com.quduo.welfareshop.ui.mine.entity.OrderDetailInfo;
 import com.quduo.welfareshop.ui.mine.entity.OrderDetailResultInfo;
 import com.quduo.welfareshop.ui.mine.presenter.OrderDetailPresenter;
@@ -345,13 +346,27 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
         }
     }
 
+    private int newOrderId;
+
     @Override
     public void repayOrderSuccess(PayInfo payInfo) {
         try {
+            newOrderId = payInfo.getOrder_id();
             Intent intent = new Intent(_mActivity, OpenPayActivity.class);
             intent.putExtra(OpenPayActivity.ARG_URL, payInfo.getUrl());
             startActivityForResult(intent, 40001);
             _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void paySuccess(CheckPayResultInfo data) {
+        try {
+            showBuySuccessDialog();
+            MyApplication.getInstance().getUserInfo().setScore(data.getScore());
+            MyApplication.getInstance().getUserInfo().setDiamond(data.getDiamond());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -472,7 +487,7 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
         super.onActivityResult(requestCode, resultCode, data);
         LogUtils.e("requestCode=====>" + requestCode);
         if (requestCode == 40001) {
-            showBuySuccessDialog();
+            presenter.checkPayResult(newOrderId);
         }
     }
 

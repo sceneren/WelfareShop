@@ -2,6 +2,7 @@ package com.quduo.welfareshop.activity;
 
 import com.quduo.welfareshop.bean.RechargeInfo;
 import com.quduo.welfareshop.mvp.BaseView;
+import com.quduo.welfareshop.ui.mine.entity.CheckPayResultInfo;
 import com.quduo.welfareshop.ui.shop.entity.PayInfo;
 
 import java.util.List;
@@ -24,5 +25,7 @@ public interface IRechargeView extends BaseView {
     void hideLoadingDialog();
 
     void getPayInfoSuccess(PayInfo payInfo);
+
+    void paySuccess(CheckPayResultInfo data);
 
 }

@@ -3,6 +3,7 @@ package com.quduo.welfareshop.ui.shop.presenter;
 import com.lzy.okgo.model.HttpParams;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.mvp.BasePresenter;
+import com.quduo.welfareshop.ui.mine.entity.CheckPayResultInfo;
 import com.quduo.welfareshop.ui.shop.entity.ConfirmOrderResultInfo;
 import com.quduo.welfareshop.ui.shop.entity.PayInfo;
 import com.quduo.welfareshop.ui.shop.model.ConfirmOrderModel;
@@ -82,6 +83,44 @@ public class ConfirmOrderPresenter extends BasePresenter<IConfirmOrderView> {
                 public void onFail(String message) {
                     try {
                         mView.showMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLaodingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void checkPayResult(int orderId) {
+        try {
+            mView.showLoadingDialog();
+            HttpParams params = new HttpParams();
+            params.put("order_id", orderId);
+            model.checkPaySuccess(params, new HttpResultListener<CheckPayResultInfo>() {
+                @Override
+                public void onSuccess(CheckPayResultInfo data) {
+                    try {
+                        mView.paySuccess(data);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.alert(message);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

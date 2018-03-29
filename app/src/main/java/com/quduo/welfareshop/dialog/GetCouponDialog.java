@@ -7,9 +7,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
@@ -22,6 +24,8 @@ import wiki.scene.loadmore.utils.PtrLocalDisplay;
 
 public class GetCouponDialog extends Dialog {
 
+    @BindView(R.id.cost)
+    TextView cost;
     private OnClickToShopListener onClickToShopListener;
 
     public void setOnClickToShopListener(OnClickToShopListener onClickToShopListener) {
@@ -78,4 +82,11 @@ public class GetCouponDialog extends Dialog {
     public interface OnClickToShopListener {
         void onClickToShop();
     }
+
+
+    public void showDialog(int costNum) {
+        show();
+        cost.setText(String.valueOf(costNum));
+    }
+
 }

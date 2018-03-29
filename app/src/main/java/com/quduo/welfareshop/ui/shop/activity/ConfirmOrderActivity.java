@@ -26,6 +26,7 @@ import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.mine.activity.MyReceiverActivity;
+import com.quduo.welfareshop.ui.mine.entity.CheckPayResultInfo;
 import com.quduo.welfareshop.ui.shop.dialog.BuySuccessDialog;
 import com.quduo.welfareshop.ui.shop.entity.ConfirmOrderResultInfo;
 import com.quduo.welfareshop.ui.shop.entity.CreateOrderInfo;
@@ -252,9 +253,12 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
         }
     }
 
+    private int orderId;
+
     @Override
     public void createOrderSuccess(PayInfo data) {
         try {
+            orderId = data.getOrder_id();
             Intent intent = new Intent(ConfirmOrderActivity.this, OpenPayActivity.class);
             intent.putExtra(OpenPayActivity.ARG_URL, data.getUrl());
             startActivityForResult(intent, 40001);
@@ -281,6 +285,26 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
         buySuccessDialog.setNumber(giveNum * orderInfo.getChoosedNum());
     }
 
+    @Override
+    public void paySuccess(CheckPayResultInfo data) {
+        try {
+            showBuySuccessDialog();
+            MyApplication.getInstance().getUserInfo().setScore(data.getScore());
+            MyApplication.getInstance().getUserInfo().setDiamond(data.getDiamond());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void alert(String message) {
+        try {
+            StyledDialog.buildIosAlert("提示", message, null).setBtnText("确定", "取消").setActivity(ConfirmOrderActivity.this).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @OnClick(R.id.layout_has_receiver)
     public void onClickLayoutHasReceiver() {
         Intent intent = new Intent(ConfirmOrderActivity.this, MyReceiverActivity.class);
@@ -298,7 +322,7 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
             showReceiverPhone.setText(data.getStringExtra("phone"));
         } else {
             if (requestCode == 40001) {
-                showBuySuccessDialog();
+                presenter.checkPayResult(orderId);
             }
         }
     }

@@ -20,6 +20,7 @@ public class PayInfo {
     private int pay_type;
     private int api;
     private int real_pay_type;
+    private int order_id;
 
     public String getUrl() {
         return url;
@@ -51,5 +52,13 @@ public class PayInfo {
 
     public void setReal_pay_type(int real_pay_type) {
         this.real_pay_type = real_pay_type;
+    }
+
+    public int getOrder_id() {
+        return order_id;
+    }
+
+    public void setOrder_id(int order_id) {
+        this.order_id = order_id;
     }
 }

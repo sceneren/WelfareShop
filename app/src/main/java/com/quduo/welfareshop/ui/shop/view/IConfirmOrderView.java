@@ -1,6 +1,7 @@
 package com.quduo.welfareshop.ui.shop.view;
 
 import com.quduo.welfareshop.mvp.BaseView;
+import com.quduo.welfareshop.ui.mine.entity.CheckPayResultInfo;
 import com.quduo.welfareshop.ui.shop.entity.ConfirmOrderResultInfo;
 import com.quduo.welfareshop.ui.shop.entity.PayInfo;
 
@@ -22,4 +23,8 @@ public interface IConfirmOrderView extends BaseView {
     void createOrderSuccess(PayInfo data);
 
     void showBuySuccessDialog();
+
+    void paySuccess(CheckPayResultInfo data);
+
+    void alert(String message);
 }
