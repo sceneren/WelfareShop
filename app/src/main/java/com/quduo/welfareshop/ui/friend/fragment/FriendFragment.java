@@ -100,7 +100,7 @@ public class FriendFragment extends BaseMainMvpFragment<IFriendView, FriendPrese
                     fragmentList.add(RankFragment.newInstance());
                     fragmentList.add(FollowFragment.newInstance());
                     fragmentList.add(MessageFragment.newInstance());
-                    viewPager.setNoFocus(true);
+                    //viewPager.setNoFocus(true);
                     viewPager.setOffscreenPageLimit(tabTitle.size());
                     viewPager.setAdapter(new FriendPagerAdapter(getContext(), getChildFragmentManager(), fragmentList, tabTitle));
                     tabs.setViewPager(viewPager);

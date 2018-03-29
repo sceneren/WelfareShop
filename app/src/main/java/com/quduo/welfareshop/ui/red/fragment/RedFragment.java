@@ -36,7 +36,6 @@ import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
 import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
 import com.quduo.welfareshop.ui.red.dialog.GetRedDialog;
 import com.quduo.welfareshop.ui.red.dialog.NeedGetDiamondDialog;
-import com.quduo.welfareshop.ui.red.entity.RedBuyInfo;
 import com.quduo.welfareshop.ui.red.entity.RedResultInfo;
 import com.quduo.welfareshop.ui.red.entity.RedWinInfo;
 import com.quduo.welfareshop.ui.red.presenter.RedPresenter;
@@ -172,7 +171,7 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
     @Override
     public void initView() {
         super.initView();
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_RED_INDEX,0);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_RED_INDEX, 0);
         initDanmu();
         initRefreshLayout();
         presenter.getData(true);
@@ -190,10 +189,10 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
 
     private void initDanmu() {
         try {
-            HashMap<Integer, Integer> maxLinesPair = new HashMap<>();
+             @SuppressLint("UseSparseArrays") HashMap<Integer, Integer> maxLinesPair = new HashMap<>();
             maxLinesPair.put(BaseDanmaku.TYPE_SCROLL_RL, 3);
             // 设置是否禁止重叠
-            HashMap<Integer, Boolean> overlappingEnablePair = new HashMap<>();
+            @SuppressLint("UseSparseArrays") HashMap<Integer, Boolean> overlappingEnablePair = new HashMap<>();
             overlappingEnablePair.put(BaseDanmaku.TYPE_SCROLL_LR, true);
             overlappingEnablePair.put(BaseDanmaku.TYPE_FIX_BOTTOM, true);
             overlappingEnablePair.put(BaseDanmaku.TYPE_FIX_TOP, true);
@@ -458,13 +457,12 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
             showCountDownTimer(data.getPeriod().getOpen_time(), data.getPeriod().getPool());
             bindMarqueeView(data.getWin());
 
-            bindDanmuData(data.getBuy());
+            bindDanmuData(data.getWin());
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
     private void bindMarqueeView(List<RedWinInfo> list) {
         try {
@@ -653,11 +651,11 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
             });
         }
         getRedDialog.show();
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_BUY_RED_DIALOG,0);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_BUY_RED_DIALOG, 0);
     }
 
 
-    private void bindDanmuData(final List<RedBuyInfo> data) {
+    private void bindDanmuData(final List<RedWinInfo> data) {
         try {
             new Thread(new Runnable() {
                 @Override
@@ -665,7 +663,7 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
                     for (int i = 0; i < data.size(); i++) {
 
                         try {
-                            String content = "恭喜" + data.get(i).getNickname() + "成功抢到红包";
+                            String content = "恭喜" + data.get(i).getNickname() + "从红包中拆出" + data.get(i).getBonus() + "现金";
                             addDanmaku(content);
                             Thread.sleep(1500);
                         } catch (InterruptedException e) {

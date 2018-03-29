@@ -150,7 +150,7 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
     };
 
     private void initToolbar() {
-        toolbarTitle.setText("");
+        toolbarTitle.setText("确认订单");
         toolbar.setNavigationIcon(R.drawable.ic_toolbar_back_black);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

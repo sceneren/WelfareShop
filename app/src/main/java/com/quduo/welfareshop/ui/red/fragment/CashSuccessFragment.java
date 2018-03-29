@@ -7,7 +7,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
@@ -81,7 +80,7 @@ public class CashSuccessFragment extends BaseBackFragment {
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        DateTime dateTime = new DateTime(cashInfo.getTime());
+        DateTime dateTime = new DateTime(cashInfo.getTime() + 24 * 60 * 60 * 1000);
         cashTime.setText(dateTime.toString("yyyy-MM-dd HH:mm"));
         cashAccount.setText(cashInfo.getCardString());
         cashMoney.setText(MessageFormat.format("￥{0}", cashInfo.getCost()));

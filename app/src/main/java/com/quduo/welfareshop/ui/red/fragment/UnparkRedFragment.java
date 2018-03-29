@@ -124,7 +124,7 @@ public class UnparkRedFragment extends BaseMvpFragment<IUnparkRedView, UnparkRed
 
     @Override
     public void initView() {
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_UNPARK_RED,0);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_UNPARK_RED, 0);
         initRecyclerView();
         initHeaderView();
         presenter.getData(true);
@@ -161,6 +161,10 @@ public class UnparkRedFragment extends BaseMvpFragment<IUnparkRedView, UnparkRed
                 }
             }
         });
+        View notDataView = getLayoutInflater().inflate(R.layout.status_none_layout, (ViewGroup) recyclerView.getParent(), false);
+        adapter.setEmptyView(notDataView);
+        adapter.setHeaderAndEmpty(true);
+
     }
 
     private void initHeaderView() {
