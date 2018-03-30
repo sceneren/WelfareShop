@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="bottom"
-                android:text="等待买家付款"
+                android:text="卖家已发货"
                 android:textColor="@color/content_text_color"
                 android:textSize="10sp" />
         </LinearLayout>
