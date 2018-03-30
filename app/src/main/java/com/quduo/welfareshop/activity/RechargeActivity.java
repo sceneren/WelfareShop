@@ -127,7 +127,7 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
         adapter.setOnClickRechargeListener(new RechargeAdapter.OnClickRechargeListener() {
             @Override
             public void onClickRecharge(int position) {
-                presenter.recharge(list.get(position).getType(), payType);
+                presenter.recharge(list.get(position).getType(), payType, fromPosition);
             }
         });
     }

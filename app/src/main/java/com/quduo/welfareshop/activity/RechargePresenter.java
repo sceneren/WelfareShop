@@ -55,12 +55,13 @@ public class RechargePresenter extends BasePresenter<IRechargeView> {
         }
     }
 
-    public void recharge(int type, int payType) {
+    public void recharge(int type, int payType, int positionId) {
         try {
             mView.showLoadingDialog();
             HttpParams params = new HttpParams();
             params.put("type", type);
             params.put("pay_type", payType);
+            params.put("position_id", positionId);
             model.recharge(params, new HttpResultListener<PayInfo>() {
                 @Override
                 public void onSuccess(PayInfo data) {
