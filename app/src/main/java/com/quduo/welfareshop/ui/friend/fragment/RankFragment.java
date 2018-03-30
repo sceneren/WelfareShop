@@ -23,10 +23,12 @@ import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.friend.adapter.RankAdapter;
 import com.quduo.welfareshop.ui.friend.entity.OtherSimpleUserInfo;
+import com.quduo.welfareshop.ui.friend.entity.RankResultInfo;
 import com.quduo.welfareshop.ui.friend.presenter.RankPresenter;
 import com.quduo.welfareshop.ui.friend.view.IRankView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.greenrobot.eventbus.EventBus;
@@ -56,6 +58,8 @@ public class RankFragment extends BaseMvpFragment<IRankView, RankPresenter> impl
 
     private List<OtherSimpleUserInfo> list = new ArrayList<>();
     private RankAdapter adapter;
+
+    private int page = 1;
 
     public static RankFragment newInstance() {
         Bundle args = new Bundle();
@@ -99,10 +103,15 @@ public class RankFragment extends BaseMvpFragment<IRankView, RankPresenter> impl
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
-                presenter.getData(false);
+                presenter.getData(false, 1);
             }
         });
-
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshLayout) {
+                presenter.getData(false, page + 1);
+            }
+        });
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new SpacesItemDecoration(SizeUtils.dp2px(10), true, false));
@@ -127,7 +136,7 @@ public class RankFragment extends BaseMvpFragment<IRankView, RankPresenter> impl
                 EventBus.getDefault().post(new StartBrotherEvent(OtherInfoFragment.newInstance(String.valueOf(list.get(position).getId()), false)));
             }
         });
-        presenter.getData(true);
+        presenter.getData(true, 1);
 
     }
 
@@ -161,7 +170,7 @@ public class RankFragment extends BaseMvpFragment<IRankView, RankPresenter> impl
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            presenter.getData(true);
+            presenter.getData(true, 1);
         }
     };
 
@@ -179,10 +188,13 @@ public class RankFragment extends BaseMvpFragment<IRankView, RankPresenter> impl
     }
 
     @Override
-    public void bindData(List<OtherSimpleUserInfo> data) {
+    public void bindData(RankResultInfo data) {
         try {
-            list.clear();
-            list.addAll(data);
+            if (data.getCurrent_page() == 1) {
+                list.clear();
+            }
+            page = data.getCurrent_page();
+            list.addAll(data.getData());
             adapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();
@@ -252,6 +264,24 @@ public class RankFragment extends BaseMvpFragment<IRankView, RankPresenter> impl
             list.get(position).setSubscribe_id(0);
             list.get(position).setSubscribe(list.get(position).getSubscribe() > 0 ? list.get(position).getSubscribe() - 1 : 0);
             adapter.notifyItemChanged(position);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void loadmoreFinish() {
+        try {
+            refreshLayout.finishLoadMore();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void setHasmore(boolean hasmore) {
+        try {
+            refreshLayout.setEnableLoadMore(hasmore);
         } catch (Exception e) {
             e.printStackTrace();
         }

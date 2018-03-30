@@ -2,6 +2,7 @@ package com.quduo.welfareshop.ui.friend.view;
 
 import com.quduo.welfareshop.mvp.BaseView;
 import com.quduo.welfareshop.ui.friend.entity.OtherSimpleUserInfo;
+import com.quduo.welfareshop.ui.friend.entity.RankResultInfo;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  */
 
 public interface IRankView extends BaseView {
-    void bindData(List<OtherSimpleUserInfo> data);
+    void bindData(RankResultInfo data);
 
     void refreshFinish();
 
@@ -29,4 +30,8 @@ public interface IRankView extends BaseView {
     void followSuccess(int position, int followId);
 
     void cancelFollowSuccess(int position);
+
+    void loadmoreFinish();
+
+    void setHasmore(boolean hasmore);
 }

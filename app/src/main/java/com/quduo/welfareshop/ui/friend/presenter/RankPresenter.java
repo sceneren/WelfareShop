@@ -3,13 +3,10 @@ package com.quduo.welfareshop.ui.friend.presenter;
 import com.lzy.okgo.model.HttpParams;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.mvp.BasePresenter;
-import com.quduo.welfareshop.ui.friend.entity.OtherSimpleUserInfo;
+import com.quduo.welfareshop.ui.friend.entity.RankResultInfo;
 import com.quduo.welfareshop.ui.friend.model.RankModel;
 import com.quduo.welfareshop.ui.friend.view.IRankView;
 import com.quduo.welfareshop.ui.welfare.entity.FollowSuccessInfo;
-import com.quduo.welfareshop.ui.welfare.entity.UnlockResultInfo;
-
-import java.util.List;
 
 /**
  * Author:scene
@@ -25,21 +22,28 @@ public class RankPresenter extends BasePresenter<IRankView> {
         this.model = new RankModel();
     }
 
-    public void getData(final boolean isFirst) {
+    public void getData(final boolean isFirst, final int page) {
         try {
             if (isFirst) {
                 mView.showLoadingPage();
             }
-            model.getData(new HttpResultListener<List<OtherSimpleUserInfo>>() {
+            HttpParams params = new HttpParams();
+            params.put("page", page);
+            model.getData(params, new HttpResultListener<RankResultInfo>() {
                 @Override
-                public void onSuccess(List<OtherSimpleUserInfo> data) {
+                public void onSuccess(RankResultInfo data) {
                     try {
                         mView.bindData(data);
                         if (isFirst) {
                             mView.showContentPage();
                         } else {
-                            mView.refreshFinish();
+                            if (page == 1) {
+                                mView.refreshFinish();
+                            } else {
+                                mView.loadmoreFinish();
+                            }
                         }
+                        mView.setHasmore(page < data.getLast_page());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -52,7 +56,12 @@ public class RankPresenter extends BasePresenter<IRankView> {
                         if (isFirst) {
                             mView.showErrorPage();
                         } else {
-                            mView.refreshFinish();
+                            if (page == 1) {
+                                mView.refreshFinish();
+                            } else {
+                                mView.loadmoreFinish();
+                                mView.setHasmore(true);
+                            }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

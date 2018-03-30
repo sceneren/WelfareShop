@@ -7,10 +7,8 @@ import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.http.base.LzyResponse;
 import com.quduo.welfareshop.http.callback.JsonCallback;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
-import com.quduo.welfareshop.ui.friend.entity.OtherSimpleUserInfo;
+import com.quduo.welfareshop.ui.friend.entity.RankResultInfo;
 import com.quduo.welfareshop.ui.welfare.entity.FollowSuccessInfo;
-
-import java.util.List;
 
 /**
  * Author:scene
@@ -20,12 +18,13 @@ import java.util.List;
 
 public class RankModel {
 
-    public void getData(final HttpResultListener<List<OtherSimpleUserInfo>> listener) {
-        OkGo.<LzyResponse<List<OtherSimpleUserInfo>>>get(ApiUtil.API_PRE + ApiUtil.RANK_LIST)
+    public void getData(HttpParams params,final HttpResultListener<RankResultInfo> listener) {
+        OkGo.<LzyResponse<RankResultInfo>>get(ApiUtil.API_PRE + ApiUtil.RANK_LIST)
                 .tag(ApiUtil.RANK_LIST_TAG)
-                .execute(new JsonCallback<LzyResponse<List<OtherSimpleUserInfo>>>() {
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<RankResultInfo>>() {
                     @Override
-                    public void onSuccess(Response<LzyResponse<List<OtherSimpleUserInfo>>> response) {
+                    public void onSuccess(Response<LzyResponse<RankResultInfo>> response) {
                         try {
                             listener.onSuccess(response.body().data);
                         } catch (Exception e) {
@@ -35,7 +34,7 @@ public class RankModel {
                     }
 
                     @Override
-                    public void onError(Response<LzyResponse<List<OtherSimpleUserInfo>>> response) {
+                    public void onError(Response<LzyResponse<RankResultInfo>> response) {
                         super.onError(response);
                         try {
                             listener.onFail(response.getException().getMessage());
@@ -84,6 +83,7 @@ public class RankModel {
                     }
                 });
     }
+
     public void cancelFollowUser(HttpParams params, final HttpResultListener<String> listener) {
         OkGo.<LzyResponse<String>>get(ApiUtil.API_PRE + ApiUtil.CENCEL_FOLLOW_USER)
                 .tag(ApiUtil.CENCEL_FOLLOW_USER_TAG)
