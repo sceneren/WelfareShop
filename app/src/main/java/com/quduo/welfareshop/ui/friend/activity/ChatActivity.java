@@ -197,11 +197,7 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
             @Override
             public void onClick(View v) {
                 if (MyApplication.getInstance().getUserInfo().getScore() > MyApplication.getInstance().getUserInfo().getChat_price()) {
-                    Intent intent = new Intent(ChatActivity.this, VideoChatActivity.class);
-                    intent.putExtra(VideoChatActivity.ARG_AVATAR, otherAvatar);
-                    intent.putExtra(VideoChatActivity.ARG_NICKNAME, otherNickName);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+                    DialogUtils.getInstance().showVideoChatNoticeDialog(ChatActivity.this,otherAvatar,otherNickName);
                 } else {
                     DialogUtils.getInstance().showVideoChatScoreNoEnough(ChatActivity.this);
                 }

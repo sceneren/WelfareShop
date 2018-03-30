@@ -42,8 +42,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_10"
-                            android:layout_marginRight="@dimen/dp_10"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp"
                             android:background="@drawable/bg_red_userinfo"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
@@ -53,18 +53,18 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="昵称："
-                                android:visibility="gone"
                                 android:textColor="@color/white"
-                                android:textSize="12sp" />
+                                android:textSize="12sp"
+                                android:visibility="gone" />
 
                             <TextView
                                 android:id="@+id/nickname"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="黄超超"
-                                android:visibility="gone"
                                 android:textColor="#FF9E00"
-                                android:textSize="12sp" />
+                                android:textSize="12sp"
+                                android:visibility="gone" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -116,9 +116,11 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp"
                             android:layout_marginTop="@dimen/dp_10"
                             android:background="@drawable/bg_red_moneyinfo"
                             android:orientation="vertical"

@@ -59,7 +59,7 @@ public class VideoChatActivity extends BaseMvpActivity<IVideoChatView, VideoChat
         setContentView(R.layout.activity_video_chat);
         unbinder = ButterKnife.bind(this);
         initView();
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_FRIEND_VIDEO_CHAT,0);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_FRIEND_VIDEO_CHAT, 0);
     }
 
     private void initView() {
@@ -70,7 +70,7 @@ public class VideoChatActivity extends BaseMvpActivity<IVideoChatView, VideoChat
                 .asBitmap()
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_image)
+                .placeholder(R.drawable.ic_default_cover)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + strAvatar)
                 .into(backgroundImage);
         GlideApp.with(this)

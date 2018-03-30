@@ -2,20 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar" />
 
-    <com.lhh.apst.library.CustomPagerSlidingTabStrip
-        android:id="@+id/tabs"
-        style="@style/pagertab_style"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:fillViewport="true" />
+        android:layout_height="35dp"
+        android:background="@color/white"
+        app:tabIndicatorColor="@color/theme_color"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/theme_color"
+        app:tabTextAppearance="@style/tab_appearance1"
+        app:tabTextColor="@color/des_text_color" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
+        android:layout_height="1dp"
         android:background="#CDCDCD" />
 
     <com.quduo.welfareshop.widgets.APSTSViewPager

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -13,12 +14,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
-import com.lhh.apst.library.CustomPagerSlidingTabStrip;
 import com.quduo.welfareshop.MainFragment;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.base.BaseViewPagerAdapter;
 import com.quduo.welfareshop.event.TabSelectedEvent;
 import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
-import com.quduo.welfareshop.ui.friend.adapter.FriendPagerAdapter;
 import com.quduo.welfareshop.ui.friend.presenter.FriendPresenter;
 import com.quduo.welfareshop.ui.friend.view.IFriendView;
 import com.quduo.welfareshop.widgets.APSTSViewPager;
@@ -46,8 +46,8 @@ public class FriendFragment extends BaseMainMvpFragment<IFriendView, FriendPrese
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
-    @BindView(R.id.tabs)
-    CustomPagerSlidingTabStrip tabs;
+    @BindView(R.id.tab)
+    TabLayout tab;
     @BindView(R.id.viewPager)
     APSTSViewPager viewPager;
 
@@ -76,7 +76,7 @@ public class FriendFragment extends BaseMainMvpFragment<IFriendView, FriendPrese
     @Override
     public void initView() {
         super.initView();
-        if (HiPermission.checkPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)) {
+        if (HiPermission.checkPermission(_mActivity, Manifest.permission.ACCESS_FINE_LOCATION)) {
             initFragment();
         } else {
             //applyLocationPermission();
@@ -90,20 +90,22 @@ public class FriendFragment extends BaseMainMvpFragment<IFriendView, FriendPrese
             @Override
             public void run() {
                 if (getParentFragment() instanceof MainFragment) {
-                    List<String> tabTitle = new ArrayList<>();
-                    tabTitle.add("附近的人");
-                    tabTitle.add("人气榜");
-                    tabTitle.add("我的关注");
-                    tabTitle.add("消息");
+                    String tabTitle[] = {"附近的人", "人气榜", "我的关注", "消息"};
                     List<Fragment> fragmentList = new ArrayList<>();
                     fragmentList.add(NearFragment.newInstance());
                     fragmentList.add(RankFragment.newInstance());
                     fragmentList.add(FollowFragment.newInstance());
                     fragmentList.add(MessageFragment.newInstance());
-                    //viewPager.setNoFocus(true);
-                    viewPager.setOffscreenPageLimit(tabTitle.size());
-                    viewPager.setAdapter(new FriendPagerAdapter(getContext(), getChildFragmentManager(), fragmentList, tabTitle));
-                    tabs.setViewPager(viewPager);
+
+                    tab.addTab(tab.newTab().setText(tabTitle[0]));
+                    tab.addTab(tab.newTab().setText(tabTitle[1]));
+                    tab.addTab(tab.newTab().setText(tabTitle[2]));
+                    tab.addTab(tab.newTab().setText(tabTitle[3]));
+
+                    viewPager.setAdapter(new BaseViewPagerAdapter(getChildFragmentManager(), tabTitle, fragmentList));
+                    viewPager.setOffscreenPageLimit(tabTitle.length);
+                    tab.setupWithViewPager(viewPager);
+
                 }
 
             }

@@ -130,16 +130,15 @@
     <!--交友栏目的tab-->
     <style name="pagertab_style">
         <item name="android:background">@color/white</item>
-        <item name="apTabBackground">@drawable/tab_bg_transparent</item>
         <item name="android:textSize">@dimen/sp_14</item>
         <item name="android:textColor">#666666</item>
-        <item name="apTabIndicatorColor">#00000000</item>
-        <item name="apTabUnderlineColor">#00000000</item>
-        <item name="apTabDividerColor">#00000000</item>
+        <item name="apTabIndicatorColor">@color/theme_color</item>
+        <item name="apTabUnderlineColor">@color/transparent1</item>
+        <item name="apTabDividerColor">@color/transparent1</item>
         <item name="apTabShouldExpand">true</item>
         <item name="apTabPaddingLeftRight">8dp</item>
         <item name="apTabDrawMode">text</item>
-        <item name="apTabTextSelectColor">@color/theme_color</item>
+        <item name="apTabTextSelectColor">@color/transparent1</item>
     </style>
 
     <style name="AppTheme.NoActionBar.SwipeBack">

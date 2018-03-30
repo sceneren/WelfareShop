@@ -33,7 +33,6 @@ import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.friend.activity.ChatActivity;
-import com.quduo.welfareshop.ui.friend.activity.VideoChatActivity;
 import com.quduo.welfareshop.ui.friend.adapter.OtherInfoImageAdapter;
 import com.quduo.welfareshop.ui.friend.entity.OtherDetailUserInfo;
 import com.quduo.welfareshop.ui.friend.presenter.OtherInfoPresenter;
@@ -274,11 +273,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
     public void onClickVideoChat() {
         try {
             if (MyApplication.getInstance().getUserInfo().getScore() > MyApplication.getInstance().getUserInfo().getChat_price()) {
-                Intent intent = new Intent(_mActivity, VideoChatActivity.class);
-                intent.putExtra(VideoChatActivity.ARG_AVATAR, detailUserInfo.getAvatar());
-                intent.putExtra(VideoChatActivity.ARG_NICKNAME, detailUserInfo.getNickname());
-                startActivity(intent);
-                _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+                DialogUtils.getInstance().showVideoChatNoticeDialog(_mActivity, detailUserInfo.getAvatar(), detailUserInfo.getNickname());
             } else {
                 DialogUtils.getInstance().showVideoChatScoreNoEnough(_mActivity);
             }

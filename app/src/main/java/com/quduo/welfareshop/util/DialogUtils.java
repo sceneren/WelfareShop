@@ -9,8 +9,10 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.RechargeActivity;
 import com.quduo.welfareshop.base.UnlockLisenter;
+import com.quduo.welfareshop.ui.friend.activity.VideoChatActivity;
 import com.quduo.welfareshop.ui.friend.dialog.OpenChatDialog;
 import com.quduo.welfareshop.ui.friend.dialog.ToRechargeDialog;
+import com.quduo.welfareshop.ui.friend.dialog.VideoChatNoticeDialog;
 import com.quduo.welfareshop.ui.friend.dialog.VideoChatToRechargeDialog;
 
 /**
@@ -141,6 +143,25 @@ public class DialogUtils {
                 }
             });
             videoChatToRechargeDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showVideoChatNoticeDialog(final Activity activity, final String avatar, final String nickName) {
+        try {
+            VideoChatNoticeDialog videoChatNoticeDialog = new VideoChatNoticeDialog(activity);
+            videoChatNoticeDialog.setOnClickOpenChatListener(new VideoChatNoticeDialog.OnClickToVideoChatListener() {
+                @Override
+                public void onClickToVideoChat() {
+                    Intent intent = new Intent(activity, VideoChatActivity.class);
+                    intent.putExtra(VideoChatActivity.ARG_AVATAR, avatar);
+                    intent.putExtra(VideoChatActivity.ARG_NICKNAME, nickName);
+                    activity.startActivity(intent);
+                    activity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+                }
+            });
+            videoChatNoticeDialog.show();
         } catch (Exception e) {
             e.printStackTrace();
         }

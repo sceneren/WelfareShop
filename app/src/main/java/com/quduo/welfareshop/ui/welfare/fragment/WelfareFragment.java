@@ -84,7 +84,7 @@ public class WelfareFragment extends BaseMainMvpFragment<IWelfareView, WelfarePr
         tab.addTab(tab.newTab().setText(tabTitle[3]));
         tab.addTab(tab.newTab().setText(tabTitle[4]));
         viewPager.setAdapter(new BaseViewPagerAdapter(getChildFragmentManager(), tabTitle, fragmentList));
-        viewPager.setOffscreenPageLimit(5);
+        viewPager.setOffscreenPageLimit(tabTitle.length);
         tab.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
