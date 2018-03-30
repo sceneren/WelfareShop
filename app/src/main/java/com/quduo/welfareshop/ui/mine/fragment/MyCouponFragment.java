@@ -142,7 +142,7 @@ public class MyCouponFragment extends BaseBackMvpFragment<IMyCouponView, MyCoupo
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 try {
-                    EventBus.getDefault().post(new TabSelectedEvent(1));
+                    EventBus.getDefault().post(new TabSelectedEvent(2));
                     _mActivity.onBackPressed();
                 } catch (Exception e) {
                     e.printStackTrace();

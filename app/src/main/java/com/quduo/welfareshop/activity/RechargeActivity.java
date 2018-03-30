@@ -20,6 +20,7 @@ import com.quduo.welfareshop.bean.RechargeTypeInfo;
 import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.dialog.GetCouponDialog;
 import com.quduo.welfareshop.dialog.RechargeQuestionDialog;
+import com.quduo.welfareshop.event.TabSelectedEvent;
 import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
@@ -294,6 +295,7 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
             getCouponDialog.setOnClickToShopListener(new GetCouponDialog.OnClickToShopListener() {
                 @Override
                 public void onClickToShop() {
+                    EventBus.getDefault().post(new TabSelectedEvent(2));
                     onBackPressed();
                 }
             });

@@ -612,7 +612,7 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
                     @Override
                     public void onClickGetDiamond() {
                         hideGetRedDialog();
-                        EventBus.getDefault().post(new TabSelectedEvent(1));
+                        EventBus.getDefault().post(new TabSelectedEvent(2));
                     }
                 });
             }
