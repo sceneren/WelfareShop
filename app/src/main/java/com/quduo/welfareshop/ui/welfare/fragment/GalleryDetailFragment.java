@@ -175,7 +175,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (position > 7 && !resultInfo.isPayed()) {
-                    DialogUtils.getInstance().showNeedUnlockDialog(_mActivity, resultInfo.getPrice(), MyApplication.getInstance().getUserInfo().getScore(), new UnlockLisenter() {
+                    DialogUtils.getInstance().showNeedUnlockDialog(_mActivity, resultInfo.getPrice(), MyApplication.getInstance().getUserInfo().getScore(), AppConfig.POSITION_GELLERY_DETAIL, new UnlockLisenter() {
                         @Override
                         public void unlock() {
                             presenter.unlock();
@@ -219,7 +219,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     public void showMessage(String msg) {
         try {
             if (msg.equals("积分不足")) {
-                DialogUtils.getInstance().showNeedRechargeScoreDialog(_mActivity, resultInfo.getPrice(), MyApplication.getInstance().getUserInfo().getScore());
+                DialogUtils.getInstance().showNeedRechargeScoreDialog(_mActivity, resultInfo.getPrice(), MyApplication.getInstance().getUserInfo().getScore(), AppConfig.POSITION_GELLERY_DETAIL);
                 return;
             }
             ToastUtils.showShort(msg);
@@ -317,7 +317,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
 
     @OnClick(R.id.unlock)
     public void onClickUnlock() {
-        DialogUtils.getInstance().showNeedUnlockDialog(_mActivity, resultInfo.getPrice(), MyApplication.getInstance().getUserInfo().getScore(), new UnlockLisenter() {
+        DialogUtils.getInstance().showNeedUnlockDialog(_mActivity, resultInfo.getPrice(), MyApplication.getInstance().getUserInfo().getScore(), AppConfig.POSITION_GELLERY_DETAIL, new UnlockLisenter() {
             @Override
             public void unlock() {
                 presenter.unlock();

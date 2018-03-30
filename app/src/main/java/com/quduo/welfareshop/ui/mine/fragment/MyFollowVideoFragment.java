@@ -108,7 +108,7 @@ public class MyFollowVideoFragment extends BaseMvpFragment<IMyFollowVideoView, M
 
     @Override
     public void initView() {
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_FOLLOW_VIDEO,0);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_FOLLOW_VIDEO, 0);
         initRecyclerView();
         presenter.getData(true);
     }
@@ -134,7 +134,7 @@ public class MyFollowVideoFragment extends BaseMvpFragment<IMyFollowVideoView, M
                         JZVideoPlayer.FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
                         JZVideoPlayerStandard.startFullscreen(getContext(), JZVideoPlayerStandard.class, item.getUrl(), item.getName());
                     } else {
-                        DialogUtils.getInstance().showNeedUnlockDialog(_mActivity, list.get(position).getPrice(), MyApplication.getInstance().getUserInfo().getScore(), new UnlockLisenter() {
+                        DialogUtils.getInstance().showNeedUnlockDialog(_mActivity, list.get(position).getPrice(), MyApplication.getInstance().getUserInfo().getScore(), AppConfig.POSITION_MINE_FOLLOW_VIDEO, new UnlockLisenter() {
                             @Override
                             public void unlock() {
                                 presenter.unlockVideo(position, list.get(position).getVideo_id());
@@ -176,7 +176,7 @@ public class MyFollowVideoFragment extends BaseMvpFragment<IMyFollowVideoView, M
     public void showMessage(String message, int position) {
         try {
             if (message.equals("积分不足")) {
-                DialogUtils.getInstance().showNeedRechargeScoreDialog(_mActivity, list.get(position).getPrice(), MyApplication.getInstance().getUserInfo().getScore());
+                DialogUtils.getInstance().showNeedRechargeScoreDialog(_mActivity, list.get(position).getPrice(), AppConfig.POSITION_MINE_FOLLOW_VIDEO, MyApplication.getInstance().getUserInfo().getScore());
                 return;
             }
             ToastUtils.showShort(message);

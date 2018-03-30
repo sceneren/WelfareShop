@@ -106,7 +106,7 @@ public class FollowFragment extends BaseMvpFragment<IFollowView, FollowPresenter
                     if (MyApplication.getInstance().getUserInfo().getUnlock_chat() != 0) {
                         toChatMessage(list.get(position));
                     } else {
-                        DialogUtils.getInstance().showUnlockChatDialog(_mActivity, new UnlockLisenter() {
+                        DialogUtils.getInstance().showUnlockChatDialog(_mActivity,AppConfig.POSITION_FRIEND_FOLLOW, new UnlockLisenter() {
                             @Override
                             public void unlock() {
                                 presenter.unlockChat();
@@ -207,7 +207,7 @@ public class FollowFragment extends BaseMvpFragment<IFollowView, FollowPresenter
     public void showAlert(String message) {
         try {
             if (message.equals("积分不足")) {
-                DialogUtils.getInstance().showChatNeedRechargeDialog(_mActivity);
+                DialogUtils.getInstance().showChatNeedRechargeDialog(_mActivity, AppConfig.POSITION_FRIEND_FOLLOW);
                 return;
             }
             StyledDialog.buildIosAlert("提示", message, new MyDialogListener() {

@@ -116,7 +116,7 @@ public class SmallVideoFragment extends BaseMvpFragment<ISmallVideoView, SmallVi
 
     @Override
     public void initView() {
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_SMALL_VIDEO,0);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_SMALL_VIDEO, 0);
         refreshLayout.setEnableLoadMore(false);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -176,7 +176,7 @@ public class SmallVideoFragment extends BaseMvpFragment<ISmallVideoView, SmallVi
         adapter.setOnClickPlayListener(new SmallVideoAdapter.OnClickPlayListener() {
             @Override
             public void onClickPlay(final int position) {
-                DialogUtils.getInstance().showNeedUnlockDialog(_mActivity, videoInfoList.get(position).getPrice(), MyApplication.getInstance().getUserInfo().getScore(), new UnlockLisenter() {
+                DialogUtils.getInstance().showNeedUnlockDialog(_mActivity, videoInfoList.get(position).getPrice(), MyApplication.getInstance().getUserInfo().getScore(), AppConfig.POSITION_SMALL_VIDEO, new UnlockLisenter() {
                     @Override
                     public void unlock() {
                         presenter.unlockVideo(position, videoInfoList.get(position).getId());
@@ -202,10 +202,10 @@ public class SmallVideoFragment extends BaseMvpFragment<ISmallVideoView, SmallVi
     }
 
     @Override
-    public void showMessage(String msg,int position) {
+    public void showMessage(String msg, int position) {
         try {
             if (msg.equals("积分不足")) {
-                DialogUtils.getInstance().showNeedRechargeScoreDialog(_mActivity,videoInfoList.get(position).getPrice(), MyApplication.getInstance().getUserInfo().getScore());
+                DialogUtils.getInstance().showNeedRechargeScoreDialog(_mActivity, videoInfoList.get(position).getPrice(), MyApplication.getInstance().getUserInfo().getScore(), AppConfig.POSITION_SMALL_VIDEO);
                 return;
             }
             ToastUtils.showShort(msg);

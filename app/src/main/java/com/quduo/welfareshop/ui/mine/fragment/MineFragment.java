@@ -177,7 +177,9 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
 
     @OnClick(R.id.to_recharge)
     public void onClickToRecharge() {
-        startActivity(new Intent(getContext(), RechargeActivity.class));
+        Intent intent = new Intent(getContext(), RechargeActivity.class);
+        intent.putExtra(RechargeActivity.ARG_FROM_POSITION, AppConfig.POSITION_MINE);
+        startActivity(intent);
         _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }
 

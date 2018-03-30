@@ -109,7 +109,7 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
         initToolbar();
         initView();
         presenter.getAllMessage(false, true);
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_FRIEND_CHAT,0);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_FRIEND_CHAT, 0);
     }
 
     private void initToolbar() {
@@ -197,9 +197,9 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
             @Override
             public void onClick(View v) {
                 if (MyApplication.getInstance().getUserInfo().getScore() > MyApplication.getInstance().getUserInfo().getChat_price()) {
-                    DialogUtils.getInstance().showVideoChatNoticeDialog(ChatActivity.this,otherAvatar,otherNickName);
+                    DialogUtils.getInstance().showVideoChatNoticeDialog(ChatActivity.this, otherAvatar, otherNickName);
                 } else {
-                    DialogUtils.getInstance().showVideoChatScoreNoEnough(ChatActivity.this);
+                    DialogUtils.getInstance().showVideoChatScoreNoEnough(ChatActivity.this, AppConfig.POSITION_FRIEND_VIDEO_CHAT);
                 }
             }
         });

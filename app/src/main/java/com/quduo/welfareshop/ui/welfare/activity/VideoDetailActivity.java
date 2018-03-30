@@ -183,7 +183,7 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
         videoPlayer.setCurrentInfo(info.isPayed(), info.getId(), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogUtils.getInstance().showNeedUnlockDialog(VideoDetailActivity.this, info.getPrice(), MyApplication.getInstance().getUserInfo().getScore(), new UnlockLisenter() {
+                DialogUtils.getInstance().showNeedUnlockDialog(VideoDetailActivity.this, info.getPrice(), MyApplication.getInstance().getUserInfo().getScore(), AppConfig.POSITION_VIDEO_DETAIL, new UnlockLisenter() {
                     @Override
                     public void unlock() {
                         presenter.unlockVideo(info.getId());
@@ -329,7 +329,7 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
     public void showMessage(String message) {
         try {
             if (message.equals("积分不足")) {
-                DialogUtils.getInstance().showNeedRechargeScoreDialog(VideoDetailActivity.this, info.getPrice(), MyApplication.getInstance().getUserInfo().getScore());
+                DialogUtils.getInstance().showNeedRechargeScoreDialog(VideoDetailActivity.this, info.getPrice(), AppConfig.POSITION_VIDEO_DETAIL, MyApplication.getInstance().getUserInfo().getScore());
                 return;
             }
             ToastUtils.showShort(message);

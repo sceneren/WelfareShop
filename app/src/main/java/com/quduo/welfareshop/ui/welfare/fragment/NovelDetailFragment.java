@@ -262,7 +262,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
             if (resultInfo.getData().isPayed()) {
                 onClickRead();
             } else {
-                DialogUtils.getInstance().showNeedUnlockDialog(_mActivity, resultInfo.getData().getPrice(), MyApplication.getInstance().getUserInfo().getScore(), new UnlockLisenter() {
+                DialogUtils.getInstance().showNeedUnlockDialog(_mActivity, resultInfo.getData().getPrice(), MyApplication.getInstance().getUserInfo().getScore(),AppConfig.POSITION_NOVEL_DETAIL, new UnlockLisenter() {
                     @Override
                     public void unlock() {
                         presenter.unlockNovel();
@@ -325,7 +325,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
     public void showMessage(String msg) {
         try {
             if (msg.equals("积分不足")) {
-                DialogUtils.getInstance().showNeedRechargeScoreDialog(_mActivity, resultInfo.getData().getPrice(), MyApplication.getInstance().getUserInfo().getScore());
+                DialogUtils.getInstance().showNeedRechargeScoreDialog(_mActivity, resultInfo.getData().getPrice(), MyApplication.getInstance().getUserInfo().getScore(),AppConfig.POSITION_NOVEL_DETAIL);
                 return;
             }
             ToastUtils.showShort(msg);

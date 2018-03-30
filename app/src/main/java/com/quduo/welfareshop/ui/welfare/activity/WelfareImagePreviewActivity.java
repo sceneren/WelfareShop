@@ -14,6 +14,7 @@ import com.lzy.okgo.model.HttpParams;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.UnlockLisenter;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.UnLockImageEvent;
 import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
@@ -94,7 +95,7 @@ public class WelfareImagePreviewActivity extends BaseBackActivity {
         adapter.setOnClickOpenVipListener(new WelfareGalleryPreviewImageAdapter.OnClickOpenVipListener() {
             @Override
             public void onClickOpenVip() {
-                DialogUtils.getInstance().showNeedUnlockDialog(WelfareImagePreviewActivity.this, price, MyApplication.getInstance().getUserInfo().getScore(), new UnlockLisenter() {
+                DialogUtils.getInstance().showNeedUnlockDialog(WelfareImagePreviewActivity.this, price, MyApplication.getInstance().getUserInfo().getScore(), AppConfig.POSITION_GELLERY_DETAIL,new UnlockLisenter() {
                     @Override
                     public void unlock() {
                         WelfareImagePreviewActivity.this.unlockImage();
@@ -190,7 +191,7 @@ public class WelfareImagePreviewActivity extends BaseBackActivity {
                 public void onFail(String message) {
                     try {
                         if (message.equals("积分不足")) {
-                            DialogUtils.getInstance().showNeedRechargeScoreDialog(WelfareImagePreviewActivity.this, price, MyApplication.getInstance().getUserInfo().getScore());
+                            DialogUtils.getInstance().showNeedRechargeScoreDialog(WelfareImagePreviewActivity.this, price, MyApplication.getInstance().getUserInfo().getScore(),AppConfig.POSITION_GELLERY_DETAIL);
                             return;
                         }
                         ToastUtils.showShort(message);

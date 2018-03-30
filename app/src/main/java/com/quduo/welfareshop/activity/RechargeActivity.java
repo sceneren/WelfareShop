@@ -48,6 +48,7 @@ import wiki.scene.loadmore.StatusViewLayout;
  */
 
 public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePresenter> implements IRechargeView {
+    public static final String ARG_FROM_POSITION = "arg_from_position";
     Unbinder unbinder;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -83,16 +84,22 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     private RechargeAdapter adapter;
 
     private int payType = 1;
+    private int fromPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recharge);
         unbinder = ButterKnife.bind(this);
+        try {
+            fromPosition = getIntent().getIntExtra(ARG_FROM_POSITION, 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         initToolBar();
         initView();
         presenter.getData();
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_RECHARGE, 0);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_RECHARGE, fromPosition);
     }
 
     private void initToolBar() {

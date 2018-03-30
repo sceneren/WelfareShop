@@ -233,7 +233,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
         if (MyApplication.getInstance().getUserInfo().getUnlock_chat() != 0) {
             toChatMessage();
         } else {
-            DialogUtils.getInstance().showUnlockChatDialog(_mActivity, new UnlockLisenter() {
+            DialogUtils.getInstance().showUnlockChatDialog(_mActivity, AppConfig.POSITION_FRIEND_OTHERS_INFO,new UnlockLisenter() {
                 @Override
                 public void unlock() {
                     presenter.unlockChat();
@@ -275,7 +275,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
             if (MyApplication.getInstance().getUserInfo().getScore() > MyApplication.getInstance().getUserInfo().getChat_price()) {
                 DialogUtils.getInstance().showVideoChatNoticeDialog(_mActivity, detailUserInfo.getAvatar(), detailUserInfo.getNickname());
             } else {
-                DialogUtils.getInstance().showVideoChatScoreNoEnough(_mActivity);
+                DialogUtils.getInstance().showVideoChatScoreNoEnough(_mActivity,AppConfig.POSITION_FRIEND_OTHERS_INFO);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -436,7 +436,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
     public void showAlert(String message) {
         try {
             if (message.equals("积分不足")) {
-                DialogUtils.getInstance().showChatNeedRechargeDialog(_mActivity);
+                DialogUtils.getInstance().showChatNeedRechargeDialog(_mActivity,AppConfig.POSITION_FRIEND_OTHERS_INFO);
                 return;
             }
             StyledDialog.buildIosAlert("提示", message, new MyDialogListener() {

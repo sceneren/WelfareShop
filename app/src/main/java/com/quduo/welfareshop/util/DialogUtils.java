@@ -39,17 +39,17 @@ public class DialogUtils {
     }
 
     //显示需要解锁的Dialog
-    public void showNeedUnlockDialog(final Activity activity, final int needPrice, final int currentScore, final UnlockLisenter unlockLisenter) {
+    public void showNeedUnlockDialog(final Activity activity, final int needPrice, final int currentScore, final int fromPosition, final UnlockLisenter unlockLisenter) {
         try {
             if (MyApplication.getInstance().getUserInfo().getScore() < needPrice) {
-                showNeedRechargeScoreDialog(activity, needPrice, currentScore);
+                showNeedRechargeScoreDialog(activity, needPrice, currentScore, fromPosition);
             } else {
                 StyledDialog.buildIosAlert("消耗" + needPrice + "积分查看", "您的当前积分：" + currentScore, new MyDialogListener() {
                     @Override
                     public void onFirst() {
                         if (MyApplication.getInstance().getUserInfo().getScore() < needPrice) {
                             //充值
-                            showNeedRechargeScoreDialog(activity, needPrice, currentScore);
+                            showNeedRechargeScoreDialog(activity, needPrice, currentScore, fromPosition);
                         } else {
                             //解锁
                             unlockLisenter.unlock();
@@ -69,12 +69,12 @@ public class DialogUtils {
         }
     }
 
-    public void showNeedRechargeScoreDialog(final Activity activity, int needPrice, int currentScore) {
+    public void showNeedRechargeScoreDialog(final Activity activity, int needPrice, int currentScore, final int fromPosition) {
         try {
             StyledDialog.buildIosAlert("消耗" + needPrice + "积分查看", "您当前的积分：" + currentScore + "\n\n积分不足，请先充值", new MyDialogListener() {
                 @Override
                 public void onFirst() {
-                    toRechargeActivity(activity);
+                    toRechargeActivity(activity, fromPosition);
                 }
 
                 @Override
@@ -87,15 +87,16 @@ public class DialogUtils {
         }
     }
 
-    private void toRechargeActivity(Activity activity) {
+    private void toRechargeActivity(Activity activity, int fromPosition) {
         Intent intent = new Intent(activity, RechargeActivity.class);
+        intent.putExtra(RechargeActivity.ARG_FROM_POSITION, fromPosition);
         activity.startActivity(intent);
         activity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }
 
 
     //解锁私聊
-    public void showUnlockChatDialog(Activity activity, final UnlockLisenter unlockLisenter) {
+    public void showUnlockChatDialog(Activity activity, final int fromPostion, final UnlockLisenter unlockLisenter) {
         try {
             if (MyApplication.getInstance().getUserInfo().getScore() >= MyApplication.getInstance().getConfigInfo().getChat_price()) {
 
@@ -108,20 +109,20 @@ public class DialogUtils {
                 });
                 openChatDialog.show();
             } else {
-                showChatNeedRechargeDialog(activity);
+                showChatNeedRechargeDialog(activity, fromPostion);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void showChatNeedRechargeDialog(final Activity activity) {
+    public void showChatNeedRechargeDialog(final Activity activity, final int fromPostion) {
         try {
             ToRechargeDialog toRechargeDialog = new ToRechargeDialog(activity);
             toRechargeDialog.setOnClickToRechargeListener(new ToRechargeDialog.OnClickToRechargeListener() {
                 @Override
                 public void onClickToRecharge() {
-                    toRechargeActivity(activity);
+                    toRechargeActivity(activity, fromPostion);
                 }
             });
             toRechargeDialog.show();
@@ -132,14 +133,13 @@ public class DialogUtils {
     }
 
     //视频聊天积分不足
-    public void showVideoChatScoreNoEnough(final Activity activity) {
+    public void showVideoChatScoreNoEnough(final Activity activity, final int fromPostion) {
         try {
             VideoChatToRechargeDialog videoChatToRechargeDialog = new VideoChatToRechargeDialog(activity);
             videoChatToRechargeDialog.setOnClickToRechargeListener(new VideoChatToRechargeDialog.OnClickToRechargeListener() {
                 @Override
                 public void onClickToRecharge() {
-                    activity.startActivity(new Intent(activity, RechargeActivity.class));
-                    activity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+                    toRechargeActivity(activity, fromPostion);
                 }
             });
             videoChatToRechargeDialog.show();
