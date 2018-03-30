@@ -21,6 +21,7 @@ import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.UnlockLisenter;
 import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.StartBrotherEvent;
+import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
@@ -250,6 +251,7 @@ public class FollowFragment extends BaseMvpFragment<IFollowView, FollowPresenter
         try {
             MyApplication.getInstance().getUserInfo().setUnlock_chat(1);
             MyApplication.getInstance().getUserInfo().setScore(currentScore);
+            EventBus.getDefault().post(new UpdateScoreAndDiamondEvent());
         } catch (Exception e) {
             e.printStackTrace();
         }

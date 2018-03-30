@@ -23,6 +23,7 @@ import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.OpenPayActivity;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.config.AppConfig;
+import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.mine.activity.MyReceiverActivity;
@@ -33,6 +34,8 @@ import com.quduo.welfareshop.ui.shop.entity.CreateOrderInfo;
 import com.quduo.welfareshop.ui.shop.entity.PayInfo;
 import com.quduo.welfareshop.ui.shop.presenter.ConfirmOrderPresenter;
 import com.quduo.welfareshop.ui.shop.view.IConfirmOrderView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.MessageFormat;
 
@@ -291,6 +294,7 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
             showBuySuccessDialog();
             MyApplication.getInstance().getUserInfo().setScore(data.getScore());
             MyApplication.getInstance().getUserInfo().setDiamond(data.getDiamond());
+            EventBus.getDefault().post(new UpdateScoreAndDiamondEvent());
         } catch (Exception e) {
             e.printStackTrace();
         }

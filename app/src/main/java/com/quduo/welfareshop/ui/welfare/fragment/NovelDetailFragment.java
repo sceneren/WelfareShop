@@ -30,6 +30,7 @@ import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.base.UnlockLisenter;
 import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.db.BookList;
+import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.read.listener.OnSaveData2DBListener;
@@ -45,6 +46,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import org.greenrobot.eventbus.EventBus;
 import org.litepal.crud.DataSupport;
 
 import java.io.File;
@@ -472,6 +474,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
         try {
             resultInfo.getData().setPayed(true);
             MyApplication.getInstance().getUserInfo().setScore(currentScore);
+            EventBus.getDefault().post(new UpdateScoreAndDiamondEvent());
         } catch (Exception e) {
             e.printStackTrace();
         }

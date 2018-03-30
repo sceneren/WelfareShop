@@ -20,12 +20,15 @@ import com.quduo.welfareshop.bean.RechargeTypeInfo;
 import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.dialog.GetCouponDialog;
 import com.quduo.welfareshop.dialog.RechargeQuestionDialog;
+import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.mine.activity.UserAgreementActivity;
 import com.quduo.welfareshop.ui.mine.entity.CheckPayResultInfo;
 import com.quduo.welfareshop.ui.shop.entity.PayInfo;
 import com.quduo.welfareshop.widgets.CustomListView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -270,6 +273,7 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
             showCouponDialog(data.getCoupon_cost());
             MyApplication.getInstance().getUserInfo().setScore(data.getScore());
             MyApplication.getInstance().getUserInfo().setDiamond(data.getDiamond());
+            EventBus.getDefault().post(new UpdateScoreAndDiamondEvent());
             money.setText(MessageFormat.format("{0}积分", MyApplication.getInstance().getUserInfo().getScore()));
         } catch (Exception e) {
             e.printStackTrace();

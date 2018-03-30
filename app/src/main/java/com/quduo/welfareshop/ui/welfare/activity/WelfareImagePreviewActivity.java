@@ -15,6 +15,7 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.UnlockLisenter;
 import com.quduo.welfareshop.event.UnLockImageEvent;
+import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.mvp.BaseBackActivity;
@@ -177,6 +178,7 @@ public class WelfareImagePreviewActivity extends BaseBackActivity {
                         ToastUtils.showShort("解锁成功");
                         payed = true;
                         MyApplication.getInstance().getUserInfo().setScore(data.getScore());
+                        EventBus.getDefault().post(new UpdateScoreAndDiamondEvent());
                         adapter.setPayed(true);
                         EventBus.getDefault().post(new UnLockImageEvent());
                     } catch (Exception e) {

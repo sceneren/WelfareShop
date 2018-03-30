@@ -31,6 +31,7 @@ import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.event.TabSelectedEvent;
 import com.quduo.welfareshop.event.UpdateMyInfoSuccessEvent;
+import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
 import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
@@ -718,6 +719,15 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
                 noRedDialog = new NoRedDialog(_mActivity);
             }
             noRedDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void changeScoreAndDiamond(UpdateScoreAndDiamondEvent event) {
+        try {
+            diamonds.setText(String.valueOf(MyApplication.getInstance().getUserInfo().getDiamond()));
         } catch (Exception e) {
             e.printStackTrace();
         }

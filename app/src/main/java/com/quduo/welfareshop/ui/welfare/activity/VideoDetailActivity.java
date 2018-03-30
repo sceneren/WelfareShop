@@ -23,6 +23,7 @@ import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.base.UnlockLisenter;
 import com.quduo.welfareshop.config.AppConfig;
+import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.shop.activity.GoodsDetailActivity;
@@ -43,6 +44,8 @@ import com.quduo.welfareshop.widgets.MyVideoPlayer;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -134,7 +137,7 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
         unbinder = ButterKnife.bind(this);
         videoId = getIntent().getIntExtra(ARG_VIDEO_ID, 0);
         cateId = getIntent().getIntExtra(ARG_CATE_ID, 0);
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_VIDEO_DETAIL,videoId);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_VIDEO_DETAIL, videoId);
         initToolbar();
         initView();
     }
@@ -415,6 +418,7 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
     public void unlockSuccess(int currentScore) {
         try {
             MyApplication.getInstance().getUserInfo().setScore(currentScore);
+            EventBus.getDefault().post(new UpdateScoreAndDiamondEvent());
             info.setPayed(true);
             bindVideoPlayer();
         } catch (Exception e) {

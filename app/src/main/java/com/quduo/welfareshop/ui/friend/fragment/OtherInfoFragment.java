@@ -29,6 +29,7 @@ import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.base.UnlockLisenter;
 import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.FollowEvent;
+import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.friend.activity.ChatActivity;
@@ -464,6 +465,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
         try {
             MyApplication.getInstance().getUserInfo().setUnlock_chat(1);
             MyApplication.getInstance().getUserInfo().setScore(currentScore);
+            EventBus.getDefault().post(new UpdateScoreAndDiamondEvent());
         } catch (Exception e) {
             e.printStackTrace();
         }

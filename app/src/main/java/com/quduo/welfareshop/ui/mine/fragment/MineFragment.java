@@ -21,6 +21,7 @@ import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.event.UpdateAvatarEvent;
 import com.quduo.welfareshop.event.UpdateMyInfoSuccessEvent;
+import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
 import com.quduo.welfareshop.ui.mine.activity.MyReceiverActivity;
 import com.quduo.welfareshop.ui.mine.activity.UserAgreementActivity;
@@ -216,6 +217,16 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
                     ToastUtils.showShort("缓存清理完成");
                 }
             }, 1500);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void changeScoreAndDiamond(UpdateScoreAndDiamondEvent event) {
+        try {
+            scoreNumber.setText(String.valueOf(MyApplication.getInstance().getUserInfo().getScore()));
+            diamondsNumber.setText(String.valueOf(MyApplication.getInstance().getUserInfo().getDiamond()));
         } catch (Exception e) {
             e.printStackTrace();
         }

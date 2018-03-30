@@ -22,6 +22,7 @@ import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.UnlockLisenter;
 import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.UnLockImageEvent;
+import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
@@ -150,7 +151,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     public void initView() {
         initRecyclerView();
         presenter.getGalleryDetailData(id, true);
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_GELLERY_DETAIL,id);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_GELLERY_DETAIL, id);
     }
 
     private void initRecyclerView() {
@@ -218,7 +219,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     public void showMessage(String msg) {
         try {
             if (msg.equals("积分不足")) {
-                DialogUtils.getInstance().showNeedRechargeScoreDialog(_mActivity,resultInfo.getPrice(), MyApplication.getInstance().getUserInfo().getScore());
+                DialogUtils.getInstance().showNeedRechargeScoreDialog(_mActivity, resultInfo.getPrice(), MyApplication.getInstance().getUserInfo().getScore());
                 return;
             }
             ToastUtils.showShort(msg);
@@ -306,6 +307,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
         try {
             resultInfo.setPayed(true);
             MyApplication.getInstance().getUserInfo().setScore(score);
+            EventBus.getDefault().post(new UpdateScoreAndDiamondEvent());
             adapter.setPayed(true);
             unlock.setVisibility(View.GONE);
         } catch (Exception e) {

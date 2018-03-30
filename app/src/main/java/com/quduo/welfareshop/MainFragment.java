@@ -2,6 +2,7 @@ package com.quduo.welfareshop;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -34,6 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import cn.jzvd.JZVideoPlayer;
 import me.yokeyword.fragmentation.SupportFragment;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
 
@@ -232,6 +234,9 @@ public class MainFragment extends SupportFragment {
                         image.clearAnimation();
                         image.setVisibility(View.GONE);
                     }
+                    JZVideoPlayer.releaseAllVideos();
+                    JZVideoPlayer.FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_SENSOR;
+                    JZVideoPlayer.NORMAL_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -271,7 +276,7 @@ public class MainFragment extends SupportFragment {
     public void onClickImage() {
         try {
             image.clearAnimation();
-            bottomBar.setCurrentItem(1);
+            bottomBar.setCurrentItem(2);
             image.setVisibility(View.GONE);
         } catch (Exception e) {
             e.printStackTrace();
@@ -279,4 +284,11 @@ public class MainFragment extends SupportFragment {
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        JZVideoPlayer.releaseAllVideos();
+        JZVideoPlayer.FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_SENSOR;
+        JZVideoPlayer.NORMAL_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+    }
 }
