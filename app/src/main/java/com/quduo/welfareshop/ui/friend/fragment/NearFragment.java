@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.OkGo;
@@ -21,15 +20,16 @@ import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
-import com.quduo.welfareshop.itemDecoration.GridSpacingItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.friend.adapter.NearAdapter;
 import com.quduo.welfareshop.ui.friend.dialog.FriendChooseDialog;
+import com.quduo.welfareshop.ui.friend.entity.NearResultInfo;
 import com.quduo.welfareshop.ui.friend.entity.OtherSimpleUserInfo;
 import com.quduo.welfareshop.ui.friend.presenter.NearPresenter;
 import com.quduo.welfareshop.ui.friend.view.INearView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.greenrobot.eventbus.EventBus;
@@ -65,6 +65,9 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
     private List<OtherSimpleUserInfo> list = new ArrayList<>();
     private NearAdapter adapter;
 
+    private int maxDistance = 0;
+    private int page = 1;
+
     public static NearFragment newInstance() {
         Bundle args = new Bundle();
         NearFragment fragment = new NearFragment();
@@ -84,7 +87,7 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
 
     @Override
     public void initView() {
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_FRIEND_NEAR,0);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_FRIEND_NEAR, 0);
         if (MyApplication.getInstance().getLatitude() == 0) {
             refreshLayout.postDelayed(new Runnable() {
                 @Override
@@ -110,10 +113,15 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
-                presenter.getData(false);
+                presenter.getData(false, 1, 0);
             }
         });
-
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshLayout) {
+                presenter.getData(false, page + 1, maxDistance);
+            }
+        });
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         //防止item位置互换
@@ -127,7 +135,7 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
                 EventBus.getDefault().post(new StartBrotherEvent(OtherInfoFragment.newInstance(String.valueOf(list.get(position).getId()), true)));
             }
         });
-        presenter.getData(true);
+        presenter.getData(true, 1, 0);
     }
 
     @Override
@@ -197,17 +205,20 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
     private View.OnClickListener retryListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            presenter.getData(true);
+            presenter.getData(true, 1, 0);
         }
     };
 
     @Override
-    public void bindData(List<OtherSimpleUserInfo> data) {
+    public void bindData(NearResultInfo data) {
         try {
-            list.clear();
-            list.addAll(data);
+            if (data.getCurrent_page() == 1) {
+                list.clear();
+            }
+            this.page = data.getCurrent_page();
+            maxDistance = data.getMax_distance();
+            list.addAll(data.getData());
             adapter.notifyDataSetChanged();
-            recyclerView.scrollToPosition(0);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -241,6 +252,24 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
     public void showMessage(String message) {
         try {
             ToastUtils.showShort(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void setHasMore(boolean hasMore) {
+        try {
+            refreshLayout.setEnableLoadMore(hasMore);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void loadmoreFinish() {
+        try {
+            refreshLayout.finishLoadMore();
         } catch (Exception e) {
             e.printStackTrace();
         }
