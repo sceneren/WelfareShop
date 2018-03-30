@@ -96,7 +96,11 @@ public class OrderDetailModel {
                     @Override
                     public void onSuccess(Response<LzyResponse<CheckPayResultInfo>> response) {
                         try {
-                            listener.onSuccess(response.body().data);
+                            if(response.body().data.isStatus()){
+                                listener.onSuccess(response.body().data);
+                            }else{
+                                listener.onFail("支付失败请重试,如已支付请重启应用或联系客服");
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                             listener.onFail("支付失败请重试,如已支付请重启应用或联系客服");
