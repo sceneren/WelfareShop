@@ -52,7 +52,7 @@ public class RedDetailAdapter extends BaseQuickAdapter<RedOtherResultInfo, BaseV
                 .into(avatar);
         helper.setText(R.id.nickname, item.getNickname());
         DateTime dateTime = new DateTime(item.getCreate_time() * 1000);
-        helper.setText(R.id.time, dateTime.toString("mm-ss"));
+        helper.setText(R.id.time, dateTime.toString("HH:mm:ss"));
         helper.setText(R.id.bonus, item.getBonus() + "元");
         helper.setVisible(R.id.best_luck, item.isIs_best());
     }

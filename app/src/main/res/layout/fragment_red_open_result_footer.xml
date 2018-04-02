@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="5dp"
-        android:text="只显示中奖金额最多的20人"
+        android:text="（只显示前20名红包数据）"
         android:textColor="#FCC250"
         android:textSize="@dimen/sp_12" />
 </LinearLayout>
