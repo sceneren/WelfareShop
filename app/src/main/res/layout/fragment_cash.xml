@@ -74,7 +74,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="@dimen/dp_40"
-                android:visibility="gone"
                 android:orientation="horizontal">
 
                 <TextView
@@ -97,6 +96,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:text="手续费"
+                    android:visibility="gone"
                     android:textColor="@color/des_text_color"
                     android:textSize="@dimen/sp_12" />
 
@@ -107,6 +107,7 @@
                     android:layout_marginLeft="5dp"
                     android:textColor="@color/des_text_color"
                     android:textSize="@dimen/sp_12"
+                    android:visibility="gone"
                     tools:text="2%" />
 
                 <TextView

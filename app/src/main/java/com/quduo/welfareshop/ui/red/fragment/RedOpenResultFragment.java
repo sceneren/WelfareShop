@@ -164,7 +164,7 @@ public class RedOpenResultFragment extends BaseBackMvpFragment<IRedOpenResultVie
 
     @Override
     public void initView() {
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_OPEN_RED_RESULT,0);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_OPEN_RED_RESULT, 0);
         initRecyclerView();
         initHeaderView();
         presenter.getData(redId);
@@ -178,7 +178,8 @@ public class RedOpenResultFragment extends BaseBackMvpFragment<IRedOpenResultVie
     }
 
     private void initHeaderView() {
-        View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_red_open_result_header, recyclerView, false);
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View headerView = inflater.inflate(R.layout.fragment_red_open_result_header, recyclerView, false);
         ImageView avatar = headerView.findViewById(R.id.avatar);
         TextView nickname = headerView.findViewById(R.id.nickname);
         bonus = headerView.findViewById(R.id.bonus);
@@ -196,8 +197,10 @@ public class RedOpenResultFragment extends BaseBackMvpFragment<IRedOpenResultVie
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                 .into(avatar);
         nickname.setText(MyApplication.getInstance().getUserInfo().getNickname());
-
         adapter.addHeaderView(headerView);
+
+        View footerView = inflater.inflate(R.layout.fragment_red_open_result_footer, recyclerView, false);
+        adapter.addFooterView(footerView);
     }
 
     @Override

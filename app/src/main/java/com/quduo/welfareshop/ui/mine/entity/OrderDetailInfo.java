@@ -8,31 +8,33 @@ import com.quduo.welfareshop.base.BaseBean;
 *Description:订单详情
 */
 
-public class OrderDetailInfo extends BaseBean{
+public class OrderDetailInfo extends BaseBean {
 
     /**
-     * id : 31
+     * id : 7
      * user_id : 3
-     * product_id : 2
-     * order_id : 21789524456wkWUN
-     * model :
+     * product_id : 6
+     * order_id : 223823018444mWFa
+     * model : 白色
      * number : 1
-     * price : 200
-     * cost : 200.00
-     * actual_pay : 200.00
-     * create_time : 1521789524
-     * status : 1
+     * price : 128
+     * cost : 128.00
+     * actual_pay : 128.00
+     * create_time : 1522382301
+     * status : 3
      * name : 岳峰
-     * address : 是非功过
-     * mobile : 13508080808
+     * address : 实话实说计算机
+     * mobile : 13507274561
      * pay_type : 1
-     * score : 200
-     * diamond : 200
+     * score : 128
+     * diamond : 128
      * coupon_id : 0
      * coupon_money : 0.00
-     * shipment_number : null
-     * product_name : 产品2
-     * thumb : /goods/1/1.jpg
+     * express_company : 1
+     * express_number : sf1234567890
+     * product_cost : 68.00
+     * product_name : 趴屁
+     * thumb : /img/2018/03/0d4a7bafc17944dd19f6e4e16f5c6f07.jpeg
      */
 
     private int id;
@@ -44,7 +46,7 @@ public class OrderDetailInfo extends BaseBean{
     private String price;
     private String cost;
     private String actual_pay;
-    private long create_time;
+    private int create_time;
     private int status;
     private String name;
     private String address;
@@ -54,7 +56,9 @@ public class OrderDetailInfo extends BaseBean{
     private int diamond;
     private int coupon_id;
     private String coupon_money;
-    private String shipment_number;
+    private String express_company;
+    private String express_number;
+    private String product_cost;
     private String product_name;
     private String thumb;
 
@@ -130,11 +134,11 @@ public class OrderDetailInfo extends BaseBean{
         this.actual_pay = actual_pay;
     }
 
-    public long getCreate_time() {
+    public int getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(long create_time) {
+    public void setCreate_time(int create_time) {
         this.create_time = create_time;
     }
 
@@ -210,12 +214,28 @@ public class OrderDetailInfo extends BaseBean{
         this.coupon_money = coupon_money;
     }
 
-    public String getShipment_number() {
-        return shipment_number;
+    public String getExpress_company() {
+        return express_company;
     }
 
-    public void setShipment_number(String shipment_number) {
-        this.shipment_number = shipment_number;
+    public void setExpress_company(String express_company) {
+        this.express_company = express_company;
+    }
+
+    public String getExpress_number() {
+        return express_number;
+    }
+
+    public void setExpress_number(String express_number) {
+        this.express_number = express_number;
+    }
+
+    public String getProduct_cost() {
+        return product_cost;
+    }
+
+    public void setProduct_cost(String product_cost) {
+        this.product_cost = product_cost;
     }
 
     public String getProduct_name() {

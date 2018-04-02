@@ -28,6 +28,7 @@ import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.config.AppConfig;
+import com.quduo.welfareshop.event.OpenRedSuccessEvent;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.event.TabSelectedEvent;
 import com.quduo.welfareshop.event.UpdateMyInfoSuccessEvent;
@@ -728,6 +729,15 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
     public void changeScoreAndDiamond(UpdateScoreAndDiamondEvent event) {
         try {
             diamonds.setText(String.valueOf(MyApplication.getInstance().getUserInfo().getDiamond()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void changeMoney(OpenRedSuccessEvent event) {
+        try {
+            money.setText(MessageFormat.format("{0}元", MyApplication.getInstance().getUserInfo().getMoney()));
         } catch (Exception e) {
             e.printStackTrace();
         }

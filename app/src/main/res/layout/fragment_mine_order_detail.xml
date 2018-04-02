@@ -10,6 +10,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:background="#EFEFEF" />
 
     <wiki.scene.loadmore.StatusViewLayout
@@ -407,6 +409,15 @@
 
                             <TextView
                                 android:id="@+id/ship_number"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:lines="1"
+                                android:textColor="@color/content_text_color"
+                                android:textSize="@dimen/sp_14"
+                                tools:text="12345678951245" />
+                            <TextView
+                                android:id="@+id/ship_company"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -414,8 +425,7 @@
                                 android:lines="1"
                                 android:textColor="@color/content_text_color"
                                 android:textSize="@dimen/sp_14"
-                                tools:text="12345678951245" />
-
+                                tools:text="(顺丰)" />
                             <TextView
                                 android:id="@+id/copy_ship_number"
                                 android:layout_width="wrap_content"

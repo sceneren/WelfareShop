@@ -126,6 +126,8 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
     TextView copyOrderNumber;
     @BindView(R.id.ship_number)
     TextView shipNumber;
+    @BindView(R.id.ship_company)
+    TextView shipCompany;
     @BindView(R.id.copy_ship_number)
     TextView copyShipNumber;
     @BindView(R.id.layout_ship)
@@ -416,11 +418,12 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
             DateTime dateTime = new DateTime(orderDetailInfo.getCreate_time() * 1000);
             orderTime.setText(dateTime.toString("yyyy-MM-dd HH:mm:ss"));
 
-            if (StringUtils.isTrimEmpty(orderDetailInfo.getShipment_number()) || orderDetailInfo.getShipment_number().equals("null")) {
+            if (StringUtils.isTrimEmpty(orderDetailInfo.getExpress_number()) || orderDetailInfo.getExpress_number().equals("null")) {
                 layoutShip.setVisibility(View.GONE);
             } else {
                 layoutShip.setVisibility(View.VISIBLE);
-                shipNumber.setText(orderDetailInfo.getShipment_number());
+                shipNumber.setText(orderDetailInfo.getExpress_number());
+                shipCompany.setText(MessageFormat.format("({0})", orderDetailInfo.getExpress_company()));
             }
         } catch (Exception e) {
             e.printStackTrace();
