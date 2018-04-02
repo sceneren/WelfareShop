@@ -54,7 +54,7 @@ public class NearAdapter extends BaseQuickAdapter<OtherSimpleUserInfo, BaseViewH
             item.setAvatar_width(item.getAvatar_width());
         }
 
-        int itemWidth = PtrLocalDisplay.SCREEN_WIDTH_PIXELS / 2 - SizeUtils.dp2px(5);
+        int itemWidth = (int) ((PtrLocalDisplay.SCREEN_WIDTH_PIXELS - SizeUtils.dp2px(15)) / 2f);
         ViewGroup.LayoutParams params = image.getLayoutParams();
         float scale = (float) itemWidth / (float) item.getAvatar_width();
         params.width = itemWidth;

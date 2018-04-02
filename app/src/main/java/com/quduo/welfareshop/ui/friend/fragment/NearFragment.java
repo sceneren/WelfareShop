@@ -20,6 +20,7 @@ import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
+import com.quduo.welfareshop.itemDecoration.NearFragmentItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.friend.adapter.NearAdapter;
 import com.quduo.welfareshop.ui.friend.dialog.FriendChooseDialog;
@@ -128,6 +129,7 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
         layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new NearAdapter(getContext(), list);
+        recyclerView.addItemDecoration(new NearFragmentItemDecoration());
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
