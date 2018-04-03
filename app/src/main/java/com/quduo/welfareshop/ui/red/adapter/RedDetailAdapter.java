@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.SizeUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -50,7 +51,7 @@ public class RedDetailAdapter extends BaseQuickAdapter<RedOtherResultInfo, BaseV
                 .apply(RequestOptions.bitmapTransform(multiTransformation))
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getAvatar())
                 .into(avatar);
-        helper.setText(R.id.nickname, item.getNickname());
+        helper.setText(R.id.nickname, StringUtils.isTrimEmpty(item.getNickname()) ? "游客" : item.getNickname());
         DateTime dateTime = new DateTime(item.getCreate_time() * 1000);
         helper.setText(R.id.time, dateTime.toString("HH:mm:ss"));
         helper.setText(R.id.bonus, item.getBonus() + "元");
