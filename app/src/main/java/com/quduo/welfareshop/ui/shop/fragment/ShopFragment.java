@@ -42,6 +42,7 @@ import com.quduo.welfareshop.ui.welfare.fragment.GalleryDetailFragment;
 import com.quduo.welfareshop.ui.welfare.fragment.NovelDetailFragment;
 import com.quduo.welfareshop.util.BannerImageLoader;
 import com.quduo.welfareshop.widgets.CustomGridView;
+import com.quduo.welfareshop.widgets.RatioImageView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -87,10 +88,9 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
     private List<BannerInfo> bannerList;
     //header
     private Banner banner;
-    private ImageView recommend1;
-    private ImageView recommend2;
-    private ImageView recommend3;
-    private ImageView recommend4;
+    private RatioImageView recommend1;
+    private RatioImageView recommend2;
+    private RatioImageView recommend3;
     private ImageView recommend5;
     private ImageView recommend6;
 
@@ -160,7 +160,6 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
         recommend1 = headerView.findViewById(R.id.recommend_1);
         recommend2 = headerView.findViewById(R.id.recommend_2);
         recommend3 = headerView.findViewById(R.id.recommend_3);
-        recommend4 = headerView.findViewById(R.id.recommend_4);
         recommend5 = headerView.findViewById(R.id.recommend_5);
         recommend6 = headerView.findViewById(R.id.recommend_6);
         ImageView hotImage = headerView.findViewById(R.id.hot_image);
@@ -374,9 +373,9 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .placeholder(R.drawable.ic_default_shop)
-                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.get(3).getHot_thumb())
-                        .into(recommend4);
-                recommend4.setOnClickListener(new View.OnClickListener() {
+                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.get(4).getHot_thumb())
+                        .into(recommend5);
+                recommend5.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         toGoodsDetailActivity(data.get(3).getId());
@@ -389,27 +388,12 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .placeholder(R.drawable.ic_default_shop)
-                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.get(4).getHot_thumb())
-                        .into(recommend5);
-                recommend5.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        toGoodsDetailActivity(data.get(4).getId());
-                    }
-                });
-            }
-            if (null != data.get(5)) {
-                GlideApp.with(this)
-                        .asBitmap()
-                        .centerCrop()
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .placeholder(R.drawable.ic_default_shop)
                         .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.get(5).getHot_thumb())
                         .into(recommend6);
                 recommend6.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        toGoodsDetailActivity(data.get(5).getId());
+                        toGoodsDetailActivity(data.get(4).getId());
                     }
                 });
             }

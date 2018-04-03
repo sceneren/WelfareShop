@@ -105,112 +105,42 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <RelativeLayout
+            <com.quduo.welfareshop.widgets.RatioImageView
+                android:id="@+id/recommend_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <com.quduo.welfareshop.widgets.RatioImageView
-                    android:id="@+id/baseimage1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:base="horizontal"
-                    app:horizontal_weight="260"
-                    app:vertical_weight="302" />
-
-                <ImageView
-                    android:id="@+id/recommend_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/baseimage1"
-                    android:layout_alignLeft="@+id/baseimage1"
-                    android:layout_alignRight="@+id/baseimage1"
-                    android:layout_alignTop="@+id/baseimage1" />
-            </RelativeLayout>
+                android:layout_weight="1"
+                app:base="horizontal"
+                app:horizontal_weight="1"
+                app:vertical_weight="1" />
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="#F9F9F9" />
 
-            <RelativeLayout
+            <com.quduo.welfareshop.widgets.RatioImageView
+                android:id="@+id/recommend_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <com.quduo.welfareshop.widgets.RatioImageView
-                    android:id="@+id/baseimage2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:base="horizontal"
-                    app:horizontal_weight="260"
-                    app:vertical_weight="302" />
-
-                <ImageView
-                    android:id="@+id/recommend_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/baseimage2"
-                    android:layout_alignLeft="@+id/baseimage2"
-                    android:layout_alignRight="@+id/baseimage2"
-                    android:layout_alignTop="@+id/baseimage2" />
-            </RelativeLayout>
+                android:layout_weight="1"
+                app:base="horizontal"
+                app:horizontal_weight="1"
+                app:vertical_weight="1" />
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="#F9F9F9" />
 
-            <RelativeLayout
+            <com.quduo.welfareshop.widgets.RatioImageView
+                android:id="@+id/recommend_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <com.quduo.welfareshop.widgets.RatioImageView
-                    android:id="@+id/baseimage3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:base="horizontal"
-                    app:horizontal_weight="260"
-                    app:vertical_weight="302" />
-
-                <ImageView
-                    android:id="@+id/recommend_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/baseimage3"
-                    android:layout_alignLeft="@+id/baseimage3"
-                    android:layout_alignRight="@+id/baseimage3"
-                    android:layout_alignTop="@+id/baseimage3" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#F9F9F9" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <com.quduo.welfareshop.widgets.RatioImageView
-                    android:id="@+id/baseimage4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:base="horizontal"
-                    app:horizontal_weight="260"
-                    app:vertical_weight="302" />
-
-                <ImageView
-                    android:id="@+id/recommend_4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/baseimage4"
-                    android:layout_alignLeft="@+id/baseimage4"
-                    android:layout_alignRight="@+id/baseimage4"
-                    android:layout_alignTop="@+id/baseimage4" />
-            </RelativeLayout>
+                android:layout_weight="1"
+                app:base="horizontal"
+                app:horizontal_weight="1"
+                app:vertical_weight="1" />
 
         </LinearLayout>
 
