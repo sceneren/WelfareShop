@@ -149,7 +149,7 @@ public class BeautyVideoFragment extends BaseMvpFragment<IBeautyVideoView, Beaut
     }
 
     private void initHeaderView() {
-        View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_welfare_beauty_video_header, null);
+        View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_welfare_beauty_video_header, (ViewGroup) recyclerView.getParent(), false);
         banner = headerView.findViewById(R.id.banner);
         banner.setImageLoader(new BannerImageLoader());
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
@@ -199,10 +199,10 @@ public class BeautyVideoFragment extends BaseMvpFragment<IBeautyVideoView, Beaut
         banner.start();
     }
 
-    private void initFooterView() {
-        View footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_bottom_more_content, null);
-        adapter.addFooterView(footerView);
-    }
+//    private void initFooterView() {
+//        View footerView = LayoutInflater.from(getContext()).inflate(R.layout.layout_bottom_more_content, (ViewGroup) recyclerView.getParent(), false);
+//        adapter.addFooterView(footerView);
+//    }
 
     @Override
     public BeautyVideoPresenter initPresenter() {

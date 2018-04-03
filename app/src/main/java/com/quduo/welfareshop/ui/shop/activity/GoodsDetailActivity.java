@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableStringBuilder;
 import android.view.View;
-import android.webkit.JavascriptInterface;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,8 +35,6 @@ import com.quduo.welfareshop.widgets.X5WebView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.tencent.smtt.sdk.WebChromeClient;
-import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 import com.youth.banner.Banner;
@@ -235,21 +232,6 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
         OkGo.getInstance().cancelTag(ApiUtil.GOODS_DETAIL_TAG);
         super.onDestroy();
         unbinder.unbind();
-    }
-
-    @JavascriptInterface
-    public void resize(final float height) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                //Toast.makeText(getActivity(), height + "", Toast.LENGTH_LONG).show();
-                try {
-                    webView.setLayoutParams(new LinearLayout.LayoutParams(getResources().getDisplayMetrics().widthPixels, (int) (height * getResources().getDisplayMetrics().density)));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 
     @OnClick(R.id.see_all_comment)

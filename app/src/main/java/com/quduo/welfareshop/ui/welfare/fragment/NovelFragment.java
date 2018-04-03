@@ -145,7 +145,7 @@ public class NovelFragment extends BaseMvpFragment<INovelView, NovelPresenter> i
     }
 
     private void initHeaderView() {
-        View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_welfare_beauty_video_header, null);
+        View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_welfare_beauty_video_header, (ViewGroup) recyclerView.getParent(), false);
         banner = headerView.findViewById(R.id.banner);
         banner.setImageLoader(new BannerImageLoader());
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
