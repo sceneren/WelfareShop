@@ -44,6 +44,7 @@ import com.quduo.welfareshop.ui.red.entity.RedWinInfo;
 import com.quduo.welfareshop.ui.red.presenter.RedPresenter;
 import com.quduo.welfareshop.ui.red.view.IRedView;
 import com.quduo.welfareshop.util.NetTimeUtils;
+import com.quduo.welfareshop.widgets.SquareTextView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -97,29 +98,29 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
     @BindView(R.id.cash)
     TextView cash;
     @BindView(R.id.jackpot1)
-    TextView jackpot1;
+    SquareTextView jackpot1;
     @BindView(R.id.jackpot2)
-    TextView jackpot2;
+    SquareTextView jackpot2;
     @BindView(R.id.jackpot3)
-    TextView jackpot3;
+    SquareTextView jackpot3;
     @BindView(R.id.jackpot4)
-    TextView jackpot4;
+    SquareTextView jackpot4;
     @BindView(R.id.jackpot5)
-    TextView jackpot5;
+    SquareTextView jackpot5;
     @BindView(R.id.jackpot6)
-    TextView jackpot6;
+    SquareTextView jackpot6;
     @BindView(R.id.time1)
-    TextView time1;
+    SquareTextView time1;
     @BindView(R.id.time2)
-    TextView time2;
+    SquareTextView time2;
     @BindView(R.id.time3)
-    TextView time3;
+    SquareTextView time3;
     @BindView(R.id.time4)
-    TextView time4;
+    SquareTextView time4;
     @BindView(R.id.time5)
-    TextView time5;
+    SquareTextView time5;
     @BindView(R.id.time6)
-    TextView time6;
+    SquareTextView time6;
     @BindView(R.id.open)
     ImageView open;
     @BindView(R.id.image)

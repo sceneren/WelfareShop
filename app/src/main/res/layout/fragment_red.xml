@@ -63,13 +63,13 @@
                                 android:layout_height="wrap_content"
                                 android:text="黄超超"
                                 android:textColor="#FF9E00"
+                                android:layout_marginRight="@dimen/dp_10"
                                 android:textSize="12sp"
                                 android:visibility="gone" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/dp_10"
                                 android:text="我的钻石："
                                 android:textColor="@color/white"
                                 android:textSize="12sp" />
@@ -127,89 +127,110 @@
                             android:padding="@dimen/dp_10">
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
                                     android:text="奖池累计现金："
                                     android:textColor="#FF9E00"
                                     android:textSize="@dimen/sp_12" />
 
-                                <TextView
+
+                                <com.quduo.welfareshop.widgets.SquareTextView
                                     android:id="@+id/jackpot1"
-                                    android:layout_width="15dp"
-                                    android:layout_height="15dp"
-                                    android:layout_marginRight="5dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
                                     android:background="@drawable/bg_red_number"
                                     android:gravity="center"
                                     android:text="0"
                                     android:textColor="#FF0000"
-                                    android:textSize="@dimen/sp_12" />
+                                    android:textSize="@dimen/sp_16" />
 
-                                <TextView
+                                <View
+                                    android:layout_width="5dp"
+                                    android:layout_height="1dp" />
+
+                                <com.quduo.welfareshop.widgets.SquareTextView
                                     android:id="@+id/jackpot2"
-                                    android:layout_width="15dp"
-                                    android:layout_height="15dp"
-                                    android:layout_marginRight="5dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
                                     android:background="@drawable/bg_red_number"
                                     android:gravity="center"
                                     android:text="0"
                                     android:textColor="#FF0000"
-                                    android:textSize="@dimen/sp_12" />
+                                    android:textSize="@dimen/sp_16" />
 
-                                <TextView
+                                <View
+                                    android:layout_width="5dp"
+                                    android:layout_height="1dp" />
+
+                                <com.quduo.welfareshop.widgets.SquareTextView
                                     android:id="@+id/jackpot3"
-                                    android:layout_width="15dp"
-                                    android:layout_height="15dp"
-                                    android:layout_marginRight="5dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
                                     android:background="@drawable/bg_red_number"
                                     android:gravity="center"
                                     android:text="0"
                                     android:textColor="#FF0000"
-                                    android:textSize="@dimen/sp_12" />
+                                    android:textSize="@dimen/sp_16" />
 
-                                <TextView
+                                <View
+                                    android:layout_width="5dp"
+                                    android:layout_height="1dp" />
+
+                                <com.quduo.welfareshop.widgets.SquareTextView
                                     android:id="@+id/jackpot4"
-                                    android:layout_width="15dp"
-                                    android:layout_height="15dp"
-                                    android:layout_marginRight="5dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
                                     android:background="@drawable/bg_red_number"
                                     android:gravity="center"
                                     android:text="0"
                                     android:textColor="#FF0000"
-                                    android:textSize="@dimen/sp_12" />
+                                    android:textSize="@dimen/sp_16" />
 
-                                <TextView
+                                <View
+                                    android:layout_width="5dp"
+                                    android:layout_height="1dp" />
+
+                                <com.quduo.welfareshop.widgets.SquareTextView
                                     android:id="@+id/jackpot5"
-                                    android:layout_width="15dp"
-                                    android:layout_height="15dp"
-                                    android:layout_marginRight="5dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
                                     android:background="@drawable/bg_red_number"
                                     android:gravity="center"
                                     android:text="0"
                                     android:textColor="#FF0000"
-                                    android:textSize="@dimen/sp_12" />
+                                    android:textSize="@dimen/sp_16" />
 
-                                <TextView
+                                <View
+                                    android:layout_width="5dp"
+                                    android:layout_height="1dp" />
+
+                                <com.quduo.welfareshop.widgets.SquareTextView
                                     android:id="@+id/jackpot6"
-                                    android:layout_width="15dp"
-                                    android:layout_height="15dp"
-                                    android:layout_marginRight="5dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
                                     android:background="@drawable/bg_red_number"
                                     android:gravity="center"
                                     android:text="0"
                                     android:textColor="#FF0000"
-                                    android:textSize="@dimen/sp_12" />
+                                    android:textSize="@dimen/sp_16" />
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal">
 
@@ -220,83 +241,100 @@
                                     android:textColor="#FF9E00"
                                     android:textSize="@dimen/sp_12" />
 
-                                <TextView
+
+                                <com.quduo.welfareshop.widgets.SquareTextView
                                     android:id="@+id/time1"
-                                    android:layout_width="15dp"
-                                    android:layout_height="15dp"
-                                    android:layout_marginRight="5dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
                                     android:background="@drawable/bg_red_number"
                                     android:gravity="center"
                                     android:text="0"
                                     android:textColor="#FF0000"
-                                    android:textSize="@dimen/sp_12" />
+                                    android:textSize="@dimen/sp_16" />
 
-                                <TextView
+                                <View
+                                    android:layout_width="5dp"
+                                    android:layout_height="1dp" />
+
+                                <com.quduo.welfareshop.widgets.SquareTextView
                                     android:id="@+id/time2"
-                                    android:layout_width="15dp"
-                                    android:layout_height="15dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
                                     android:background="@drawable/bg_red_number"
                                     android:gravity="center"
                                     android:text="0"
                                     android:textColor="#FF0000"
-                                    android:textSize="@dimen/sp_12" />
+                                    android:textSize="@dimen/sp_16" />
 
                                 <TextView
                                     android:layout_width="5dp"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:text=":"
-                                    android:textColor="@color/white" />
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/sp_16" />
 
-                                <TextView
+                                <com.quduo.welfareshop.widgets.SquareTextView
                                     android:id="@+id/time3"
-                                    android:layout_width="15dp"
-                                    android:layout_height="15dp"
-                                    android:layout_marginRight="5dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
                                     android:background="@drawable/bg_red_number"
                                     android:gravity="center"
                                     android:text="0"
                                     android:textColor="#FF0000"
-                                    android:textSize="@dimen/sp_12" />
+                                    android:textSize="@dimen/sp_16" />
 
-                                <TextView
+                                <View
+                                    android:layout_width="5dp"
+                                    android:layout_height="1dp" />
+
+                                <com.quduo.welfareshop.widgets.SquareTextView
                                     android:id="@+id/time4"
-                                    android:layout_width="15dp"
-                                    android:layout_height="15dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
                                     android:background="@drawable/bg_red_number"
                                     android:gravity="center"
                                     android:text="0"
                                     android:textColor="#FF0000"
-                                    android:textSize="@dimen/sp_12" />
+                                    android:textSize="@dimen/sp_16" />
 
                                 <TextView
                                     android:layout_width="5dp"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:text=":"
-                                    android:textColor="@color/white" />
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/sp_16" />
 
-                                <TextView
+                                <com.quduo.welfareshop.widgets.SquareTextView
                                     android:id="@+id/time5"
-                                    android:layout_width="15dp"
-                                    android:layout_height="15dp"
-                                    android:layout_marginRight="5dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
                                     android:background="@drawable/bg_red_number"
                                     android:gravity="center"
                                     android:text="0"
                                     android:textColor="#FF0000"
-                                    android:textSize="@dimen/sp_12" />
+                                    android:textSize="@dimen/sp_16" />
 
-                                <TextView
+                                <View
+                                    android:layout_width="5dp"
+                                    android:layout_height="1dp" />
+
+                                <com.quduo.welfareshop.widgets.SquareTextView
                                     android:id="@+id/time6"
-                                    android:layout_width="15dp"
-                                    android:layout_height="15dp"
-                                    android:layout_marginRight="5dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
                                     android:background="@drawable/bg_red_number"
                                     android:gravity="center"
                                     android:text="0"
                                     android:textColor="#FF0000"
-                                    android:textSize="@dimen/sp_12" />
+                                    android:textSize="@dimen/sp_16" />
                             </LinearLayout>
                         </LinearLayout>
 
