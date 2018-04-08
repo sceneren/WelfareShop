@@ -66,12 +66,11 @@ public class GalleryTypeGridAdapter extends BaseAdapter {
         }
         GalleryCateInfo info=list.get(position);
         GlideApp.with(context)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain()+info.getThumb())
+                .placeholder(R.drawable.ic_default_image)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_image)
                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain()+info.getThumb())
                 .into(holder.image);
         holder.name.setText(info.getName());
         return convertView;

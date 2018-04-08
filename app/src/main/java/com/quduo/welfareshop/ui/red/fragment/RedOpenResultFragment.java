@@ -189,12 +189,11 @@ public class RedOpenResultFragment extends BaseBackMvpFragment<IRedOpenResultVie
                 new CenterCrop(), new RoundedCornersTransformation(SizeUtils.dp2px(5), 0)
         );
         GlideApp.with(this)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
+                .placeholder(R.drawable.ic_default_avatar)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_avatar)
                 .apply(RequestOptions.bitmapTransform(multiTransformation))
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                 .into(avatar);
         nickname.setText(MyApplication.getInstance().getUserInfo().getNickname());
         adapter.addHeaderView(headerView);

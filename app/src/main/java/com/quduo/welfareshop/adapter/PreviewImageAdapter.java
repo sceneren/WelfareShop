@@ -37,10 +37,9 @@ public class PreviewImageAdapter extends PagerAdapter {
     public View instantiateItem(@NonNull ViewGroup container, int position) {
         PhotoView photoView = new PhotoView(container.getContext());
         GlideApp.with(context)
-                .asBitmap()
-                .centerCrop()
                 .load(list.get(position))
                 .placeholder(R.drawable.ic_default_image)
+                .centerCrop()
                 .into(photoView);
 
         // Now just add PhotoView to ViewPager and return it

@@ -174,11 +174,10 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
         JZVideoPlayer.NORMAL_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         videoPlayer.setUp(info.getUrl(), JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL, info.getName());
         GlideApp.with(this)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + info.getThumb())
+                .placeholder(R.drawable.ic_default_video)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_video)
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + info.getThumb())
                 .into(videoPlayer.thumbImageView);
         videoPlayer.setCurrentInfo(info.isPayed(), info.getId(), new View.OnClickListener() {
             @Override
@@ -353,12 +352,11 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
             bindGoodsGridView(data.getGoods());
             bindCommentListView(data.getComment());
             GlideApp.with(this)
-                    .asBitmap()
+                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
+                    .placeholder(R.drawable.ic_default_video)
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.ic_default_video)
                     .apply(RequestOptions.bitmapTransform(new CircleCrop()))
-                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                     .into(avatar);
             des.setText(data.getDescription());
             videoName.setText(data.getName());

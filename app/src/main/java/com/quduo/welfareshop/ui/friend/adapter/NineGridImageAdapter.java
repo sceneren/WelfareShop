@@ -53,11 +53,10 @@ public class NineGridImageAdapter extends NineGridAdapter {
         }
         iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
         GlideApp.with(context)
-                .asBitmap()
+                .load(list.get(i))
+                .placeholder(R.drawable.ic_default_image)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_image)
-                .load(list.get(i))
                 .into(iv);
         return iv;
     }

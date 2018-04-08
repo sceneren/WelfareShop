@@ -47,12 +47,11 @@ public class RankAdapter extends BaseQuickAdapter<OtherSimpleUserInfo, BaseViewH
                 new CenterCrop(), new RoundedCornersTransformation(SizeUtils.dp2px(5), 0)
         );
         GlideApp.with(context)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getAvatar())
+                .placeholder(R.drawable.ic_default_avatar)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_avatar)
                 .apply(RequestOptions.bitmapTransform(multiTransformation))
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getAvatar())
                 .into(avatar);
         helper.setImageResource(R.id.sex, item.getSex() == 1 ? R.drawable.ic_male : R.drawable.ic_female);
         helper.setText(R.id.nickname, item.getNickname());

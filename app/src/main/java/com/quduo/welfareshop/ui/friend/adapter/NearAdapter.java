@@ -65,12 +65,11 @@ public class NearAdapter extends BaseQuickAdapter<OtherSimpleUserInfo, BaseViewH
                 new CenterCrop(),
                 new RoundedCornersTransformation(SizeUtils.dp2px(10), 0, RoundedCornersTransformation.CornerType.TOP));
         GlideApp.with(context)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getAvatar())
+                .placeholder(R.drawable.ic_default_image)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_image)
                 .apply(RequestOptions.bitmapTransform(multi))
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getAvatar())
                 .into(image);
 
         helper.setText(R.id.status_text, item.getIs_busy() == 1 ? "忙碌" : "在线");

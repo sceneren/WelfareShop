@@ -67,19 +67,17 @@ public class VideoChatActivity extends BaseMvpActivity<IVideoChatView, VideoChat
         String strNickName = intent.getStringExtra(ARG_NICKNAME);
         String strAvatar = intent.getStringExtra(ARG_AVATAR);
         GlideApp.with(this)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + strAvatar)
+                .placeholder(R.drawable.ic_default_cover)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_cover)
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + strAvatar)
                 .into(backgroundImage);
         GlideApp.with(this)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + strAvatar)
+                .placeholder(R.drawable.ic_default_avatar)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_avatar)
                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + strAvatar)
                 .into(avatar);
         nickname.setText(strNickName);
 

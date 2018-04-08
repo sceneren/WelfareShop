@@ -159,11 +159,10 @@ public class MyApplication extends LitePalApplication {
             @Override
             public void displayImage(Context context, String path, ImageView imageView) {
                 GlideApp.with(context)
-                        .asBitmap()
+                        .load(path)
+                        .placeholder(R.drawable.ic_default_image)
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .placeholder(R.drawable.ic_default_image)
-                        .load(path)
                         .into(imageView);
             }
         });

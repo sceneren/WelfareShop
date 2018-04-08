@@ -65,10 +65,9 @@ public class WelfareGalleryPreviewImageAdapter extends PagerAdapter {
         RelativeLayout noOpenLayout = view.findViewById(R.id.no_open_layout);
         PhotoView photoView = view.findViewById(R.id.photoView);
         GlideApp.with(context)
-                .asBitmap()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_image)
                 .load(list.get(position))
+                .placeholder(R.drawable.ic_default_image)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(photoView);
         noOpenLayout.setVisibility((!payed && position >= 8) ? View.VISIBLE : View.GONE);
         container.addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);

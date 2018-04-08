@@ -173,12 +173,11 @@ public class HistoryRedFragment extends BaseMvpFragment<IHistoryRedView, History
                 new CenterCrop(), new RoundedCornersTransformation(SizeUtils.dp2px(5), 0)
         );
         GlideApp.with(this)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
+                .placeholder(R.drawable.ic_default_avatar)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_avatar)
                 .apply(RequestOptions.bitmapTransform(multiTransformation))
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                 .into(avatar);
         money.setText(MessageFormat.format("{0}元", MyApplication.getInstance().getUserInfo().getMoney()));
     }

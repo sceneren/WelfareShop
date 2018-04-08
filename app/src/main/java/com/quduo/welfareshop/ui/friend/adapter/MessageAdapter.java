@@ -47,12 +47,11 @@ public class MessageAdapter extends BaseQuickAdapter<ChatMessageInfo, BaseViewHo
                 new CenterCrop(), new RoundedCornersTransformation(SizeUtils.dp2px(5), 0)
         );
         GlideApp.with(context)
-                .asBitmap()
-                .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .load(url)
                 .placeholder(R.drawable.ic_default_avatar)
                 .apply(RequestOptions.bitmapTransform(multiTransformation))
-                .load(url)
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(avatar);
         helper.setText(R.id.nickname, item.getOtherNickName());
         TextView message = helper.getView(R.id.message);

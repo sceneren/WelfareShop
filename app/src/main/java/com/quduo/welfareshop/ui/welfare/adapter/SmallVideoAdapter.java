@@ -44,12 +44,11 @@ public class SmallVideoAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolde
         JZVideoPlayer.FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
         videoPlayer.setUp(item.getUrl(), JZVideoPlayer.SCREEN_WINDOW_LIST, item.getName());
         GlideApp.with(context)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.ic_default_video)
                 .apply(RequestOptions.bitmapTransform(new CenterCrop()))
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
                 .into(videoPlayer.thumbImageView);
         videoPlayer.setCurrentInfo(item.isPayed(), item.getId(), new View.OnClickListener() {
             @Override

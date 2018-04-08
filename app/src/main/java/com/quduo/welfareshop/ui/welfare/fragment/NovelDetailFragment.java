@@ -238,11 +238,10 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
             ratingView.setRating((float) (detailInfo.getScore() / 2));
             score.setText(MessageFormat.format("评分：{0}分", detailInfo.getScore()));
             GlideApp.with(this)
-                    .asBitmap()
+                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + detailInfo.getThumb_shu())
+                    .placeholder(R.drawable.ic_default_image)
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.ic_default_image)
-                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + detailInfo.getThumb_shu())
                     .into(coverImage);
 
         } catch (Exception e) {

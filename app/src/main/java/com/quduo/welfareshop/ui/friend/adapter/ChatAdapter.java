@@ -83,12 +83,11 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         new CircleCrop());
 
                 GlideApp.with(context)
-                        .asBitmap()
-                        .centerCrop()
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                         .placeholder(R.drawable.ic_default_avatar)
                         .apply(RequestOptions.bitmapTransform(multi))
-                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
+                        .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(textViewHolder.mineAvatar);
                 if (position == 0) {
                     textViewHolder.time.setVisibility(View.VISIBLE);
@@ -106,23 +105,21 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         } else if (getItemViewType(position) == TYPE_IMAGE) {
             ImageViewHolder imageViewHolder = (ImageViewHolder) holder;
             GlideApp.with(context)
-                    .asBitmap()
+                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
+                    .placeholder(R.drawable.ic_default_avatar)
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.ic_default_avatar)
                     .apply(RequestOptions.bitmapTransform(new CircleCrop()))
-                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                     .into(imageViewHolder.mineAvatar);
             MultiTransformation multi = new MultiTransformation(
                     new CenterCrop(),
                     new RoundedCornersTransformation(SizeUtils.dp2px(10), 0));
             GlideApp.with(context)
-                    .asBitmap()
-                    .centerCrop()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .load(chatMessageInfo.getMessageContent())
                     .placeholder(R.drawable.ic_default_image)
                     .apply(RequestOptions.bitmapTransform(multi))
-                    .load(chatMessageInfo.getMessageContent())
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(imageViewHolder.image);
             imageViewHolder.image.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -149,12 +146,11 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         } else {
             final AudioViewHolder audioViewHolder = (AudioViewHolder) holder;
             GlideApp.with(context)
-                    .asBitmap()
+                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
+                    .placeholder(R.drawable.ic_default_avatar)
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.ic_default_avatar)
                     .apply(RequestOptions.bitmapTransform(new CircleCrop()))
-                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                     .into(audioViewHolder.mineAvatar);
             if (position == 0) {
                 audioViewHolder.time.setVisibility(View.VISIBLE);

@@ -167,11 +167,10 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
     private void initView() {
         MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_SHOP_CONFIRM_ORDER, orderInfo.getGoodsId());
         GlideApp.with(this)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + orderInfo.getThumb())
+                .placeholder(R.drawable.ic_default_shop)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_shop)
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + orderInfo.getThumb())
                 .into(goodsImage);
         goodsName.setText(orderInfo.getGoodsName());
         goodsNumber.setText(MessageFormat.format("数量:{0}", orderInfo.getChoosedNum()));

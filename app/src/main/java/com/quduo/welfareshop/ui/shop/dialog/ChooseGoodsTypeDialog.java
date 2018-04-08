@@ -114,12 +114,11 @@ public class ChooseGoodsTypeDialog extends BaseActivity {
         initModelLayout();
         MultiTransformation multiTransformation = new MultiTransformation(new CenterCrop(), new RoundedCornersTransformation(SizeUtils.dp2px(10), 0));
         GlideApp.with(this)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + detailInfo.getThumb())
+                .placeholder(R.drawable.ic_default_shop)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_shop)
                 .apply(RequestOptions.bitmapTransform(multiTransformation))
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + detailInfo.getThumb())
                 .into(goodsImage);
         goodsName.setText(detailInfo.getName());
         goodsPrice.setText(MessageFormat.format("￥{0}", detailInfo.getPrice()));

@@ -67,12 +67,11 @@ public class VideoDetailCommentAdapter extends BaseAdapter {
         holder.nickname.setText(info.getNickname());
         holder.content.setText(info.getContent());
         GlideApp.with(context)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + info.getAvatar())
+                .placeholder(R.drawable.ic_default_avatar)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_avatar)
                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + info.getAvatar())
                 .into(holder.avatar);
         return convertView;
     }

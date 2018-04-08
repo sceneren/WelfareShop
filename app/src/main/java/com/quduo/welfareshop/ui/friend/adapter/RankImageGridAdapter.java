@@ -54,11 +54,10 @@ public class RankImageGridAdapter extends BaseAdapter {
             holder = (RankImageViewHolder) convertView.getTag();
         }
         GlideApp.with(context)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position))
+                .placeholder(R.drawable.ic_default_image)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_image)
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position))
                 .into(holder.image);
         return convertView;
     }

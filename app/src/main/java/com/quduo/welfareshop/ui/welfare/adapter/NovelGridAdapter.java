@@ -72,11 +72,10 @@ public class NovelGridAdapter extends BaseAdapter {
             url = list.get(position).getThumb_shu();
         }
         GlideApp.with(context)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + url)
+                .placeholder(R.drawable.ic_default_image)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_image)
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + url)
                 .into(holder.image);
         holder.readNumber.setText(MessageFormat.format("阅读：{0}", info.getView_times()));
         return convertView;

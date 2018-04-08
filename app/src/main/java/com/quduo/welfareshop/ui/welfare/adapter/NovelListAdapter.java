@@ -73,11 +73,10 @@ public class NovelListAdapter extends BaseAdapter {
             url = list.get(position).getThumb();
         }
         GlideApp.with(context)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + url)
+                .placeholder(R.drawable.ic_default_image)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_image)
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + url)
                 .into(holder.image);
         String str = info.getDescription();
         str = str.replace("\n", "");

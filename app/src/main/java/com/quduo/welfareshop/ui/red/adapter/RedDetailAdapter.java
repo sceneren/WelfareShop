@@ -44,12 +44,11 @@ public class RedDetailAdapter extends BaseQuickAdapter<RedOtherResultInfo, BaseV
                 new CenterCrop(), new RoundedCornersTransformation(SizeUtils.dp2px(5), 0)
         );
         GlideApp.with(context)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getAvatar())
+                .placeholder(R.drawable.ic_default_avatar)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_avatar)
                 .apply(RequestOptions.bitmapTransform(multiTransformation))
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getAvatar())
                 .into(avatar);
         helper.setText(R.id.nickname, StringUtils.isTrimEmpty(item.getNickname()) ? "游客" : item.getNickname());
         DateTime dateTime = new DateTime(item.getCreate_time() * 1000);

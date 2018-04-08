@@ -23,19 +23,16 @@ public class BannerImageLoader extends ImageLoader {
             GlideApp.with(context)
                     .asGif()
                     .centerCrop()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.ic_default_image)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .load((String) path)
                     .into(imageView);
         }else{
             GlideApp.with(context)
-                    .asBitmap()
+                    .load((String) path)
+                    .placeholder(R.drawable.ic_default_image)
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.ic_default_image)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .load((String) path)
                     .into(imageView);
         }
 

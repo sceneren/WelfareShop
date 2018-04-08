@@ -29,11 +29,10 @@ public class AlbumAdapter extends BaseQuickAdapter<MyUserDetailInfo.PhotosBean, 
     protected void convert(BaseViewHolder helper, MyUserDetailInfo.PhotosBean item) {
         ImageView imageView = helper.getView(R.id.imageView);
         GlideApp.with(mContext)
-                .asBitmap()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_image)
-                .centerCrop()
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getUrl())
+                .placeholder(R.drawable.ic_default_image)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .centerCrop()
                 .into(imageView);
     }
 }

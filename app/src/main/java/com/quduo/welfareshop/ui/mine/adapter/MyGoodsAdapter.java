@@ -38,11 +38,10 @@ public class MyGoodsAdapter extends BaseQuickAdapter<MyFollowGoodsInfo, BaseView
     protected void convert(BaseViewHolder helper, MyFollowGoodsInfo item) {
         ImageView goodsImage = helper.getView(R.id.goods_image);
         GlideApp.with(context)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
+                .placeholder(R.drawable.ic_default_shop)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_shop)
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
                 .into(goodsImage);
         helper.setText(R.id.goods_name, item.getName());
         helper.setText(R.id.goods_price, "￥" + item.getPrice());

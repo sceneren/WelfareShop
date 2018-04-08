@@ -69,12 +69,11 @@ public class MyInfoImageAdapter extends BaseAdapter {
                 new CenterCrop(),new RoundedCornersTransformation(SizeUtils.dp2px(5),0)
         );
         GlideApp.with(context)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position).getUrl())
+                .placeholder(R.drawable.ic_default_image)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_image)
                 .apply(RequestOptions.bitmapTransform(multiTransformation))
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position).getUrl())
                 .into(holder.image);
         return convertView;
     }

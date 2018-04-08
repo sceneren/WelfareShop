@@ -40,12 +40,11 @@ public class FollowAdapter extends BaseQuickAdapter<FollowUserInfo, BaseViewHold
         MultiTransformation multiTransformation=new MultiTransformation(
                 new CenterCrop(),new RoundedCornersTransformation(SizeUtils.dp2px(10),0));
         GlideApp.with(context)
-                .asBitmap()
-                .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_avatar)
                 .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getAvatar())
                 .apply(RequestOptions.bitmapTransform(multiTransformation))
+                .centerCrop()
+                .placeholder(R.drawable.ic_default_avatar)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(avatar);
         helper.setText(R.id.nickname, item.getNickname());
         helper.setImageResource(R.id.sex, item.getSex() == 1 ? R.drawable.ic_male_white : R.drawable.ic_female_white);

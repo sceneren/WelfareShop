@@ -129,12 +129,11 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
         followLayout.setVisibility(isFollow ? View.GONE : View.VISIBLE);
         othersNickname.setText(otherNickName);
         GlideApp.with(ChatActivity.this)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + otherAvatar)
+                .placeholder(R.drawable.ic_default_avatar)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_avatar)
                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + otherAvatar)
                 .into(othersAvatar);
 
         ptrLayout.setPtrHandler(new PtrDefaultHandler() {

@@ -301,19 +301,17 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
             detailUserInfo = data;
             videoChatPrice.setText(String.valueOf(MyApplication.getInstance().getUserInfo().getChat_price()));
             GlideApp.with(this)
-                    .asBitmap()
+                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.getCover())
+                    .placeholder(R.drawable.ic_default_cover)
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.ic_default_cover)
-                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.getCover())
                     .into(image);
             GlideApp.with(this)
-                    .asBitmap()
+                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.getAvatar())
+                    .placeholder(R.drawable.ic_default_avatar)
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.ic_default_avatar)
                     .apply(RequestOptions.bitmapTransform(new CircleCrop()))
-                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.getAvatar())
                     .into(avatar);
             nickname.setText(StringUtils.isTrimEmpty(data.getNickname()) ? "游客" : data.getNickname());
             followNumber.setText(MessageFormat.format("粉丝：{0}", data.getSubscribe()));

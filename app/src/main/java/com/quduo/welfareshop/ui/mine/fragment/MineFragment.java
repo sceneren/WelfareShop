@@ -82,11 +82,10 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
     public void initView() {
         MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE, 0);
         GlideApp.with(this)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
+                .placeholder(R.drawable.ic_default_avatar)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_avatar)
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
                 .into(avatar);
         nickname.setText(StringUtils.isTrimEmpty(MyApplication.getInstance().getUserInfo().getNickname()) ? "游客" : MyApplication.getInstance().getUserInfo().getNickname());
         scoreNumber.setText(String.valueOf(MyApplication.getInstance().getUserInfo().getScore()));
@@ -188,11 +187,10 @@ public class MineFragment extends BaseMainMvpFragment<IMineView, MinePresenter> 
         try {
             MyApplication.getInstance().getUserInfo().setAvatar(event.getAvatarPath());
             GlideApp.with(this)
-                    .asBitmap()
-                    .centerCrop()
-                    .placeholder(R.drawable.ic_default_avatar)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + MyApplication.getInstance().getUserInfo().getAvatar())
+                    .placeholder(R.drawable.ic_default_avatar)
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(avatar);
         } catch (Exception e) {
             e.printStackTrace();

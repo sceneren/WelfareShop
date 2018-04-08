@@ -37,11 +37,10 @@ public class MidnightVideoAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHo
     protected void convert(BaseViewHolder helper, VideoInfo item) {
         ImageView imageView = helper.getView(R.id.imageView);
         GlideApp.with(context)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
+                .placeholder(R.drawable.ic_default_video)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_video)
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
                 .into(imageView);
         helper.setText(R.id.title, item.getName());
         helper.setText(R.id.play_number, "播放：" + item.getPlay_times());

@@ -400,11 +400,10 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
             receiverPhone.setText(orderDetailInfo.getMobile());
             receiverAddress.setText(orderDetailInfo.getAddress());
             GlideApp.with(this)
-                    .asBitmap()
+                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + orderDetailInfo.getThumb())
+                    .placeholder(R.drawable.ic_default_shop)
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.ic_default_shop)
-                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + orderDetailInfo.getThumb())
                     .into(goodsImage);
             goodsName.setText(orderDetailInfo.getProduct_name());
             goodsPrice.setText(MessageFormat.format("￥{0}", orderDetailInfo.getPrice()));

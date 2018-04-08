@@ -32,11 +32,10 @@ public class VideoListAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolder
         ImageView imageView = helper.getView(R.id.image);
         helper.setText(R.id.title, item.getName());
         GlideApp.with(context)
-                .asBitmap()
+                .load(item.getThumb())
+                .placeholder(R.drawable.ic_default_video)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_video)
-                .load(item.getThumb())
                 .into(imageView);
     }
 }

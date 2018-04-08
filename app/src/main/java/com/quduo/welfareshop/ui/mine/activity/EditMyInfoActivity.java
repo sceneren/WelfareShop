@@ -136,11 +136,10 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
 
     private void initView() {
         GlideApp.with(this)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + detailUserInfo.getAvatar())
+                .placeholder(R.drawable.ic_default_avatar)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_avatar)
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + detailUserInfo.getAvatar())
                 .into(avatar);
 
         initPhotoGridView(detailUserInfo.getPhotos());
@@ -559,11 +558,10 @@ public class EditMyInfoActivity extends BaseMvpActivity<IEditMyInfoView, EditMyI
     public void uploadAvaterSuccess(UploadAvatarResultInfo resultInfo) {
         try {
             GlideApp.with(EditMyInfoActivity.this)
-                    .asBitmap()
+                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + resultInfo.getAvatar())
+                    .placeholder(R.drawable.ic_default_avatar)
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.ic_default_avatar)
-                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + resultInfo.getAvatar())
                     .into(avatar);
             EventBus.getDefault().post(new UpdateAvatarEvent(resultInfo.getAvatar()));
         } catch (Exception e) {

@@ -65,11 +65,10 @@ public class VideoDetailGoodsAdapter extends BaseAdapter {
         }
         GoodsInfo info = list.get(position);
         GlideApp.with(context)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + info.getThumb())
+                .placeholder(R.drawable.ic_default_video)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_video)
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + info.getThumb())
                 .into(holder.image);
         holder.name.setText(info.getName());
         holder.price.setText(MessageFormat.format("￥{0}", info.getPrice()));

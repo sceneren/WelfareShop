@@ -145,11 +145,10 @@ public class EditUserInfoStep2Dialog extends BaseActivity {
 
     private void showAvatar() {
         GlideApp.with(this)
-                .asBitmap()
+                .load(avaterPath)
+                .placeholder(R.drawable.ic_default_avatar)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_avatar)
-                .load(avaterPath)
                 .into(avatar);
     }
 
@@ -158,11 +157,10 @@ public class EditUserInfoStep2Dialog extends BaseActivity {
             case 1:
                 image1.setImageResource(R.drawable.ic_dialog_add_image);
                 GlideApp.with(this)
-                        .asBitmap()
+                        .load(imagePathList.get(0))
+                        .placeholder(R.drawable.ic_default_image)
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .placeholder(R.drawable.ic_default_image)
-                        .load(imagePathList.get(0))
                         .into(image2);
                 image3.setImageResource(0);
                 delete1.setVisibility(View.GONE);
@@ -172,18 +170,16 @@ public class EditUserInfoStep2Dialog extends BaseActivity {
             case 2:
                 image1.setImageResource(R.drawable.ic_dialog_add_image);
                 GlideApp.with(this)
-                        .asBitmap()
+                        .load(imagePathList.get(0))
+                        .placeholder(R.drawable.ic_default_image)
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .placeholder(R.drawable.ic_default_image)
-                        .load(imagePathList.get(0))
                         .into(image2);
                 GlideApp.with(this)
-                        .asBitmap()
+                        .load(imagePathList.get(1))
+                        .placeholder(R.drawable.ic_default_image)
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .placeholder(R.drawable.ic_default_image)
-                        .load(imagePathList.get(1))
                         .into(image3);
                 delete1.setVisibility(View.GONE);
                 delete2.setVisibility(View.VISIBLE);
@@ -191,25 +187,22 @@ public class EditUserInfoStep2Dialog extends BaseActivity {
                 break;
             case 3:
                 GlideApp.with(this)
-                        .asBitmap()
+                        .load(imagePathList.get(0))
+                        .placeholder(R.drawable.ic_default_image)
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .placeholder(R.drawable.ic_default_image)
-                        .load(imagePathList.get(0))
                         .into(image1);
                 GlideApp.with(this)
-                        .asBitmap()
+                        .load(imagePathList.get(1))
+                        .placeholder(R.drawable.ic_default_image)
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .placeholder(R.drawable.ic_default_image)
-                        .load(imagePathList.get(1))
                         .into(image2);
                 GlideApp.with(this)
-                        .asBitmap()
+                        .load(imagePathList.get(2))
+                        .placeholder(R.drawable.ic_default_image)
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .placeholder(R.drawable.ic_default_image)
-                        .load(imagePathList.get(2))
                         .into(image3);
                 delete1.setVisibility(View.VISIBLE);
                 delete2.setVisibility(View.VISIBLE);

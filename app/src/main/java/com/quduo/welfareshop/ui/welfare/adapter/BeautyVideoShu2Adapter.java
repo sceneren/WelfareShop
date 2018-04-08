@@ -65,11 +65,10 @@ public class BeautyVideoShu2Adapter extends BaseAdapter {
         VideoInfo info = list.get(position);
         holder.title.setText(info.getName());
         GlideApp.with(context)
-                .asBitmap()
+                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position).getThumb())
+                .placeholder(R.drawable.ic_default_video)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.ic_default_video)
-                .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + list.get(position).getThumb())
                 .into(holder.image);
         return convertView;
     }
