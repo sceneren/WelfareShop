@@ -7,6 +7,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.event.TabSelectedEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -33,6 +36,7 @@ public class NoRedDialog extends Dialog {
 
     @OnClick(R.id.ok)
     public void onClickOK() {
+        EventBus.getDefault().post(new TabSelectedEvent(2));
         dismiss();
     }
 }

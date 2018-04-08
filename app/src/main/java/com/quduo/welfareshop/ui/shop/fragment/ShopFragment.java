@@ -322,11 +322,10 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
         try {
             if (null != data.get(0)) {
                 GlideApp.with(this)
-                        .asBitmap()
+                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.get(0).getHot_thumb())
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .placeholder(R.drawable.ic_default_shop)
-                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.get(0).getHot_thumb())
                         .into(recommend1);
                 recommend1.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -337,11 +336,10 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
             }
             if (null != data.get(1)) {
                 GlideApp.with(this)
-                        .asBitmap()
+                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.get(1).getHot_thumb())
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .placeholder(R.drawable.ic_default_shop)
-                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.get(1).getHot_thumb())
                         .into(recommend2);
                 recommend2.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -353,11 +351,10 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
 
             if (null != data.get(2)) {
                 GlideApp.with(this)
-                        .asBitmap()
+                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.get(2).getHot_thumb())
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .placeholder(R.drawable.ic_default_shop)
-                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.get(2).getHot_thumb())
                         .into(recommend3);
                 recommend3.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -369,11 +366,10 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
 
             if (null != data.get(3)) {
                 GlideApp.with(this)
-                        .asBitmap()
+                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.get(3).getHot_thumb())
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .placeholder(R.drawable.ic_default_shop)
-                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.get(4).getHot_thumb())
                         .into(recommend5);
                 recommend5.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -384,11 +380,10 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
             }
             if (null != data.get(4)) {
                 GlideApp.with(this)
-                        .asBitmap()
+                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.get(4).getHot_thumb())
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .placeholder(R.drawable.ic_default_shop)
-                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.get(5).getHot_thumb())
                         .into(recommend6);
                 recommend6.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -396,6 +391,7 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
                         toGoodsDetailActivity(data.get(4).getId());
                     }
                 });
+
             }
 
         } catch (Exception e) {

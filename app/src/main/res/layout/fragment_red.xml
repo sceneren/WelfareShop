@@ -61,9 +61,9 @@
                                 android:id="@+id/nickname"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/dp_10"
                                 android:text="黄超超"
                                 android:textColor="#FF9E00"
-                                android:layout_marginRight="@dimen/dp_10"
                                 android:textSize="12sp"
                                 android:visibility="gone" />
 
@@ -422,13 +422,19 @@
                             </LinearLayout>
                         </RelativeLayout>
 
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_red_play_way" />
+
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginBottom="30dp"
                             android:background="@drawable/bg_red_play_way"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
