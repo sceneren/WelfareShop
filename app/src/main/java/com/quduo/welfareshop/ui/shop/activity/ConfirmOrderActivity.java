@@ -263,6 +263,11 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
             orderId = data.getOrder_id();
             Intent intent = new Intent(ConfirmOrderActivity.this, OpenPayActivity.class);
             intent.putExtra(OpenPayActivity.ARG_URL, data.getUrl());
+            if (data.getPay_type() == 1 || data.getPay_type() == 3) {
+                intent.putExtra(OpenPayActivity.ARG_TYPE, 1);
+            } else {
+                intent.putExtra(OpenPayActivity.ARG_TYPE, 2);
+            }
             startActivityForResult(intent, 40001);
             overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
         } catch (Exception e) {

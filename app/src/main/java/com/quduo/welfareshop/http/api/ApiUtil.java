@@ -16,8 +16,8 @@ import java.util.HashMap;
 
 public class ApiUtil {
     private static final String SIGN_KEY = "045448f765b0c0592563123a2652fb63";
-//    public static final String API_PRE = "http://api.quduo1688.com/";
-    public static final String API_PRE = "http://192.168.0.88:9091/";
+    public static final String API_PRE = "http://api.quduo1688.com/";
+//    public static final String API_PRE = "http://192.168.0.88:9091/";
 
     public static final String LOGIN = "user/login";
     public static final String LOGIN_TAG = "user/login";

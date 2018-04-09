@@ -358,6 +358,11 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
             newOrderId = payInfo.getOrder_id();
             Intent intent = new Intent(_mActivity, OpenPayActivity.class);
             intent.putExtra(OpenPayActivity.ARG_URL, payInfo.getUrl());
+            if (payInfo.getPay_type() == 1 || payInfo.getPay_type() == 3) {
+                intent.putExtra(OpenPayActivity.ARG_TYPE, 1);
+            } else {
+                intent.putExtra(OpenPayActivity.ARG_TYPE, 2);
+            }
             startActivityForResult(intent, 40001);
             _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
         } catch (Exception e) {
