@@ -28,4 +28,6 @@
     <dimen name="reading_max_text_size">30sp</dimen>
     <!-- 设置行高 -->
     <dimen name="setting_height">60dp</dimen>
+
+    <dimen name="gap" >100dp</dimen >
 </resources>

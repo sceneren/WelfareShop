@@ -60,4 +60,6 @@
     <string name="shouzhishanghua">手指上滑，取消发送</string>
     <string name="tooshort">录音时间过短</string>
     <string name="toolong">录音时间过长</string>
+
+    <string name="pageBehavior" translatable="false" >com.quduo.welfareshop.widgets.goodsdetail.PageBehavior</string >
 </resources>

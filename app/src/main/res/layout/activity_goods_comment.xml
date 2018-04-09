@@ -93,6 +93,7 @@
 
 
                 <TextView
+                    android:id="@+id/goods_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="￥198"
@@ -101,6 +102,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/goods_old_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -115,7 +117,7 @@
                 android:drawableLeft="@drawable/ic_djs_fen"
                 android:drawablePadding="5dp"
                 android:gravity="center_vertical"
-                android:text="消费1元送1钻石"
+                android:text="消费1元送1积分+1钻石"
                 android:textColor="@color/theme_color"
                 android:textSize="@dimen/sp_12" />
         </LinearLayout>

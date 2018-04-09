@@ -32,9 +32,8 @@ import com.quduo.welfareshop.util.BannerImageLoader;
 import com.quduo.welfareshop.widgets.CustomListView;
 import com.quduo.welfareshop.widgets.RatioImageView;
 import com.quduo.welfareshop.widgets.X5WebView;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.quduo.welfareshop.widgets.goodsdetail.PageBehavior;
+import com.quduo.welfareshop.widgets.goodsdetail.PageContainer;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 import com.youth.banner.Banner;
@@ -66,8 +65,8 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
     Unbinder unbinder;
     @BindView(R.id.banner)
     Banner banner;
-    @BindView(R.id.refresh_layout)
-    SmartRefreshLayout refreshLayout;
+    //    @BindView(R.id.refresh_layout)
+//    SmartRefreshLayout refreshLayout;
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
     @BindView(R.id.baseimage)
@@ -100,6 +99,10 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
     TextView btnServiceCenter;
     @BindView(R.id.btn_follow)
     TextView btnFollow;
+    @BindView(R.id.notice)
+    TextView notice;
+    @BindView(R.id.container)
+    PageContainer pageContainer;
 
     private List<GoodsCommentInfo> commentList = new ArrayList<>();
     private GoodsDetailCommentAdapter commentAdapter;
@@ -151,6 +154,27 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
         });
         webView.addJavascriptInterface(this, "App");
 
+        pageContainer.setOnPageChanged(new PageBehavior.OnPageChanged() {
+            @Override
+            public void toTop() {
+                try {
+                    notice.setText("继续拖动，查看图文详情");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void toBottom() {
+                try {
+                    notice.setText("继续拖动，查看商品详情");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
         presenter.getData(true);
     }
 
@@ -179,13 +203,13 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
     }
 
     private void initRefreshLayout() {
-        refreshLayout.setEnableLoadMore(false);
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshLayout) {
-                presenter.getData(false);
-            }
-        });
+//        refreshLayout.setEnableLoadMore(false);
+//        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+//            @Override
+//            public void onRefresh(RefreshLayout refreshLayout) {
+//                presenter.getData(false);
+//            }
+//        });
     }
 
     @Override
@@ -229,6 +253,14 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
 
     @Override
     protected void onDestroy() {
+        try {
+            webView.stopLoading();
+            webView.removeAllViews();
+            webView.destroy();
+            webView = null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         OkGo.getInstance().cancelTag(ApiUtil.GOODS_DETAIL_TAG);
         super.onDestroy();
         unbinder.unbind();
@@ -249,12 +281,11 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     private void toGoodsCommentActivity() {
         Intent intent = new Intent(GoodsDetailActivity.this, GoodsCommentActivity.class);
-        intent.putExtra(GoodsCommentActivity.ARG_ID, goodsId);
+        intent.putExtra(GoodsCommentActivity.ARG_GOODSINFO, detailInfo);
         startActivity(intent);
         overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }
@@ -351,7 +382,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
     @Override
     public void refreshFinish() {
         try {
-            refreshLayout.finishRefresh();
+//            refreshLayout.finishRefresh();
         } catch (Exception e) {
             e.printStackTrace();
         }
