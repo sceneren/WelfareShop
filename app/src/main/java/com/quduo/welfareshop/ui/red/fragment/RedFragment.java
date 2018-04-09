@@ -193,14 +193,6 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
 
     private void initDanmu() {
         try {
-            @SuppressLint("UseSparseArrays") HashMap<Integer, Integer> maxLinesPair = new HashMap<>();
-            maxLinesPair.put(BaseDanmaku.TYPE_SCROLL_RL, 3);
-            // 设置是否禁止重叠
-            @SuppressLint("UseSparseArrays") HashMap<Integer, Boolean> overlappingEnablePair = new HashMap<>();
-            overlappingEnablePair.put(BaseDanmaku.TYPE_SCROLL_LR, true);
-            overlappingEnablePair.put(BaseDanmaku.TYPE_FIX_BOTTOM, true);
-            overlappingEnablePair.put(BaseDanmaku.TYPE_FIX_TOP, true);
-
             mDanmakuView.setCallback(new DrawHandler.Callback() {
                 @Override
                 public void prepared() {
@@ -225,7 +217,22 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
             });
             //缓存，提升绘制效率
             mDanmakuView.enableDanmakuDrawingCache(true);
+            initDanmakuContext();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initDanmakuContext() {
+        try {
             //DanmakuContext主要用于弹幕样式的设置
+            @SuppressLint("UseSparseArrays") HashMap<Integer, Integer> maxLinesPair = new HashMap<>();
+            maxLinesPair.put(BaseDanmaku.TYPE_SCROLL_RL, 3);
+            // 设置是否禁止重叠
+            @SuppressLint("UseSparseArrays") HashMap<Integer, Boolean> overlappingEnablePair = new HashMap<>();
+            overlappingEnablePair.put(BaseDanmaku.TYPE_SCROLL_LR, true);
+            overlappingEnablePair.put(BaseDanmaku.TYPE_FIX_BOTTOM, true);
+            overlappingEnablePair.put(BaseDanmaku.TYPE_FIX_TOP, true);
             danmakuContext = DanmakuContext.create();
             danmakuContext.setDanmakuStyle(IDisplayer.DANMAKU_STYLE_STROKEN, 3);//描边
             danmakuContext.setDuplicateMergingEnabled(false);//重复合并
@@ -235,7 +242,6 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
             danmakuContext.preventOverlapping(overlappingEnablePair);
             //让弹幕进入准备状态，传入弹幕解析器和样式设置
             mDanmakuView.prepare(parser, danmakuContext);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -248,6 +254,9 @@ public class RedFragment extends BaseMainMvpFragment<IRedView, RedPresenter> imp
      */
     private void addDanmaku(String content) {
         try {
+            if (danmakuContext == null) {
+                initDanmakuContext();
+            }
             //弹幕实例BaseDanmaku,传入参数是弹幕方向
             BaseDanmaku danmaku = danmakuContext.mDanmakuFactory.createDanmaku(BaseDanmaku.TYPE_SCROLL_RL);
             danmaku.text = content;
