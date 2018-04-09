@@ -71,7 +71,7 @@ public class WelfareFragment extends BaseMainMvpFragment<IWelfareView, WelfarePr
     @Override
     public void initView() {
         super.initView();
-        String tabTitle[] = {"美女图库", "小视频", "美女视频", "午夜影院", "小爽文"};
+        String tabTitle[] = {"性感美图", "福利视频", "嫩模特辑", "午夜影院", "香艳爽文"};
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(GalleryFragment.newInstance());
         fragmentList.add(SmallVideoFragment.newInstance());

@@ -2,8 +2,6 @@ package com.quduo.welfareshop.bean;
 
 import com.quduo.welfareshop.base.BaseBean;
 
-import java.io.Serializable;
-
 /**
  * Author:scene
  * Time:2018/2/28 14:56

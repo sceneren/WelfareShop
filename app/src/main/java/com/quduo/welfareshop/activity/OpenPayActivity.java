@@ -56,7 +56,7 @@ public class OpenPayActivity extends BaseActivity {
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                simulateClick();
+                //simulateClick();
                 super.onPageFinished(view, url);
             }
 
@@ -160,5 +160,18 @@ public class OpenPayActivity extends BaseActivity {
     protected void onStop() {
         super.onStop();
         isNeedFinish = true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        try {
+            webView.stopLoading();
+            webView.removeAllViews();
+            webView.destroy();
+            webView = null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        super.onDestroy();
     }
 }
