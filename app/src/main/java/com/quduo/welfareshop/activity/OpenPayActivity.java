@@ -74,11 +74,11 @@ public class OpenPayActivity extends BaseActivity {
                     return super.shouldOverrideUrlLoading(view, url);
                 } else {
                     if (webView != null && !TextUtils.isEmpty(url)) {
-                        if (url.contains("platformapi/startapp")) {
+                        if (url.toLowerCase().contains("platformapi/startapp")) {
                             startAlipayActivity(url);
                             // android  6.0 两种方式获取intent都可以跳转支付宝成功,7.1测试不成功
                         } else if ((Build.VERSION.SDK_INT > Build.VERSION_CODES.M)
-                                && (url.contains("platformapi") && url.contains("startapp"))) {
+                                && (url.toLowerCase().contains("platformapi") && url.toLowerCase().contains("startapp"))) {
                             startAlipayActivity(url);
                         } else {
                             webView.loadUrl(url);
