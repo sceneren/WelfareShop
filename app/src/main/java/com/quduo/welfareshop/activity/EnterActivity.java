@@ -9,7 +9,6 @@ import android.widget.ImageView;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.lzy.okgo.OkGo;
-import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
