@@ -1,15 +1,11 @@
-package com.quduo.welfareshop.ui.mine.fragment;
+package com.quduo.welfareshop.ui.mine.activity;
 
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,7 +24,7 @@ import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
-import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
+import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.mine.adapter.OrderDetailRecommendGoodsAdapter;
 import com.quduo.welfareshop.ui.mine.entity.CheckPayResultInfo;
 import com.quduo.welfareshop.ui.mine.entity.OrderDetailInfo;
@@ -66,34 +62,16 @@ import wiki.scene.loadmore.StatusViewLayout;
  * 1未支付  2已支付  3已发货  4已评价  5已取消
  */
 
-public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, OrderDetailPresenter> implements IOrderDetailView {
-    private static final String ARG_ID = "order_id";
-
+public class OrderDetailActivity extends BaseMvpActivity<IOrderDetailView, OrderDetailPresenter> implements IOrderDetailView {
+    public static final String ARG_ID = "order_id";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
+    @BindView(R.id.toolbar_image_menu)
+    ImageView toolbarImageMenu;
     @BindView(R.id.status_text)
     TextView statusText;
-    @BindView(R.id.goods_image)
-    ImageView goodsImage;
-    @BindView(R.id.goods_name)
-    TextView goodsName;
-    @BindView(R.id.goods_number)
-    TextView goodsNumber;
-    @BindView(R.id.layout_type_unpay)
-    LinearLayout layoutTypeUnpay;
-    @BindView(R.id.logisticsListView)
-    CustomListView logisticsListView;
-    @BindView(R.id.layout_type_has_send)
-    LinearLayout layoutTypeHasSend;
-    @BindView(R.id.goodsGridView)
-    CustomGridView goodsGridView;
-    @BindView(R.id.refresh_layout)
-    SmartRefreshLayout refreshLayout;
-    @BindView(R.id.status_view)
-    StatusViewLayout statusView;
-    Unbinder unbinder;
     @BindView(R.id.status_icon)
     ImageView statusIcon;
     @BindView(R.id.receiver_name)
@@ -102,14 +80,20 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
     TextView receiverPhone;
     @BindView(R.id.receiver_address)
     TextView receiverAddress;
+    @BindView(R.id.goods_image)
+    ImageView goodsImage;
+    @BindView(R.id.goods_name)
+    TextView goodsName;
     @BindView(R.id.goods_score)
     TextView goodsScore;
+    @BindView(R.id.goods_price)
+    TextView goodsPrice;
+    @BindView(R.id.goods_number)
+    TextView goodsNumber;
     @BindView(R.id.goods_model)
     TextView goodsModel;
     @BindView(R.id.total_price)
     TextView totalPrice;
-    @BindView(R.id.goods_price)
-    TextView goodsPrice;
     @BindView(R.id.need_pay_price)
     TextView needPayPrice;
     @BindView(R.id.coupon_info)
@@ -118,10 +102,14 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
     TextView btnWechat;
     @BindView(R.id.btn_alipay)
     TextView btnAlipay;
+    @BindView(R.id.layout_type_unpay)
+    LinearLayout layoutTypeUnpay;
+    @BindView(R.id.logisticsListView)
+    CustomListView logisticsListView;
+    @BindView(R.id.layout_type_has_send)
+    LinearLayout layoutTypeHasSend;
     @BindView(R.id.order_number)
     TextView orderNumber;
-    @BindView(R.id.order_time)
-    TextView orderTime;
     @BindView(R.id.copy_order_number)
     TextView copyOrderNumber;
     @BindView(R.id.ship_number)
@@ -132,8 +120,15 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
     TextView copyShipNumber;
     @BindView(R.id.layout_ship)
     LinearLayout layoutShip;
-    @BindView(R.id.toolbar_image_menu)
-    ImageView toolbarImageMenu;
+    @BindView(R.id.order_time)
+    TextView orderTime;
+    @BindView(R.id.goodsGridView)
+    CustomGridView goodsGridView;
+    @BindView(R.id.refresh_layout)
+    SmartRefreshLayout refreshLayout;
+    @BindView(R.id.status_view)
+    StatusViewLayout statusView;
+    Unbinder unbinder;
     private int orderId;
 
     private List<GoodsInfo> goodsList = new ArrayList<>();
@@ -142,28 +137,14 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
 //    private List<String> logisticsList = new ArrayList<>();
 //    private TimeLineAdapter timeLineAdapter;
 
-    public static OrderDetailFragment newInstance(int orderId) {
-        Bundle args = new Bundle();
-        args.putInt(ARG_ID, orderId);
-        OrderDetailFragment fragment = new OrderDetailFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            orderId = getArguments().getInt(ARG_ID, 0);
-        }
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mine_order_detail, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        return attachToSwipeBack(view);
+        setContentView(R.layout.fragment_mine_order_detail);
+        unbinder = ButterKnife.bind(this);
+        orderId = getIntent().getIntExtra(ARG_ID, 0);
+        initToolbar();
+        initView();
     }
 
     @Override
@@ -200,25 +181,29 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
         }
     };
 
-    @Override
-    public void initToolbar() {
+    private void initToolbar() {
         toolbarTitle.setText("订单详情");
         toolbarImageMenu.setImageResource(R.drawable.ic_order_detail_server_center);
-        initToolbarNav(toolbar, true);
+        toolbar.setNavigationIcon(R.drawable.ic_toolbar_back_black);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressedSupport();
+            }
+        });
     }
 
     @OnClick(R.id.toolbar_image_menu)
     public void onClickToolbarImageMenu() {
         try {
-            startActivity(new Intent(_mActivity, ServiceCenterActivity.class));
-            _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+            startActivity(new Intent(OrderDetailActivity.this, ServiceCenterActivity.class));
+            overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void initView() {
+    private void initView() {
         MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_ORDER_DETAIL, orderId);
         initRefreshLayout();
         initRecommendGoodsGridView();
@@ -236,7 +221,7 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
     }
 
     private void initRecommendGoodsGridView() {
-        recommendGoodsAdapter = new OrderDetailRecommendGoodsAdapter(getContext(), goodsList);
+        recommendGoodsAdapter = new OrderDetailRecommendGoodsAdapter(OrderDetailActivity.this, goodsList);
         goodsGridView.setAdapter(recommendGoodsAdapter);
         goodsGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -278,9 +263,9 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
     }
 
     @Override
-    public void onDestroyView() {
+    protected void onDestroy() {
         OkGo.getInstance().cancelTag(ApiUtil.ORDER_DETAIL_TAG);
-        super.onDestroyView();
+        super.onDestroy();
         unbinder.unbind();
     }
 
@@ -323,7 +308,7 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
     @Override
     public void showLoadingDialog() {
         try {
-            StyledDialog.buildLoading().setActivity(_mActivity).show();
+            StyledDialog.buildLoading().setActivity(OrderDetailActivity.this).show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -342,7 +327,7 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
     public void alert(String message) {
         try {
             StyledDialog
-                    .buildIosAlert("提示", message, null).setActivity(_mActivity)
+                    .buildIosAlert("提示", message, null).setActivity(OrderDetailActivity.this)
                     .setBtnText("确定")
                     .show();
         } catch (Exception e) {
@@ -356,7 +341,7 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
     public void repayOrderSuccess(PayInfo payInfo) {
         try {
             newOrderId = payInfo.getOrder_id();
-            Intent intent = new Intent(_mActivity, OpenPayActivity.class);
+            Intent intent = new Intent(OrderDetailActivity.this, OpenPayActivity.class);
             intent.putExtra(OpenPayActivity.ARG_URL, payInfo.getUrl());
             if (payInfo.getPay_type() == 1 || payInfo.getPay_type() == 3) {
                 intent.putExtra(OpenPayActivity.ARG_TYPE, 1);
@@ -364,7 +349,7 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
                 intent.putExtra(OpenPayActivity.ARG_TYPE, 2);
             }
             startActivityForResult(intent, 40001);
-            _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+            OrderDetailActivity.this.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -446,10 +431,10 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
 
     private void toGoodsDetailActivity(int goodsId) {
         try {
-            Intent intent = new Intent(_mActivity, GoodsDetailActivity.class);
+            Intent intent = new Intent(OrderDetailActivity.this, GoodsDetailActivity.class);
             intent.putExtra(GoodsDetailActivity.ARG_ID, goodsId);
             startActivity(intent);
-            _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+            OrderDetailActivity.this.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -458,7 +443,7 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
     @OnClick(R.id.copy_ship_number)
     public void onClickCopyShipNumber() {
         try {
-            ClipboardManager cm = (ClipboardManager) _mActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipboardManager cm = (ClipboardManager) OrderDetailActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
             if (cm != null) {
                 cm.setText(shipNumber.getText().toString());
                 showMessage("物流编号已复制到剪切板");
@@ -472,7 +457,7 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
     @OnClick(R.id.copy_order_number)
     public void onClickCopyOrderNumber() {
         try {
-            ClipboardManager cm = (ClipboardManager) _mActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipboardManager cm = (ClipboardManager) OrderDetailActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
             if (cm != null) {
                 cm.setText(orderNumber.getText().toString());
                 showMessage("物流编号已复制到剪切板");
@@ -506,7 +491,7 @@ public class OrderDetailFragment extends BaseBackMvpFragment<IOrderDetailView, O
     private void showBuySuccessDialog() {
         try {
             if (buySuccessDialog == null) {
-                buySuccessDialog = new BuySuccessDialog(_mActivity);
+                buySuccessDialog = new BuySuccessDialog(OrderDetailActivity.this);
             }
             buySuccessDialog.show();
             Number num = Float.parseFloat(totalPrice.getText().toString().substring(4)) * 100;

@@ -17,6 +17,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hss01248.dialog.StyledDialog;
+import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
@@ -28,6 +29,7 @@ import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.mine.activity.MyReceiverActivity;
 import com.quduo.welfareshop.ui.mine.entity.CheckPayResultInfo;
+import com.quduo.welfareshop.ui.mine.activity.OrderDetailActivity;
 import com.quduo.welfareshop.ui.shop.dialog.BuySuccessDialog;
 import com.quduo.welfareshop.ui.shop.entity.ConfirmOrderResultInfo;
 import com.quduo.welfareshop.ui.shop.entity.CreateOrderInfo;
@@ -257,10 +259,13 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
 
     private int orderId;
 
+    private int goodsOrderId;
+
     @Override
     public void createOrderSuccess(PayInfo data) {
         try {
             orderId = data.getOrder_id();
+            goodsOrderId = data.getData_id();
             Intent intent = new Intent(ConfirmOrderActivity.this, OpenPayActivity.class);
             intent.putExtra(OpenPayActivity.ARG_URL, data.getUrl());
             if (data.getPay_type() == 1 || data.getPay_type() == 3) {
@@ -307,7 +312,31 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
     @Override
     public void alert(String message) {
         try {
-            StyledDialog.buildIosAlert("提示", message, null).setBtnText("确定", "取消").setActivity(ConfirmOrderActivity.this).show();
+            StyledDialog.buildIosAlert("提示", message, new MyDialogListener() {
+                @Override
+                public void onFirst() {
+                    Intent intent = new Intent(ConfirmOrderActivity.this, OrderDetailActivity.class);
+                    intent.putExtra(OrderDetailActivity.ARG_ID, goodsOrderId);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+                    finish();
+                }
+
+                @Override
+                public void onSecond() {
+                    finish();
+                }
+            })
+                    .setBtnText("继续支付", "取消")
+                    .setActivity(ConfirmOrderActivity.this)
+                    .show()
+                    .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            finish();
+                        }
+                    });
+
         } catch (Exception e) {
             e.printStackTrace();
         }

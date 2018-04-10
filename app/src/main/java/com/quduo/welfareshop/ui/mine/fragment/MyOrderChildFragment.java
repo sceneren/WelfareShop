@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.mine.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
+import com.quduo.welfareshop.ui.mine.activity.OrderDetailActivity;
 import com.quduo.welfareshop.ui.mine.adapter.MyOrderChildAdapter;
 import com.quduo.welfareshop.ui.mine.entity.OrderInfo;
 import com.quduo.welfareshop.ui.mine.entity.OrderListResultInfo;
@@ -154,7 +156,10 @@ public class MyOrderChildFragment extends BaseMvpFragment<IMyOrderChildView, MyO
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if ((getParentFragment()) != null && getParentFragment() instanceof MyOrderFragment) {
-                    ((MyOrderFragment) getParentFragment()).start(OrderDetailFragment.newInstance(list.get(position).getId()));
+                    Intent intent = new Intent(_mActivity, OrderDetailActivity.class);
+                    intent.putExtra(OrderDetailActivity.ARG_ID, list.get(position).getId());
+                    startActivity(intent);
+                    _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
                 }
             }
         });
