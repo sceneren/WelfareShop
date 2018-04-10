@@ -68,7 +68,6 @@ public class OpenPayActivity extends BaseActivity {
                         intent.setAction(Intent.ACTION_VIEW);
                         intent.setData(Uri.parse(url));
                         startActivity(intent);
-                        isNeedFinish = true;
                         return true;
                     }
                     return super.shouldOverrideUrlLoading(view, url);
@@ -99,7 +98,6 @@ public class OpenPayActivity extends BaseActivity {
                     intent.setAction(Intent.ACTION_VIEW);
                     intent.setData(Uri.parse(url));
                     startActivity(intent);
-                    isNeedFinish = true;
                 } catch (Exception e) {
                     e.printStackTrace();
                     ToastUtils.showShort("请先安装或打开微信");
@@ -141,7 +139,6 @@ public class OpenPayActivity extends BaseActivity {
             intent.addCategory(Intent.CATEGORY_BROWSABLE);
             intent.setComponent(null);
             startActivity(intent);
-            isNeedFinish = true;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -154,6 +151,12 @@ public class OpenPayActivity extends BaseActivity {
             setResult(RESULT_OK);
             finish();
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isNeedFinish=true;
     }
 
     @Override
