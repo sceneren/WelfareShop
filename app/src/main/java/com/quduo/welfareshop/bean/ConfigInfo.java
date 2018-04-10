@@ -26,6 +26,7 @@ public class ConfigInfo extends BaseBean {
     private long server_time;
     private String ios_version;
     private int chat_price;
+    private String service_url;
 
     public String getUser_agreement() {
         return user_agreement;
@@ -81,5 +82,13 @@ public class ConfigInfo extends BaseBean {
 
     public void setChat_price(int chat_price) {
         this.chat_price = chat_price;
+    }
+
+    public String getService_url() {
+        return service_url;
+    }
+
+    public void setService_url(String service_url) {
+        this.service_url = service_url;
     }
 }

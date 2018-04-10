@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.hss01248.dialog.StyledDialog;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
@@ -90,8 +91,13 @@ public class ServiceCenterActivity extends BaseBackActivity {
 
 
         });
-
-        webView.loadUrl("https://kefu.easemob.com/webim/im.html?configId=9fa8657f-f24a-40aa-b385-2008db5c4b62");
+        try {
+            webView.loadUrl(MyApplication.getInstance().getConfigInfo().getService_url());
+        } catch (Exception e) {
+            e.printStackTrace();
+            finish();
+            ToastUtils.showShort("联系客服失败，请重试");
+        }
     }
 
     private void openFileChooseProcess() {

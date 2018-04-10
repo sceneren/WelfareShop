@@ -25,7 +25,7 @@ import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
 import com.quduo.libselecter.ISNav;
 import com.quduo.libselecter.common.ImageLoader;
-import com.quduo.welfareshop.activity.MainActivity;
+import com.quduo.welfareshop.activity.EnterActivity;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.bean.ConfigInfo;
 import com.quduo.welfareshop.bean.UserInfo;
@@ -114,10 +114,10 @@ public class MyApplication extends LitePalApplication {
 
         //初始化异常管理工具
         Recovery.getInstance()
-                .debug(true)//关闭后 在错误统一管理页面不显示异常数据
-                .recoverInBackground(false)
-                .recoverStack(false)
-                .mainPage(MainActivity.class)//恢复页面
+                .debug(false)//关闭后 在错误统一管理页面不显示异常数据
+                .recoverInBackground(true)
+                .recoverStack(true)
+                .mainPage(EnterActivity.class)//恢复页面
                 .init(this);
         //初始化工具类
         Utils.init(this);

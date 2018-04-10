@@ -82,6 +82,10 @@ public final class Recovery1Activity extends AppCompatActivity {
         initView();
         initData();
         setupEvent();
+        boolean restart = RecoverySharedPrefsUtil.shouldRestartApp();
+        if (restart)
+            RecoverySharedPrefsUtil.clear();
+        restart();
     }
 
     private void setupToolbar() {
