@@ -13,6 +13,8 @@ import com.quduo.welfareshop.ui.friend.adapter.NineGridImageAdapter;
 import com.quduo.welfareshop.ui.shop.entity.GoodsCommentInfo;
 import com.w4lle.library.NineGridlayout;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,11 +47,13 @@ public class GoodsCommentAdapter extends BaseQuickAdapter<GoodsCommentInfo, Base
                 intent.putExtra(PreviewImageActivity.ARG_URLS, imageList);
                 intent.putExtra(PreviewImageActivity.ARG_POSITION, position);
                 activity.startActivity(intent);
-                activity.overridePendingTransition(R.anim.h_fragment_enter,R.anim.h_fragment_exit);
+                activity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
             }
         });
         imageLayout.setAdapter(imageAdapter);
-        helper.setText(R.id.nickname_and_time, item.getNick_name() + "/" + item.getCreate_time());
+        DateTime dateTime = new DateTime(item.getCreate_time() * 1000);
+        String createTime = dateTime.toString("yyyy-MM-dd HH:mm:ss");
+        helper.setText(R.id.nickname_and_time, item.getNick_name() + "/" + createTime);
         helper.setText(R.id.content, item.getContent());
     }
 

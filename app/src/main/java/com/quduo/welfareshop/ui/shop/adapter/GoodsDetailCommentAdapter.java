@@ -15,6 +15,8 @@ import com.quduo.welfareshop.ui.friend.adapter.NineGridImageAdapter;
 import com.quduo.welfareshop.ui.shop.entity.GoodsCommentInfo;
 import com.w4lle.library.NineGridlayout;
 
+import org.joda.time.DateTime;
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +85,9 @@ public class GoodsDetailCommentAdapter extends BaseAdapter {
         });
         holder.imageLayout.setAdapter(imageAdapter);
         holder.content.setText(info.getContent());
-        holder.nicknameAndTime.setText(MessageFormat.format("{0}/{1}", info.getNick_name(), info.getCreate_time()));
+        DateTime dateTime = new DateTime(info.getCreate_time()*1000);
+        String createTime = dateTime.toString("yyyy-MM-dd HH:mm:ss");
+        holder.nicknameAndTime.setText(MessageFormat.format("{0}/{1}", info.getNick_name(), createTime));
         return convertView;
     }
 

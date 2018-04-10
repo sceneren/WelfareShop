@@ -24,7 +24,7 @@ public class GoodsCommentInfo extends BaseBean{
     private int id;
     private int product_id;
     private String nick_name;
-    private String create_time;
+    private long create_time;
     private String content;
     private List<String> images;
 
@@ -52,11 +52,11 @@ public class GoodsCommentInfo extends BaseBean{
         this.nick_name = nick_name;
     }
 
-    public String getCreate_time() {
+    public long getCreate_time() {
         return create_time;
     }
 
-    public void setCreate_time(String create_time) {
+    public void setCreate_time(long create_time) {
         this.create_time = create_time;
     }
 
