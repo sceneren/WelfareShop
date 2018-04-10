@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/dp_10"
                 android:drawableTop="@drawable/ic_gallery_preview_unlock"
-                android:text="观看全套私聊图片，请先使用积分解锁"
+                android:text="观看全套私密图片，请先使用积分解锁"
                 android:textColor="@color/white"
                 android:textSize="@dimen/sp_12" />
 
