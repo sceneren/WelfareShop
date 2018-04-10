@@ -26,7 +26,7 @@ public abstract class BaseMainFragment extends SupportFragment {
         if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
             MyApplication.getInstance().exit();
         } else {
-            TOUCH_TIME = NetTimeUtils.getWebsiteDatetime();
+            TOUCH_TIME = System.currentTimeMillis();
             ToastUtils.showShort(R.string.press_again_exit);
         }
         return true;
