@@ -47,7 +47,7 @@ public class GalleryDetailAdapter extends BaseQuickAdapter<ImageDetailInfo, Base
         float scale = (float) PtrLocalDisplay.SCREEN_WIDTH_PIXELS / (float) list.get(helper.getLayoutPosition()).getWidth();
         params.height = (int) (scale * (float) list.get(helper.getLayoutPosition()).getHeight());
         image.setLayoutParams(params);
-        if (helper.getLayoutPosition() > 7 && !payed) {
+        if (helper.getLayoutPosition() >= 6 && !payed) {
             helper.setVisible(R.id.cover_image, true);
             helper.setVisible(R.id.tip, true);
             GlideApp.with(context)

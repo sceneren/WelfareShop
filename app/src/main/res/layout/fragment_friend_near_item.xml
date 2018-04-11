@@ -73,6 +73,23 @@
                 android:textColor="@color/white"
                 android:textSize="10sp"
                 tools:text="33m" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_half_translate"
+                android:paddingBottom="3dp"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingTop="3dp"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:text="1对1视频"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:drawableLeft="@drawable/ic_can_video_chat_pink"
+                android:textStyle="bold"/>
         </RelativeLayout>
 
 

@@ -174,7 +174,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (position > 7 && !resultInfo.isPayed()) {
+                if (position >= 6 && !resultInfo.isPayed()) {
                     DialogUtils.getInstance().showNeedUnlockDialog(_mActivity, resultInfo.getPrice(), MyApplication.getInstance().getUserInfo().getScore(), AppConfig.POSITION_GELLERY_DETAIL, new UnlockLisenter() {
                         @Override
                         public void unlock() {

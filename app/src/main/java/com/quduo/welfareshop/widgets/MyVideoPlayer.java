@@ -17,6 +17,7 @@ import com.quduo.welfareshop.http.callback.JsonCallback;
 import cn.jzvd.JZMediaManager;
 import cn.jzvd.JZUserAction;
 import cn.jzvd.JZUtils;
+import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
 
 /**
@@ -48,6 +49,7 @@ public class MyVideoPlayer extends JZVideoPlayerStandard {
     @Override
     public void init(Context context) {
         super.init(context);
+        //JZVideoPlayer.setMediaInterface(new JZMediaIjkplayer());
         startButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

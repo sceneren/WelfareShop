@@ -69,7 +69,7 @@ public class WelfareGalleryPreviewImageAdapter extends PagerAdapter {
                 .placeholder(R.drawable.ic_default_image)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(photoView);
-        noOpenLayout.setVisibility((!payed && position >= 8) ? View.VISIBLE : View.GONE);
+        noOpenLayout.setVisibility((!payed && position >= 6) ? View.VISIBLE : View.GONE);
         container.addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         return view;
 
