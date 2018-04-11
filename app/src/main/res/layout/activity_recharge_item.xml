@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
@@ -13,13 +14,13 @@
 
     <TextView
         android:id="@+id/price"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
-        android:text="38积分"
         android:textColor="@color/title_text_color"
-        android:textSize="@dimen/sp_14" />
+        android:textSize="@dimen/sp_14"
+        tools:text="3208积分" />
 
     <TextView
         android:id="@+id/send_price"
@@ -27,14 +28,29 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
-        android:layout_weight="1"
         android:text="赠38积分"
         android:textColor="@color/des_text_color"
-        android:textSize="@dimen/sp_14" />
+        android:textSize="@dimen/sp_14"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/money"
-        android:layout_width="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="￥38"
+        android:textColor="@color/theme_color"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/to_pay"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/btn_recharge_price"
         android:gravity="center"
@@ -42,7 +58,7 @@
         android:paddingLeft="@dimen/dp_10"
         android:paddingRight="@dimen/dp_10"
         android:paddingTop="3dp"
-        android:text="￥38"
+        android:text="立即支付"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_12" />
 </LinearLayout>

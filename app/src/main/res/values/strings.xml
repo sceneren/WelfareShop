@@ -4,12 +4,12 @@
     <!--Tab-->
     <string name="tab_welfare">福利</string>
     <string name="tab_limit">限制级</string>
-    <string name="tab_shop">性趣商城</string>
+    <string name="tab_shop">情欲商城</string>
     <string name="tab_encyc">性趣百科</string>
     <string name="tab_mine">我的</string>
     <string name="tab_indiana">积分夺宝</string>
     <string name="tab_red">全民红包</string>
-    <string name="tab_friend">交友</string>
+    <string name="tab_friend">1对1视频</string>
 
     <!--重启-->
     <string name="recovery_dialog_tips">提示</string>

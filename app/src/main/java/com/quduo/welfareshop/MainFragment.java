@@ -116,6 +116,7 @@ public class MainFragment extends SupportFragment {
     private ObjectAnimator animatorEnd;
 
     private void showStartMoveImage() {
+
         _mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -216,7 +217,7 @@ public class MainFragment extends SupportFragment {
                 .load(R.drawable.ic_move_car)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(image);
-        startMoveImageThread();
+        //startMoveImageThread();
 
         bottomBar
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_welfare_d, R.drawable.ic_tab_welfare_s, tabNames.get(FIRST)))

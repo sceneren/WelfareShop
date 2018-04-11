@@ -67,7 +67,7 @@ public class RechargeAdapter extends BaseAdapter {
         RechargeTypeInfo info = list.get(position);
         holder.price.setText(MessageFormat.format("{0}积分", info.getScore()));
         holder.sendPrice.setText(MessageFormat.format("赠{0}积分", info.getGift()));
-        holder.sendPrice.setVisibility(info.getGift() == 0 ? View.INVISIBLE : View.VISIBLE);
+        holder.sendPrice.setVisibility(info.getGift() == 0 ? View.GONE : View.VISIBLE);
         holder.money.setText(MessageFormat.format("￥{0}", info.getMoney()));
         holder.money.setOnClickListener(new View.OnClickListener() {
             @Override
