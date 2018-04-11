@@ -263,7 +263,4 @@ dependencies {
     implementation 'com.github.ctiao:DanmakuFlameMaster:0.9.25'
     //评星条
     implementation 'com.github.ornolfr:rating-view:0.1.2@aar'
-
-    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
-    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
 }

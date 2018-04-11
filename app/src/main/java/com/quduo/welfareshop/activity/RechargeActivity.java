@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -124,12 +125,18 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     private void initListView() {
         adapter = new RechargeAdapter(RechargeActivity.this, list);
         listView.setAdapter(adapter);
-        adapter.setOnClickRechargeListener(new RechargeAdapter.OnClickRechargeListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClickRecharge(int position) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 presenter.recharge(list.get(position).getType(), payType, fromPosition);
             }
         });
+//        adapter.setOnClickRechargeListener(new RechargeAdapter.OnClickRechargeListener() {
+//            @Override
+//            public void onClickRecharge(int position) {
+//                presenter.recharge(list.get(position).getType(), payType, fromPosition);
+//            }
+//        });
     }
 
     @Override
