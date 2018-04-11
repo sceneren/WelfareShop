@@ -18,7 +18,7 @@ public class RedHistoryAdapter extends BaseQuickAdapter<RedHistoryDetailInfo, Ba
 
     @Override
     protected void convert(BaseViewHolder helper, RedHistoryDetailInfo item) {
-        DateTime dateTime = new DateTime(item.getCreate_time() * 1000);
+        DateTime dateTime = new DateTime(item.getOpen_time() * 1000);
         helper.setText(R.id.time, dateTime.toString("yyyy-MM-dd"));
         helper.setText(R.id.money, item.getBonus() + "元");
     }

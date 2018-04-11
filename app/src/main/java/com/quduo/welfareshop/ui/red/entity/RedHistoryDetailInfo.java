@@ -11,6 +11,7 @@ import com.quduo.welfareshop.base.BaseBean;
 public class RedHistoryDetailInfo extends BaseBean{
     private long create_time;
     private String bonus;
+    private long open_time;
 
     public long getCreate_time() {
         return create_time;
@@ -26,5 +27,13 @@ public class RedHistoryDetailInfo extends BaseBean{
 
     public void setBonus(String bonus) {
         this.bonus = bonus;
+    }
+
+    public long getOpen_time() {
+        return open_time;
+    }
+
+    public void setOpen_time(long open_time) {
+        this.open_time = open_time;
     }
 }

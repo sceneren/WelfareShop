@@ -377,7 +377,7 @@ public class OrderDetailActivity extends BaseMvpActivity<IOrderDetailView, Order
                     couponInfo.setVisibility(View.GONE);
                 } else {
                     couponInfo.setVisibility(View.VISIBLE);
-                    couponInfo.setText(MessageFormat.format("￥{0}", orderDetailInfo.getCoupon_money()));
+                    couponInfo.setText(MessageFormat.format("(代金券已抵扣{0}元)", orderDetailInfo.getCoupon_money()));
                 }
             } else if (orderDetailInfo.getStatus() == 2) {
                 statusText.setText("买家已付款等待卖家发货");
