@@ -79,7 +79,7 @@
             android:paddingLeft="@dimen/dp_10"
             android:paddingRight="@dimen/dp_10"
             android:paddingTop="2dp"
-            android:text="+关注"
+            android:text="1V1视频"
             android:textColor="@color/white"
             android:textSize="12sp" />
     </LinearLayout>

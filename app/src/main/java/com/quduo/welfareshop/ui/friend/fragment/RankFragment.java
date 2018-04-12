@@ -88,6 +88,7 @@ public class RankFragment extends BaseMvpFragment<IRankView, RankPresenter> impl
                     retryTime += 1;
                     if (retryTime > 3) {
                         showMessage("无法获取到定位信息，请到设置中开启定位权限");
+                        showErrorPage();
                     } else {
                         initView();
                     }
@@ -117,18 +118,6 @@ public class RankFragment extends BaseMvpFragment<IRankView, RankPresenter> impl
         recyclerView.addItemDecoration(new SpacesItemDecoration(SizeUtils.dp2px(10), true, false));
         adapter = new RankAdapter(getContext(), list);
         recyclerView.setAdapter(adapter);
-        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.follow) {
-                    if (list.get(position).getSubscribe_id() == 0) {
-                        presenter.followUser(position, list.get(position).getId());
-                    } else {
-                        presenter.cancelFollowUser(position, list.get(position).getSubscribe_id());
-                    }
-                }
-            }
-        });
 
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override

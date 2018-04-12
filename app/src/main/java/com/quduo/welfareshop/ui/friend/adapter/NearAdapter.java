@@ -16,7 +16,6 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.friend.entity.OtherSimpleUserInfo;
-import com.quduo.welfareshop.util.DistanceUtil;
 
 import java.util.List;
 
@@ -42,7 +41,6 @@ public class NearAdapter extends BaseQuickAdapter<OtherSimpleUserInfo, BaseViewH
         helper.setImageResource(R.id.sex, item.getSex() == 1 ? R.drawable.ic_male : R.drawable.ic_female);
         helper.setText(R.id.age, item.getAge() + "岁");
         helper.setText(R.id.name, item.getNickname());
-        helper.setText(R.id.distance, DistanceUtil.formatDistance(item.getDistance()));
         helper.setText(R.id.des, item.getSignature());
         helper.setGone(R.id.des, !StringUtils.isTrimEmpty(item.getSignature()));
         ImageView image = helper.getView(R.id.image);

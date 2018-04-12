@@ -1,7 +1,6 @@
 package com.quduo.welfareshop.ui.friend.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -16,12 +15,14 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
-import com.quduo.welfareshop.activity.PreviewImageActivity;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.ui.friend.entity.OtherSimpleUserInfo;
+import com.quduo.welfareshop.ui.friend.fragment.OtherInfoFragment;
 import com.quduo.welfareshop.widgets.CustomGridView;
 
-import java.util.ArrayList;
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
@@ -59,24 +60,15 @@ public class RankAdapter extends BaseQuickAdapter<OtherSimpleUserInfo, BaseViewH
         helper.setText(R.id.follow_number, item.getSubscribe() + "人关注");
         helper.setText(R.id.des, item.getSignature());
         helper.setGone(R.id.des, !StringUtils.isTrimEmpty(item.getSignature()));
-        final ArrayList<String> images = new ArrayList<>();
-        for (String str : item.getPhoto()) {
-            images.add(MyApplication.getInstance().getConfigInfo().getFile_domain() + str);
-        }
 
         RankImageGridAdapter gridAdapter = new RankImageGridAdapter(context, item.getPhoto());
         imageGridView.setAdapter(gridAdapter);
         imageGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(context, PreviewImageActivity.class);
-                intent.putExtra(PreviewImageActivity.ARG_URLS, images);
-                intent.putExtra(PreviewImageActivity.ARG_POSITION, position);
-                context.startActivity(intent);
+                EventBus.getDefault().post(new StartBrotherEvent(OtherInfoFragment.newInstance(String.valueOf(item.getId()), false)));
             }
         });
-        helper.setText(R.id.follow, item.getSubscribe_id() == 0 ? "+关注" : "已关注");
-        helper.addOnClickListener(R.id.follow);
     }
 
 }
