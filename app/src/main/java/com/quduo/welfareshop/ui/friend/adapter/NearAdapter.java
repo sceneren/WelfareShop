@@ -40,7 +40,7 @@ public class NearAdapter extends BaseQuickAdapter<OtherSimpleUserInfo, BaseViewH
     @Override
     protected void convert(BaseViewHolder helper, OtherSimpleUserInfo item) {
         helper.setImageResource(R.id.sex, item.getSex() == 1 ? R.drawable.ic_male : R.drawable.ic_female);
-        helper.setText(R.id.age, item.getSex() + "岁");
+        helper.setText(R.id.age, item.getAge() + "岁");
         helper.setText(R.id.name, item.getNickname());
         helper.setText(R.id.distance, DistanceUtil.formatDistance(item.getDistance()));
         helper.setText(R.id.des, item.getSignature());
