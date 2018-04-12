@@ -33,7 +33,7 @@ public class GoodsDetailInfo extends BaseBean {
      * status : 1
      * hot_thumb : /img/2018/03/4f0f474304a959e6c4d8a0e9116d61f1.jpeg
      */
-
+    private String sub_title;
     private int id;
     private String name;
     private int cate_id;
@@ -222,5 +222,13 @@ public class GoodsDetailInfo extends BaseBean {
 
     public void setFavor_id(int favor_id) {
         this.favor_id = favor_id;
+    }
+
+    public String getSub_title() {
+        return sub_title;
+    }
+
+    public void setSub_title(String sub_title) {
+        this.sub_title = sub_title;
     }
 }

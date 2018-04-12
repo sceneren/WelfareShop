@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SpanUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
@@ -103,6 +104,8 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
     TextView notice;
     @BindView(R.id.container)
     PageContainer pageContainer;
+    @BindView(R.id.sub_title)
+    TextView subTitle;
 
     private List<GoodsCommentInfo> commentList = new ArrayList<>();
     private GoodsDetailCommentAdapter commentAdapter;
@@ -324,6 +327,8 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
             bindBanner(data.getData().getImages());
             bindCommentLisView(data.getComments());
 
+            subTitle.setText(detailInfo.getSub_title());
+            subTitle.setVisibility(StringUtils.isTrimEmpty(detailInfo.getSub_title()) ? View.GONE : View.VISIBLE);
             goodsName.setText(detailInfo.getName());
             goodsPrice.setText(MessageFormat.format("￥{0}", detailInfo.getPrice()));
             tabGoodsPrice.setText(MessageFormat.format("￥{0}", detailInfo.getPrice()));
@@ -381,11 +386,6 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
 
     @Override
     public void refreshFinish() {
-        try {
-//            refreshLayout.finishRefresh();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
