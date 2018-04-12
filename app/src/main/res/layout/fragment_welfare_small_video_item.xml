@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -25,6 +26,26 @@
             android:layout_alignLeft="@+id/baseimage"
             android:layout_alignRight="@+id/baseimage"
             android:layout_alignTop="@+id/baseimage" />
+
+        <TextView
+            android:id="@+id/text_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/bg_tag"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            tools:text="超爽笔录" />
+
+        <ImageView
+            android:id="@+id/image_tag"
+            android:layout_width="56dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <LinearLayout
@@ -33,8 +54,8 @@
         android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingRight="@dimen/dp_10"
-        android:paddingLeft="@dimen/dp_10">
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10">
 
         <TextView
             android:id="@+id/play_number"

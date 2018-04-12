@@ -41,6 +41,7 @@ public class VideoInfo implements Serializable {
     private int cate_id;
     private int price;
     private boolean payed;
+    private String tag_img;
 
     public int getCate_id() {
         return cate_id;
@@ -176,5 +177,13 @@ public class VideoInfo implements Serializable {
 
     public void setPayed(boolean payed) {
         this.payed = payed;
+    }
+
+    public String getTag_img() {
+        return tag_img;
+    }
+
+    public void setTag_img(String tag_img) {
+        this.tag_img = tag_img;
     }
 }

@@ -2,8 +2,11 @@ package com.quduo.welfareshop.ui.welfare.adapter;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.request.RequestOptions;
@@ -65,19 +68,29 @@ public class SmallVideoAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolde
         helper.setImageResource(R.id.btn_follow, item.getFavor_id() != 0 ? R.drawable.ic_video_follow_s : R.drawable.ic_video_follow_d);
         helper.addOnClickListener(R.id.btn_zan);
         helper.addOnClickListener(R.id.btn_follow);
+        ImageView imageTag = helper.getView(R.id.image_tag);
+        //显示图片标签
+        if (StringUtils.isTrimEmpty(item.getTags()) || item.getTags().equals("null")) {
+            helper.setGone(R.id.text_tag, false);
+            helper.setGone(R.id.image_tag, true);
+            GlideApp.with(context)
+                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getTag_img())
+                    .into(imageTag);
+        } else {
+            helper.setGone(R.id.text_tag, true);
+            helper.setGone(R.id.image_tag, false);
+            helper.setText(R.id.text_tag, item.getTags());
+        }
+
     }
 
 
     @Override
-    public void onBindViewHolder(BaseViewHolder holder, int position, List<Object> payloads) {
+    public void onBindViewHolder(@NonNull BaseViewHolder holder, int position, @NonNull List<Object> payloads) {
         super.onBindViewHolder(holder, position, payloads);
-        if (payloads != null) {
-            VideoInfo item = mData.get(position);
-            holder.setImageResource(R.id.btn_zan, item.isIs_good() ? R.drawable.ic_video_zan_s : R.drawable.ic_video_zan_d);
-            holder.setImageResource(R.id.btn_follow, item.getFavor_id() != 0 ? R.drawable.ic_video_follow_s : R.drawable.ic_video_follow_d);
-        } else {
-            onBindViewHolder(holder, position);
-        }
+        VideoInfo item = mData.get(position);
+        holder.setImageResource(R.id.btn_zan, item.isIs_good() ? R.drawable.ic_video_zan_s : R.drawable.ic_video_zan_d);
+        holder.setImageResource(R.id.btn_follow, item.getFavor_id() != 0 ? R.drawable.ic_video_follow_s : R.drawable.ic_video_follow_d);
     }
 
     public interface OnClickPlayListener {
