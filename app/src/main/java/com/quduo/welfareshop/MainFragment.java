@@ -40,7 +40,7 @@ import me.yokeyword.fragmentation.SupportFragment;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
 
 /**
- * 主Fragment
+ * 主Fragment 新建分支
  * Created by scene on 2018/1/25.
  */
 
