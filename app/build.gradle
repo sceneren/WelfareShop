@@ -263,4 +263,5 @@ dependencies {
     implementation 'com.github.ctiao:DanmakuFlameMaster:0.9.25'
     //评星条
     implementation 'com.github.ornolfr:rating-view:0.1.2@aar'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 }
