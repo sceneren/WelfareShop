@@ -82,6 +82,7 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     private GalleryDetailResultInfo resultInfo;
 
     private boolean canPlaySound = false;
+    private int playSoundTime = 0;
 
     public static GalleryDetailFragment newInstance(int id, String title) {
         Bundle args = new Bundle();
@@ -207,8 +208,9 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 canPlaySound = newState == RecyclerView.SCROLL_STATE_DRAGGING;
-                if (canPlaySound) {
+                if (canPlaySound && playSoundTime < 8) {
                     PlaySoundUtil.getInstance().playSoundByMedia(R.raw.image_sound);
+                    playSoundTime += 1;
                 }
             }
         });

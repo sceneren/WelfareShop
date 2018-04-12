@@ -80,6 +80,9 @@
             android:paddingRight="@dimen/dp_10"
             android:paddingTop="2dp"
             android:text="1V1视频"
+            android:drawablePadding="3dp"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/ic_can_video_chat"
             android:textColor="@color/white"
             android:textSize="12sp" />
     </LinearLayout>
