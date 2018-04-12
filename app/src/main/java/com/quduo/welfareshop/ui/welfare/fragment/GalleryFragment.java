@@ -35,6 +35,7 @@ import com.quduo.welfareshop.ui.welfare.entity.WelfareGalleryInfo;
 import com.quduo.welfareshop.ui.welfare.presenter.GalleryPresenter;
 import com.quduo.welfareshop.ui.welfare.view.IGalleryView;
 import com.quduo.welfareshop.util.BannerImageLoader;
+import com.quduo.welfareshop.util.PlaySoundUtil;
 import com.quduo.welfareshop.widgets.CustomGridView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -77,6 +78,8 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
     private List<WelfareGalleryInfo> galleryList;
     private GalleryAdapter adapter;
     private int currentPage = 1;
+
+    private boolean canPlaySound = false;
 
     public static GalleryFragment newInstance() {
         Bundle args = new Bundle();
@@ -143,6 +146,17 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
                     }
                 }
 
+            }
+        });
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                canPlaySound = newState == RecyclerView.SCROLL_STATE_DRAGGING;
+                if (canPlaySound) {
+                    PlaySoundUtil.getInstance().playSoundByMedia(R.raw.image_sound);
+                }
             }
         });
     }

@@ -33,6 +33,7 @@ import com.quduo.welfareshop.ui.welfare.entity.ImageDetailInfo;
 import com.quduo.welfareshop.ui.welfare.presenter.GalleryDetailPresenter;
 import com.quduo.welfareshop.ui.welfare.view.IGalleryDetailView;
 import com.quduo.welfareshop.util.DialogUtils;
+import com.quduo.welfareshop.util.PlaySoundUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -79,6 +80,8 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     private final static String ARG_TITLE = "title";
 
     private GalleryDetailResultInfo resultInfo;
+
+    private boolean canPlaySound = false;
 
     public static GalleryDetailFragment newInstance(int id, String title) {
         Bundle args = new Bundle();
@@ -196,6 +199,17 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
                     _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
                 }
 
+            }
+        });
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                canPlaySound = newState == RecyclerView.SCROLL_STATE_DRAGGING;
+                if (canPlaySound) {
+                    PlaySoundUtil.getInstance().playSoundByMedia(R.raw.image_sound);
+                }
             }
         });
     }
