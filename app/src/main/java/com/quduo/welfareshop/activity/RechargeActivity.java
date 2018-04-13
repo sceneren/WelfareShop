@@ -128,13 +128,21 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                presenter.recharge(list.get(position).getType(), payType, fromPosition);
+                if (layoutTypeWechat.getVisibility() == View.GONE && layoutTypeAlipay.getVisibility() == View.GONE) {
+                    alert("暂时无法支付，工程师正在积极抢修中...");
+                } else {
+                    presenter.recharge(list.get(position).getType(), payType, fromPosition);
+                }
             }
         });
         adapter.setOnClickRechargeListener(new RechargeAdapter.OnClickRechargeListener() {
             @Override
             public void onClickRecharge(int position) {
-                presenter.recharge(list.get(position).getType(), payType, fromPosition);
+                if (layoutTypeWechat.getVisibility() == View.GONE && layoutTypeAlipay.getVisibility() == View.GONE) {
+                    alert("暂时无法支付，工程师正在积极抢修中...");
+                } else {
+                    presenter.recharge(list.get(position).getType(), payType, fromPosition);
+                }
             }
         });
     }
