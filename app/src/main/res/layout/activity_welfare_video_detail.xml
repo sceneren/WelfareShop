@@ -246,6 +246,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="@dimen/dp_10"
+                        android:visibility="gone"
                         android:background="#EEEEEE" />
 
                     <TextView
@@ -253,6 +254,7 @@
                         android:layout_height="wrap_content"
                         android:paddingBottom="@dimen/dp_10"
                         android:paddingLeft="15dp"
+                        android:visibility="gone"
                         android:paddingRight="15dp"
                         android:paddingTop="@dimen/dp_10"
                         android:text="用户评论"
@@ -264,6 +266,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:paddingBottom="@dimen/dp_10"
+                        android:visibility="gone"
                         android:paddingLeft="@dimen/dp_10"
                         android:paddingRight="@dimen/dp_10">
 
@@ -310,6 +313,7 @@
                         android:id="@+id/commentListView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:visibility="gone"
                         android:divider="#EEEEEE"
                         android:dividerHeight="1dp"
                         android:listSelector="@color/transparent1" />
