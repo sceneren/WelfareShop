@@ -77,6 +77,8 @@ public class RechargeAdapter extends BaseAdapter {
                 }
             }
         });
+        holder.experience.setVisibility(info.getScore()<10?View.VISIBLE:View.GONE);
+
         return convertView;
     }
 
@@ -87,6 +89,8 @@ public class RechargeAdapter extends BaseAdapter {
         TextView sendPrice;
         @BindView(R.id.money)
         TextView money;
+        @BindView(R.id.experience)
+        TextView experience;
 
         RechargeViewHolder(View view) {
             ButterKnife.bind(this, view);

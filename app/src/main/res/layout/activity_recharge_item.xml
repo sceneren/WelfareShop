@@ -43,6 +43,15 @@
         android:textSize="15sp"
         android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/experience"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="体验充值"
+        android:textColor="@color/title_text_color"
+        android:textSize="10sp" />
+
     <View
         android:layout_width="0dp"
         android:layout_height="1dp"

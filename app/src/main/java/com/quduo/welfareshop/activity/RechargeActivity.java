@@ -305,6 +305,7 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 40001) {
             presenter.checkPayResult(orderId);
+            presenter.getData();
         }
     }
 
