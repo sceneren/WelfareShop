@@ -4,6 +4,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.util.NetTimeUtils;
+import com.squareup.leakcanary.RefWatcher;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -32,4 +33,12 @@ public abstract class BaseMainFragment extends SupportFragment {
         return true;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (getActivity() != null) {
+            RefWatcher refWatcher = MyApplication.getRefWatcher(getActivity());
+            refWatcher.watch(this);
+        }
+    }
 }

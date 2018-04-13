@@ -113,6 +113,9 @@ android {
         debug {
             signingConfig signingConfigs.release
         }
+        release {
+            signingConfig signingConfigs.release
+        }
     }
     android.applicationVariants.all { variant ->
         variant.outputs.all { output ->
@@ -264,4 +267,7 @@ dependencies {
     //评星条
     implementation 'com.github.ornolfr:rating-view:0.1.2@aar'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    //内存泄漏
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 }

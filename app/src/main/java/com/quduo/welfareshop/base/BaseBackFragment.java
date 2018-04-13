@@ -6,7 +6,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 
+import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.squareup.leakcanary.RefWatcher;
 
 import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
 
@@ -40,5 +42,14 @@ public class BaseBackFragment extends SwipeBackFragment {
                 _mActivity.onBackPressed();
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (getActivity() != null) {
+            RefWatcher refWatcher = MyApplication.getRefWatcher(getActivity());
+            refWatcher.watch(this);
+        }
     }
 }

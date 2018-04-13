@@ -44,6 +44,8 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.commonsdk.UMConfigure;
 
@@ -79,6 +81,8 @@ public class MyApplication extends LitePalApplication {
     //当前位置
     private double latitude = 0;
     private double longitude = 0;
+    //内存泄漏监听器
+    private RefWatcher refWatcher;
 
     static {
         //设置全局的Header构建器
@@ -107,9 +111,19 @@ public class MyApplication extends LitePalApplication {
         MultiDex.install(this);
     }
 
+    public static RefWatcher getRefWatcher(Context context) {
+        MyApplication application = (MyApplication) context.getApplicationContext();
+        return application.refWatcher;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
+
         instance = this;
 
         //初始化异常管理工具
@@ -151,6 +165,7 @@ public class MyApplication extends LitePalApplication {
                 // TODO Auto-generated method stub
             }
         });
+        refWatcher = LeakCanary.install(this);
     }
 
     // 自定义图片加载器
