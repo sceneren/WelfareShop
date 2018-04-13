@@ -213,10 +213,10 @@ public class MainFragment extends SupportFragment {
     }
 
     private void initView() {
-        GlideApp.with(this)
-                .load(R.drawable.ic_move_car)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(image);
+//        GlideApp.with(this)
+////                .load(R.drawable.ic_move_car)
+////                .diskCacheStrategy(DiskCacheStrategy.ALL)
+////                .into(image);
         //startMoveImageThread();
 
         bottomBar
