@@ -42,6 +42,7 @@ import com.quduo.welfareshop.ui.welfare.presenter.NovelDetailPresenter;
 import com.quduo.welfareshop.ui.welfare.view.INovelDetailView;
 import com.quduo.welfareshop.util.DialogUtils;
 import com.quduo.welfareshop.util.ReaderUtil;
+import com.quduo.welfareshop.widgets.CustomListView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -92,6 +93,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
     private RatingView ratingView;
     private TextView score;
     private TextView des;
+    private CustomListView commentListView;
 
     private int novelId;
     private List<NovelChapterInfo> list;
@@ -207,6 +209,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
         ratingView = headerView.findViewById(R.id.ratingView);
         score = headerView.findViewById(R.id.score);
         des = headerView.findViewById(R.id.des);
+        commentListView = headerView.findViewById(R.id.commentListView);
         headerView.findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -261,7 +264,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
             if (resultInfo.getData().isPayed()) {
                 onClickRead();
             } else {
-                DialogUtils.getInstance().showNeedUnlockDialog(_mActivity, resultInfo.getData().getPrice(), MyApplication.getInstance().getUserInfo().getScore(),AppConfig.POSITION_NOVEL_DETAIL, new UnlockLisenter() {
+                DialogUtils.getInstance().showNeedUnlockDialog(_mActivity, resultInfo.getData().getPrice(), MyApplication.getInstance().getUserInfo().getScore(), AppConfig.POSITION_NOVEL_DETAIL, new UnlockLisenter() {
                     @Override
                     public void unlock() {
                         presenter.unlockNovel();
@@ -324,7 +327,7 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
     public void showMessage(String msg) {
         try {
             if (msg.equals("积分不足")) {
-                DialogUtils.getInstance().showNeedRechargeScoreDialog(_mActivity, resultInfo.getData().getPrice(), MyApplication.getInstance().getUserInfo().getScore(),AppConfig.POSITION_NOVEL_DETAIL);
+                DialogUtils.getInstance().showNeedRechargeScoreDialog(_mActivity, resultInfo.getData().getPrice(), MyApplication.getInstance().getUserInfo().getScore(), AppConfig.POSITION_NOVEL_DETAIL);
                 return;
             }
             ToastUtils.showShort(msg);

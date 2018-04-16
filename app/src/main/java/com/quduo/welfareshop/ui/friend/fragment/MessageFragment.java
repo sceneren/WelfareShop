@@ -15,7 +15,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.config.AppConfig;
+import com.quduo.welfareshop.event.UnreadEvent;
 import com.quduo.welfareshop.event.UpdateSessionEvent;
+import com.quduo.welfareshop.greendao.dao.MessageInfoDao;
 import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.friend.activity.ChatActivity;
@@ -98,6 +100,9 @@ public class MessageFragment extends BaseMvpFragment<IMessageView, MessagePresen
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (list.get(position).getOtherNickName().equals("系统消息")) {
+                    EventBus.getDefault().post(new UnreadEvent(0));
+                }
                 if (view.getId() == R.id.content_layout) {
                     Intent intent = new Intent(_mActivity, ChatActivity.class);
                     intent.putExtra("ID", list.get(position).getOtherUserId());
@@ -107,6 +112,12 @@ public class MessageFragment extends BaseMvpFragment<IMessageView, MessagePresen
                     intent.putExtra("OTHERAVATAR", list.get(position).getOtherAvatar());
                     startActivity(intent);
                     _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+                    if (list.get(position).getUnRead()==1) {
+                        ChatMessageInfo messageInfo = list.get(position);
+                        messageInfo.setUnRead(0);
+                        adapter.notifyItemChanged(position);
+                        MessageInfoDao.getInstance().updateUserData(messageInfo);
+                    }
                 } else if (view.getId() == R.id.delete) {
                     presenter.deleteSession(AppConfig.userId, list.get(position).getOtherUserId());
                     list.remove(position);

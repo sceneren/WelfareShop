@@ -65,5 +65,6 @@ public class MessageAdapter extends BaseQuickAdapter<ChatMessageInfo, BaseViewHo
         helper.setText(R.id.time, Time2StringUtils.millisDistanceCurrent(item.getTime()));
         helper.addOnClickListener(R.id.content_layout);
         helper.addOnClickListener(R.id.delete);
+        helper.setGone(R.id.unread_icon, item.getUnRead() == 1);
     }
 }

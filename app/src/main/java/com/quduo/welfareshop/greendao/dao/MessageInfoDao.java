@@ -177,11 +177,12 @@ public class MessageInfoDao {
     public List<ChatMessageInfo> queryMessageInfoByParams(String where, String... param) {
         return getChatMessageInfoDao().queryRaw(where, param);
     }
+
     /**
-    *Author:scene
-    *Time:2018/2/23 14:14
-    *Description:获取用户的所有的会话列表
-    */
+     * Author:scene
+     * Time:2018/2/23 14:14
+     * Description:获取用户的所有的会话列表
+     */
     public List<ChatMessageInfo> querySession(String userId) {
         //select * from CHAT_MESSAGE_INFO where USER_ID = '10001' group by OTHER_USER_ID  order by time desc
         return getChatMessageInfoDao().queryRaw("WHERE USER_ID = " + userId + " group by OTHER_USER_ID order by time desc ");
@@ -195,4 +196,10 @@ public class MessageInfoDao {
     public ChatMessageInfoDao getChatMessageInfoDao() {
         return daoManager.getDaoSession().getChatMessageInfoDao();
     }
+
+    public boolean hasUnReadMessage() {
+        boolean flag = getChatMessageInfoDao().queryRaw("WHERE UN_READ = 1").size() > 0;
+        return flag;
+    }
+
 }

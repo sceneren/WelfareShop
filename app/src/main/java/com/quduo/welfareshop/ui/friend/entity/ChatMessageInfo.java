@@ -24,10 +24,11 @@ public class ChatMessageInfo {
     private String messageContent;
     private long time;
     private float audioTime;
-    @Generated(hash = 1653669665)
+    private int unRead;
+    @Generated(hash = 334414070)
     public ChatMessageInfo(Long id, String userId, String otherUserId,
             String otherNickName, String otherAvatar, int messageType,
-            String messageContent, long time, float audioTime) {
+            String messageContent, long time, float audioTime, int unRead) {
         this.id = id;
         this.userId = userId;
         this.otherUserId = otherUserId;
@@ -37,6 +38,7 @@ public class ChatMessageInfo {
         this.messageContent = messageContent;
         this.time = time;
         this.audioTime = audioTime;
+        this.unRead = unRead;
     }
     @Generated(hash = 1650910347)
     public ChatMessageInfo() {
@@ -46,6 +48,12 @@ public class ChatMessageInfo {
     }
     public void setId(Long id) {
         this.id = id;
+    }
+    public String getUserId() {
+        return this.userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
     public String getOtherUserId() {
         return this.otherUserId;
@@ -89,11 +97,11 @@ public class ChatMessageInfo {
     public void setAudioTime(float audioTime) {
         this.audioTime = audioTime;
     }
-    public String getUserId() {
-        return this.userId;
+    public int getUnRead() {
+        return this.unRead;
     }
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUnRead(int unRead) {
+        this.unRead = unRead;
     }
    
 }

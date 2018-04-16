@@ -13,10 +13,14 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.quduo.welfareshop.base.GlideApp;
+import com.blankj.utilcode.util.SPUtils;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.event.TabSelectedEvent;
+import com.quduo.welfareshop.event.UnreadEvent;
+import com.quduo.welfareshop.event.UpdateSessionEvent;
+import com.quduo.welfareshop.greendao.dao.MessageInfoDao;
+import com.quduo.welfareshop.ui.friend.entity.ChatMessageInfo;
 import com.quduo.welfareshop.ui.friend.fragment.FriendFragment;
 import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
 import com.quduo.welfareshop.ui.red.fragment.RedFragment;
@@ -27,6 +31,7 @@ import com.quduo.welfareshop.widgets.bottombar.BottomBarTab;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.joda.time.Instant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -254,6 +259,7 @@ public class MainFragment extends SupportFragment {
 
             }
         });
+        setUnReadCount();
     }
 
     @Subscribe
@@ -264,6 +270,15 @@ public class MainFragment extends SupportFragment {
     @Subscribe
     public void toIndexPage(TabSelectedEvent event) {
         bottomBar.setCurrentItem(event.position);
+    }
+
+    @Subscribe
+    public void setUnReadCount(UnreadEvent event) {
+        try {
+            bottomBar.getItem(1).setUnreadCount(event.getCount());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -291,5 +306,34 @@ public class MainFragment extends SupportFragment {
         JZVideoPlayer.releaseAllVideos();
         JZVideoPlayer.FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_SENSOR;
         JZVideoPlayer.NORMAL_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+    }
+
+    private void setUnReadCount() {
+        try {
+            boolean isFirst = SPUtils.getInstance().getBoolean("isFirst", true);
+            if (isFirst) {
+                //保存一条系统数据
+                ChatMessageInfo chatMessageInfo = new ChatMessageInfo();
+                chatMessageInfo.setUserId(AppConfig.userId);
+                chatMessageInfo.setOtherUserId("-1");
+                chatMessageInfo.setOtherNickName("系统消息");
+                chatMessageInfo.setOtherAvatar("");
+                chatMessageInfo.setMessageType(0);
+                chatMessageInfo.setMessageContent("您有一条新消息");
+                chatMessageInfo.setUnRead(1);
+                Instant instant = new Instant();
+                chatMessageInfo.setTime(instant.getMillis());
+                chatMessageInfo.setAudioTime(0);
+                MessageInfoDao.getInstance().insertUserData(chatMessageInfo);
+                EventBus.getDefault().post(new UpdateSessionEvent());
+                SPUtils.getInstance().put("isFirst", false);
+            }
+            if (MessageInfoDao.getInstance().hasUnReadMessage()) {
+                bottomBar.getItem(1).setUnreadCount(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
