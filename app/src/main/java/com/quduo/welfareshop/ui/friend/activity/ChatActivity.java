@@ -23,7 +23,6 @@ import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.FollowEvent;
-import com.quduo.welfareshop.greendao.gen.ChatMessageInfoDao;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.friend.adapter.ChatAdapter;
 import com.quduo.welfareshop.ui.friend.audio.AudioRecordButton;
