@@ -237,6 +237,7 @@ dependencies {
 
     //greenDao数据库
     implementation 'org.greenrobot:greendao:3.2.2'
+    implementation 'com.github.yuweiguocn:GreenDaoUpgradeHelper:v2.0.2'
 
     //自定义聊天底部
     implementation project(':emoticonkeyboard')

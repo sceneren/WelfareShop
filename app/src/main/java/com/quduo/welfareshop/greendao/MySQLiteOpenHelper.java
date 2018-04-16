@@ -4,8 +4,12 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.github.yuweiguocn.library.greendao.MigrationHelper;
 import com.quduo.welfareshop.greendao.gen.ChatMessageInfoDao;
 import com.quduo.welfareshop.greendao.gen.DaoMaster;
+import com.quduo.welfareshop.ui.friend.entity.ChatMessageInfo;
+
+import org.greenrobot.greendao.database.Database;
 
 public class MySQLiteOpenHelper extends DaoMaster.OpenHelper {
     public MySQLiteOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory) {
@@ -19,18 +23,16 @@ public class MySQLiteOpenHelper extends DaoMaster.OpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         super.onUpgrade(db, oldVersion, newVersion);
-        //----------------------------使用sql实现升级逻辑
-        if (oldVersion == newVersion) {
-            LogUtils.e("数据库是最新版本,无需升级");
-            return;
-        }
-        LogUtils.e("数据库从版本" + oldVersion + "升级到版本" + newVersion);
-        switch (oldVersion) {
-            case 1:
-                MigrationHelper.migrate(db, ChatMessageInfoDao.class);
-            case 2:
-            default:
-                break;
-        }
+        MigrationHelper.migrate(db, new MigrationHelper.ReCreateAllTableListener() {
+            @Override
+            public void onCreateAllTables(Database db, boolean ifNotExists) {
+                DaoMaster.createAllTables(db, ifNotExists);
+            }
+
+            @Override
+            public void onDropAllTables(Database db, boolean ifExists) {
+                DaoMaster.dropAllTables(db, ifExists);
+            }
+        },ChatMessageInfoDao.class);
     }
 }
