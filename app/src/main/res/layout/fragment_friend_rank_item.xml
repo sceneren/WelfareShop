@@ -98,12 +98,6 @@
         android:textSize="10sp"
         tools:text="这是简介" />
 
-    <com.w4lle.library.NineGridlayout
-        android:id="@+id/image_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10" />
-
     <com.quduo.welfareshop.widgets.CustomGridView
         android:id="@+id/imageGridView"
         android:layout_width="match_parent"

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.quduo.welfareshop.MyApplication;
@@ -59,12 +60,15 @@ public class RankImageGridAdapter extends BaseAdapter {
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.image);
+        holder.playIcon.setVisibility(position == 1 ? View.VISIBLE : View.GONE);
         return convertView;
     }
 
     static class RankImageViewHolder {
         @BindView(R.id.image)
         RatioImageView image;
+        @BindView(R.id.play_icon)
+        ImageView playIcon;
 
         RankImageViewHolder(View view) {
             ButterKnife.bind(this, view);

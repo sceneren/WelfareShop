@@ -203,17 +203,17 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
             }
         });
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                canPlaySound = newState == RecyclerView.SCROLL_STATE_DRAGGING;
-                if (canPlaySound && playSoundTime < 8) {
-                    PlaySoundUtil.getInstance().playSoundByMedia(R.raw.image_sound);
-                    playSoundTime += 1;
-                }
-            }
-        });
+//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//                canPlaySound = newState == RecyclerView.SCROLL_STATE_DRAGGING;
+//                if (canPlaySound && playSoundTime < 8) {
+//                    PlaySoundUtil.getInstance().playSoundByMedia(R.raw.image_sound);
+//                    playSoundTime += 1;
+//                }
+//            }
+//        });
     }
 
     @Override
