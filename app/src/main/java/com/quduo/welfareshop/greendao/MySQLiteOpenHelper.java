@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.quduo.welfareshop.greendao.gen.ChatMessageInfoDao;
 import com.quduo.welfareshop.greendao.gen.DaoMaster;
 
 public class MySQLiteOpenHelper extends DaoMaster.OpenHelper {
@@ -26,7 +27,7 @@ public class MySQLiteOpenHelper extends DaoMaster.OpenHelper {
         LogUtils.e("数据库从版本" + oldVersion + "升级到版本" + newVersion);
         switch (oldVersion) {
             case 1:
-
+                MigrationHelper.migrate(db, ChatMessageInfoDao.class);
             case 2:
             default:
                 break;

@@ -11,17 +11,22 @@ import java.util.List;
 public class MessageInfoDao {
 
     private final GreenDaoManager daoManager;
-    private static MessageInfoDao mUserDao;
-
-    public MessageInfoDao() {
-        daoManager = GreenDaoManager.getInstance();
-    }
+    private static volatile MessageInfoDao mUserDao = null;
 
     public static MessageInfoDao getInstance() {
         if (mUserDao == null) {
-            mUserDao = new MessageInfoDao();
+            synchronized (MessageInfoDao.class) {
+                if (mUserDao == null) {
+                    mUserDao = new MessageInfoDao();
+                }
+            }
         }
         return mUserDao;
+    }
+
+
+    public MessageInfoDao() {
+        daoManager = GreenDaoManager.getInstance();
     }
 
     /**
