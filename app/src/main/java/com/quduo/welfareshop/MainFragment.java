@@ -321,6 +321,7 @@ public class MainFragment extends SupportFragment {
                 chatMessageInfo.setMessageType(0);
                 chatMessageInfo.setMessageContent(MyApplication.getInstance().getConfigInfo().getPush_message());
                 chatMessageInfo.setUnRead(1);
+                chatMessageInfo.setIsOthersSend(1);
                 Instant instant = new Instant();
                 chatMessageInfo.setTime(instant.getMillis());
                 chatMessageInfo.setAudioTime(0);

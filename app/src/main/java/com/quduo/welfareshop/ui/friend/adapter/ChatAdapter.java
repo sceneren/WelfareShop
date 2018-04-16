@@ -47,6 +47,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int TYPE_TEXT = 0;
     private final int TYPE_IMAGE = 1;
     private final int TYPE_AUDIO = 2;
+    private final int TYPE_TEXT_OTHER = 3;
 
     private Context context;
     private List<ChatMessageInfo> list;
@@ -61,6 +62,8 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
+            case TYPE_TEXT_OTHER:
+                return new OtherTextViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_chat_other_send_text_item, parent, false));
             case TYPE_TEXT:
                 return new TextViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_chat_send_text_item, parent, false));
             case TYPE_IMAGE:
@@ -74,7 +77,29 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         final ChatMessageInfo chatMessageInfo = list.get(position);
-        if (getItemViewType(position) == TYPE_TEXT) {
+        if (getItemViewType(position) == TYPE_TEXT_OTHER) {
+            if (holder != null && holder instanceof OtherTextViewHolder) {
+                OtherTextViewHolder textViewHolder = (OtherTextViewHolder) holder;
+                QqUtils.spannableEmoticonFilter(textViewHolder.content, chatMessageInfo.getMessageContent());
+                MultiTransformation multi = new MultiTransformation(
+                        new CenterCrop(),
+                        new CircleCrop());
+
+              textViewHolder.othersAvatar.setImageResource(R.drawable.ic_default_avatar);
+                if (position == 0) {
+                    textViewHolder.time.setVisibility(View.VISIBLE);
+                } else {
+                    //2条消息间隔5分钟才显示时间戳
+                    if (Math.abs(list.get(position - 1).getTime() - chatMessageInfo.getTime()) > 120000) {
+                        textViewHolder.time.setVisibility(View.VISIBLE);
+                    } else {
+                        textViewHolder.time.setVisibility(View.GONE);
+                    }
+                }
+                DateTime dateTime = new DateTime(chatMessageInfo.getTime());
+                textViewHolder.time.setText(dateTime.toString("yyyy-MM-dd HH:mm"));
+            }
+        } else if (getItemViewType(position) == TYPE_TEXT) {
             if (holder != null && holder instanceof TextViewHolder) {
                 TextViewHolder textViewHolder = (TextViewHolder) holder;
                 QqUtils.spannableEmoticonFilter(textViewHolder.content, chatMessageInfo.getMessageContent());
@@ -224,7 +249,8 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return list.get(position).getMessageType();
+
+        return list.get(position).getIsOthersSend() == 1 ? TYPE_TEXT_OTHER : list.get(position).getMessageType();
     }
 
     public void stopPlayVoice() {
@@ -284,4 +310,17 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
+    static class OtherTextViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.time)
+        TextView time;
+        @BindView(R.id.others_avatar)
+        ImageView othersAvatar;
+        @BindView(R.id.content)
+        TextView content;
+
+        OtherTextViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
 }

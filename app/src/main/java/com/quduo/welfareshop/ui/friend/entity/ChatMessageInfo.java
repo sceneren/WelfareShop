@@ -25,10 +25,12 @@ public class ChatMessageInfo {
     private long time;
     private float audioTime;
     private int unRead;
-    @Generated(hash = 334414070)
+    private int isOthersSend;
+    @Generated(hash = 510057854)
     public ChatMessageInfo(Long id, String userId, String otherUserId,
             String otherNickName, String otherAvatar, int messageType,
-            String messageContent, long time, float audioTime, int unRead) {
+            String messageContent, long time, float audioTime, int unRead,
+            int isOthersSend) {
         this.id = id;
         this.userId = userId;
         this.otherUserId = otherUserId;
@@ -39,6 +41,7 @@ public class ChatMessageInfo {
         this.time = time;
         this.audioTime = audioTime;
         this.unRead = unRead;
+        this.isOthersSend = isOthersSend;
     }
     @Generated(hash = 1650910347)
     public ChatMessageInfo() {
@@ -102,6 +105,12 @@ public class ChatMessageInfo {
     }
     public void setUnRead(int unRead) {
         this.unRead = unRead;
+    }
+    public int getIsOthersSend() {
+        return this.isOthersSend;
+    }
+    public void setIsOthersSend(int isOthersSend) {
+        this.isOthersSend = isOthersSend;
     }
    
 }

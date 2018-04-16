@@ -34,6 +34,7 @@ public class ChatMessageInfoDao extends AbstractDao<ChatMessageInfo, Long> {
         public final static Property Time = new Property(7, long.class, "time", false, "TIME");
         public final static Property AudioTime = new Property(8, float.class, "audioTime", false, "AUDIO_TIME");
         public final static Property UnRead = new Property(9, int.class, "unRead", false, "UN_READ");
+        public final static Property IsOthersSend = new Property(10, int.class, "isOthersSend", false, "IS_OTHERS_SEND");
     }
 
 
@@ -58,7 +59,8 @@ public class ChatMessageInfoDao extends AbstractDao<ChatMessageInfo, Long> {
                 "\"MESSAGE_CONTENT\" TEXT," + // 6: messageContent
                 "\"TIME\" INTEGER NOT NULL ," + // 7: time
                 "\"AUDIO_TIME\" REAL NOT NULL ," + // 8: audioTime
-                "\"UN_READ\" INTEGER NOT NULL );"); // 9: unRead
+                "\"UN_READ\" INTEGER NOT NULL ," + // 9: unRead
+                "\"IS_OTHERS_SEND\" INTEGER NOT NULL );"); // 10: isOthersSend
     }
 
     /** Drops the underlying database table. */
@@ -104,6 +106,7 @@ public class ChatMessageInfoDao extends AbstractDao<ChatMessageInfo, Long> {
         stmt.bindLong(8, entity.getTime());
         stmt.bindDouble(9, entity.getAudioTime());
         stmt.bindLong(10, entity.getUnRead());
+        stmt.bindLong(11, entity.getIsOthersSend());
     }
 
     @Override
@@ -143,6 +146,7 @@ public class ChatMessageInfoDao extends AbstractDao<ChatMessageInfo, Long> {
         stmt.bindLong(8, entity.getTime());
         stmt.bindDouble(9, entity.getAudioTime());
         stmt.bindLong(10, entity.getUnRead());
+        stmt.bindLong(11, entity.getIsOthersSend());
     }
 
     @Override
@@ -162,7 +166,8 @@ public class ChatMessageInfoDao extends AbstractDao<ChatMessageInfo, Long> {
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // messageContent
             cursor.getLong(offset + 7), // time
             cursor.getFloat(offset + 8), // audioTime
-            cursor.getInt(offset + 9) // unRead
+            cursor.getInt(offset + 9), // unRead
+            cursor.getInt(offset + 10) // isOthersSend
         );
         return entity;
     }
@@ -179,6 +184,7 @@ public class ChatMessageInfoDao extends AbstractDao<ChatMessageInfo, Long> {
         entity.setTime(cursor.getLong(offset + 7));
         entity.setAudioTime(cursor.getFloat(offset + 8));
         entity.setUnRead(cursor.getInt(offset + 9));
+        entity.setIsOthersSend(cursor.getInt(offset + 10));
      }
     
     @Override
