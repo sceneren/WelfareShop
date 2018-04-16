@@ -13,6 +13,7 @@ import java.util.List;
 public class NovelDetailResultInfo extends BaseBean {
     private NovelDetailInfo data;
     private List<NovelChapterInfo> chapters;
+    private List<NovelCommentInfo> comments;
 
     public NovelDetailInfo getData() {
         return data;
@@ -28,5 +29,13 @@ public class NovelDetailResultInfo extends BaseBean {
 
     public void setChapters(List<NovelChapterInfo> chapters) {
         this.chapters = chapters;
+    }
+
+    public List<NovelCommentInfo> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<NovelCommentInfo> comments) {
+        this.comments = comments;
     }
 }

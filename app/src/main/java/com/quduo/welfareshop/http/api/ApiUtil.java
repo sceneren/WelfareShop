@@ -213,6 +213,10 @@ public class ApiUtil {
     //自拍
     public static final String SELFIE_VIDEO = "selfie";
     public static final String SELFIE_VIDEO_TAG = "selfie";
+    //小说评论
+    public static final String NOVEL_COMMENT = "novel/comments";
+    public static final String NOVEL_COMMENT_TAG = "novel/comments";
+
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

@@ -173,24 +173,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/dp_10"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingTop="@dimen/dp_10">
+        android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/comment_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="评论"
+            android:paddingBottom="@dimen/dp_10"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="@dimen/dp_10"
             android:textColor="@color/title_text_color"
             android:textSize="@dimen/sp_16" />
 
         <TextView
+            android:id="@+id/see_all_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="查看全部 >>"
+            android:gravity="center"
+            android:paddingRight="@dimen/dp_10"
+            android:layout_alignTop="@+id/comment_text"
+            android:layout_alignBottom="@+id/comment_text"
             android:textColor="@color/theme_color"
             android:textSize="@dimen/sp_12" />
     </RelativeLayout>
@@ -199,7 +205,10 @@
         android:id="@+id/commentListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white" />
+        android:background="@color/white"
+        android:divider="@color/transparent1"
+        android:dividerHeight="0dp"
+        android:listSelector="@color/transparent1" />
 
     <View
         android:layout_width="match_parent"

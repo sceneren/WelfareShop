@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.welfare.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -35,7 +36,9 @@ import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.read.listener.OnSaveData2DBListener;
 import com.quduo.welfareshop.ui.welfare.adapter.NovelDetailAdapter;
+import com.quduo.welfareshop.ui.welfare.adapter.NovelDetailCommentAdapter;
 import com.quduo.welfareshop.ui.welfare.entity.NovelChapterInfo;
+import com.quduo.welfareshop.ui.welfare.entity.NovelCommentInfo;
 import com.quduo.welfareshop.ui.welfare.entity.NovelDetailInfo;
 import com.quduo.welfareshop.ui.welfare.entity.NovelDetailResultInfo;
 import com.quduo.welfareshop.ui.welfare.presenter.NovelDetailPresenter;
@@ -93,7 +96,6 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
     private RatingView ratingView;
     private TextView score;
     private TextView des;
-    private CustomListView commentListView;
 
     private int novelId;
     private List<NovelChapterInfo> list;
@@ -103,6 +105,9 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
     private String fileName;
     private int followId = 0;
     private NovelDetailResultInfo resultInfo;
+
+    private List<NovelCommentInfo> commentInfoList;
+    private NovelDetailCommentAdapter commentAdapter;
 
     public static NovelDetailFragment newInstance(int novelId) {
         Bundle args = new Bundle();
@@ -202,14 +207,25 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
     }
 
     private void initHeaderView() {
-        View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_welfare_novel_detail_header, null);
+        @SuppressLint("InflateParams") View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_welfare_novel_detail_header, null);
         coverImage = headerView.findViewById(R.id.cover_image);
         novelTitle = headerView.findViewById(R.id.novel_title);
         readTimes = headerView.findViewById(R.id.read_times);
         ratingView = headerView.findViewById(R.id.ratingView);
         score = headerView.findViewById(R.id.score);
         des = headerView.findViewById(R.id.des);
-        commentListView = headerView.findViewById(R.id.commentListView);
+        CustomListView commentListView = headerView.findViewById(R.id.commentListView);
+        headerView.findViewById(R.id.see_all_comment).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                start(NovelCommentFragment.newInstance(novelId));
+            }
+        });
+
+        commentInfoList = new ArrayList<>();
+        commentAdapter = new NovelDetailCommentAdapter(getContext(), commentInfoList);
+        commentListView.setAdapter(commentAdapter);
+
         headerView.findViewById(R.id.title_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -348,6 +364,10 @@ public class NovelDetailFragment extends BaseBackMvpFragment<INovelDetailView, N
             setFileUrl(detailInfo.getData().getTxt_url());
             setFollowId(detailInfo.getData().getFavor_id());
             follow.setText(getFollowId() != 0 ? "已收藏" : "加入收藏");
+
+            commentInfoList.clear();
+            commentInfoList.addAll(detailInfo.getComments());
+            commentAdapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();
         }
