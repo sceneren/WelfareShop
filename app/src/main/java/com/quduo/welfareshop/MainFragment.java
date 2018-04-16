@@ -319,7 +319,7 @@ public class MainFragment extends SupportFragment {
                 chatMessageInfo.setOtherNickName("系统消息");
                 chatMessageInfo.setOtherAvatar("");
                 chatMessageInfo.setMessageType(0);
-                chatMessageInfo.setMessageContent("您有一条新消息");
+                chatMessageInfo.setMessageContent(MyApplication.getInstance().getConfigInfo().getPush_message());
                 chatMessageInfo.setUnRead(1);
                 Instant instant = new Instant();
                 chatMessageInfo.setTime(instant.getMillis());

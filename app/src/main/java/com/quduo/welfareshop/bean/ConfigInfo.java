@@ -27,6 +27,7 @@ public class ConfigInfo extends BaseBean {
     private String ios_version;
     private int chat_price;
     private String service_url;
+    private String push_message;
 
     public String getUser_agreement() {
         return user_agreement;
@@ -90,5 +91,13 @@ public class ConfigInfo extends BaseBean {
 
     public void setService_url(String service_url) {
         this.service_url = service_url;
+    }
+
+    public String getPush_message() {
+        return push_message;
+    }
+
+    public void setPush_message(String push_message) {
+        this.push_message = push_message;
     }
 }
