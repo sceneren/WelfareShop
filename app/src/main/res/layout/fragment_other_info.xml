@@ -105,6 +105,7 @@
                                 android:src="@drawable/ic_trans_back" />
 
                             <TextView
+                                android:id="@+id/video_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignBottom="@+id/baseimage"
@@ -114,12 +115,12 @@
                                 android:paddingLeft="5dp"
                                 android:paddingRight="5dp"
                                 android:paddingTop="2dp"
-                                android:text="真人认证"
+                                tools:text="视频人数:"
                                 android:textColor="@color/white"
-                                android:textSize="@dimen/sp_14"
-                                android:visibility="gone" />
+                                android:textSize="@dimen/sp_12" />
 
                             <TextView
+                                android:id="@+id/video_time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignBottom="@+id/baseimage"
@@ -130,10 +131,9 @@
                                 android:paddingLeft="5dp"
                                 android:paddingRight="5dp"
                                 android:paddingTop="2dp"
-                                android:text="可视频聊天"
+                                tools:text="视频总时长:"
                                 android:textColor="@color/white"
-                                android:textSize="@dimen/sp_14"
-                                android:visibility="gone" />
+                                android:textSize="@dimen/sp_12" />
                         </RelativeLayout>
 
                         <LinearLayout
@@ -240,7 +240,33 @@
                                 android:textColor="@color/des_text_color"
                                 android:textSize="@dimen/sp_14" />
                         </LinearLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:background="#EEEEEE" />
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/dp_10">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="签名："
+                                android:textColor="@color/content_text_color"
+                                android:textSize="@dimen/sp_14" />
+
+                            <TextView
+                                android:id="@+id/des"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/des_text_color"
+                                android:textSize="@dimen/sp_14" />
+                        </LinearLayout>
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
@@ -298,33 +324,7 @@
                         </RelativeLayout>
 
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginLeft="@dimen/dp_10"
-                            android:layout_marginTop="@dimen/dp_10"
-                            android:background="#EEEEEE" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="@dimen/dp_10">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="签名："
-                                android:textColor="@color/content_text_color"
-                                android:textSize="@dimen/sp_14" />
-
-                            <TextView
-                                android:id="@+id/des"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/des_text_color"
-                                android:textSize="@dimen/sp_14" />
-                        </LinearLayout>
 
                         <View
                             android:layout_width="match_parent"

@@ -71,7 +71,7 @@ public class WelfareFragment extends BaseMainMvpFragment<IWelfareView, WelfarePr
     @Override
     public void initView() {
         super.initView();
-        String tabTitle[] = {"骚女私照","骚女自拍", "福利视频", "午夜影院", "成人小说"};
+        String tabTitle[] = {"私照","私拍", "嫩模特辑", "午夜影院", "成人小说"};
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(GalleryFragment.newInstance());
         fragmentList.add(SelfieVideoFragment.newInstance());

@@ -52,6 +52,8 @@ public class OtherDetailUserInfo extends BaseBean {
     private int subscribe_id;
     private String signature;
     private String cover;
+    private String video_times;
+    private String video_total_time;
 
     public int getId() {
         return id;
@@ -211,5 +213,21 @@ public class OtherDetailUserInfo extends BaseBean {
 
     public void setCover(String cover) {
         this.cover = cover;
+    }
+
+    public String getVideo_times() {
+        return video_times;
+    }
+
+    public void setVideo_times(String video_times) {
+        this.video_times = video_times;
+    }
+
+    public String getVideo_total_time() {
+        return video_total_time;
+    }
+
+    public void setVideo_total_time(String video_total_time) {
+        this.video_total_time = video_total_time;
     }
 }

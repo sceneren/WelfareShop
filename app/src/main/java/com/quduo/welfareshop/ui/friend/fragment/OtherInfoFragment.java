@@ -114,6 +114,10 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
     TextView star;
     @BindView(R.id.video_chat_price)
     TextView videoChatPrice;
+    @BindView(R.id.video_count)
+    TextView videoCount;
+    @BindView(R.id.video_time)
+    TextView videoTime;
     private String otherUserId;
     private boolean isFromNear = false;
 
@@ -233,7 +237,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
         if (MyApplication.getInstance().getUserInfo().getUnlock_chat() != 0) {
             toChatMessage();
         } else {
-            DialogUtils.getInstance().showUnlockChatDialog(_mActivity, AppConfig.POSITION_FRIEND_OTHERS_INFO,new UnlockLisenter() {
+            DialogUtils.getInstance().showUnlockChatDialog(_mActivity, AppConfig.POSITION_FRIEND_OTHERS_INFO, new UnlockLisenter() {
                 @Override
                 public void unlock() {
                     presenter.unlockChat();
@@ -275,7 +279,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
             if (MyApplication.getInstance().getUserInfo().getScore() > MyApplication.getInstance().getUserInfo().getChat_price()) {
                 DialogUtils.getInstance().showVideoChatNoticeDialog(_mActivity, detailUserInfo.getAvatar(), detailUserInfo.getNickname());
             } else {
-                DialogUtils.getInstance().showVideoChatScoreNoEnough(_mActivity,AppConfig.POSITION_FRIEND_OTHERS_INFO);
+                DialogUtils.getInstance().showVideoChatScoreNoEnough(_mActivity, AppConfig.POSITION_FRIEND_OTHERS_INFO);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -329,6 +333,8 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
             list.addAll(data.getPhotos());
             adapter.notifyDataSetChanged();
             des.setText(data.getSignature());
+            videoCount.setText(MessageFormat.format("视频人数:{0}次", data.getVideo_times()));
+            videoTime.setText(MessageFormat.format("视频总时长:{0}分", data.getVideo_total_time()));
             if (!StringUtils.isEmpty(data.getHeight())) {
                 if (data.getHeight().toUpperCase().endsWith("CM")) {
                     height.setText(data.getHeight());
@@ -434,7 +440,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
     public void showAlert(String message) {
         try {
             if (message.equals("积分不足")) {
-                DialogUtils.getInstance().showChatNeedRechargeDialog(_mActivity,AppConfig.POSITION_FRIEND_OTHERS_INFO);
+                DialogUtils.getInstance().showChatNeedRechargeDialog(_mActivity, AppConfig.POSITION_FRIEND_OTHERS_INFO);
                 return;
             }
             StyledDialog.buildIosAlert("提示", message, new MyDialogListener() {
