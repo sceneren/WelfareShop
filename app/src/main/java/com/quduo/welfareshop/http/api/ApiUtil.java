@@ -210,7 +210,9 @@ public class ApiUtil {
     //检查是否支付成功
     public static final String CHECK_PAY_SUCCESS = "is_pay_success";
     public static final String CHECK_PAY_SUCCESS_TAG = "is_pay_success";
-
+    //自拍
+    public static final String SELFIE_VIDEO = "selfie";
+    public static final String SELFIE_VIDEO_TAG = "selfie";
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

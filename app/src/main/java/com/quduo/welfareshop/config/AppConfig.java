@@ -119,5 +119,6 @@ public class AppConfig {
     public static final int POSITION_FRIEND_VIDEO_CHAT = 47;
     //待评价的订单
     public static final int POSITION_MINE_ORDER_UNCOMMENT = 48;
-
+    //自拍
+    public static final int POSITION_WELFARE_SELFIE = 49;
 }
