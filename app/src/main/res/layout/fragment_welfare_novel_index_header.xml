@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dp_10">
+
+    <com.quduo.welfareshop.widgets.RatioImageView
+        android:id="@+id/baseimage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        app:base="horizontal"
+        app:horizontal_weight="2"
+        app:vertical_weight="1" />
+
+    <com.youth.banner.Banner
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/baseimage"
+        android:layout_alignTop="@+id/baseimage"
+        app:delay_time="5000"
+        app:indicator_drawable_selected="@drawable/bg_banner_s"
+        app:indicator_drawable_unselected="@drawable/bg_banner_d"
+        app:title_background="#80000000"
+        app:title_textcolor="@color/white"
+        app:title_textsize="14sp" />
+</RelativeLayout>

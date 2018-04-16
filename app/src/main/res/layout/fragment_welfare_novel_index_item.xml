@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="@dimen/dp_10">
+
+    <com.quduo.welfareshop.widgets.RatioImageView
+        android:id="@+id/thumb"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dp_10"
+        app:base="horizontal"
+        app:horizontal_weight="10"
+        app:vertical_weight="14"
+        tools:src="#FF0000" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/thumb"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/title_text_color"
+        android:textSize="@dimen/sp_14"
+        tools:text="标题" />
+
+    <TextView
+        android:id="@+id/des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_above="@+id/follow_number"
+        android:layout_toRightOf="@+id/thumb"
+        android:textColor="@color/des_text_color"
+        android:textSize="@dimen/sp_12"
+        tools:text="简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介" />
+
+    <TextView
+        android:id="@+id/follow_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/thumb"
+        android:layout_alignParentRight="true"
+        android:drawableLeft="@drawable/ic_novel_index_follow"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/des_text_color"
+        android:textSize="10sp"
+        tools:text="收藏:14522" />
+
+    <TextView
+        android:id="@+id/read_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/thumb"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_toLeftOf="@+id/follow_number"
+        android:drawableLeft="@drawable/ic_novel_read_num"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/des_text_color"
+        android:textSize="10sp"
+        tools:text="阅读:14522" />
+</RelativeLayout>

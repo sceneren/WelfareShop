@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wiki.scene.loadmore.StatusViewLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/status_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EBEBEB"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</wiki.scene.loadmore.StatusViewLayout>

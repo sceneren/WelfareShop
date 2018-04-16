@@ -45,6 +45,9 @@ public class ApiUtil {
     //小说
     public static final String NOVEL_LIST = "novel";
     public static final String NOVEL_LIST_TAG = "novel";
+    //小说
+    public static final String NOVEL_LIST_NEW = "novel/list";
+    public static final String NOVEL_LIST_TAG_NEW = "novel/list";
     //小说详情
     public static final String NOVEL_DETAIL = "novel/chapter";
     public static final String NOVEL_DETAIL_TAG = "novel/chapter";
@@ -202,11 +205,12 @@ public class ApiUtil {
     public static final String APP_STAY = "data/stay";
     public static final String APP_STAY_TAG = "data/stay";
     //获取版本信息
-    public static final String UPDATE_APP="version/android";
-    public static final String UPDATE_APP_TAG="version/android";
+    public static final String UPDATE_APP = "version/android";
+    public static final String UPDATE_APP_TAG = "version/android";
     //检查是否支付成功
-    public static final String CHECK_PAY_SUCCESS="is_pay_success";
-    public static final String CHECK_PAY_SUCCESS_TAG="is_pay_success";
+    public static final String CHECK_PAY_SUCCESS = "is_pay_success";
+    public static final String CHECK_PAY_SUCCESS_TAG = "is_pay_success";
+
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19
