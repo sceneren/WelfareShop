@@ -90,8 +90,8 @@
                             android:id="@+id/gridView"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:horizontalSpacing="@dimen/dp_10"
                             android:layout_marginTop="@dimen/dp_10"
+                            android:horizontalSpacing="@dimen/dp_10"
                             android:listSelector="@color/transparent1"
                             android:numColumns="2"
                             android:verticalSpacing="@dimen/dp_10" />
@@ -144,8 +144,15 @@
                             android:layout_height="wrap_content"
                             android:textColor="#FFF200"
                             android:textSize="@dimen/sp_14"
-                            tools:text="￥198" />
+                            tools:text="￥98.00" />
 
+                        <TextView
+                            android:id="@+id/send_score"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="赠188积分"
+                            android:textColor="@color/white"
+                            android:textSize="10sp" />
 
                     </LinearLayout>
 
@@ -159,7 +166,7 @@
                         android:gravity="center"
                         android:text="24小时闪电发货"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/sp_12" />
+                        android:textSize="10sp" />
                 </LinearLayout>
 
                 <TextView
@@ -198,6 +205,13 @@
                     android:textColor="@color/white"
                     android:textSize="16sp" />
             </LinearLayout>
+
+            <master.flame.danmaku.ui.widget.DanmakuView
+                android:id="@+id/danMuView"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_above="@+id/line" />
+
         </RelativeLayout>
 
     </wiki.scene.loadmore.StatusViewLayout>

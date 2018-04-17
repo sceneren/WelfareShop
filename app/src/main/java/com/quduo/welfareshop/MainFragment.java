@@ -19,7 +19,6 @@ import com.quduo.welfareshop.event.TabSelectedEvent;
 import com.quduo.welfareshop.ui.friend.fragment.FriendFragment;
 import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
 import com.quduo.welfareshop.ui.red.fragment.RedFragment;
-import com.quduo.welfareshop.ui.shop.activity.GoodsDetailActivity;
 import com.quduo.welfareshop.ui.shop.activity.SingleGoodsDetailActivity;
 import com.quduo.welfareshop.ui.shop.fragment.ShopFragment;
 import com.quduo.welfareshop.ui.welfare.fragment.WelfareFragment;
@@ -224,7 +223,7 @@ public class MainFragment extends SupportFragment {
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_welfare_d, R.drawable.ic_tab_welfare_s, tabNames.get(FIRST)))
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_friend_d, R.drawable.ic_tab_friend_s, tabNames.get(SECOND)))
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_shop_d, R.drawable.ic_tab_shop_s, tabNames.get(THIRD)))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_red_d, R.drawable.ic_tab_red_s, tabNames.get(FOUR)))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_vr_d, R.drawable.ic_tab_vr_s, tabNames.get(FOUR)))
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_mine_d, R.drawable.ic_tab_mine_s, tabNames.get(FIVE)));
 
         bottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
@@ -239,7 +238,7 @@ public class MainFragment extends SupportFragment {
                             public void run() {
                                 bottomBar.setCurrentItem(prePosition);
                             }
-                        },500);
+                        }, 500);
                     }
                     if (position == 1 || position == 0) {
                         image.clearAnimation();
