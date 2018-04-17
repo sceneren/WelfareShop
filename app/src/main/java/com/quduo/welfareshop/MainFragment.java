@@ -20,6 +20,7 @@ import com.quduo.welfareshop.ui.friend.fragment.FriendFragment;
 import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
 import com.quduo.welfareshop.ui.red.fragment.RedFragment;
 import com.quduo.welfareshop.ui.shop.activity.GoodsDetailActivity;
+import com.quduo.welfareshop.ui.shop.activity.SingleGoodsDetailActivity;
 import com.quduo.welfareshop.ui.shop.fragment.ShopFragment;
 import com.quduo.welfareshop.ui.welfare.fragment.WelfareFragment;
 import com.quduo.welfareshop.widgets.bottombar.BottomBar;
@@ -304,8 +305,8 @@ public class MainFragment extends SupportFragment {
     }
 
     private void toGoodsDetailActivity(int goodsId) {
-        Intent intent = new Intent(_mActivity, GoodsDetailActivity.class);
-        intent.putExtra(GoodsDetailActivity.ARG_ID, goodsId);
+        Intent intent = new Intent(_mActivity, SingleGoodsDetailActivity.class);
+        intent.putExtra(SingleGoodsDetailActivity.ARG_ID, goodsId);
         startActivity(intent);
         _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }

@@ -56,6 +56,7 @@ public class GoodsDetailInfo extends BaseBean {
     private int comment_count;
     private int favor_id;
 
+
     public int getId() {
         return id;
     }

@@ -25,6 +25,7 @@ import com.quduo.welfareshop.ui.shop.entity.GoodsCommentResultInfo;
 import com.quduo.welfareshop.ui.shop.entity.GoodsDetailInfo;
 import com.quduo.welfareshop.ui.shop.presenter.GoodsCommentPresenter;
 import com.quduo.welfareshop.ui.shop.view.IGoodsCommentView;
+import com.quduo.welfareshop.util.WeakDataHolder;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -47,7 +48,7 @@ import wiki.scene.loadmore.StatusViewLayout;
  */
 
 public class GoodsCommentActivity extends BaseMvpActivity<IGoodsCommentView, GoodsCommentPresenter> implements IGoodsCommentView {
-    public static final String ARG_GOODSINFO = "goods_info";
+    public static final String ARG_GOODS_ID = "goods_id";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
@@ -77,7 +78,8 @@ public class GoodsCommentActivity extends BaseMvpActivity<IGoodsCommentView, Goo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_comment);
         unbinder = ButterKnife.bind(this);
-        detailInfo = (GoodsDetailInfo) getIntent().getSerializableExtra(ARG_GOODSINFO);
+        int id = getIntent().getIntExtra(ARG_GOODS_ID, 0);
+        detailInfo = (GoodsDetailInfo) WeakDataHolder.getInstance().getData(String.valueOf(id));
         initToolbar();
         initView();
     }
@@ -224,8 +226,9 @@ public class GoodsCommentActivity extends BaseMvpActivity<IGoodsCommentView, Goo
     @OnClick(R.id.buy_now)
     public void onClickBuyNow() {
         try {
+            WeakDataHolder.getInstance().saveData(String.valueOf(detailInfo.getId()), detailInfo);
             Intent intent = new Intent(GoodsCommentActivity.this, ChooseGoodsTypeDialog.class);
-            intent.putExtra(ChooseGoodsTypeDialog.ARG_GOODSINFO, detailInfo);
+            intent.putExtra(ChooseGoodsTypeDialog.ARG_GOODS_ID, detailInfo.getId());
             startActivity(intent);
             overridePendingTransition(R.anim.pop_enter, R.anim.pop_exit);
         } catch (Exception e) {

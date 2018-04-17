@@ -216,6 +216,9 @@ public class ApiUtil {
     //小说评论
     public static final String NOVEL_COMMENT = "novel/comments";
     public static final String NOVEL_COMMENT_TAG = "novel/comments";
+    //VR
+    public static final String VR_DETAIL = "vr";
+    public static final String VR_DETAIL_TAG = "vr";
 
     /**
      * Case By:创建参数基础信息

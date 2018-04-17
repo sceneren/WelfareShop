@@ -25,6 +25,7 @@ import com.quduo.welfareshop.ui.mine.entity.MyFollowGoodsInfo;
 import com.quduo.welfareshop.ui.mine.presenter.MyGoodsPresenter;
 import com.quduo.welfareshop.ui.mine.view.IMyGoodsView;
 import com.quduo.welfareshop.ui.shop.activity.GoodsDetailActivity;
+import com.quduo.welfareshop.ui.shop.activity.SingleGoodsDetailActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -116,7 +117,7 @@ public class MyGoodsFragment extends BaseBackMvpFragment<IMyGoodsView, MyGoodsPr
 
     @Override
     public void initView() {
-        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_FOLLOW_GOODS,0);
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_MINE_FOLLOW_GOODS, 0);
         initRecyclerView();
         presenter.getData(true);
     }
@@ -136,7 +137,11 @@ public class MyGoodsFragment extends BaseBackMvpFragment<IMyGoodsView, MyGoodsPr
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (list.get(position).getStatus() == 1) {
-                    toGoodsDetailActivity(list.get(position).getProduct_id());
+                    if (list.get(position).getProduct_id() == 101) {
+                        toSingleGoodsDetailActivity(101);
+                    } else {
+                        toGoodsDetailActivity(list.get(position).getProduct_id());
+                    }
                 }
             }
         });
@@ -188,6 +193,13 @@ public class MyGoodsFragment extends BaseBackMvpFragment<IMyGoodsView, MyGoodsPr
     private void toGoodsDetailActivity(int goodsId) {
         Intent intent = new Intent(_mActivity, GoodsDetailActivity.class);
         intent.putExtra(GoodsDetailActivity.ARG_ID, goodsId);
+        startActivity(intent);
+        _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+    }
+
+    private void toSingleGoodsDetailActivity(int goodsId) {
+        Intent intent = new Intent(_mActivity, SingleGoodsDetailActivity.class);
+        intent.putExtra(SingleGoodsDetailActivity.ARG_ID, goodsId);
         startActivity(intent);
         _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }

@@ -27,6 +27,15 @@ public class GoodsCommentInfo extends BaseBean{
     private long create_time;
     private String content;
     private List<String> images;
+    private String avatar;
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 
     public int getId() {
         return id;

@@ -8,7 +8,7 @@
     <string name="tab_encyc">性趣百科</string>
     <string name="tab_mine">我的</string>
     <string name="tab_indiana">积分夺宝</string>
-    <string name="tab_red">全民红包</string>
+    <string name="tab_red">VR看片</string>
     <string name="tab_friend">1对1视频</string>
 
     <!--重启-->
@@ -61,5 +61,5 @@
     <string name="tooshort">录音时间过短</string>
     <string name="toolong">录音时间过长</string>
 
-    <string name="pageBehavior" translatable="false" >com.quduo.welfareshop.widgets.goodsdetail.PageBehavior</string >
+    <string name="pageBehavior" translatable="false">com.quduo.welfareshop.widgets.goodsdetail.PageBehavior</string>
 </resources>

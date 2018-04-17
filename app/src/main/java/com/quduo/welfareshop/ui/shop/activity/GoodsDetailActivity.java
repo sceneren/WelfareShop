@@ -30,6 +30,7 @@ import com.quduo.welfareshop.ui.shop.fragment.ServiceCenterActivity;
 import com.quduo.welfareshop.ui.shop.presenter.GoodsDetailPresenter;
 import com.quduo.welfareshop.ui.shop.view.IGoodsDetailView;
 import com.quduo.welfareshop.util.BannerImageLoader;
+import com.quduo.welfareshop.util.WeakDataHolder;
 import com.quduo.welfareshop.widgets.CustomListView;
 import com.quduo.welfareshop.widgets.RatioImageView;
 import com.quduo.welfareshop.widgets.X5WebView;
@@ -277,8 +278,9 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
     @OnClick(R.id.buy_now)
     public void onClickBuyNow() {
         try {
+            WeakDataHolder.getInstance().saveData(String.valueOf(detailInfo.getId()), detailInfo);
             Intent intent = new Intent(GoodsDetailActivity.this, ChooseGoodsTypeDialog.class);
-            intent.putExtra(ChooseGoodsTypeDialog.ARG_GOODSINFO, detailInfo);
+            intent.putExtra(ChooseGoodsTypeDialog.ARG_GOODS_ID, goodsId);
             startActivity(intent);
             overridePendingTransition(R.anim.pop_enter, R.anim.pop_exit);
         } catch (Exception e) {
@@ -287,8 +289,9 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
     }
 
     private void toGoodsCommentActivity() {
+        WeakDataHolder.getInstance().saveData(String.valueOf(detailInfo.getId()), detailInfo);
         Intent intent = new Intent(GoodsDetailActivity.this, GoodsCommentActivity.class);
-        intent.putExtra(GoodsCommentActivity.ARG_GOODSINFO, detailInfo);
+        intent.putExtra(GoodsCommentActivity.ARG_GOODS_ID, detailInfo);
         startActivity(intent);
         overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }

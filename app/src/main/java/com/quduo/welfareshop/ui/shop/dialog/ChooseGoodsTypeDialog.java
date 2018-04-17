@@ -27,6 +27,7 @@ import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.ui.shop.activity.ConfirmOrderActivity;
 import com.quduo.welfareshop.ui.shop.entity.CreateOrderInfo;
 import com.quduo.welfareshop.ui.shop.entity.GoodsDetailInfo;
+import com.quduo.welfareshop.util.WeakDataHolder;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -48,7 +49,7 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
  */
 
 public class ChooseGoodsTypeDialog extends BaseActivity {
-    public static final String ARG_GOODSINFO = "goodsInfo";
+    public static final String ARG_GOODS_ID = "goods_id";
     @BindView(R.id.goods_name)
     TextView goodsName;
     @BindView(R.id.goods_price)
@@ -87,7 +88,8 @@ public class ChooseGoodsTypeDialog extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.popupwindow_choose_goods_type);
         unbinder = ButterKnife.bind(this);
-        detailInfo = (GoodsDetailInfo) getIntent().getSerializableExtra(ARG_GOODSINFO);
+        int id = getIntent().getIntExtra(ARG_GOODS_ID, 0);
+        detailInfo = (GoodsDetailInfo) WeakDataHolder.getInstance().getData(String.valueOf(id));
         if (detailInfo == null) {
             onBackPressed();
             return;
