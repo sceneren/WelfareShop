@@ -2,6 +2,7 @@ package com.quduo.welfareshop;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -13,17 +14,12 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.blankj.utilcode.util.SPUtils;
-import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.event.TabSelectedEvent;
-import com.quduo.welfareshop.event.UnreadEvent;
-import com.quduo.welfareshop.event.UpdateSessionEvent;
-import com.quduo.welfareshop.greendao.dao.MessageInfoDao;
-import com.quduo.welfareshop.ui.friend.entity.ChatMessageInfo;
 import com.quduo.welfareshop.ui.friend.fragment.FriendFragment;
 import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
 import com.quduo.welfareshop.ui.red.fragment.RedFragment;
+import com.quduo.welfareshop.ui.shop.activity.GoodsDetailActivity;
 import com.quduo.welfareshop.ui.shop.fragment.ShopFragment;
 import com.quduo.welfareshop.ui.welfare.fragment.WelfareFragment;
 import com.quduo.welfareshop.widgets.bottombar.BottomBar;
@@ -31,7 +27,6 @@ import com.quduo.welfareshop.widgets.bottombar.BottomBarTab;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.joda.time.Instant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -233,9 +228,18 @@ public class MainFragment extends SupportFragment {
 
         bottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override
-            public void onTabSelected(int position, int prePosition) {
+            public void onTabSelected(int position, final int prePosition) {
                 try {
                     showHideFragment(mFragments[position], mFragments[prePosition]);
+                    if (position == 3) {
+                        toGoodsDetailActivity(13);
+                        bottomBar.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                bottomBar.setCurrentItem(prePosition);
+                            }
+                        },500);
+                    }
                     if (position == 1 || position == 0) {
                         image.clearAnimation();
                         image.setVisibility(View.GONE);
@@ -297,6 +301,13 @@ public class MainFragment extends SupportFragment {
         JZVideoPlayer.releaseAllVideos();
         JZVideoPlayer.FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_SENSOR;
         JZVideoPlayer.NORMAL_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+    }
+
+    private void toGoodsDetailActivity(int goodsId) {
+        Intent intent = new Intent(_mActivity, GoodsDetailActivity.class);
+        intent.putExtra(GoodsDetailActivity.ARG_ID, goodsId);
+        startActivity(intent);
+        _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }
 
 }

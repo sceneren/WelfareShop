@@ -28,12 +28,14 @@ import com.quduo.welfareshop.itemDecoration.SpacesItemDecoration;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.welfare.activity.WelfareImagePreviewActivity;
 import com.quduo.welfareshop.ui.welfare.adapter.GalleryDetailAdapter;
+import com.quduo.welfareshop.ui.welfare.adapter.GalleryDetailCommentAdapter;
+import com.quduo.welfareshop.ui.welfare.entity.GalleryCommentInfo;
 import com.quduo.welfareshop.ui.welfare.entity.GalleryDetailResultInfo;
 import com.quduo.welfareshop.ui.welfare.entity.ImageDetailInfo;
 import com.quduo.welfareshop.ui.welfare.presenter.GalleryDetailPresenter;
 import com.quduo.welfareshop.ui.welfare.view.IGalleryDetailView;
 import com.quduo.welfareshop.util.DialogUtils;
-import com.quduo.welfareshop.util.PlaySoundUtil;
+import com.quduo.welfareshop.widgets.NoTouchRecyclerView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -69,6 +71,8 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     StatusViewLayout statusView;
     @BindView(R.id.unlock)
     TextView unlock;
+    @BindView(R.id.commentRecyclerView)
+    NoTouchRecyclerView commentRecyclerView;
     Unbinder unbinder;
 
     private List<ImageDetailInfo> galleryList = new ArrayList<>();
@@ -83,6 +87,9 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
 
     private boolean canPlaySound = false;
     private int playSoundTime = 0;
+
+    private GalleryDetailCommentAdapter commentAdapter;
+    private List<GalleryCommentInfo> commentInfoList;
 
     public static GalleryDetailFragment newInstance(int id, String title) {
         Bundle args = new Bundle();
@@ -214,7 +221,15 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
 //                }
 //            }
 //        });
+
+        commentInfoList = new ArrayList<>();
+        commentAdapter = new GalleryDetailCommentAdapter(commentInfoList);
+        LinearLayoutManager commentLayoutManager = new LinearLayoutManager(getContext());
+        commentRecyclerView.setLayoutManager(commentLayoutManager);
+        commentRecyclerView.addItemDecoration(new SpacesItemDecoration(SizeUtils.dp2px(10)));
+        commentRecyclerView.setAdapter(commentAdapter);
     }
+
 
     @Override
     public GalleryDetailPresenter initPresenter() {
@@ -222,10 +237,42 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        try {
+            commentRecyclerView.stop();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int getCommentCanScrollDistance() {
+        LinearLayoutManager layoutManager = (LinearLayoutManager) commentRecyclerView.getLayoutManager();
+        View firstVisibleItem = recyclerView.getChildAt(0);
+        int firstItemPosition = layoutManager.findFirstVisibleItemPosition();
+        int itemCount = layoutManager.getItemCount();
+        int recyclerviewHeight = recyclerView.getHeight();
+        int itemHeight = firstVisibleItem.getHeight();
+        int firstItemBottom = layoutManager.getDecoratedBottom(firstVisibleItem);
+        return (itemCount - firstItemPosition - 1) * itemHeight - recyclerviewHeight + firstItemBottom;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        try {
+            commentRecyclerView.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void onDestroyView() {
         EventBus.getDefault().unregister(this);
         OkGo.getInstance().cancelTag(ApiUtil.UNLOCK_TAG);
         OkGo.getInstance().cancelTag(ApiUtil.GALLERY_DETAIL_TAG);
+
         super.onDestroyView();
         unbinder.unbind();
     }
@@ -262,6 +309,16 @@ public class GalleryDetailFragment extends BaseBackMvpFragment<IGalleryDetailVie
             adapter.setPayed(data.isPayed());
 
             unlock.setVisibility(data.isPayed() ? View.GONE : View.VISIBLE);
+
+            if (commentInfoList == null) {
+                commentInfoList = new ArrayList<>();
+            }
+            if (commentInfoList.size() == 0) {
+                commentInfoList.addAll(data.getComments());
+            }
+            commentAdapter.notifyDataSetChanged();
+            commentRecyclerView.start();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

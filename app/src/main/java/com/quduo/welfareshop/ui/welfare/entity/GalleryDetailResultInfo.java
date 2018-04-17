@@ -24,6 +24,7 @@ public class GalleryDetailResultInfo extends BaseBean {
     private int favor_id;
     private int price;
     private boolean payed;
+    private List<GalleryCommentInfo> comments;
 
     public int getId() {
         return id;
@@ -127,5 +128,13 @@ public class GalleryDetailResultInfo extends BaseBean {
 
     public void setPayed(boolean payed) {
         this.payed = payed;
+    }
+
+    public List<GalleryCommentInfo> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<GalleryCommentInfo> comments) {
+        this.comments = comments;
     }
 }
