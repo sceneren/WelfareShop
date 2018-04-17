@@ -124,7 +124,7 @@ public class ChooseGoodsTypeDialog extends BaseActivity {
         goodsPrice.setText(MessageFormat.format("￥{0}", detailInfo.getPrice()));
         Number num = Float.parseFloat(detailInfo.getPrice()) * 100;
         int giveNum = num.intValue() / 100;
-        goodsScore.setText(MessageFormat.format("送{0}钻石+{0}积分", giveNum, giveNum));
+        goodsScore.setText(MessageFormat.format("送{0}积分", giveNum));
 
     }
 

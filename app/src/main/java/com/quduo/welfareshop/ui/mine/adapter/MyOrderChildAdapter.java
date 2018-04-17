@@ -64,7 +64,7 @@ public class MyOrderChildAdapter extends BaseQuickAdapter<OrderInfo, BaseViewHol
             helper.setText(R.id.total_price, "￥" + item.getActual_pay());
             Number num = Float.parseFloat(item.getCost()) * 100;
             int giveNum = num.intValue() / 100;
-            helper.setText(R.id.total_score, "(免邮费)送" + giveNum + "积分+" + giveNum + "钻石");
+            helper.setText(R.id.total_score, "(免邮费)送" + giveNum + "积分");
             helper.addOnClickListener(R.id.cancel_order);
         }
         ImageView goodsImage = helper.getView(R.id.goods_image);

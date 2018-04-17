@@ -505,7 +505,7 @@
                         android:layout_marginTop="5dp"
                         android:textColor="#FCA816"
                         android:textSize="@dimen/sp_12"
-                        tools:text="送799钻石+积分" />
+                        tools:text="送799积分" />
 
                     <TextView
                         android:id="@+id/btn_wechat"

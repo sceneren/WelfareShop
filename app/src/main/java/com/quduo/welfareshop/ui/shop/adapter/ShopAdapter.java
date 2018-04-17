@@ -41,7 +41,7 @@ public class ShopAdapter extends BaseQuickAdapter<GoodsInfo, BaseViewHolder> {
         helper.setText(R.id.buy_number, item.getSales() + "人付款");
         Number num = Float.parseFloat(item.getPrice()) * 100;
         int giveNum = num.intValue() / 100;
-        helper.setText(R.id.zeng, giveNum + "积分+" + giveNum + "钻石");
+        helper.setText(R.id.zeng, giveNum + "积分" );
     }
 
 }

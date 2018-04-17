@@ -337,7 +337,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
             goodsSales.setText(MessageFormat.format("销量:{0}", detailInfo.getSales()));
             Number num = Float.parseFloat(detailInfo.getPrice()) * 100;
             int giveNum = num.intValue() / 100;
-            buyGiveInfo.setText(MessageFormat.format("{0}钻石+{1}积分", giveNum, giveNum));
+            buyGiveInfo.setText(MessageFormat.format("{0}积分", giveNum));
 
             btnFollow.setCompoundDrawablesWithIntrinsicBounds(null, detailInfo.getFavor_id() == 0 ? iconNoFollow : iconHasFollow, null, null);
 

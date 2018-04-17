@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center"
-            android:text="消费1元送1积分+1钻石,可抽现金100%中奖"
+            android:text="消费1元送1积分,可抽现金100%中奖"
             android:textSize="@dimen/sp_12" />
     </LinearLayout>
 

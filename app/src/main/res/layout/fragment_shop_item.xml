@@ -69,7 +69,7 @@
         android:textColor="#FCA816"
         android:textSize="@dimen/sp_12"
         android:drawablePadding="3dp"
-        tools:text="送积分送钻石" />
+        tools:text="送积分" />
 
     <RelativeLayout
         android:layout_width="match_parent"

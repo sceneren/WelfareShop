@@ -129,7 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:text="(免邮费)送799积分+钻石"
+            android:text="(免邮费)送799积分"
             android:textColor="@color/content_text_color"
             android:textSize="10sp" />
 

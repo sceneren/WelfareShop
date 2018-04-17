@@ -60,7 +60,7 @@
                         android:layout_marginLeft="@dimen/dp_10"
                         android:textColor="#FCA816"
                         android:textSize="@dimen/sp_12"
-                        tools:text="送799钻石" />
+                        tools:text="送799积分" />
                 </LinearLayout>
             </LinearLayout>
 

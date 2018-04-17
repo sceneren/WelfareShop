@@ -147,7 +147,7 @@
                                 android:gravity="center_vertical"
                                 android:textColor="#FECE5B"
                                 android:textSize="@dimen/sp_12"
-                                tools:text="送369钻石+积分" />
+                                tools:text="送369积分" />
 
                             <TextView
                                 android:id="@+id/goods_sales"

@@ -179,7 +179,7 @@
                                 android:drawableLeft="@drawable/ic_order_detail_zuanshi"
                                 android:drawablePadding="5dp"
                                 android:gravity="center_vertical"
-                                android:text="赠送38钻石"
+                                android:text="赠送38积分"
                                 android:textColor="@color/content_text_color"
                                 android:textSize="10sp" />
                         </LinearLayout>
@@ -196,6 +196,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/theme_color"
+                                android:layout_gravity="right"
                                 android:textSize="@dimen/sp_14"
                                 tools:text="￥799" />
 
@@ -215,6 +216,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="right"
                                 android:layout_marginTop="5dp"
+                                android:ellipsize="end"
+                                android:maxLength="6"
+                                android:lines="1"
                                 android:textColor="@color/title_text_color"
                                 android:textSize="@dimen/sp_12"
                                 tools:text="小号" />
