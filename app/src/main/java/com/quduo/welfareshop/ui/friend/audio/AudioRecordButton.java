@@ -15,6 +15,7 @@ import com.quduo.welfareshop.R;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +59,29 @@ public class AudioRecordButton extends android.support.v7.widget.AppCompatImageV
 
     };
 
+    private static class NoLeakHandler extends Handler{
+        private WeakReference<Context> mActivity;
+
+        public NoLeakHandler(Context activity){
+            mActivity = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        try {
+            mp3handler.removeCallbacksAndMessages(null);
+            mhandler.removeCallbacksAndMessages(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     //申请内部存储权限
     private void applyExternalStorage() {

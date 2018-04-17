@@ -492,7 +492,6 @@ public class ChatActivity extends BaseMvpActivity<IChatView, ChatPresenter> impl
             messageList.clear();
             mAdapter.notifyDataSetChanged();
             recyclerView.setAdapter(null);
-            ptrLayout.refreshComplete();
         } catch (Exception e) {
             e.printStackTrace();
         }

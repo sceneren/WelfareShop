@@ -59,7 +59,7 @@ public class AudioManager {
         void wellPrepared();
     }
 
-    public AudioStageListener mListener;
+    private AudioStageListener mListener;
 
     public void setOnAudioStageListener(AudioStageListener listener) {
         mListener = listener;

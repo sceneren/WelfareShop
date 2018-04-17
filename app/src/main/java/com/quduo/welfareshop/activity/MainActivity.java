@@ -21,6 +21,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.FileCallback;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.quduo.welfareshop.MainFragment;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
@@ -75,6 +76,7 @@ public class MainActivity extends BaseActivity {
 
         uploadStartApp();
     }
+
     private void uploadStartApp() {
         HttpParams params = new HttpParams();
         params.put(ApiUtil.createParams());
@@ -88,6 +90,7 @@ public class MainActivity extends BaseActivity {
                     }
                 });
     }
+
     private void init() {
         if (findFragment(MainFragment.class) == null) {
             loadRootFragment(R.id.fl_container, MainFragment.newInstance());
@@ -279,12 +282,28 @@ public class MainActivity extends BaseActivity {
                 });
     }
 
+    private boolean downloadFlag = false;
+
     private void downloadApk(String apkUrl) {
         try {
-            StyledDialog.buildLoading("正在下载更新").setActivity(MainActivity.this).show();
+            Dialog dialog = StyledDialog.buildLoading("正在下载更新").setActivity(MainActivity.this).show();
+            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    if (!downloadFlag) {
+                        MyApplication.getInstance().exit();
+                    }
+                }
+            });
             OkGo.<File>get(apkUrl)
                     .tag(this)
                     .execute(new FileCallback() {
+                        @Override
+                        public void onStart(Request<File, ? extends Request> request) {
+                            super.onStart(request);
+                            downloadFlag = false;
+                        }
+
                         @Override
                         public void onSuccess(Response<File> response) {
                             try {
@@ -299,6 +318,7 @@ public class MainActivity extends BaseActivity {
                         public void onFinish() {
                             super.onFinish();
                             try {
+                                downloadFlag = true;
                                 StyledDialog.dismissLoading();
                             } catch (Exception e) {
                                 e.printStackTrace();
