@@ -60,7 +60,7 @@ public class RankImageGridAdapter extends BaseAdapter {
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.image);
-        holder.playIcon.setVisibility(position == 1 ? View.VISIBLE : View.GONE);
+        //holder.playIcon.setVisibility(position == 1 ? View.VISIBLE : View.GONE);
         return convertView;
     }
 

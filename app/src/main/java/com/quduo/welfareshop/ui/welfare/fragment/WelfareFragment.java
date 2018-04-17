@@ -77,7 +77,7 @@ public class WelfareFragment extends BaseMainMvpFragment<IWelfareView, WelfarePr
         fragmentList.add(SelfieVideoFragment.newInstance());
         fragmentList.add(SmallVideoFragment.newInstance());
         fragmentList.add(MidNightVideoFragment.newInstance());
-        fragmentList.add(NovelIndexFragment.newInstance());
+        fragmentList.add(NovelFragment.newInstance());
         tab.addTab(tab.newTab().setText(tabTitle[0]));
         tab.addTab(tab.newTab().setText(tabTitle[1]));
         tab.addTab(tab.newTab().setText(tabTitle[2]));
