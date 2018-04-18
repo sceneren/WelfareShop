@@ -45,6 +45,10 @@ public class MyVideoPlayer extends JZVideoPlayerStandard {
         this.onClickListener = onClickListener;
     }
 
+    public void setPayed(boolean payed) {
+        this.payed = payed;
+    }
+
     @Override
     public void init(Context context) {
         super.init(context);

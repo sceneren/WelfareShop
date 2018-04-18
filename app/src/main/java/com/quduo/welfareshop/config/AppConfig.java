@@ -123,4 +123,10 @@ public class AppConfig {
     public static final int POSITION_WELFARE_SELFIE = 49;
     //VR
     public static final int POSITION_VR = 50;
+    //火辣互动
+    public static final int POSITION_FRIEND_INTERACT = 51;
+    //热门视频
+    public static final int POSITION_FRIEND_HOT_VIDEO = 52;
+    //交友视频详情
+    public static final int POSITION_FRIEND_VIDEO_DETAIL = 53;
 }

@@ -219,6 +219,12 @@ public class ApiUtil {
     //VR
     public static final String VR_DETAIL = "vr";
     public static final String VR_DETAIL_TAG = "vr";
+    //交友热门视频
+    public static final String FRIEND_HOT_VIDEO = "friend/video";
+    public static final String FRIEND_HOT_VIDEO_TAG = "friend/video";
+    //火辣互动
+    public static final String FRIEND_INTERACT = "friend/dynamic";
+    public static final String FRIEND_INTERACT_TAG = "friend/dynamic";
 
     /**
      * Case By:创建参数基础信息

@@ -419,6 +419,7 @@ public class VideoDetailActivity extends BaseMvpActivity<IVideoDetailView, Video
             EventBus.getDefault().post(new UpdateScoreAndDiamondEvent());
             info.setPayed(true);
             bindVideoPlayer();
+            videoPlayer.setPayed(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
