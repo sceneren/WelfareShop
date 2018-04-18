@@ -121,4 +121,6 @@ public class AppConfig {
     public static final int POSITION_MINE_ORDER_UNCOMMENT = 48;
     //自拍
     public static final int POSITION_WELFARE_SELFIE = 49;
+    //VR
+    public static final int POSITION_VR = 50;
 }

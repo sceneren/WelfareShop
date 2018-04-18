@@ -25,6 +25,7 @@ import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.shop.adapter.SingleGoodsDetailVideoAdapter;
@@ -37,6 +38,7 @@ import com.quduo.welfareshop.ui.shop.entity.SingleGoodsDetailVideoInfo;
 import com.quduo.welfareshop.ui.shop.fragment.ServiceCenterActivity;
 import com.quduo.welfareshop.ui.shop.presenter.SingleGoodsDetailPresenter;
 import com.quduo.welfareshop.ui.shop.view.ISingleGoodsDetailView;
+import com.quduo.welfareshop.util.ThreadPoolUtils;
 import com.quduo.welfareshop.util.WeakDataHolder;
 import com.quduo.welfareshop.widgets.CustomGridView;
 import com.quduo.welfareshop.widgets.MyVideoPlayer;
@@ -46,6 +48,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindDrawable;
 import butterknife.BindView;
@@ -113,6 +116,7 @@ public class SingleGoodsDetailActivity extends BaseMvpActivity<ISingleGoodsDetai
         ButterKnife.bind(this);
         initDanmu();
         presenter.getData();
+        MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_VR, 0);
     }
 
 
@@ -421,27 +425,44 @@ public class SingleGoodsDetailActivity extends BaseMvpActivity<ISingleGoodsDetai
     }
 
     private boolean isWork = true;
+    private int position = 0;
+    private ThreadPoolUtils poolUtils;
 
     private void bindDanmuData(final List<GoodsCommentInfo> data) {
         try {
-            new Thread(new Runnable() {
+            poolUtils = new ThreadPoolUtils(ThreadPoolUtils.SingleThread, 1);
+            poolUtils.scheduleWithFixedDelay(new Runnable() {
                 @Override
                 public void run() {
-                    int size = data.size();
-                    for (int i = 0; i < size; i++) {
-                        if (!isWork) {
-                            break;
-                        }
-                        try {
-                            String content = data.get(i).getContent();
-                            addDanmaku(content);
-                            Thread.sleep(1500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                    if (isWork && position >= data.size()) {
+                        String content = data.get(position).getContent();
+                        addDanmaku(content);
+                        position += 1;
+                    } else {
+                        poolUtils.shutDownNow();
                     }
                 }
-            }).start();
+            }, 1500, 1500, TimeUnit.MILLISECONDS);
+
+
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    int size = data.size();
+//                    for (int i = 0; i < size; i++) {
+//                        if (!isWork) {
+//                            break;
+//                        }
+//                        try {
+//                            String content = data.get(i).getContent();
+//                            addDanmaku(content);
+//                            Thread.sleep(1500);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//            }).start();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -476,6 +497,7 @@ public class SingleGoodsDetailActivity extends BaseMvpActivity<ISingleGoodsDetai
     protected void onDestroy() {
         OkGo.getInstance().cancelTag(ApiUtil.VR_DETAIL_TAG);
         isWork = false;
+        poolUtils.shutDownNow();
         super.onDestroy();
     }
 
