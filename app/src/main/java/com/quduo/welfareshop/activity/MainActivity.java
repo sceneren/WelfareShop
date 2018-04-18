@@ -249,6 +249,7 @@ public class MainActivity extends BaseActivity {
                         try {
                             if (response.body().data != null) {
                                 final VersionInfo versionInfo = response.body().data;
+                                needForceUpdate = true;
                                 if (versionInfo.getVersion() > AppUtils.getAppVersionCode()) {
                                     Dialog dialog = StyledDialog.buildIosAlert("版本更新", "检查到有新版本", new MyDialogListener() {
                                         @Override
@@ -266,7 +267,7 @@ public class MainActivity extends BaseActivity {
                                     dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                                         @Override
                                         public void onDismiss(DialogInterface dialog) {
-                                            if (isExit) {
+                                            if (isExit && needForceUpdate) {
                                                 MyApplication.getInstance().exit();
                                             }
                                         }
@@ -283,6 +284,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private boolean downloadFlag = false;
+    private boolean needForceUpdate = true;
 
     private void downloadApk(String apkUrl) {
         try {
@@ -290,7 +292,7 @@ public class MainActivity extends BaseActivity {
             dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
-                    if (!downloadFlag) {
+                    if (!downloadFlag && needForceUpdate) {
                         MyApplication.getInstance().exit();
                     }
                 }

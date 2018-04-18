@@ -98,10 +98,10 @@ public class FriendFragment extends BaseMainMvpFragment<IFriendView, FriendPrese
             @Override
             public void run() {
                 if (getParentFragment() instanceof MainFragment) {
-                    String tabTitle[] = {"火辣互动", "热门视频", "消息", "关注"};
+                    String tabTitle[] = {"1v1视频", "极品排行", "消息", "关注"};
                     List<Fragment> fragmentList = new ArrayList<>();
-                    fragmentList.add(InteractFragment.newInstance());
-                    fragmentList.add(HotVideoFragment.newInstance());
+                    fragmentList.add(NearFragment.newInstance());
+                    fragmentList.add(RankFragment.newInstance());
                     fragmentList.add(MessageFragment.newInstance());
                     fragmentList.add(FollowFragment.newInstance());
 
