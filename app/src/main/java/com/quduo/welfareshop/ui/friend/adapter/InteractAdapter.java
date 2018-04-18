@@ -1,5 +1,6 @@
 package com.quduo.welfareshop.ui.friend.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -132,5 +133,79 @@ public class InteractAdapter extends BaseQuickAdapter<InteractInfo, BaseViewHold
         helper.setImageResource(R.id.btn_zan, item.isIs_good() ? R.drawable.ic_friend_interact_zan_s : R.drawable.ic_friend_interact_zan_d);
         helper.addOnClickListener(R.id.thumb);
         helper.addOnClickListener(R.id.btn_zan);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull BaseViewHolder helper, int position, @NonNull List<Object> payloads) {
+        super.onBindViewHolder(helper, position, payloads);
+        InteractInfo item = mData.get(position);
+        if (item.getGood_users() != null && item.getGood_users().size() > 0) {
+            String zanStr = item.getGood_users().get(0).getNickname();
+            if (zanStr.length() > 4) {
+                zanStr = zanStr.substring(0, 4);
+            }
+            zanStr += "...等" + item.getGood() + "人觉得赞";
+            helper.setText(R.id.zan_text, zanStr);
+
+            if (item.getGood_users().size() == 1) {
+                helper.setGone(R.id.zan_avatar_1, true);
+                helper.setGone(R.id.zan_avatar_2, false);
+                helper.setGone(R.id.zan_avatar_3, false);
+
+                GlideApp.with(mContext)
+                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getGood_users().get(0).getAvatar())
+                        .circleCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.ic_default_avatar)
+                        .into((ImageView) helper.getView(R.id.zan_avatar_1));
+
+            } else if (item.getGood_users().size() == 2) {
+                helper.setGone(R.id.zan_avatar_1, true);
+                helper.setGone(R.id.zan_avatar_2, true);
+                helper.setGone(R.id.zan_avatar_3, false);
+                GlideApp.with(mContext)
+                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getGood_users().get(0).getAvatar())
+                        .circleCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.ic_default_avatar)
+                        .into((ImageView) helper.getView(R.id.zan_avatar_1));
+                GlideApp.with(mContext)
+                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getGood_users().get(1).getAvatar())
+                        .circleCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.ic_default_avatar)
+                        .into((ImageView) helper.getView(R.id.zan_avatar_2));
+            } else {
+                helper.setGone(R.id.zan_avatar_1, true);
+                helper.setGone(R.id.zan_avatar_2, true);
+                helper.setGone(R.id.zan_avatar_3, true);
+                GlideApp.with(mContext)
+                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getGood_users().get(0).getAvatar())
+                        .circleCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.ic_default_avatar)
+                        .into((ImageView) helper.getView(R.id.zan_avatar_1));
+                GlideApp.with(mContext)
+                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getGood_users().get(1).getAvatar())
+                        .circleCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.ic_default_avatar)
+                        .into((ImageView) helper.getView(R.id.zan_avatar_2));
+                GlideApp.with(mContext)
+                        .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getGood_users().get(2).getAvatar())
+                        .circleCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.ic_default_avatar)
+                        .into((ImageView) helper.getView(R.id.zan_avatar_3));
+            }
+
+        } else {
+            helper.setText(R.id.zan_text, "");
+            helper.setGone(R.id.zan_avatar_1, false);
+            helper.setGone(R.id.zan_avatar_2, false);
+            helper.setGone(R.id.zan_avatar_3, false);
+        }
+        helper.setText(R.id.zan_times, String.valueOf(item.getGood()));
+        helper.setImageResource(R.id.btn_zan, item.isIs_good() ? R.drawable.ic_friend_interact_zan_s : R.drawable.ic_friend_interact_zan_d);
     }
 }

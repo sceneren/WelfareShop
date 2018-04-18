@@ -260,7 +260,8 @@ public class InteractFragment extends BaseMvpFragment<IInteractView, InteractPre
     public void zanSuccess(int position) {
         try {
             list.get(position).setIs_good(true);
-            adapter.notifyItemChanged(position);
+            list.get(position).setGood(list.get(position).getGood() + 1);
+            adapter.notifyItemChanged(position, 0);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -270,7 +271,7 @@ public class InteractFragment extends BaseMvpFragment<IInteractView, InteractPre
     public void changePayStatus(FriendInteractChangeStatusEvent event) {
         try {
             list.get(event.getPosition()).setPayed(true);
-            adapter.notifyItemChanged(event.getPosition());
+            adapter.notifyItemChanged(event.getPosition(),0);
         } catch (Exception e) {
             e.printStackTrace();
         }
