@@ -24,6 +24,7 @@ import com.quduo.welfareshop.event.UpdateSessionEvent;
 import com.quduo.welfareshop.greendao.dao.MessageInfoDao;
 import com.quduo.welfareshop.mvp.BaseMainMvpFragment;
 import com.quduo.welfareshop.ui.friend.entity.ChatMessageInfo;
+import com.quduo.welfareshop.ui.friend.entity.InteractInfo;
 import com.quduo.welfareshop.ui.friend.presenter.FriendPresenter;
 import com.quduo.welfareshop.ui.friend.view.IFriendView;
 import com.quduo.welfareshop.widgets.APSTSViewPager;
@@ -98,10 +99,10 @@ public class FriendFragment extends BaseMainMvpFragment<IFriendView, FriendPrese
             @Override
             public void run() {
                 if (getParentFragment() instanceof MainFragment) {
-                    String tabTitle[] = {"1v1视频", "极品排行", "消息", "关注"};
+                    String tabTitle[] = {"火辣互动", "热门视频", "消息", "关注"};
                     List<Fragment> fragmentList = new ArrayList<>();
-                    fragmentList.add(NearFragment.newInstance());
-                    fragmentList.add(RankFragment.newInstance());
+                    fragmentList.add(InteractFragment.newInstance());
+                    fragmentList.add(HotVideoFragment.newInstance());
                     fragmentList.add(MessageFragment.newInstance());
                     fragmentList.add(FollowFragment.newInstance());
 
