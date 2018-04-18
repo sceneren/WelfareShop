@@ -8,13 +8,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.BaseActivity;
+import com.quduo.welfareshop.widgets.X5WebView;
 
 import java.io.IOException;
 
@@ -31,7 +30,7 @@ import wiki.scene.loadmore.utils.PtrLocalDisplay;
 public class OpenPayActivity extends BaseActivity {
     public static final String ARG_URL = "url";
     @BindView(R.id.webView)
-    WebView webView;
+    X5WebView webView;
 
     public static final String ARG_TYPE = "type";
 
@@ -53,15 +52,9 @@ public class OpenPayActivity extends BaseActivity {
             return;
         }
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.setWebViewClient(new WebViewClient() {
+        webView.setWebViewClient(new com.tencent.smtt.sdk.WebViewClient() {
             @Override
-            public void onPageFinished(WebView view, String url) {
-                //simulateClick();
-                super.onPageFinished(view, url);
-            }
-
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            public boolean shouldOverrideUrlLoading(com.tencent.smtt.sdk.WebView view, String url) {
                 if (type == 1) {
                     if (url.startsWith("weixin:")) {
                         Intent intent = new Intent();
@@ -70,7 +63,7 @@ public class OpenPayActivity extends BaseActivity {
                         startActivity(intent);
                         return true;
                     }
-                    return super.shouldOverrideUrlLoading(view, url);
+                    return super.shouldOverrideUrlLoading(webView, url);
                 } else {
                     if (webView != null && !TextUtils.isEmpty(url)) {
                         if (url.toLowerCase().contains("platformapi/startapp")) {
@@ -87,10 +80,47 @@ public class OpenPayActivity extends BaseActivity {
                     }
                     return true;
                 }
-
             }
         });
 
+//        webView.setWebViewClient(new WebViewClient() {
+//            @Override
+//            public void onPageFinished(WebView view, String url) {
+//                //simulateClick();
+//                super.onPageFinished(view, url);
+//            }
+//
+//            @Override
+//            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                if (type == 1) {
+//                    if (url.startsWith("weixin:")) {
+//                        Intent intent = new Intent();
+//                        intent.setAction(Intent.ACTION_VIEW);
+//                        intent.setData(Uri.parse(url));
+//                        startActivity(intent);
+//                        return true;
+//                    }
+//                    return super.shouldOverrideUrlLoading(view, url);
+//                } else {
+//                    if (webView != null && !TextUtils.isEmpty(url)) {
+//                        if (url.toLowerCase().contains("platformapi/startapp")) {
+//                            startAlipayActivity(url);
+//                            // android  6.0 两种方式获取intent都可以跳转支付宝成功,7.1测试不成功
+//                        } else if ((Build.VERSION.SDK_INT > Build.VERSION_CODES.M)
+//                                && (url.toLowerCase().contains("platformapi") && url.toLowerCase().contains("startapp"))) {
+//                            startAlipayActivity(url);
+//                        } else {
+//                            webView.loadUrl(url);
+//                        }
+//                    } else {
+//                        finish();
+//                    }
+//                    return true;
+//                }
+//
+//            }
+//        });
+//
         if (url.startsWith("weixin:")) {
             if (type == 1) {
                 try {
@@ -156,7 +186,7 @@ public class OpenPayActivity extends BaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        isNeedFinish=true;
+        isNeedFinish = true;
     }
 
     @Override
