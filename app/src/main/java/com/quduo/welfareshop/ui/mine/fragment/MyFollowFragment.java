@@ -95,14 +95,14 @@ public class MyFollowFragment extends BaseBackMvpFragment<IMyFollowView, MyFollo
 
     @Override
     public void initView() {
-        String tabTitle[] = {"视频", "小说", "图片"};
+        String tabTitle[] = {"视频",  "图片"};
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(MyFollowVideoFragment.newInstance());
-        fragmentList.add(MyFollowNovelFragment.newInstance());
+        //fragmentList.add(MyFollowNovelFragment.newInstance());
         fragmentList.add(MyFollowImageFragment.newInstance());
         tab.addTab(tab.newTab().setText(tabTitle[0]));
         tab.addTab(tab.newTab().setText(tabTitle[1]));
-        tab.addTab(tab.newTab().setText(tabTitle[2]));
+        //tab.addTab(tab.newTab().setText(tabTitle[2]));
         viewPager.setAdapter(new BaseViewPagerAdapter(getChildFragmentManager(), tabTitle, fragmentList));
         viewPager.setOffscreenPageLimit(3);
         tab.setupWithViewPager(viewPager);

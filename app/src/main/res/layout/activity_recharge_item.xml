@@ -52,6 +52,13 @@
         android:textColor="@color/title_text_color"
         android:textSize="10sp" />
 
+    <ImageView
+        android:id="@+id/czth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/ic_czth" />
+
     <View
         android:layout_width="0dp"
         android:layout_height="1dp"

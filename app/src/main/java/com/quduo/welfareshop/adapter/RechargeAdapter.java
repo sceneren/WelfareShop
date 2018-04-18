@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.quduo.welfareshop.R;
@@ -77,8 +78,8 @@ public class RechargeAdapter extends BaseAdapter {
                 }
             }
         });
-        holder.experience.setVisibility(info.getScore()<10?View.VISIBLE:View.GONE);
-
+        holder.experience.setVisibility(info.getScore() < 10 ? View.VISIBLE : View.GONE);
+        holder.czth.setVisibility(position == 1 ? View.VISIBLE : View.GONE);
         return convertView;
     }
 
@@ -91,6 +92,8 @@ public class RechargeAdapter extends BaseAdapter {
         TextView money;
         @BindView(R.id.experience)
         TextView experience;
+        @BindView(R.id.czth)
+        ImageView czth;
 
         RechargeViewHolder(View view) {
             ButterKnife.bind(this, view);
