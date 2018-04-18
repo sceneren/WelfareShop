@@ -117,7 +117,7 @@
                 android:drawableLeft="@drawable/ic_djs_fen"
                 android:drawablePadding="5dp"
                 android:gravity="center_vertical"
-                android:text="消费1元送1积分"
+                android:text="消费1元送1积分1钻石"
                 android:textColor="@color/theme_color"
                 android:textSize="@dimen/sp_12" />
         </LinearLayout>

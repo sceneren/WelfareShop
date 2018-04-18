@@ -380,6 +380,8 @@
                         android:drawableLeft="@drawable/ic_sdfh"
                         android:drawablePadding="5dp"
                         android:gravity="center"
+                        android:lines="1"
+                        android:ellipsize="end"
                         android:text="24小时闪电发货"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp_12" />

@@ -75,7 +75,7 @@ public class VideoDetailGoodsAdapter extends BaseAdapter {
         holder.buyNumber.setText(MessageFormat.format("{0}人付款", info.getSales()));
         Number num = Float.parseFloat(info.getPrice()) * 100;
         int giveNum = num.intValue() / 100;
-        holder.zeng.setText(MessageFormat.format("{0}积分", giveNum));
+        holder.zeng.setText(MessageFormat.format("{0}积分{1}钻石", giveNum, giveNum));
         return convertView;
     }
 

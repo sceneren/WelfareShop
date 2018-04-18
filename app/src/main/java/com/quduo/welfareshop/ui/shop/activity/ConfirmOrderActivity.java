@@ -180,8 +180,9 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
         Number num = Float.parseFloat(orderInfo.getGoodsPrice()) * 100;
         int giveNum = num.intValue() / 100;
         goodsModel.setText(orderInfo.getChooseModel());
-        totalPrice.setText(MessageFormat.format("￥{0}", giveNum * orderInfo.getChoosedNum()));
-        totalScore.setText(MessageFormat.format("送{0}积分", giveNum * orderInfo.getChoosedNum()));
+        int totalGiveNum = giveNum * orderInfo.getChoosedNum();
+        totalPrice.setText(MessageFormat.format("￥{0}", totalGiveNum));
+        totalScore.setText(MessageFormat.format("送{0}积分{1}钻石", totalGiveNum, totalGiveNum));
     }
 
     @Override

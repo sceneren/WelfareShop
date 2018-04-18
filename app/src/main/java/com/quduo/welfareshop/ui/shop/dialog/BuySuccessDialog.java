@@ -48,7 +48,7 @@ public class BuySuccessDialog extends Dialog {
     }
 
     public void setNumber(int score) {
-        number.setText(MessageFormat.format("{0}积分", score));
+        number.setText(MessageFormat.format("{0}积分{1}钻石", score, score));
     }
 
     @OnClick(R.id.ok)

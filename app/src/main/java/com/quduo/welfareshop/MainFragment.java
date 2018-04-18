@@ -18,6 +18,7 @@ import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.event.TabSelectedEvent;
 import com.quduo.welfareshop.ui.friend.fragment.FriendFragment;
 import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
+import com.quduo.welfareshop.ui.red.fragment.RedFragment;
 import com.quduo.welfareshop.ui.shop.activity.SingleGoodsDetailActivity;
 import com.quduo.welfareshop.ui.shop.fragment.ShopFragment;
 import com.quduo.welfareshop.ui.welfare.fragment.WelfareFragment;
@@ -57,7 +58,7 @@ public class MainFragment extends SupportFragment {
     @BindView(R.id.image)
     ImageView image;
 
-    private SupportFragment[] mFragments = new SupportFragment[4];
+    private SupportFragment[] mFragments = new SupportFragment[5];
     private List<String> tabNames = new ArrayList<>();
 
     public static MainFragment newInstance() {
@@ -83,25 +84,27 @@ public class MainFragment extends SupportFragment {
         tabNames.add(getString(R.string.tab_welfare));
         tabNames.add(getString(R.string.tab_friend));
         tabNames.add(getString(R.string.tab_shop));
-        //tabNames.add(getString(R.string.tab_red));
+        tabNames.add("全民红包");
         tabNames.add(getString(R.string.tab_mine));
         if (firstFragment == null) {
             mFragments[FIRST] = WelfareFragment.newInstance();
             mFragments[SECOND] = FriendFragment.newInstance();
             mFragments[THIRD] = ShopFragment.newInstance();
-            //mFragments[FOUR] = RedFragment.newInstance();
-            mFragments[FOUR] = MineFragment.newInstance();
+            mFragments[FOUR] = RedFragment.newInstance();
+            mFragments[FIVE] = MineFragment.newInstance();
 
             loadMultipleRootFragment(R.id.fl_tab_container, FIRST,
                     mFragments[FIRST],
                     mFragments[SECOND],
                     mFragments[THIRD],
-                    mFragments[FOUR]);
+                    mFragments[FOUR],
+                    mFragments[FIVE]);
         } else {
             // 这里我们需要拿到mFragments的引用,也可以通过getChildFragmentManager.findFragmentByTag自行进行判断查找(效率更高些),用下面的方法查找更方便些
             mFragments[FIRST] = firstFragment;
             mFragments[SECOND] = findChildFragment(FriendFragment.class);
             mFragments[THIRD] = findChildFragment(ShopFragment.class);
+            mFragments[FOUR] = findChildFragment(RedFragment.class);
             mFragments[FIVE] = findChildFragment(MineFragment.class);
         }
         initView();
@@ -220,8 +223,8 @@ public class MainFragment extends SupportFragment {
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_welfare_d, R.drawable.ic_tab_welfare_s, tabNames.get(FIRST)))
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_friend_d, R.drawable.ic_tab_friend_s, tabNames.get(SECOND)))
                 .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_shop_d, R.drawable.ic_tab_shop_s, tabNames.get(THIRD)))
-                // .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_vr_d, R.drawable.ic_tab_vr_s, tabNames.get(FOUR)))
-                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_mine_d, R.drawable.ic_tab_mine_s, tabNames.get(FOUR)));
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_red_d, R.drawable.ic_tab_red_s, tabNames.get(FOUR)))
+                .addItem(new BottomBarTab(_mActivity, R.drawable.ic_tab_mine_d, R.drawable.ic_tab_mine_s, tabNames.get(FIVE)));
 
         bottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override

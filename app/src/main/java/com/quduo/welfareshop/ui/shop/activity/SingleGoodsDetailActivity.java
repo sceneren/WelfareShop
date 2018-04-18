@@ -192,7 +192,7 @@ public class SingleGoodsDetailActivity extends BaseMvpActivity<ISingleGoodsDetai
             tabGoodsPrice.setText(MessageFormat.format("￥{0}", detailInfo.getPrice()));
             Number num = Float.parseFloat(detailInfo.getPrice()) * 100;
             int giveNum = num.intValue() / 100;
-            sendScore.setText(MessageFormat.format("赠{0}积分", giveNum));
+            sendScore.setText(MessageFormat.format("赠{0}积分{1}钻石", giveNum, giveNum));
             btnFollow.setCompoundDrawablesWithIntrinsicBounds(null, detailInfo.getFavor_id() == 0 ? iconNoFollow : iconHasFollow, null, null);
 
             for (SingleGoodsDetailImageInfo topImage : data.getImg_top()) {

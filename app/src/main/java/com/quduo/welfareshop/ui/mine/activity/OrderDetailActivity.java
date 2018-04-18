@@ -402,7 +402,7 @@ public class OrderDetailActivity extends BaseMvpActivity<IOrderDetailView, Order
             goodsModel.setText(orderDetailInfo.getModel());
             Number num = Float.parseFloat(orderDetailInfo.getPrice()) * 100;
             int giveNum = num.intValue() / 100 * orderDetailInfo.getNumber();
-            goodsScore.setText(MessageFormat.format("赠送{0}积分", giveNum));
+            goodsScore.setText(MessageFormat.format("赠送{0}积分{1}钻石", giveNum, giveNum));
             orderNumber.setText(orderDetailInfo.getOrder_id());
             DateTime dateTime = new DateTime(orderDetailInfo.getCreate_time() * 1000);
             orderTime.setText(dateTime.toString("yyyy-MM-dd HH:mm:ss"));
