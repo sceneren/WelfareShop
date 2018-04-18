@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/bg_color"
     android:orientation="vertical">
-
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
             android:layout_height="70dp"
             android:layout_marginLeft="@dimen/dp_10"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_default_image" />
+            android:src="@drawable/ic_default_avatar" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,6 +57,7 @@
                 android:layout_height="wrap_content"
                 android:lines="1"
                 android:maxLines="1"
+                tools:text="昵称"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
 
@@ -76,7 +77,7 @@
                     android:id="@+id/score_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="99"
+                    tools:text="99"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_12" />
 
@@ -92,7 +93,7 @@
                     android:id="@+id/diamonds_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="99"
+                    tools:text="99"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_12" />
             </LinearLayout>
@@ -113,7 +114,7 @@
                     android:id="@+id/show_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="99"
+                    tools:text="99"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_12" />
 
@@ -129,7 +130,7 @@
                     android:id="@+id/follow_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="99"
+                    tools:text="99"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_12" />
             </LinearLayout>
