@@ -342,7 +342,6 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
             e.printStackTrace();
         }
 
-
     }
 
     private void toChatMessage() {
