@@ -1,6 +1,5 @@
 package com.quduo.welfareshop.ui.friend.fragment;
 
-import android.Manifest;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -15,13 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.quduo.welfareshop.MainFragment;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.BaseViewPagerAdapter;
 import com.quduo.welfareshop.config.AppConfig;
-import com.quduo.welfareshop.event.TabSelectedEvent;
 import com.quduo.welfareshop.event.UnreadEvent;
 import com.quduo.welfareshop.event.UpdateSessionEvent;
 import com.quduo.welfareshop.greendao.dao.MessageInfoDao;
@@ -41,7 +38,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import me.weyye.hipermission.HiPermission;
 
 /**
  * Author:scene
@@ -94,13 +90,7 @@ public class FriendFragment extends BaseMainMvpFragment<IFriendView, FriendPrese
     @Override
     public void initView() {
         super.initView();
-        if (HiPermission.checkPermission(_mActivity, Manifest.permission.ACCESS_FINE_LOCATION)) {
-            initFragment();
-        } else {
-            //applyLocationPermission();
-            ToastUtils.showShort("请先开启定位权限");
-            EventBus.getDefault().post(new TabSelectedEvent(0));
-        }
+        initFragment();
     }
 
     private void initFragment() {
@@ -108,9 +98,9 @@ public class FriendFragment extends BaseMainMvpFragment<IFriendView, FriendPrese
             @Override
             public void run() {
                 if (getParentFragment() instanceof MainFragment) {
-                    String tabTitle[] = {"1对1视频", "热门视频", "消息", "关注"};
+                    String tabTitle[] = {"火辣互动", "热门视频", "消息", "关注"};
                     List<Fragment> fragmentList = new ArrayList<>();
-                    fragmentList.add(NearFragment.newInstance());
+                    fragmentList.add(InteractFragment.newInstance());
                     fragmentList.add(HotVideoFragment.newInstance());
                     fragmentList.add(MessageFragment.newInstance());
                     fragmentList.add(FollowFragment.newInstance());
@@ -180,7 +170,7 @@ public class FriendFragment extends BaseMainMvpFragment<IFriendView, FriendPrese
             }
             if (MessageInfoDao.getInstance().hasUnReadMessage()) {
                 unreadIcon.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 unreadIcon.setVisibility(View.GONE);
             }
         } catch (Exception e) {

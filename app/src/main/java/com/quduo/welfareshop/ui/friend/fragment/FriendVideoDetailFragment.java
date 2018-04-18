@@ -20,6 +20,7 @@ import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.base.UnlockLisenter;
 import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.FriendHotVideoChangeStatusEvent;
+import com.quduo.welfareshop.event.FriendInteractChangeStatusEvent;
 import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.friend.entity.FriendVideoDetailInfo;
@@ -41,6 +42,9 @@ import cn.jzvd.JZVideoPlayer;
 
 public class FriendVideoDetailFragment extends BaseBackMvpFragment<IFriendVideoDetailView, FriendVideoDetailPresenter> implements IFriendVideoDetailView {
     private static final String ARG_DATA = "data";
+    private static final String ARG_FROM = "from";
+    public static final int FROM_INTERACT = 1;
+    public static final int FROM_HOT_VIDEO = 2;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
@@ -63,9 +67,12 @@ public class FriendVideoDetailFragment extends BaseBackMvpFragment<IFriendVideoD
 
     private FriendVideoDetailInfo detailInfo;
 
-    public static FriendVideoDetailFragment newInstance(FriendVideoDetailInfo data) {
+    private int from = 0;
+
+    public static FriendVideoDetailFragment newInstance(FriendVideoDetailInfo data, int from) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_DATA, data);
+        args.putInt(ARG_FROM, from);
         FriendVideoDetailFragment fragment = new FriendVideoDetailFragment();
         fragment.setArguments(args);
         return fragment;
@@ -76,6 +83,7 @@ public class FriendVideoDetailFragment extends BaseBackMvpFragment<IFriendVideoD
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             detailInfo = (FriendVideoDetailInfo) getArguments().getSerializable(ARG_DATA);
+            from = getArguments().getInt(ARG_FROM, 0);
         }
     }
 
@@ -185,7 +193,14 @@ public class FriendVideoDetailFragment extends BaseBackMvpFragment<IFriendVideoD
         try {
             MyApplication.getInstance().getUserInfo().setScore(currentScore);
             EventBus.getDefault().post(new UpdateScoreAndDiamondEvent());
-            EventBus.getDefault().post(new FriendHotVideoChangeStatusEvent(detailInfo.getPosition()));
+            switch (from) {
+                case FROM_HOT_VIDEO:
+                    EventBus.getDefault().post(new FriendHotVideoChangeStatusEvent(detailInfo.getPosition()));
+                    break;
+                case FROM_INTERACT:
+                    EventBus.getDefault().post(new FriendInteractChangeStatusEvent(detailInfo.getPosition()));
+                    break;
+            }
             detailInfo.setPayed(true);
             videoPlayer.setPayed(true);
         } catch (Exception e) {
@@ -194,8 +209,13 @@ public class FriendVideoDetailFragment extends BaseBackMvpFragment<IFriendVideoD
     }
 
     @OnClick(R.id.close)
-    public void onClickClose(){
+    public void onClickClose() {
         _mActivity.onBackPressed();
+    }
+
+    @OnClick(R.id.layout_to_video_detail)
+    public void onClickLayoutToVideoDetail() {
+        start(OtherInfoFragment.newInstance(String.valueOf(detailInfo.getUserId()), false));
     }
 
     @Override
