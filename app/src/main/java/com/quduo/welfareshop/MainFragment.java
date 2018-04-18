@@ -102,7 +102,7 @@ public class MainFragment extends SupportFragment {
             mFragments[FIRST] = firstFragment;
             mFragments[SECOND] = findChildFragment(FriendFragment.class);
             mFragments[THIRD] = findChildFragment(ShopFragment.class);
-            mFragments[FIVE] = findChildFragment(MineFragment.class);
+            mFragments[FOUR] = findChildFragment(MineFragment.class);
         }
         initView();
     }
