@@ -54,6 +54,17 @@ public class OtherDetailUserInfo extends BaseBean {
     private String cover;
     private String video_times;
     private String video_total_time;
+    private List<InteractGoodsUserInfo> good_users;
+    private List<FriendOtherInfoDetailVideoInfo> videos;
+    private boolean busy;
+
+    public List<FriendOtherInfoDetailVideoInfo> getVideos() {
+        return videos;
+    }
+
+    public void setVideos(List<FriendOtherInfoDetailVideoInfo> videos) {
+        this.videos = videos;
+    }
 
     public int getId() {
         return id;
@@ -229,5 +240,21 @@ public class OtherDetailUserInfo extends BaseBean {
 
     public void setVideo_total_time(String video_total_time) {
         this.video_total_time = video_total_time;
+    }
+
+    public List<InteractGoodsUserInfo> getGood_users() {
+        return good_users;
+    }
+
+    public void setGood_users(List<InteractGoodsUserInfo> good_users) {
+        this.good_users = good_users;
+    }
+
+    public boolean isBusy() {
+        return busy;
+    }
+
+    public void setBusy(boolean busy) {
+        this.busy = busy;
     }
 }

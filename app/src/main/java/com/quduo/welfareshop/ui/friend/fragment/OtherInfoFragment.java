@@ -29,11 +29,15 @@ import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.base.UnlockLisenter;
 import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.FollowEvent;
+import com.quduo.welfareshop.event.FriendOtherUserInfoChangeStatusEvent;
 import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.friend.activity.ChatActivity;
 import com.quduo.welfareshop.ui.friend.adapter.OtherInfoImageAdapter;
+import com.quduo.welfareshop.ui.friend.adapter.OtherInfoVideoAdapter;
+import com.quduo.welfareshop.ui.friend.entity.FriendOtherInfoDetailVideoInfo;
+import com.quduo.welfareshop.ui.friend.entity.FriendVideoDetailInfo;
 import com.quduo.welfareshop.ui.friend.entity.OtherDetailUserInfo;
 import com.quduo.welfareshop.ui.friend.presenter.OtherInfoPresenter;
 import com.quduo.welfareshop.ui.friend.view.IOtherInfoView;
@@ -118,12 +122,43 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
     TextView videoCount;
     @BindView(R.id.video_time)
     TextView videoTime;
+    @BindView(R.id.back)
+    ImageView back;
+    @BindView(R.id.user_sign)
+    TextView userSign;
+    @BindView(R.id.video_status_view)
+    ImageView videoStatusView;
+    @BindView(R.id.video_status_text)
+    TextView videoStatusText;
+    @BindView(R.id.arrow)
+    ImageView arrow;
+    @BindView(R.id.video_chat)
+    RelativeLayout videoChat;
+    @BindView(R.id.btn_follow)
+    TextView btnFollow;
+    @BindView(R.id.video_avatar_1)
+    ImageView videoAvatar1;
+    @BindView(R.id.video_avatar_2)
+    ImageView videoAvatar2;
+    @BindView(R.id.video_avatar_3)
+    ImageView videoAvatar3;
+    @BindView(R.id.video_chat_text)
+    TextView videoChatText;
+    @BindView(R.id.no_video)
+    TextView noVideo;
+    @BindView(R.id.videoGridView)
+    CustomGridView videoGridView;
+
     private String otherUserId;
     private boolean isFromNear = false;
 
 
     private List<String> list = new ArrayList<>();
     private OtherInfoImageAdapter adapter;
+
+    private List<FriendOtherInfoDetailVideoInfo> videoList;
+    private OtherInfoVideoAdapter videoAdapter;
+
     private OtherDetailUserInfo detailUserInfo;
 
     private ArrayList<MyUserDetailInfo.PhotosBean> images;
@@ -213,6 +248,28 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
             }
         });
 
+        videoList = new ArrayList<>();
+        videoAdapter = new OtherInfoVideoAdapter(getContext(), videoList);
+        videoGridView.setAdapter(videoAdapter);
+        videoGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                FriendOtherInfoDetailVideoInfo hotVideoInfo = videoList.get(position);
+                FriendVideoDetailInfo detailInfo = new FriendVideoDetailInfo();
+                detailInfo.setId(hotVideoInfo.getId());
+                detailInfo.setAvatar(hotVideoInfo.getAvatar());
+                detailInfo.setContent(hotVideoInfo.getContent());
+                detailInfo.setNickName(hotVideoInfo.getNickname());
+                detailInfo.setPlay_times(hotVideoInfo.getPlay_times());
+                detailInfo.setThumb(hotVideoInfo.getThumb());
+                detailInfo.setUserId(hotVideoInfo.getUser_id());
+                detailInfo.setVideo_url(hotVideoInfo.getUrl());
+                detailInfo.setPrice(hotVideoInfo.getPrice());
+                detailInfo.setPayed(hotVideoInfo.isPayed());
+                detailInfo.setPosition(position);
+                start(FriendVideoDetailFragment.newInstance(detailInfo, FriendVideoDetailFragment.FROM_OTHER_USER_INFO));
+            }
+        });
 
         presenter.getData(true);
     }
@@ -246,7 +303,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
         }
     }
 
-    @OnClick(R.id.follow)
+    @OnClick({R.id.follow, R.id.btn_follow})
     public void onClickFollow() {
         if (detailUserInfo.getSubscribe_id() == 0) {
             presenter.followUser();
@@ -318,7 +375,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
                     .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                     .into(avatar);
             nickname.setText(StringUtils.isTrimEmpty(data.getNickname()) ? "游客" : data.getNickname());
-            followNumber.setText(MessageFormat.format("粉丝：{0}", data.getSubscribe()));
+            followNumber.setText(MessageFormat.format("粉丝：{0}人", data.getSubscribe()));
             othersShowId.setText(MessageFormat.format("ID:{0}", data.getId()));
             showFollowStates();
 
@@ -333,6 +390,7 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
             list.addAll(data.getPhotos());
             adapter.notifyDataSetChanged();
             des.setText(data.getSignature());
+            userSign.setText(data.getSignature());
             videoCount.setText(MessageFormat.format("视频人数:{0}次", data.getVideo_times()));
             videoTime.setText(MessageFormat.format("视频总时长:{0}分", data.getVideo_total_time()));
             if (!StringUtils.isEmpty(data.getHeight())) {
@@ -354,6 +412,93 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
             bloodType.setText(data.getBlood_type());
             job.setText(data.getJob());
             star.setText(data.getStar());
+
+
+            if (data.getGood_users() != null && data.getGood_users().size() > 0) {
+                String zanStr = data.getGood_users().get(0).getNickname();
+                if (zanStr.length() > 4) {
+                    zanStr = zanStr.substring(0, 4);
+                }
+                zanStr += "...等" + data.getVideo_times() + "人和TA视频过";
+                videoChatText.setText(zanStr);
+
+                if (data.getGood_users().size() == 1) {
+                    videoAvatar1.setVisibility(View.VISIBLE);
+                    videoAvatar2.setVisibility(View.GONE);
+                    videoAvatar3.setVisibility(View.GONE);
+                    GlideApp.with(OtherInfoFragment.this)
+                            .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.getGood_users().get(0).getAvatar())
+                            .circleCrop()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .placeholder(R.drawable.ic_default_avatar)
+                            .into(videoAvatar1);
+
+                } else if (data.getGood_users().size() == 2) {
+                    videoAvatar1.setVisibility(View.VISIBLE);
+                    videoAvatar2.setVisibility(View.VISIBLE);
+                    videoAvatar3.setVisibility(View.GONE);
+                    GlideApp.with(OtherInfoFragment.this)
+                            .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.getGood_users().get(0).getAvatar())
+                            .circleCrop()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .placeholder(R.drawable.ic_default_avatar)
+                            .into(videoAvatar1);
+                    GlideApp.with(OtherInfoFragment.this)
+                            .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.getGood_users().get(1).getAvatar())
+                            .circleCrop()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .placeholder(R.drawable.ic_default_avatar)
+                            .into(videoAvatar2);
+                } else {
+                    videoAvatar1.setVisibility(View.VISIBLE);
+                    videoAvatar2.setVisibility(View.VISIBLE);
+                    videoAvatar3.setVisibility(View.VISIBLE);
+                    GlideApp.with(OtherInfoFragment.this)
+                            .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.getGood_users().get(0).getAvatar())
+                            .circleCrop()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .placeholder(R.drawable.ic_default_avatar)
+                            .into(videoAvatar1);
+                    GlideApp.with(OtherInfoFragment.this)
+                            .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.getGood_users().get(1).getAvatar())
+                            .circleCrop()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .placeholder(R.drawable.ic_default_avatar)
+                            .into(videoAvatar2);
+                    GlideApp.with(OtherInfoFragment.this)
+                            .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + data.getGood_users().get(2).getAvatar())
+                            .circleCrop()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .placeholder(R.drawable.ic_default_avatar)
+                            .into(videoAvatar3);
+                }
+
+            } else {
+                videoChatText.setText("");
+                videoAvatar1.setVisibility(View.GONE);
+                videoAvatar2.setVisibility(View.GONE);
+                videoAvatar3.setVisibility(View.GONE);
+            }
+
+            if (data.getVideos() == null || data.getVideos().size() == 0) {
+                noVideo.setVisibility(View.VISIBLE);
+                videoGridView.setVisibility(View.GONE);
+            } else {
+                noVideo.setVisibility(View.GONE);
+                videoGridView.setVisibility(View.VISIBLE);
+                videoList.clear();
+                videoList.addAll(data.getVideos());
+                videoAdapter.notifyDataSetChanged();
+            }
+
+            if (data.isBusy()) {
+                videoStatusText.setText("视频通话中");
+                videoStatusView.setImageResource(R.drawable.ic_friend_status_1);
+            } else {
+                videoStatusText.setText("空闲");
+                videoStatusView.setImageResource(R.drawable.ic_friend_status_0);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -480,8 +625,10 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
             if (detailUserInfo.getSubscribe_id() != 0) {
                 follow.setText("已关注");
                 follow.setCompoundDrawablesWithIntrinsicBounds(null, ContextCompat.getDrawable(_mActivity, R.drawable.ic_other_info_follow_s), null, null);
+                btnFollow.setText("已关注");
             } else {
                 follow.setText("关注");
+                btnFollow.setText("+关注");
                 follow.setCompoundDrawablesWithIntrinsicBounds(null, ContextCompat.getDrawable(_mActivity, R.drawable.ic_other_info_follow_d), null, null);
             }
         } catch (Exception e) {
@@ -504,5 +651,15 @@ public class OtherInfoFragment extends BaseBackMvpFragment<IOtherInfoView, Other
         intent.putExtra(AlbumActivity.ARG_IMAGES, images);
         startActivity(intent);
         _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+    }
+
+    @Subscribe
+    public void changePayStatus(FriendOtherUserInfoChangeStatusEvent event) {
+        try {
+            videoList.get(event.getPosition()).setPayed(true);
+            videoAdapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

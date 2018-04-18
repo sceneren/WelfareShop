@@ -21,6 +21,7 @@ import com.quduo.welfareshop.base.UnlockLisenter;
 import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.FriendHotVideoChangeStatusEvent;
 import com.quduo.welfareshop.event.FriendInteractChangeStatusEvent;
+import com.quduo.welfareshop.event.FriendOtherUserInfoChangeStatusEvent;
 import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.friend.entity.FriendVideoDetailInfo;
@@ -45,6 +46,8 @@ public class FriendVideoDetailFragment extends BaseBackMvpFragment<IFriendVideoD
     private static final String ARG_FROM = "from";
     public static final int FROM_INTERACT = 1;
     public static final int FROM_HOT_VIDEO = 2;
+    public static final int FROM_OTHER_USER_INFO = 3;
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
@@ -199,6 +202,9 @@ public class FriendVideoDetailFragment extends BaseBackMvpFragment<IFriendVideoD
                     break;
                 case FROM_INTERACT:
                     EventBus.getDefault().post(new FriendInteractChangeStatusEvent(detailInfo.getPosition()));
+                    break;
+                case FROM_OTHER_USER_INFO:
+                    EventBus.getDefault().post(new FriendOtherUserInfoChangeStatusEvent(detailInfo.getPosition()));
                     break;
             }
             detailInfo.setPayed(true);
