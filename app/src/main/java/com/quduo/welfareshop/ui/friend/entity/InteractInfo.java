@@ -43,6 +43,7 @@ public class InteractInfo extends BaseBean {
     private boolean payed;
     private List<InteractGoodsUserInfo> good_users;
     private boolean is_good;
+    private int subscribe;
 
     public int getId() {
         return id;
@@ -186,5 +187,13 @@ public class InteractInfo extends BaseBean {
 
     public void setIs_good(boolean is_good) {
         this.is_good = is_good;
+    }
+
+    public int getSubscribe() {
+        return subscribe;
+    }
+
+    public void setSubscribe(int subscribe) {
+        this.subscribe = subscribe;
     }
 }

@@ -122,8 +122,6 @@ public class MyApplication extends LitePalApplication {
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return;
         }
-        LeakCanary.install(this);
-
         instance = this;
 
         //初始化异常管理工具

@@ -39,12 +39,11 @@ public class InteractAdapter extends BaseQuickAdapter<InteractInfo, BaseViewHold
         helper.setText(R.id.nickname, item.getNickname());
         helper.setText(R.id.age, String.valueOf(item.getAge()));
         if (item.getSex() == 1) {
-            helper.setText(R.id.video_chat_times, item.getVideo_times() + "人和他1v1视频过");
             helper.setImageResource(R.id.sex, R.drawable.ic_male_white);
         } else {
-            helper.setText(R.id.video_chat_times, item.getVideo_times() + "人和她1v1视频过");
             helper.setImageResource(R.id.sex, R.drawable.ic_female_white);
         }
+        helper.setText(R.id.video_chat_times,item.getSubscribe()+"人关注了TA");
         helper.setText(R.id.content, item.getContent());
 
         ImageView thumb = helper.getView(R.id.thumb);
