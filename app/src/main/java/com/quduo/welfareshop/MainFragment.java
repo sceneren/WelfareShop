@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.quduo.welfareshop.dialog.EarliestCouponDialog;
+import com.quduo.welfareshop.event.ChangeCouponStatusEvent;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.event.TabSelectedEvent;
 import com.quduo.welfareshop.ui.friend.fragment.FriendFragment;
@@ -57,6 +59,8 @@ public class MainFragment extends SupportFragment {
     Unbinder unbinder;
     @BindView(R.id.image)
     ImageView image;
+    @BindView(R.id.show_coupon)
+    ImageView showCoupon;
 
     private SupportFragment[] mFragments = new SupportFragment[5];
     private List<String> tabNames = new ArrayList<>();
@@ -108,6 +112,20 @@ public class MainFragment extends SupportFragment {
             mFragments[FIVE] = findChildFragment(MineFragment.class);
         }
         initView();
+        showCouponStatus();
+
+    }
+
+    private void showCouponStatus() {
+        try {
+            if (MyApplication.getInstance().getUserInfo().isHas_coupon()) {
+                showCoupon.setVisibility(View.VISIBLE);
+            } else {
+                showCoupon.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private boolean isWork = true;
@@ -272,8 +290,20 @@ public class MainFragment extends SupportFragment {
     }
 
     @Subscribe
-    public void toIndexPage(TabSelectedEvent event) {
-        bottomBar.setCurrentItem(event.position);
+    public void toIndexPage(final TabSelectedEvent event) {
+        bottomBar.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                bottomBar.setCurrentItem(event.position);
+            }
+        }, 150);
+    }
+
+    @Subscribe
+    public void changeCouponStatus(ChangeCouponStatusEvent event) {
+        if (event != null) {
+            showCouponStatus();
+        }
     }
 
     @Override
@@ -292,7 +322,16 @@ public class MainFragment extends SupportFragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    @OnClick(R.id.show_coupon)
+    public void onClickShowCoupon() {
+        try {
+            Intent intent = new Intent(_mActivity, EarliestCouponDialog.class);
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

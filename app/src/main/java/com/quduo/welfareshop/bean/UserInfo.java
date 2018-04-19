@@ -102,6 +102,9 @@ public class UserInfo extends BaseBean {
     private String signature;
     private int unlock_chat;
     private int chat_price;
+    private boolean payed;
+    private boolean has_coupon;
+
 
     public int getId() {
         return id;
@@ -461,5 +464,21 @@ public class UserInfo extends BaseBean {
 
     public void setChat_price(int chat_price) {
         this.chat_price = chat_price;
+    }
+
+    public boolean isPayed() {
+        return payed;
+    }
+
+    public void setPayed(boolean payed) {
+        this.payed = payed;
+    }
+
+    public boolean isHas_coupon() {
+        return has_coupon;
+    }
+
+    public void setHas_coupon(boolean has_coupon) {
+        this.has_coupon = has_coupon;
     }
 }

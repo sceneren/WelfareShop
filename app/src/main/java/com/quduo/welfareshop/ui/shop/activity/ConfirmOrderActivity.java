@@ -24,6 +24,7 @@ import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.activity.OpenPayActivity;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.config.AppConfig;
+import com.quduo.welfareshop.event.ChangeCouponStatusEvent;
 import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
@@ -276,6 +277,8 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
             }
             startActivityForResult(intent, 40001);
             overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+            MyApplication.getInstance().getUserInfo().setHas_coupon(false);
+            EventBus.getDefault().post(new ChangeCouponStatusEvent());
         } catch (Exception e) {
             e.printStackTrace();
         }

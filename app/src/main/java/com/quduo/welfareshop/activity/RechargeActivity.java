@@ -299,6 +299,8 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     public void paySuccess(CheckPayResultInfo data) {
         try {
             showCouponDialog(data.getCoupon_cost());
+            MyApplication.getInstance().getUserInfo().setHas_coupon(true);
+            MyApplication.getInstance().getUserInfo().setPayed(true);
             MyApplication.getInstance().getUserInfo().setScore(data.getScore());
             MyApplication.getInstance().getUserInfo().setDiamond(data.getDiamond());
             EventBus.getDefault().post(new UpdateScoreAndDiamondEvent());

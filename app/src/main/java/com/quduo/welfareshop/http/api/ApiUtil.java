@@ -225,6 +225,9 @@ public class ApiUtil {
     //火辣互动
     public static final String FRIEND_INTERACT = "friend/dynamic";
     public static final String FRIEND_INTERACT_TAG = "friend/dynamic";
+    //最早的一个代金券
+    public static final String EARLIEST_COUPON = "personal/coupon/earliest";
+    public static final String EARLIEST_COUPON_TAG = "personal/coupon/earliest";
 
     /**
      * Case By:创建参数基础信息

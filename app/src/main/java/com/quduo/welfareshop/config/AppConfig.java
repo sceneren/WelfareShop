@@ -129,4 +129,6 @@ public class AppConfig {
     public static final int POSITION_FRIEND_HOT_VIDEO = 52;
     //交友视频详情
     public static final int POSITION_FRIEND_VIDEO_DETAIL = 53;
+    //代金券使用前的弹窗
+    public static final int POSITION_MAIN_SHOW_COUPON=54;
 }

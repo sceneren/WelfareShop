@@ -6,10 +6,8 @@
 
     <LinearLayout
         android:id="@+id/top"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="18dp"
-        android:layout_marginTop="18dp"
         android:background="@drawable/bg_get_coupon_dialog_top"
         android:orientation="horizontal">
 
@@ -34,10 +32,9 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/top"
-        android:layout_marginRight="18dp"
         android:background="@drawable/bg_get_coupon_dialog_bottom">
 
         <TextView
@@ -56,8 +53,7 @@
         android:id="@+id/close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
+        android:visibility="gone"
         android:src="@drawable/ic_dialog_get_coupon_close" />
 
 </RelativeLayout>

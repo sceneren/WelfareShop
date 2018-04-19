@@ -5,6 +5,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.ui.mine.entity.CouponInfo;
 
+import org.joda.time.DateTime;
+
 import java.util.List;
 
 /**
@@ -22,6 +24,8 @@ public class MyCouponAdapter extends BaseQuickAdapter<CouponInfo, BaseViewHolder
     @Override
     protected void convert(BaseViewHolder helper, CouponInfo item) {
         helper.setText(R.id.price, item.getCost() + "元");
+        DateTime dateTime = new DateTime(item.getExpress_time() * 1000);
+        helper.setText(R.id.time, "有效期至：" + dateTime.toString("yyyy-MM-dd HH:mm"));
     }
 
 }

@@ -67,16 +67,6 @@ public class GetCouponDialog extends Dialog {
     @Override
     public void show() {
         super.show();
-        try {
-            Window window = getWindow();
-            if (window != null) {
-                WindowManager.LayoutParams params = window.getAttributes();
-                params.width = (int) (PtrLocalDisplay.SCREEN_WIDTH_PIXELS * 0.85);
-                window.setAttributes(params);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public interface OnClickToShopListener {
