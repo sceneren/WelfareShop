@@ -16,6 +16,7 @@ public class CheckPayResultInfo extends BaseBean {
     private int coupon_cost;
     private int score;
     private int diamond;
+    private long coupon_express_time;
 
     public boolean isStatus() {
         return status;
@@ -57,4 +58,11 @@ public class CheckPayResultInfo extends BaseBean {
         this.diamond = diamond;
     }
 
+    public long getCoupon_express_time() {
+        return coupon_express_time;
+    }
+
+    public void setCoupon_express_time(long coupon_express_time) {
+        this.coupon_express_time = coupon_express_time;
+    }
 }

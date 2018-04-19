@@ -40,6 +40,9 @@ public class RechargePresenter extends BasePresenter<IRechargeView> {
                     try {
                         mView.showErrorPage();
                         mView.showMessage(message);
+                        mView.showContentPage();
+
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

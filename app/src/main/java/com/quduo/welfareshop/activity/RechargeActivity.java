@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.google.gson.Gson;
 import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
@@ -19,14 +20,14 @@ import com.quduo.welfareshop.adapter.RechargeAdapter;
 import com.quduo.welfareshop.bean.RechargeInfo;
 import com.quduo.welfareshop.bean.RechargeTypeInfo;
 import com.quduo.welfareshop.config.AppConfig;
-import com.quduo.welfareshop.dialog.GetCouponDialog;
+import com.quduo.welfareshop.dialog.EarliestCouponDialog;
 import com.quduo.welfareshop.dialog.RechargeQuestionDialog;
-import com.quduo.welfareshop.event.TabSelectedEvent;
 import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.mine.activity.UserAgreementActivity;
 import com.quduo.welfareshop.ui.mine.entity.CheckPayResultInfo;
+import com.quduo.welfareshop.ui.mine.entity.CouponInfo;
 import com.quduo.welfareshop.ui.shop.entity.PayInfo;
 import com.quduo.welfareshop.widgets.CustomListView;
 
@@ -79,13 +80,14 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     StatusViewLayout statusView;
 
     private RechargeQuestionDialog questionDialog;
-    private GetCouponDialog getCouponDialog;
 
     private List<RechargeTypeInfo> list = new ArrayList<>();
     private RechargeAdapter adapter;
 
     private int payType = 1;
     private int fromPosition = 0;
+
+    private String jsonStr = "{\"score_recharge_type\":[{\"type\":1,\"money\":38,\"score\":88,\"gift\":0},{\"type\":2,\"money\":68,\"score\":288,\"gift\":0},{\"type\":3,\"money\":98,\"score\":388,\"gift\":0}],\"score\":4297,\"wx_pay_enable\":true,\"ali_pay_enable\":false}";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +101,13 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
         }
         initToolBar();
         initView();
-        presenter.getData();
+        //解析本地json数据
+        showContentPage();
+        RechargeInfo rechargeInfo = new Gson().fromJson(jsonStr, RechargeInfo.class);
+        rechargeInfo.setScore(MyApplication.getInstance().getUserInfo().getScore());
+        bindRechargeListView(rechargeInfo);
+
+        //presenter.getData();
         MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_RECHARGE, fromPosition);
     }
 
@@ -223,6 +231,7 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     @Override
     public void bindRechargeListView(RechargeInfo data) {
         try {
+
             list.clear();
             list.addAll(data.getScore_recharge_type());
             adapter.notifyDataSetChanged();
@@ -298,7 +307,13 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     @Override
     public void paySuccess(CheckPayResultInfo data) {
         try {
-            showCouponDialog(data.getCoupon_cost());
+            Intent intent = new Intent(RechargeActivity.this, EarliestCouponDialog.class);
+            CouponInfo couponInfo = new CouponInfo();
+            couponInfo.setCost(data.getCoupon_cost());
+            couponInfo.setExpress_time(data.getCoupon_express_time());
+            intent.putExtra(EarliestCouponDialog.ARG_COUPON, couponInfo);
+            startActivityForResult(intent, 10001);
+
             MyApplication.getInstance().getUserInfo().setHas_coupon(true);
             MyApplication.getInstance().getUserInfo().setPayed(true);
             MyApplication.getInstance().getUserInfo().setScore(data.getScore());
@@ -316,21 +331,10 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
         if (requestCode == 40001) {
             presenter.checkPayResult(orderId);
             presenter.getData();
+        } else if (resultCode == RESULT_OK && requestCode == 10001) {
+            //代金券弹窗返回
+            finish();
         }
-    }
-
-    private void showCouponDialog(int cost) {
-        if (getCouponDialog == null) {
-            getCouponDialog = new GetCouponDialog(RechargeActivity.this);
-            getCouponDialog.setOnClickToShopListener(new GetCouponDialog.OnClickToShopListener() {
-                @Override
-                public void onClickToShop() {
-                    EventBus.getDefault().post(new TabSelectedEvent(2));
-                    onBackPressed();
-                }
-            });
-        }
-        getCouponDialog.showDialog(cost);
     }
 
     @OnClick(R.id.user_agreement)

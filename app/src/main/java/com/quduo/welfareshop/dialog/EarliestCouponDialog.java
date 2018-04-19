@@ -5,6 +5,7 @@ import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
@@ -25,6 +26,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class EarliestCouponDialog extends BaseActivity {
+    public static final String ARG_COUPON = "coupon";
     @BindView(R.id.cost)
     TextView cost;
     @BindView(R.id.time)
@@ -38,7 +40,12 @@ public class EarliestCouponDialog extends BaseActivity {
         setContentView(R.layout.dialog_earliest_coupon);
         ButterKnife.bind(this);
         MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_FRIEND_INTERACT, 0);
-        getData();
+        CouponInfo couponInfo = (CouponInfo) getIntent().getSerializableExtra(ARG_COUPON);
+        if (couponInfo == null) {
+            getData();
+        } else {
+            showCountDownTimer(couponInfo);
+        }
     }
 
 
@@ -72,12 +79,13 @@ public class EarliestCouponDialog extends BaseActivity {
     private void showCountDownTimer(CouponInfo couponInfo) {
         try {
             cost.setText(String.valueOf(couponInfo.getCost()));
-            final long lessTime = couponInfo.getExpress_time() * 1000 - System.currentTimeMillis();
+            long lessTime = couponInfo.getExpress_time() * 1000 - System.currentTimeMillis();
             timer = new CountDownTimer(lessTime, 50) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     try {
-                        time.setText(formatCountDownTime(lessTime));
+                        LogUtils.e(millisUntilFinished);
+                        time.setText(formatCountDownTime(millisUntilFinished));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -105,6 +113,7 @@ public class EarliestCouponDialog extends BaseActivity {
     public void onClickToShop() {
         try {
             EventBus.getDefault().post(new TabSelectedEvent(2));
+            setResult(RESULT_OK);
             finish();
         } catch (Exception e) {
             e.printStackTrace();
@@ -137,7 +146,11 @@ public class EarliestCouponDialog extends BaseActivity {
             long minutes = (mills - 86400000 * day - hours * 3600000) / 60000;
             long second = (mills - 86400000 * day - hours * 3600000 - minutes * 60000) / 1000;
             long mSec = (mills - 86400000 * day - hours * 3600000 - minutes * 60000 - second * 1000) / 10;
-            return day + "天" + hours + ":" + minutes + ":" + second + ":" + mSec;
+            return day + "天"
+                    + (hours > 9 ? hours : ("0" + hours))
+                    + ":" + (minutes > 9 ? minutes : ("0" + minutes))
+                    + ":" + (second > 9 ? second : ("0" + second))
+                    + ":" + (mSec > 9 ? mSec : ("0" + mSec));
         } else {
             return "0天00:00:00:00";
         }
