@@ -81,12 +81,12 @@ public class SmallVideoAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolde
             helper.setGone(R.id.image_tag, false);
             helper.setText(R.id.text_tag, item.getTags());
         }
-        if (StringUtils.isTrimEmpty(item.getSub_title()) || item.getSub_title().equals("null")) {
-            helper.setGone(R.id.sub_title, false);
-        } else {
-            helper.setText(R.id.sub_title, item.getSub_title());
-            helper.setGone(R.id.sub_title, true);
-        }
+//        if (StringUtils.isTrimEmpty(item.getSub_title()) || item.getSub_title().equals("null")) {
+//            helper.setGone(R.id.sub_title, false);
+//        } else {
+//            helper.setText(R.id.sub_title, item.getSub_title());
+//            helper.setGone(R.id.sub_title, true);
+//        }
 
     }
 

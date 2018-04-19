@@ -96,6 +96,7 @@
             android:id="@+id/commentRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="130dp"
+            android:visibility="gone"
             android:layout_alignParentBottom="true" />
     </RelativeLayout>
 </LinearLayout>

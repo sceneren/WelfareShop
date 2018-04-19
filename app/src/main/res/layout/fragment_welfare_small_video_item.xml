@@ -58,6 +58,7 @@
             android:paddingLeft="@dimen/dp_10"
             android:paddingRight="@dimen/dp_10"
             android:textColor="@color/white"
+            android:visibility="gone"
             android:textSize="@dimen/sp_12"
             tools:text="这是副标题" />
     </RelativeLayout>
