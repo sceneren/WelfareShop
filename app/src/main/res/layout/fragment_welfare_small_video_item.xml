@@ -46,6 +46,20 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="5dp"
             android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/sub_title"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_alignBottom="@+id/baseimage"
+            android:background="@drawable/jz_bottom_bg"
+            android:ellipsize="end"
+            android:lines="1"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_12"
+            tools:text="这是副标题" />
     </RelativeLayout>
 
     <LinearLayout
