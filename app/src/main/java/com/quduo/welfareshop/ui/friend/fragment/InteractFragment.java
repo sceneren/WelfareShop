@@ -116,7 +116,7 @@ public class InteractFragment extends BaseMvpFragment<IInteractView, InteractPre
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.btn_zan) {
+                if (view.getId() == R.id.layout_zan) {
                     if (!list.get(position).isIs_good()) {
                         presenter.zanVideo(position, list.get(position).getId());
                     }

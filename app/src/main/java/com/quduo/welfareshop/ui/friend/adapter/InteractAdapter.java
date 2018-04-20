@@ -131,7 +131,7 @@ public class InteractAdapter extends BaseQuickAdapter<InteractInfo, BaseViewHold
         helper.setText(R.id.zan_times, String.valueOf(item.getGood()));
         helper.setImageResource(R.id.btn_zan, item.isIs_good() ? R.drawable.ic_friend_interact_zan_s : R.drawable.ic_friend_interact_zan_d);
         helper.addOnClickListener(R.id.thumb);
-        helper.addOnClickListener(R.id.btn_zan);
+        helper.addOnClickListener(R.id.layout_zan);
     }
 
     @Override

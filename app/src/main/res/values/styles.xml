@@ -32,6 +32,8 @@
 
     <style name="AppTheme.FullScreen" parent="AppTheme.NoActionBar">
         <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowDisablePreview">true</item>
     </style>
     <!-- popupwindow 动画 -->
     <style name="pop_animation">
