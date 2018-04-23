@@ -5,20 +5,13 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <com.quduo.welfareshop.widgets.RatioImageView
+        android:id="@+id/image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.quduo.welfareshop.widgets.RatioImageView
-            android:id="@+id/image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:base="horizontal"
-            app:horizontal_weight="538"
-            app:vertical_weight="300" />
-
-    </RelativeLayout>
-
+        android:layout_height="match_parent"
+        app:base="horizontal"
+        app:horizontal_weight="538"
+        app:vertical_weight="300" />
 
     <TextView
         android:id="@+id/title"
