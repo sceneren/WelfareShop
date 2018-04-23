@@ -330,7 +330,7 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 40001) {
             presenter.checkPayResult(orderId);
-            presenter.getData();
+            //presenter.getData();
         } else if (resultCode == RESULT_OK && requestCode == 10001) {
             //代金券弹窗返回
             finish();
