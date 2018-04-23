@@ -165,7 +165,7 @@ public class MyApplication extends LitePalApplication {
                 // TODO Auto-generated method stub
             }
         });
-
+        //LogUtils.e("当前渠道：" + getResourceId());
     }
 
     // 自定义图片加载器
