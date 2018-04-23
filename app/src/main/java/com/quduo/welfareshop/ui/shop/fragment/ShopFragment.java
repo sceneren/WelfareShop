@@ -174,7 +174,7 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
 
         banner = headerView.findViewById(R.id.banner);
         ViewGroup.LayoutParams layoutParams = banner.getLayoutParams();
-        layoutParams.height = PtrLocalDisplay.SCREEN_WIDTH_PIXELS;
+        layoutParams.height = PtrLocalDisplay.SCREEN_WIDTH_PIXELS / 2;
         layoutParams.width = PtrLocalDisplay.SCREEN_WIDTH_PIXELS;
         banner.setImageLoader(new BannerImageLoader());
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);

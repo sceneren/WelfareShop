@@ -186,7 +186,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
 
     private void initBanner() {
         ViewGroup.LayoutParams layoutParams = banner.getLayoutParams();
-        layoutParams.height = PtrLocalDisplay.SCREEN_WIDTH_PIXELS / 2;
+        layoutParams.height = PtrLocalDisplay.SCREEN_WIDTH_PIXELS;
         layoutParams.width = PtrLocalDisplay.SCREEN_WIDTH_PIXELS;
         banner.setImageLoader(new BannerImageLoader());
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
@@ -294,7 +294,7 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
     }
 
     private void toGoodsCommentActivity() {
-        WeakDataHolder.getInstance().saveData(String.valueOf("goods"+detailInfo.getId()), detailInfo);
+        WeakDataHolder.getInstance().saveData(String.valueOf("goods" + detailInfo.getId()), detailInfo);
         Intent intent = new Intent(GoodsDetailActivity.this, GoodsCommentActivity.class);
         intent.putExtra(GoodsCommentActivity.ARG_GOODS_ID, detailInfo.getId());
         startActivity(intent);
