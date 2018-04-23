@@ -289,9 +289,9 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
     }
 
     private void toGoodsCommentActivity() {
-        WeakDataHolder.getInstance().saveData(String.valueOf(detailInfo.getId()), detailInfo);
+        WeakDataHolder.getInstance().saveData(String.valueOf("goods"+detailInfo.getId()), detailInfo);
         Intent intent = new Intent(GoodsDetailActivity.this, GoodsCommentActivity.class);
-        intent.putExtra(GoodsCommentActivity.ARG_GOODS_ID, detailInfo);
+        intent.putExtra(GoodsCommentActivity.ARG_GOODS_ID, detailInfo.getId());
         startActivity(intent);
         overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }

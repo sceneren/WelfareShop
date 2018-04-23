@@ -79,7 +79,7 @@ public class GoodsCommentActivity extends BaseMvpActivity<IGoodsCommentView, Goo
         setContentView(R.layout.activity_goods_comment);
         unbinder = ButterKnife.bind(this);
         int id = getIntent().getIntExtra(ARG_GOODS_ID, 0);
-        detailInfo = (GoodsDetailInfo) WeakDataHolder.getInstance().getData(String.valueOf(id));
+        detailInfo = (GoodsDetailInfo) WeakDataHolder.getInstance().getData(String.valueOf("goods"+id));
         initToolbar();
         initView();
     }

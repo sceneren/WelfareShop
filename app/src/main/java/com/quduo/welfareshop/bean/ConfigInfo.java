@@ -46,6 +46,9 @@ public class ConfigInfo extends BaseBean {
     }
 
     public String getFile_domain() {
+        if(file_domain==null){
+         file_domain="http://file.quduo1688.com";
+        }
         return file_domain;
     }
 

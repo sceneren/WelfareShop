@@ -122,6 +122,8 @@ public class MyApplication extends LitePalApplication {
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return;
         }
+        //LeakCanary.install(this);
+        refWatcher = LeakCanary.install(this);
         instance = this;
 
         //初始化异常管理工具
@@ -163,7 +165,7 @@ public class MyApplication extends LitePalApplication {
                 // TODO Auto-generated method stub
             }
         });
-        refWatcher = LeakCanary.install(this);
+
     }
 
     // 自定义图片加载器
