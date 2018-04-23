@@ -35,7 +35,6 @@ import com.quduo.welfareshop.ui.welfare.entity.WelfareGalleryInfo;
 import com.quduo.welfareshop.ui.welfare.presenter.GalleryPresenter;
 import com.quduo.welfareshop.ui.welfare.view.IGalleryView;
 import com.quduo.welfareshop.util.BannerImageLoader;
-import com.quduo.welfareshop.util.PlaySoundUtil;
 import com.quduo.welfareshop.widgets.CustomGridView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -54,6 +53,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import wiki.scene.loadmore.StatusViewLayout;
+import wiki.scene.loadmore.utils.PtrLocalDisplay;
 
 /**
  * Author:scene
@@ -79,8 +79,8 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
     private GalleryAdapter adapter;
     private int currentPage = 1;
 
-    private boolean canPlaySound = false;
-    private int playSoundTime = 0;
+//    private boolean canPlaySound = false;
+//    private int playSoundTime = 0;
 
     public static GalleryFragment newInstance() {
         Bundle args = new Bundle();
@@ -166,6 +166,10 @@ public class GalleryFragment extends BaseMvpFragment<IGalleryView, GalleryPresen
     private void initHeaderView() {
         @SuppressLint("InflateParams") View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_welfare_gallery_header, null);
         banner = headerView.findViewById(R.id.banner);
+        ViewGroup.LayoutParams layoutParams = banner.getLayoutParams();
+        layoutParams.height = PtrLocalDisplay.SCREEN_WIDTH_PIXELS / 2;
+        layoutParams.width = PtrLocalDisplay.SCREEN_WIDTH_PIXELS;
+        banner.setLayoutParams(layoutParams);
         banner.setImageLoader(new BannerImageLoader());
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
         banner.setOnBannerListener(new OnBannerListener() {

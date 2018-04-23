@@ -43,6 +43,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import wiki.scene.loadmore.StatusViewLayout;
+import wiki.scene.loadmore.utils.PtrLocalDisplay;
 
 /**
  * Author:scene
@@ -150,6 +151,9 @@ public class MidNightVideoFragment extends BaseMvpFragment<IMidNightVideoView, M
     private void initHeaderView() {
         View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_welfare_beauty_video_header, (ViewGroup) recyclerView.getParent(), false);
         banner = headerView.findViewById(R.id.banner);
+        ViewGroup.LayoutParams layoutParams = banner.getLayoutParams();
+        layoutParams.height = PtrLocalDisplay.SCREEN_WIDTH_PIXELS / 2;
+        layoutParams.width = PtrLocalDisplay.SCREEN_WIDTH_PIXELS;
         banner.setImageLoader(new BannerImageLoader());
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
         adapter.addHeaderView(headerView);

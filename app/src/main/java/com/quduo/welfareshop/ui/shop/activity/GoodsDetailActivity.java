@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableStringBuilder;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -52,6 +53,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.loadmore.StatusViewLayout;
+import wiki.scene.loadmore.utils.PtrLocalDisplay;
 
 /**
  * Author:scene
@@ -183,6 +185,9 @@ public class GoodsDetailActivity extends BaseMvpActivity<IGoodsDetailView, Goods
     }
 
     private void initBanner() {
+        ViewGroup.LayoutParams layoutParams = banner.getLayoutParams();
+        layoutParams.height = PtrLocalDisplay.SCREEN_WIDTH_PIXELS / 2;
+        layoutParams.width = PtrLocalDisplay.SCREEN_WIDTH_PIXELS;
         banner.setImageLoader(new BannerImageLoader());
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         banner.setOnBannerListener(new OnBannerListener() {

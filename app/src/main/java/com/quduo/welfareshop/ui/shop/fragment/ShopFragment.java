@@ -60,6 +60,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import wiki.scene.loadmore.StatusViewLayout;
+import wiki.scene.loadmore.utils.PtrLocalDisplay;
 
 /**
  * 商城主界面
@@ -156,7 +157,7 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
     private void initHeaderView() {
         @SuppressLint("InflateParams") View headerView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_shop_header, null);
         CustomGridView cateGridView = headerView.findViewById(R.id.cateGridView);
-        banner = headerView.findViewById(R.id.banner);
+
         recommend1 = headerView.findViewById(R.id.recommend_1);
         recommend2 = headerView.findViewById(R.id.recommend_2);
         recommend3 = headerView.findViewById(R.id.recommend_3);
@@ -172,6 +173,9 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
 
 
         banner = headerView.findViewById(R.id.banner);
+        ViewGroup.LayoutParams layoutParams = banner.getLayoutParams();
+        layoutParams.height = PtrLocalDisplay.SCREEN_WIDTH_PIXELS;
+        layoutParams.width = PtrLocalDisplay.SCREEN_WIDTH_PIXELS;
         banner.setImageLoader(new BannerImageLoader());
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
         banner.setOnBannerListener(new OnBannerListener() {

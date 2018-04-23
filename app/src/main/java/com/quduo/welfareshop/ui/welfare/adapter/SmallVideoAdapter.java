@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.blankj.utilcode.util.StringUtils;
@@ -21,6 +22,7 @@ import com.quduo.welfareshop.widgets.MyVideoPlayer;
 import java.util.List;
 
 import cn.jzvd.JZVideoPlayer;
+import wiki.scene.loadmore.utils.PtrLocalDisplay;
 
 /**
  * Author:scene
@@ -44,6 +46,9 @@ public class SmallVideoAdapter extends BaseQuickAdapter<VideoInfo, BaseViewHolde
     @Override
     protected void convert(final BaseViewHolder helper, VideoInfo item) {
         MyVideoPlayer videoPlayer = helper.getView(R.id.video_player);
+        ViewGroup.LayoutParams layoutParams = videoPlayer.getLayoutParams();
+        layoutParams.height = PtrLocalDisplay.SCREEN_WIDTH_PIXELS / 2;
+        layoutParams.width = PtrLocalDisplay.SCREEN_WIDTH_PIXELS;
         JZVideoPlayer.FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
         videoPlayer.setUp(item.getUrl(), JZVideoPlayer.SCREEN_WINDOW_LIST, item.getName());
         GlideApp.with(context)

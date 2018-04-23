@@ -57,10 +57,7 @@ public class OpenPayActivity extends BaseActivity {
             public boolean shouldOverrideUrlLoading(com.tencent.smtt.sdk.WebView view, String url) {
                 if (type == 1) {
                     if (url.startsWith("weixin:")) {
-                        Intent intent = new Intent();
-                        intent.setAction(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse(url));
-                        startActivity(intent);
+                        startWechatActivity(url);
                         return true;
                     }
                     return super.shouldOverrideUrlLoading(webView, url);
@@ -83,55 +80,9 @@ public class OpenPayActivity extends BaseActivity {
             }
         });
 
-//        webView.setWebViewClient(new WebViewClient() {
-//            @Override
-//            public void onPageFinished(WebView view, String url) {
-//                //simulateClick();
-//                super.onPageFinished(view, url);
-//            }
-//
-//            @Override
-//            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//                if (type == 1) {
-//                    if (url.startsWith("weixin:")) {
-//                        Intent intent = new Intent();
-//                        intent.setAction(Intent.ACTION_VIEW);
-//                        intent.setData(Uri.parse(url));
-//                        startActivity(intent);
-//                        return true;
-//                    }
-//                    return super.shouldOverrideUrlLoading(view, url);
-//                } else {
-//                    if (webView != null && !TextUtils.isEmpty(url)) {
-//                        if (url.toLowerCase().contains("platformapi/startapp")) {
-//                            startAlipayActivity(url);
-//                            // android  6.0 两种方式获取intent都可以跳转支付宝成功,7.1测试不成功
-//                        } else if ((Build.VERSION.SDK_INT > Build.VERSION_CODES.M)
-//                                && (url.toLowerCase().contains("platformapi") && url.toLowerCase().contains("startapp"))) {
-//                            startAlipayActivity(url);
-//                        } else {
-//                            webView.loadUrl(url);
-//                        }
-//                    } else {
-//                        finish();
-//                    }
-//                    return true;
-//                }
-//
-//            }
-//        });
-//
         if (url.startsWith("weixin:")) {
             if (type == 1) {
-                try {
-                    Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(url));
-                    startActivity(intent);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    ToastUtils.showShort("请先安装或打开微信");
-                }
+                startWechatActivity(url);
             }
         } else {
             webView.loadUrl(url);
@@ -139,27 +90,6 @@ public class OpenPayActivity extends BaseActivity {
 
     }
 
-    private void simulateClick() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                float x = PtrLocalDisplay.SCREEN_WIDTH_PIXELS / 2;
-                float y = PtrLocalDisplay.SCREEN_HEIGHT_PIXELS / 2;
-                String[] order = {
-                        "input",
-                        "tap",
-                        "" + x,
-                        "" + y
-                };
-                try {
-                    new ProcessBuilder(order).start();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, 50);
-
-    }
 
     // 调起支付宝并跳转到指定页面
     private void startAlipayActivity(String url) {
@@ -171,6 +101,18 @@ public class OpenPayActivity extends BaseActivity {
             startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void startWechatActivity(String url) {
+        try {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ToastUtils.showShort("请先安装微信");
         }
     }
 
