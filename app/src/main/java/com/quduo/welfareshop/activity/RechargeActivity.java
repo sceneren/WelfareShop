@@ -18,6 +18,7 @@ import com.quduo.welfareshop.dialog.EarliestCouponDialog;
 import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
+import com.quduo.welfareshop.ui.mine.activity.UserAgreementActivity;
 import com.quduo.welfareshop.ui.mine.entity.CheckPayResultInfo;
 import com.quduo.welfareshop.ui.mine.entity.CouponInfo;
 import com.quduo.welfareshop.ui.shop.entity.PayInfo;
@@ -36,6 +37,7 @@ import wiki.scene.loadmore.StatusViewLayout;
  * Author:scene
  * Time:2018/3/5 17:50
  * Description:充值
+ * 切换到新界面只需要把layout换了  然后删掉最后的那个点击事件
  */
 
 public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePresenter> implements IRechargeView {
@@ -62,7 +64,7 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recharge);
+        setContentView(R.layout.activity_recharge_old);
         unbinder = ButterKnife.bind(this);
         try {
             fromPosition = getIntent().getIntExtra(ARG_FROM_POSITION, 0);
@@ -274,5 +276,11 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
         stateMoney1.setImageResource(type == 1 ? R.drawable.ic_recharge_money_s : R.drawable.ic_recharge_money_d);
         stateMoney2.setImageResource(type == 2 ? R.drawable.ic_recharge_money_s : R.drawable.ic_recharge_money_d);
         stateMoney3.setImageResource(type == 3 ? R.drawable.ic_recharge_money_s : R.drawable.ic_recharge_money_d);
+    }
+
+    @OnClick(R.id.user_agreement)
+    public void onClickUserAgreement() {
+        startActivity(new Intent(RechargeActivity.this, UserAgreementActivity.class));
+        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }
 }
