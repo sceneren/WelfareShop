@@ -29,8 +29,8 @@ import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
 import com.quduo.welfareshop.ui.mine.activity.MyReceiverActivity;
-import com.quduo.welfareshop.ui.mine.entity.CheckPayResultInfo;
 import com.quduo.welfareshop.ui.mine.activity.OrderDetailActivity;
+import com.quduo.welfareshop.ui.mine.entity.CheckPayResultInfo;
 import com.quduo.welfareshop.ui.shop.dialog.BuySuccessDialog;
 import com.quduo.welfareshop.ui.shop.entity.ConfirmOrderResultInfo;
 import com.quduo.welfareshop.ui.shop.entity.CreateOrderInfo;
@@ -66,6 +66,8 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
     ImageView goodsImage;
     @BindView(R.id.goods_name)
     TextView goodsName;
+    @BindView(R.id.send_score)
+    TextView sendScore;
     @BindView(R.id.goods_price)
     TextView goodsPrice;
     @BindView(R.id.goods_number)
@@ -80,26 +82,38 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
     EditText receiverAddress;
     @BindView(R.id.layout_no_receiver)
     LinearLayout layoutNoReceiver;
-    @BindView(R.id.layout_has_receiver)
-    LinearLayout layoutHasReceiver;
-    @BindView(R.id.total_price)
-    TextView totalPrice;
-    @BindView(R.id.total_score)
-    TextView totalScore;
-    @BindView(R.id.status_view)
-    StatusViewLayout statusView;
     @BindView(R.id.show_receiver_name)
     TextView showReceiverName;
     @BindView(R.id.show_receiver_phone)
     TextView showReceiverPhone;
     @BindView(R.id.show_receiver_address)
     TextView showReceiverAddress;
-    @BindView(R.id.coupon)
-    TextView coupon;
-    @BindView(R.id.btn_wechat)
-    TextView btnWechat;
-    @BindView(R.id.btn_alipay)
-    TextView btnAlipay;
+    @BindView(R.id.layout_has_receiver)
+    LinearLayout layoutHasReceiver;
+    @BindView(R.id.coupon_info)
+    TextView couponInfo;
+    @BindView(R.id.layout_used_coupon)
+    LinearLayout layoutUsedCoupon;
+    @BindView(R.id.bottomBar_coupon)
+    TextView bottomBarCoupon;
+    @BindView(R.id.status_view)
+    StatusViewLayout statusView;
+    @BindView(R.id.total_cost)
+    TextView totalCost;
+    @BindView(R.id.bottomBar_total_cost)
+    TextView bottomBarTotalCost;
+    @BindView(R.id.total_send_score)
+    TextView totalSendScore;
+    @BindView(R.id.status_pay_by_wechat)
+    ImageView statusPayByWechat;
+    @BindView(R.id.status_pay_by_alipay)
+    ImageView statusPayByAlipay;
+    @BindView(R.id.total_number)
+    TextView totalNumber;
+    @BindView(R.id.remark)
+    EditText remark;
+
+    private int payType = 1;
 
     private CreateOrderInfo orderInfo;
     private ConfirmOrderResultInfo resultInfo;
@@ -110,7 +124,7 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        setContentView(R.layout.fragment_shop_confirm_order);
+        setContentView(R.layout.activity_shop_confirm_order);
         unbinder = ButterKnife.bind(this);
         orderInfo = (CreateOrderInfo) getIntent().getSerializableExtra(ARG_ORDER_INFO);
         if (orderInfo == null) {
@@ -176,14 +190,18 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(goodsImage);
         goodsName.setText(orderInfo.getGoodsName());
-        goodsNumber.setText(MessageFormat.format("数量:{0}", orderInfo.getChoosedNum()));
-        goodsPrice.setText(MessageFormat.format("单价:{0}", orderInfo.getGoodsPrice()));
-        Number num = Float.parseFloat(orderInfo.getGoodsPrice()) * 100;
-        int giveNum = num.intValue() / 100;
+        goodsNumber.setText(MessageFormat.format("x{0}", orderInfo.getChoosedNum()));
+        totalNumber.setText(MessageFormat.format("共{0}件商品", orderInfo.getChoosedNum()));
+        goodsNumber.setText(MessageFormat.format("x{0}", orderInfo.getChoosedNum()));
+        goodsPrice.setText(MessageFormat.format("￥{0}", orderInfo.getGoodsPrice()));
         goodsModel.setText(orderInfo.getChooseModel());
-        int totalGiveNum = giveNum * orderInfo.getChoosedNum();
-        totalPrice.setText(MessageFormat.format("￥{0}", totalGiveNum));
-        totalScore.setText(MessageFormat.format("送{0}积分{1}钻石", totalGiveNum, totalGiveNum));
+        Number num = Float.parseFloat(orderInfo.getGoodsPrice()) * 100;
+        float giveNum = num.floatValue() / 100;
+        float totalGiveNum = giveNum * orderInfo.getChoosedNum();
+        sendScore.setText(MessageFormat.format("{0}积分+{1}钻石", (int) giveNum, (int) giveNum));
+        totalCost.setText(MessageFormat.format("￥{0}", totalGiveNum));
+        bottomBarTotalCost.setText(MessageFormat.format("￥{0}", totalGiveNum));
+        totalSendScore.setText(MessageFormat.format("{0}积分+{1}钻石", (int) totalGiveNum, (int) totalGiveNum));
     }
 
     @Override
@@ -216,16 +234,19 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
             }
 
             if (null == data.getCoupon()) {
-                coupon.setVisibility(View.GONE);
+                layoutUsedCoupon.setVisibility(View.GONE);
+                bottomBarCoupon.setVisibility(View.GONE);
             } else {
-                coupon.setVisibility(View.VISIBLE);
-                coupon.setText(MessageFormat.format("(代金券已抵扣{0}元)", data.getCoupon().getCost()));
+                layoutUsedCoupon.setVisibility(View.VISIBLE);
+                bottomBarCoupon.setVisibility(View.VISIBLE);
+                couponInfo.setText(MessageFormat.format("(代金券已抵扣{0}元)", data.getCoupon().getCost()));
                 Number num = Float.parseFloat(orderInfo.getGoodsPrice()) * 100;
-                int giveNum = num.intValue() / 100;
-                totalPrice.setText(MessageFormat.format("￥{0}", (giveNum * orderInfo.getChoosedNum() - data.getCoupon().getCost())));
+                float giveNum = num.floatValue() / 100;
+                float realTotalCost = (giveNum * orderInfo.getChoosedNum() - data.getCoupon().getCost());
+                totalCost.setText(MessageFormat.format("￥{0}", realTotalCost));
+                bottomBarTotalCost.setText(MessageFormat.format("￥{0}", realTotalCost));
+                bottomBarCoupon.setText(MessageFormat.format("现金券已抵扣{0}元", data.getCoupon().getCost()));
             }
-            btnAlipay.setVisibility(data.isAli_pay_enable() ? View.VISIBLE : View.GONE);
-            btnWechat.setVisibility(data.isWx_pay_enable() ? View.VISIBLE : View.GONE);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -368,14 +389,29 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
         }
     }
 
-    @OnClick(R.id.btn_wechat)
-    public void onClickBtnWechat() {
-        createOrder(1);
+    @OnClick(R.id.layout_pay_by_wechat)
+    public void onClickLayoutPayByWechat() {
+        if (payType == 1) {
+            return;
+        }
+        payType = 1;
+        statusPayByWechat.setImageResource(R.drawable.ic_recharge_money_s);
+        statusPayByAlipay.setImageResource(R.drawable.ic_recharge_money_d);
     }
 
-    @OnClick(R.id.btn_alipay)
-    public void onClickBtnAlipay() {
-        createOrder(2);
+    @OnClick(R.id.layout_pay_by_alipay)
+    public void onClickLayoutPayByAlipay() {
+        if (payType == 2) {
+            return;
+        }
+        payType = 2;
+        statusPayByWechat.setImageResource(R.drawable.ic_recharge_money_d);
+        statusPayByAlipay.setImageResource(R.drawable.ic_recharge_money_s);
+    }
+
+    @OnClick(R.id.confirm_pay)
+    public void onClickConfirmPay() {
+        createOrder(payType);
     }
 
 
@@ -440,7 +476,7 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
                 return;
             }
             presenter.createOrder(orderInfo.getGoodsId(), orderInfo.getChoosedNum(), orderInfo.getChooseModel(), strReceiverName,
-                    strReceiverPhone, strReceiverAddress, resultInfo.getCoupon() != null ? resultInfo.getCoupon().getId() : 0, type);
+                    strReceiverPhone, strReceiverAddress, resultInfo.getCoupon() != null ? resultInfo.getCoupon().getId() : 0, type, remark.getText().toString().trim());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#FAFAFA"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar_white_2" />
@@ -24,167 +26,332 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/dp_10">
+                android:orientation="vertical">
 
-                <RelativeLayout
+                <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_recharge_banner"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/money"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/money"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="5dp"
-                        android:text="账户余额"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/sp_14" />
-                </RelativeLayout>
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/bg_recharge_banner_2" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:id="@+id/layout_type_wechat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/dp_10">
-
-                        <TextView
-                            android:id="@+id/type_wechat"
-                            android:layout_width="wrap_content"
-                            android:layout_height="45dp"
-                            android:layout_centerInParent="true"
-                            android:drawableLeft="@drawable/ic_recharge_wechat"
-                            android:drawablePadding="5dp"
-                            android:gravity="center"
-                            android:text="微信支付"
-                            android:textColor="#1CBA25"
-                            android:textSize="@dimen/sp_14" />
-
-                        <View
-                            android:id="@+id/type_wechat_line"
-                            android:layout_width="match_parent"
-                            android:layout_height="3dp"
-                            android:layout_alignLeft="@+id/type_wechat"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignRight="@+id/type_wechat"
-                            android:background="#1CBA25" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/layout_type_alipay"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_10">
-
-                        <TextView
-                            android:id="@+id/type_alipay"
-                            android:layout_width="wrap_content"
-                            android:layout_height="45dp"
-                            android:layout_centerInParent="true"
-                            android:drawableLeft="@drawable/ic_recharge_alipay"
-                            android:drawablePadding="5dp"
-                            android:gravity="center"
-                            android:text="支付宝支付"
-                            android:textColor="@color/title_text_color"
-                            android:textSize="@dimen/sp_14" />
-
-                        <View
-                            android:id="@+id/type_alipay_line"
-                            android:layout_width="match_parent"
-                            android:layout_height="3dp"
-                            android:layout_alignLeft="@+id/type_alipay"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignRight="@+id/type_alipay"
-                            android:background="@color/transparent1" />
-                    </RelativeLayout>
-                </LinearLayout>
-
-
-                <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#EFEFEF" />
-
-                <com.quduo.welfareshop.widgets.CustomListView
-                    android:id="@+id/listView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:divider="#EFEFEF"
-                    android:dividerHeight="1dp"
-                    android:listSelector="@color/transparent1" />
-
-
-                <TextView
-                    android:id="@+id/notice"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
-                    android:drawableLeft="@drawable/ic_recharge_package"
-                    android:drawablePadding="3dp"
-                    android:gravity="center_vertical"
-                    android:text="充值豪礼：充值任意金额送38元商城代金券"
-                    android:textColor="@color/title_text_color"
-                    android:textSize="@dimen/sp_14" />
-
-                <TextView
-                    android:id="@+id/has_question"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
-                    android:text="支付遇到问题 >"
-                    android:textColor="@color/content_text_color"
-                    android:textSize="@dimen/sp_12"
-                    android:visibility="gone" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="15dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingTop="15dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_choose_s" />
+                        android:src="@drawable/ic_recharge_score_left" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:text="我已阅读并同意"
-                        android:textColor="@color/des_text_color"
-                        android:textSize="10sp" />
+                        android:layout_marginRight="5dp"
+                        android:text="当前积分"
+                        android:textColor="@color/title_text_color"
+                        android:textSize="@dimen/sp_14" />
 
-                    <TextView
-                        android:id="@+id/user_agreement"
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="《用户支付协议》"
-                        android:textColor="@color/theme_color"
-                        android:textSize="10sp" />
+                        android:src="@drawable/ic_recharge_score_right" />
+
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/money"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/white"
+                    android:gravity="center_horizontal"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/theme_color"
+                    android:textSize="14sp"
+                    tools:text="4785" />
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/layout_money_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_10"
+                    app:cardCornerRadius="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp">
+
+                        <ImageView
+                            android:id="@+id/state_money_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_recharge_money_d" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:layout_weight="1"
+                            android:text="88积分"
+                            android:textColor="@color/title_text_color"
+                            android:textSize="@dimen/sp_14" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="￥"
+                            android:textColor="@color/title_text_color"
+                            android:textSize="@dimen/sp_12" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="38"
+                            android:textColor="@color/title_text_color"
+                            android:textSize="@dimen/sp_16" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/layout_money_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_10"
+                    app:cardCornerRadius="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp">
+
+                        <ImageView
+                            android:id="@+id/state_money_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_recharge_money_s" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:text="288积分"
+                            android:textColor="@color/title_text_color"
+                            android:textSize="@dimen/sp_14" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:src="@drawable/ic_czth"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:layout_height="wrap_content" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_recharge_zeng" />
+
+                        <TextView
+                            android:layout_width="75dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="VR-BOX眼镜"
+                            android:visibility="gone"
+                            android:textColor="@color/title_text_color"
+                            android:textSize="12sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_goods_vr_box" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="￥"
+                            android:textColor="@color/title_text_color"
+                            android:textSize="@dimen/sp_12" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="68"
+                            android:textColor="@color/title_text_color"
+                            android:textSize="@dimen/sp_16" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/layout_money_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginBottom="15dp"
+                    app:cardCornerRadius="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp">
+
+                        <ImageView
+                            android:id="@+id/state_money_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_recharge_money_d" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:text="388积分"
+                            android:textColor="@color/title_text_color"
+                            android:textSize="@dimen/sp_14" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_recharge_zeng" />
+
+                        <TextView
+                            android:layout_width="75dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="趣儿飞机杯"
+                            android:visibility="gone"
+                            android:textColor="@color/title_text_color"
+                            android:textSize="12sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_goods_feijibei" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="￥"
+                            android:textColor="@color/title_text_color"
+                            android:textSize="@dimen/sp_12" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="98"
+                            android:textColor="@color/title_text_color"
+                            android:textSize="@dimen/sp_16" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_10"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/pay_wechat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_wechat_recharge_corner_5dp"
+                        android:gravity="center"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_recharge_wechat_round" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="微信支付"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp_16" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/pay_alipay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_alipay_recharge_corner_5dp"
+                        android:gravity="center"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_recharge_alipay_round" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="支付宝支付"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp_16" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:drawableLeft="@drawable/ic_recharge_package"
+                    android:drawablePadding="3dp"
+                    android:gravity="center_vertical"
+                    android:text="充值任意金额，送38元商城现金券"
+                    android:textColor="@color/title_text_color"
+                    android:textSize="@dimen/sp_14" />
             </LinearLayout>
         </ScrollView>
     </wiki.scene.loadmore.StatusViewLayout>

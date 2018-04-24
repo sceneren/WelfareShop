@@ -1,41 +1,30 @@
 package com.quduo.welfareshop.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ToastUtils;
-import com.google.gson.Gson;
 import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
-import com.quduo.welfareshop.adapter.RechargeAdapter;
 import com.quduo.welfareshop.bean.RechargeInfo;
-import com.quduo.welfareshop.bean.RechargeTypeInfo;
 import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.dialog.EarliestCouponDialog;
-import com.quduo.welfareshop.dialog.RechargeQuestionDialog;
 import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
-import com.quduo.welfareshop.ui.mine.activity.UserAgreementActivity;
 import com.quduo.welfareshop.ui.mine.entity.CheckPayResultInfo;
 import com.quduo.welfareshop.ui.mine.entity.CouponInfo;
 import com.quduo.welfareshop.ui.shop.entity.PayInfo;
-import com.quduo.welfareshop.widgets.CustomListView;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,36 +47,17 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     TextView toolbarTitle;
     @BindView(R.id.money)
     TextView money;
-    @BindView(R.id.notice)
-    TextView notice;
-    @BindView(R.id.has_question)
-    TextView hasQuestion;
-    @BindView(R.id.type_wechat)
-    TextView typeWechat;
-    @BindView(R.id.type_wechat_line)
-    View typeWechatLine;
-    @BindView(R.id.layout_type_wechat)
-    RelativeLayout layoutTypeWechat;
-    @BindView(R.id.type_alipay)
-    TextView typeAlipay;
-    @BindView(R.id.type_alipay_line)
-    View typeAlipayLine;
-    @BindView(R.id.layout_type_alipay)
-    RelativeLayout layoutTypeAlipay;
-    @BindView(R.id.listView)
-    CustomListView listView;
+    @BindView(R.id.state_money_1)
+    ImageView stateMoney1;
+    @BindView(R.id.state_money_2)
+    ImageView stateMoney2;
+    @BindView(R.id.state_money_3)
+    ImageView stateMoney3;
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
 
-    private RechargeQuestionDialog questionDialog;
-
-    private List<RechargeTypeInfo> list = new ArrayList<>();
-    private RechargeAdapter adapter;
-
-    private int payType = 1;
+    private int type = 2;
     private int fromPosition = 0;
-
-    private String jsonStr = "{\"score_recharge_type\":[{\"type\":1,\"money\":38,\"score\":88,\"gift\":0},{\"type\":2,\"money\":68,\"score\":288,\"gift\":0},{\"type\":3,\"money\":98,\"score\":388,\"gift\":0}],\"score\":4297,\"wx_pay_enable\":true,\"ali_pay_enable\":false}";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,11 +73,6 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
         initView();
         //解析本地json数据
         showContentPage();
-        RechargeInfo rechargeInfo = new Gson().fromJson(jsonStr, RechargeInfo.class);
-        rechargeInfo.setScore(MyApplication.getInstance().getUserInfo().getScore());
-        bindRechargeListView(rechargeInfo);
-
-        //presenter.getData();
         MyApplication.getInstance().uploadPageInfo(AppConfig.POSITION_RECHARGE, fromPosition);
     }
 
@@ -123,37 +88,9 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     }
 
     private void initView() {
-        String text = "<font color = '#333333'> 充值豪礼：充值任意金额送</font>"
-                + "<font color = '#FF8EAF'>38元</font>"
-                + "<font color = '#333333'>商城代金券</font>";
-        notice.setText(Html.fromHtml(text));
-        initListView();
+        money.setText(String.valueOf(MyApplication.getInstance().getUserInfo().getScore()));
     }
 
-    private void initListView() {
-        adapter = new RechargeAdapter(RechargeActivity.this, list);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (layoutTypeWechat.getVisibility() == View.GONE && layoutTypeAlipay.getVisibility() == View.GONE) {
-                    alert("暂时无法支付，工程师正在积极抢修中...");
-                } else {
-                    presenter.recharge(list.get(position).getType(), payType, fromPosition);
-                }
-            }
-        });
-        adapter.setOnClickRechargeListener(new RechargeAdapter.OnClickRechargeListener() {
-            @Override
-            public void onClickRecharge(int position) {
-                if (layoutTypeWechat.getVisibility() == View.GONE && layoutTypeAlipay.getVisibility() == View.GONE) {
-                    alert("暂时无法支付，工程师正在积极抢修中...");
-                } else {
-                    presenter.recharge(list.get(position).getType(), payType, fromPosition);
-                }
-            }
-        });
-    }
 
     @Override
     public void showLoadingPage() {
@@ -202,50 +139,9 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
         unbinder.unbind();
     }
 
-    @OnClick(R.id.has_question)
-    public void onClickHasQuestion() {
-        if (questionDialog == null) {
-            questionDialog = new RechargeQuestionDialog(RechargeActivity.this);
-        }
-        questionDialog.show();
-    }
-
-    @OnClick(R.id.layout_type_wechat)
-    public void onClickTypeWechat() {
-        typeWechat.setTextColor(Color.parseColor("#1CBA25"));
-        typeWechatLine.setBackgroundColor(Color.parseColor("#1CBA25"));
-        typeAlipay.setTextColor(Color.parseColor("#333333"));
-        typeAlipayLine.setBackgroundColor(Color.parseColor("#00000000"));
-        payType = 1;
-    }
-
-    @OnClick(R.id.layout_type_alipay)
-    public void onClickTypeAlipay() {
-        typeWechat.setTextColor(Color.parseColor("#333333"));
-        typeWechatLine.setBackgroundColor(Color.parseColor("#00000000"));
-        typeAlipay.setTextColor(Color.parseColor("#2FB7FE"));
-        typeAlipayLine.setBackgroundColor(Color.parseColor("#2FB7FE"));
-        payType = 2;
-    }
-
     @Override
     public void bindRechargeListView(RechargeInfo data) {
-        try {
 
-            list.clear();
-            list.addAll(data.getScore_recharge_type());
-            adapter.notifyDataSetChanged();
-            money.setText(MessageFormat.format("{0}积分", data.getScore()));
-            layoutTypeWechat.setVisibility(data.isWx_pay_enable() ? View.VISIBLE : View.GONE);
-            layoutTypeAlipay.setVisibility(data.isAli_pay_enable() ? View.VISIBLE : View.GONE);
-            if ((!data.isWx_pay_enable()) && data.isAli_pay_enable()) {
-                onClickTypeAlipay();
-            } else {
-                onClickTypeWechat();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -260,7 +156,7 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     @Override
     public void alert(String message) {
         try {
-            StyledDialog.buildIosAlert("提示", message, null).setActivity(RechargeActivity.this).show();
+            StyledDialog.buildIosAlert("提示", message, null).setBtnText("确定").setActivity(RechargeActivity.this).show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -328,7 +224,7 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 40001) {
+        if (requestCode == 40001 && resultCode == RESULT_OK) {
             presenter.checkPayResult(orderId);
             //presenter.getData();
         } else if (resultCode == RESULT_OK && requestCode == 10001) {
@@ -337,9 +233,46 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
         }
     }
 
-    @OnClick(R.id.user_agreement)
-    public void onClickUserAgreement() {
-        startActivity(new Intent(RechargeActivity.this, UserAgreementActivity.class));
-        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+    @OnClick(R.id.layout_money_1)
+    public void onClickLayoutMoney1() {
+        if (type == 1) {
+            return;
+        }
+        type = 1;
+        setMoneyItemChooseState();
+    }
+
+    @OnClick(R.id.layout_money_2)
+    public void onClickLayoutMoney2() {
+        if (type == 2) {
+            return;
+        }
+        type = 2;
+        setMoneyItemChooseState();
+    }
+
+    @OnClick(R.id.layout_money_3)
+    public void onClickLayoutMoney3() {
+        if (type == 3) {
+            return;
+        }
+        type = 3;
+        setMoneyItemChooseState();
+    }
+
+    @OnClick(R.id.pay_wechat)
+    public void rechargeByWechat() {
+        presenter.recharge(type, 1, fromPosition);
+    }
+
+    @OnClick(R.id.pay_alipay)
+    public void rechargeByAlipay() {
+        presenter.recharge(type, 2, fromPosition);
+    }
+
+    private void setMoneyItemChooseState() {
+        stateMoney1.setImageResource(type == 1 ? R.drawable.ic_recharge_money_s : R.drawable.ic_recharge_money_d);
+        stateMoney2.setImageResource(type == 2 ? R.drawable.ic_recharge_money_s : R.drawable.ic_recharge_money_d);
+        stateMoney3.setImageResource(type == 3 ? R.drawable.ic_recharge_money_s : R.drawable.ic_recharge_money_d);
     }
 }

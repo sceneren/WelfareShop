@@ -57,7 +57,7 @@ public class ConfirmOrderPresenter extends BasePresenter<IConfirmOrderView> {
         }
     }
 
-    public void createOrder(int goodsId, int number, String choosedModel, String receiverName, String receiverPhone, String receiverAddress, int couponId, int payType) {
+    public void createOrder(int goodsId, int number, String choosedModel, String receiverName, String receiverPhone, String receiverAddress, int couponId, int payType, String remark) {
         try {
             mView.showLoadingDialog();
             HttpParams params = new HttpParams();
@@ -69,6 +69,7 @@ public class ConfirmOrderPresenter extends BasePresenter<IConfirmOrderView> {
             params.put("address", receiverAddress);
             params.put("coupon_id", couponId);
             params.put("pay_type", payType);
+            params.put("remark", remark);
             model.createOrder(params, new HttpResultListener<PayInfo>() {
                 @Override
                 public void onSuccess(PayInfo data) {

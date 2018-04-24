@@ -93,14 +93,14 @@ public class ConfirmOrderModel {
                     @Override
                     public void onSuccess(Response<LzyResponse<CheckPayResultInfo>> response) {
                         try {
-                            if(response.body().data.isStatus()){
+                            if (response.body().data.isStatus()) {
                                 listener.onSuccess(response.body().data);
-                            }else{
-                                listener.onFail("支付失败请重试,如已支付请重启应用或联系客服");
+                            } else {
+                                listener.onFail("支付失败请重试,或更换其他支付方式");
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            listener.onFail("支付失败请重试,如已支付请重启应用或联系客服");
+                            listener.onFail("支付失败请重试,或更换其他支付方式");
                         }
                     }
 
@@ -111,7 +111,7 @@ public class ConfirmOrderModel {
                             listener.onFail(response.getException().getMessage());
                         } catch (Exception e) {
                             e.printStackTrace();
-                            listener.onFail("支付失败请重试,如已支付请重启应用或联系客服");
+                            listener.onFail("支付失败请重试,或更换其他支付方式");
                         }
                     }
 
