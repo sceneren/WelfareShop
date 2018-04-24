@@ -159,7 +159,12 @@ public class OpenPayActivity extends BaseActivity {
 
     private void dismissLoading() {
         try {
-            StyledDialog.dismissLoading();
+            webView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    StyledDialog.dismissLoading();
+                }
+            },200);
         } catch (Exception e) {
             e.printStackTrace();
         }

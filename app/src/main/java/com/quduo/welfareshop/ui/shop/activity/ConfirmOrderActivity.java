@@ -280,7 +280,12 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
     @Override
     public void hideLaodingDialog() {
         try {
-            StyledDialog.dismissLoading();
+            toolbarTitle.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    StyledDialog.dismissLoading();
+                }
+            }, 200);
         } catch (Exception e) {
             e.printStackTrace();
         }
