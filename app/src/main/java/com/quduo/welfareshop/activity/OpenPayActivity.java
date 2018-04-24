@@ -10,6 +10,7 @@ import android.text.TextUtils;
 
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.hss01248.dialog.StyledDialog;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.BaseActivity;
 import com.quduo.welfareshop.widgets.X5WebView;
@@ -42,6 +43,13 @@ public class OpenPayActivity extends BaseActivity {
         ButterKnife.bind(this);
         String url = getIntent().getStringExtra(ARG_URL);
         type = getIntent().getIntExtra(ARG_TYPE, 1);
+        webView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                StyledDialog.buildLoading(type == 1 ? "正在打开微信" : "正在打开支付宝").setActivity(OpenPayActivity.this).show();
+            }
+        },200);
+
         if (StringUtils.isTrimEmpty(url)) {
             onBackPressed();
             ToastUtils.showShort("支付路径不正确请重新发起支付");
@@ -95,6 +103,7 @@ public class OpenPayActivity extends BaseActivity {
             intent.addCategory(Intent.CATEGORY_BROWSABLE);
             intent.setComponent(null);
             startActivity(intent);
+            dismissLoading();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -106,6 +115,7 @@ public class OpenPayActivity extends BaseActivity {
             intent.setAction(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(url));
             startActivity(intent);
+            dismissLoading();
         } catch (Exception e) {
             e.printStackTrace();
             ToastUtils.showShort("请先安装微信");
@@ -140,9 +150,18 @@ public class OpenPayActivity extends BaseActivity {
             webView.removeAllViews();
             webView.destroy();
             webView = null;
+            dismissLoading();
         } catch (Exception e) {
             e.printStackTrace();
         }
         super.onDestroy();
+    }
+
+    private void dismissLoading() {
+        try {
+            StyledDialog.dismissLoading();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

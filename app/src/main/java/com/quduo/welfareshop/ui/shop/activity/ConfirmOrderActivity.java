@@ -265,7 +265,13 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
     @Override
     public void showLoadingDialog() {
         try {
-            StyledDialog.buildLoading().setActivity(ConfirmOrderActivity.this).show();
+            toolbarTitle.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    StyledDialog.buildLoading().setActivity(ConfirmOrderActivity.this).show();
+                }
+            }, 200);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
