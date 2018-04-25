@@ -66,7 +66,7 @@ public class Coupon38Dialog extends BaseActivity {
                     @Override
                     public void onSuccess(Response<LzyResponse<CouponInfo>> response) {
                         try {
-                            countDownView.start(response.body().data.getExpress_time() - System.currentTimeMillis());
+                            countDownView.start(response.body().data.getExpress_time()*1000 - System.currentTimeMillis());
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
