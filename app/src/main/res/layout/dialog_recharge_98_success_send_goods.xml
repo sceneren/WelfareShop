@@ -100,7 +100,6 @@
             android:background="@drawable/bg_recharge_success_dialog_send_goods_edit"
             android:hint="收货地址"
             android:lines="1"
-            android:maxLines="1"
             android:padding="5dp"
             android:textColor="@color/title_text_color"
             android:textSize="@dimen/sp_14" />

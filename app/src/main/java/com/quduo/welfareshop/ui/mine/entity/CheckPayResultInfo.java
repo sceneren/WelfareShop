@@ -18,6 +18,7 @@ public class CheckPayResultInfo extends BaseBean {
     private int diamond;
     private long coupon_express_time;
     private int recharge_type;
+    private int recharge_id;
 
     public boolean isStatus() {
         return status;
@@ -73,5 +74,13 @@ public class CheckPayResultInfo extends BaseBean {
 
     public void setRecharge_type(int recharge_type) {
         this.recharge_type = recharge_type;
+    }
+
+    public int getRecharge_id() {
+        return recharge_id;
+    }
+
+    public void setRecharge_id(int recharge_id) {
+        this.recharge_id = recharge_id;
     }
 }

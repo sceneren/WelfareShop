@@ -216,9 +216,9 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
             if (data.getRecharge_type() == 1) {
                 showCoupon38Dialog(data.getCoupon_cost(), data.getCoupon_express_time());
             } else if (data.getRecharge_type() == 2) {
-                showRecharge68SuccessDialog();
+                showRecharge68SuccessDialog(data.getRecharge_id());
             } else if (data.getRecharge_type() == 3) {
-                showRecharge98SuccessDialog();
+                showRecharge98SuccessDialog(data.getRecharge_id());
             }
 
             MyApplication.getInstance().getUserInfo().setHas_coupon(true);
@@ -305,13 +305,15 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
         overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }
 
-    private void showRecharge68SuccessDialog() {
+    private void showRecharge68SuccessDialog(int rechargeId) {
         Intent intent = new Intent(RechargeActivity.this, Recharge68SuccessSendGoodsDialog.class);
+        intent.putExtra(Recharge68SuccessSendGoodsDialog.ARG_RECHARGE_ID, rechargeId);
         startActivityForResult(intent, REQUEST_CODE_68);
     }
 
-    private void showRecharge98SuccessDialog() {
+    private void showRecharge98SuccessDialog(int rechargeId) {
         Intent intent = new Intent(RechargeActivity.this, Recharge98SuccessSendGoodsDialog.class);
+        intent.putExtra(Recharge98SuccessSendGoodsDialog.ARG_RECHARGE_ID, rechargeId);
         startActivityForResult(intent, REQUEST_CODE_98);
     }
 

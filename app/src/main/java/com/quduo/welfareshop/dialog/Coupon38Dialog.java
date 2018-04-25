@@ -89,9 +89,13 @@ public class Coupon38Dialog extends BaseActivity {
     @OnClick(R.id.confirm)
     public void onClickToShop() {
         try {
-            EventBus.getDefault().post(new TabSelectedEvent(2));
-            setResult(RESULT_OK);
-            finish();
+            if(couponInfo!=null){
+                finish();
+            }else{
+                EventBus.getDefault().post(new TabSelectedEvent(2));
+                setResult(RESULT_OK);
+                finish();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

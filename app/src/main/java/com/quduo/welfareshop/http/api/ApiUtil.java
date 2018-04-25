@@ -228,6 +228,9 @@ public class ApiUtil {
     //最早的一个代金券
     public static final String EARLIEST_COUPON = "personal/coupon/earliest";
     public static final String EARLIEST_COUPON_TAG = "personal/coupon/earliest";
+    //赠送礼品-提交收货信息
+    public static final String RECHARGE_GIFT = "order/gift";
+    public static final String RECHARGE_GIFT_TAG = "order/gift";
 
     /**
      * Case By:创建参数基础信息

@@ -44,9 +44,13 @@ public class Coupon50Dialog extends BaseActivity {
 
     @OnClick(R.id.confirm)
     public void onClickConfirm() {
-        EventBus.getDefault().post(new TabSelectedEvent(2));
-        setResult(RESULT_OK);
-        finish();
+        try {
+            EventBus.getDefault().post(new TabSelectedEvent(2));
+            setResult(RESULT_OK);
+            finish();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void getData() {
