@@ -126,6 +126,18 @@
             android:name=".dialog.EarliestCouponDialog"
             android:theme="@style/DialogActivity" />
         <activity
+            android:name=".dialog.Recharge68SuccessSendGoodsDialog"
+            android:theme="@style/DialogActivity" />
+        <activity
+            android:name=".dialog.Recharge98SuccessSendGoodsDialog"
+            android:theme="@style/DialogActivity" />
+        <activity
+            android:name=".dialog.Coupon38Dialog"
+            android:theme="@style/DialogActivity" />
+        <activity
+            android:name=".dialog.Coupon50Dialog"
+            android:theme="@style/DialogActivity" />
+        <activity
             android:name=".ui.friend.dialog.EditUserInfoStep1Dialog"
             android:theme="@style/DialogActivity" />
         <activity

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bg_recharge_success_send_goods_top_1" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_recharge_success_send_goods_top_2"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/layout_goods_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_recharge_success_dialog_goods_lycqxs" />
+
+            <ImageView
+                android:id="@+id/status_goods_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_recharge_success_dialog_choosed" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="15dp"
+            android:layout_height="15dp" />
+
+        <RelativeLayout
+            android:id="@+id/layout_goods_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_recharge_success_dialog_goods_nycqxs" />
+
+            <ImageView
+                android:id="@+id/status_goods_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_recharge_success_dialog_choosed"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_recharge_success_send_goods_bottom"
+        android:orientation="vertical"
+        android:paddingBottom="15dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="15dp">
+
+        <EditText
+            android:id="@+id/receiver_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_recharge_success_dialog_send_goods_edit"
+            android:hint="收货人"
+            android:lines="1"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:textColor="@color/title_text_color"
+            android:textSize="@dimen/sp_14" />
+
+        <EditText
+            android:id="@id/receiver_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_recharge_success_dialog_send_goods_edit"
+            android:hint="收货电话"
+            android:lines="1"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:textColor="@color/title_text_color"
+            android:textSize="@dimen/sp_14" />
+
+        <EditText
+            android:id="@+id/receiver_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_recharge_success_dialog_send_goods_edit"
+            android:hint="收货地址"
+            android:lines="1"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:textColor="@color/title_text_color"
+            android:textSize="@dimen/sp_14" />
+
+        <ImageView
+            android:id="@+id/confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_10"
+            android:src="@drawable/btn_recharge_success_send_goods_confirm" />
+    </LinearLayout>
+</LinearLayout>

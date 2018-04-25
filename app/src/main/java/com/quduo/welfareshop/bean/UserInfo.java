@@ -104,6 +104,7 @@ public class UserInfo extends BaseBean {
     private int chat_price;
     private boolean payed;
     private boolean has_coupon;
+    private int coupon_cost;
 
 
     public int getId() {
@@ -480,5 +481,13 @@ public class UserInfo extends BaseBean {
 
     public void setHas_coupon(boolean has_coupon) {
         this.has_coupon = has_coupon;
+    }
+
+    public int getCoupon_cost() {
+        return coupon_cost;
+    }
+
+    public void setCoupon_cost(int coupon_cost) {
+        this.coupon_cost = coupon_cost;
     }
 }

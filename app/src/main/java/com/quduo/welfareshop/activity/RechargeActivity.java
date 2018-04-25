@@ -14,7 +14,9 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.bean.RechargeInfo;
 import com.quduo.welfareshop.config.AppConfig;
-import com.quduo.welfareshop.dialog.EarliestCouponDialog;
+import com.quduo.welfareshop.dialog.Coupon38Dialog;
+import com.quduo.welfareshop.dialog.Recharge68SuccessSendGoodsDialog;
+import com.quduo.welfareshop.dialog.Recharge98SuccessSendGoodsDialog;
 import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseMvpActivity;
@@ -60,6 +62,11 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
 
     private int type = 2;
     private int fromPosition = 0;
+
+    private static final int REQUEST_CODE_68 = 10011;
+    private static final int REQUEST_CODE_98 = 10012;
+
+    private CheckPayResultInfo checkPayResultInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,12 +212,14 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     @Override
     public void paySuccess(CheckPayResultInfo data) {
         try {
-            Intent intent = new Intent(RechargeActivity.this, EarliestCouponDialog.class);
-            CouponInfo couponInfo = new CouponInfo();
-            couponInfo.setCost(data.getCoupon_cost());
-            couponInfo.setExpress_time(data.getCoupon_express_time());
-            intent.putExtra(EarliestCouponDialog.ARG_COUPON, couponInfo);
-            startActivityForResult(intent, 10001);
+            checkPayResultInfo = data;
+            if (data.getRecharge_type() == 1) {
+                showCoupon38Dialog(data.getCoupon_cost(), data.getCoupon_express_time());
+            } else if (data.getRecharge_type() == 2) {
+                showRecharge68SuccessDialog();
+            } else if (data.getRecharge_type() == 3) {
+                showRecharge98SuccessDialog();
+            }
 
             MyApplication.getInstance().getUserInfo().setHas_coupon(true);
             MyApplication.getInstance().getUserInfo().setPayed(true);
@@ -226,13 +235,25 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 40001 && resultCode == RESULT_OK) {
-            presenter.checkPayResult(orderId);
-            //presenter.getData();
-        } else if (resultCode == RESULT_OK && requestCode == 10001) {
-            //代金券弹窗返回
-            finish();
+        try {
+            if (requestCode == 40001 && resultCode == RESULT_OK) {
+                presenter.checkPayResult(orderId);
+            } else if (resultCode == RESULT_OK && requestCode == 10001) {
+                //代金券弹窗返回
+                finish();
+            } else if (requestCode == REQUEST_CODE_68) {
+                if (checkPayResultInfo != null) {
+                    showCoupon38Dialog(checkPayResultInfo.getCoupon_cost(), checkPayResultInfo.getCoupon_express_time());
+                }
+            } else if (requestCode == REQUEST_CODE_98) {
+                if (checkPayResultInfo != null) {
+                    showCoupon38Dialog(checkPayResultInfo.getCoupon_cost(), checkPayResultInfo.getCoupon_express_time());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
     @OnClick(R.id.layout_money_1)
@@ -283,4 +304,24 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
         startActivity(new Intent(RechargeActivity.this, UserAgreementActivity.class));
         overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }
+
+    private void showRecharge68SuccessDialog() {
+        Intent intent = new Intent(RechargeActivity.this, Recharge68SuccessSendGoodsDialog.class);
+        startActivityForResult(intent, REQUEST_CODE_68);
+    }
+
+    private void showRecharge98SuccessDialog() {
+        Intent intent = new Intent(RechargeActivity.this, Recharge98SuccessSendGoodsDialog.class);
+        startActivityForResult(intent, REQUEST_CODE_98);
+    }
+
+    private void showCoupon38Dialog(int couponCost, long couponExpressTime) {
+        Intent intent = new Intent(RechargeActivity.this, Coupon38Dialog.class);
+        CouponInfo couponInfo = new CouponInfo();
+        couponInfo.setCost(couponCost);
+        couponInfo.setExpress_time(couponExpressTime);
+        intent.putExtra(Coupon38Dialog.ARG_COUPON, couponInfo);
+        startActivityForResult(intent, 10001);
+    }
+
 }

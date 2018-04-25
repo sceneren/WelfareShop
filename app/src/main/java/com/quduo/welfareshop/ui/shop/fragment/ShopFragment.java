@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -23,6 +24,8 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.config.AppConfig;
+import com.quduo.welfareshop.dialog.Coupon38Dialog;
+import com.quduo.welfareshop.dialog.Coupon50Dialog;
 import com.quduo.welfareshop.event.ChangeCouponStatusEvent;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
@@ -276,6 +279,17 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
 
             EventBus.getDefault().post(new ChangeCouponStatusEvent(MyApplication.getInstance().getUserInfo().isHas_coupon()));
 
+            boolean isFirstEnterShop = SPUtils.getInstance().getBoolean("isFirstEnterShop", true);
+            if (isFirstEnterShop) {
+                if (MyApplication.getInstance().getUserInfo().getCoupon_cost() == 50) {
+                    Intent intent = new Intent(_mActivity, Coupon50Dialog.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(_mActivity, Coupon38Dialog.class);
+                    startActivity(intent);
+                }
+            }
+            SPUtils.getInstance().put("isFirstEnterShop", false);
         } catch (Exception e) {
             e.printStackTrace();
         }

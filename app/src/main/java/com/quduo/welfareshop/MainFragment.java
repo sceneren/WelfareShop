@@ -14,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.quduo.welfareshop.dialog.EarliestCouponDialog;
+import com.blankj.utilcode.util.SPUtils;
+import com.quduo.welfareshop.dialog.Coupon38Dialog;
+import com.quduo.welfareshop.dialog.Coupon50Dialog;
 import com.quduo.welfareshop.event.ChangeCouponStatusEvent;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.event.TabSelectedEvent;
@@ -111,6 +113,8 @@ public class MainFragment extends SupportFragment {
             mFragments[FIVE] = findChildFragment(MineFragment.class);
         }
         initView();
+        boolean isFirstEnterShop = SPUtils.getInstance().getBoolean("isFirstEnterShop", true);
+        showCouponStatus(!isFirstEnterShop && MyApplication.getInstance().getUserInfo().isHas_coupon());
     }
 
     private void showCouponStatus(boolean needShow) {
@@ -119,6 +123,11 @@ public class MainFragment extends SupportFragment {
                 showCoupon.setVisibility(View.VISIBLE);
             } else {
                 showCoupon.setVisibility(View.GONE);
+            }
+            if (MyApplication.getInstance().getUserInfo().getCoupon_cost() == 50) {
+                showCoupon.setImageResource(R.drawable.ic_small_coupon_50);
+            } else {
+                showCoupon.setImageResource(R.drawable.ic_small_coupon);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -324,8 +333,13 @@ public class MainFragment extends SupportFragment {
     @OnClick(R.id.show_coupon)
     public void onClickShowCoupon() {
         try {
-            Intent intent = new Intent(_mActivity, EarliestCouponDialog.class);
-            startActivity(intent);
+            if (MyApplication.getInstance().getUserInfo().getCoupon_cost() == 50) {
+                Intent intent = new Intent(_mActivity, Coupon50Dialog.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(_mActivity, Coupon38Dialog.class);
+                startActivity(intent);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

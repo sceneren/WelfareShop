@@ -271,4 +271,6 @@ dependencies {
     //内存泄漏
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    //倒计时
+    implementation 'com.github.iwgang:countdownview:2.1.6'
 }
