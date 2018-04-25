@@ -137,11 +137,13 @@ public class MyGoodsFragment extends BaseBackMvpFragment<IMyGoodsView, MyGoodsPr
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (list.get(position).getStatus() == 1) {
-                    if (list.get(position).getProduct_id() == 101) {
-                        toSingleGoodsDetailActivity(101);
-                    } else {
-                        toGoodsDetailActivity(list.get(position).getProduct_id());
-                    }
+//                    if (list.get(position).getProduct_id() == 101) {
+//                        toSingleGoodsDetailActivity(101);
+//                    } else {
+                    toGoodsDetailActivity(list.get(position).getProduct_id());
+//                    }
+                } else {
+                    ToastUtils.showShort("该商品已下架");
                 }
             }
         });

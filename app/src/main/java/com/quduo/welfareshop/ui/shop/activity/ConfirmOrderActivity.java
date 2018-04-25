@@ -112,6 +112,10 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
     TextView totalNumber;
     @BindView(R.id.remark)
     EditText remark;
+    @BindView(R.id.layout_pay_by_wechat)
+    LinearLayout layoutPayByWechat;
+    @BindView(R.id.layout_pay_by_alipay)
+    LinearLayout layoutPayByAlipay;
 
     private int payType = 1;
 
@@ -246,6 +250,45 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
                 totalCost.setText(MessageFormat.format("￥{0}", realTotalCost));
                 bottomBarTotalCost.setText(MessageFormat.format("￥{0}", realTotalCost));
                 bottomBarCoupon.setText(MessageFormat.format("现金券已抵扣{0}元", data.getCoupon().getCost()));
+            }
+            layoutPayByWechat.setVisibility(data.isWx_pay_enable() ? View.VISIBLE : View.GONE);
+            layoutPayByAlipay.setVisibility(data.isAli_pay_enable() ? View.VISIBLE : View.GONE);
+            if (data.isWx_pay_enable()) {
+                payType = 1;
+                statusPayByWechat.setImageResource(R.drawable.ic_recharge_money_s);
+                statusPayByAlipay.setImageResource(R.drawable.ic_recharge_money_d);
+            } else if (data.isAli_pay_enable()) {
+                payType = 2;
+                statusPayByWechat.setImageResource(R.drawable.ic_recharge_money_d);
+                statusPayByAlipay.setImageResource(R.drawable.ic_recharge_money_s);
+            } else {
+                payType = 0;
+            }
+
+            if(data.isWx_pay_enable()&&data.isAli_pay_enable()){
+                payType = 1;
+                statusPayByWechat.setImageResource(R.drawable.ic_recharge_money_s);
+                statusPayByAlipay.setImageResource(R.drawable.ic_recharge_money_d);
+                statusPayByWechat.setVisibility(View.VISIBLE);
+                statusPayByAlipay.setVisibility(View.VISIBLE);
+            }else if(data.isWx_pay_enable()&&!data.isAli_pay_enable()){
+                payType = 1;
+                statusPayByWechat.setImageResource(R.drawable.ic_recharge_money_s);
+                statusPayByAlipay.setImageResource(R.drawable.ic_recharge_money_d);
+                statusPayByWechat.setVisibility(View.VISIBLE);
+                statusPayByAlipay.setVisibility(View.GONE);
+            }else if(!data.isWx_pay_enable()&&data.isAli_pay_enable()){
+                payType = 2;
+                statusPayByWechat.setImageResource(R.drawable.ic_recharge_money_d);
+                statusPayByAlipay.setImageResource(R.drawable.ic_recharge_money_s);
+                statusPayByWechat.setVisibility(View.GONE);
+                statusPayByAlipay.setVisibility(View.VISIBLE);
+            }else{
+                payType = 0;
+                statusPayByWechat.setImageResource(R.drawable.ic_recharge_money_d);
+                statusPayByAlipay.setImageResource(R.drawable.ic_recharge_money_d);
+                statusPayByWechat.setVisibility(View.GONE);
+                statusPayByAlipay.setVisibility(View.GONE);
             }
 
         } catch (Exception e) {
@@ -467,6 +510,10 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
 
     private void createOrder(int type) {
         try {
+            if (type == 0) {
+                ToastUtils.showShort("暂时无法支付，工程师正在积极修复");
+                return;
+            }
             String strReceiverName = getReceiverName();
             String strReceiverPhone = getReceiverPhone();
             String strReceiverAddress = getReceiverAddress();

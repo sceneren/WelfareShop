@@ -58,7 +58,7 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
 
-    private int type = 2;
+    private int type = 1;
     private int fromPosition = 0;
 
     @Override

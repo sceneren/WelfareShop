@@ -74,7 +74,7 @@
                         android:id="@+id/state_money_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_recharge_money_d" />
+                        android:src="@drawable/ic_recharge_money_s" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -117,7 +117,7 @@
                         android:id="@+id/state_money_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_recharge_money_s" />
+                        android:src="@drawable/ic_recharge_money_d" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -215,7 +215,6 @@
                         android:id="@+id/pay_wechat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
                         android:layout_weight="1"
                         android:background="@drawable/btn_wechat_recharge_corner_5dp"
                         android:gravity="center"
@@ -242,6 +241,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_weight="1"
+                        android:visibility="gone"
                         android:background="@drawable/btn_alipay_recharge_corner_5dp"
                         android:gravity="center"
                         android:padding="10dp">
