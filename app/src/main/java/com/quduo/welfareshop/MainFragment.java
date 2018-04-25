@@ -21,7 +21,6 @@ import com.quduo.welfareshop.event.TabSelectedEvent;
 import com.quduo.welfareshop.ui.friend.fragment.FriendFragment;
 import com.quduo.welfareshop.ui.mine.fragment.MineFragment;
 import com.quduo.welfareshop.ui.red.fragment.RedFragment;
-import com.quduo.welfareshop.ui.shop.activity.SingleGoodsDetailActivity;
 import com.quduo.welfareshop.ui.shop.fragment.ShopFragment;
 import com.quduo.welfareshop.ui.welfare.fragment.WelfareFragment;
 import com.quduo.welfareshop.widgets.bottombar.BottomBar;
@@ -112,13 +111,11 @@ public class MainFragment extends SupportFragment {
             mFragments[FIVE] = findChildFragment(MineFragment.class);
         }
         initView();
-        showCouponStatus();
-
     }
 
-    private void showCouponStatus() {
+    private void showCouponStatus(boolean needShow) {
         try {
-            if (MyApplication.getInstance().getUserInfo().isHas_coupon()) {
+            if (needShow) {
                 showCoupon.setVisibility(View.VISIBLE);
             } else {
                 showCoupon.setVisibility(View.GONE);
@@ -302,7 +299,7 @@ public class MainFragment extends SupportFragment {
     @Subscribe
     public void changeCouponStatus(ChangeCouponStatusEvent event) {
         if (event != null) {
-            showCouponStatus();
+            showCouponStatus(event.isNeedShow());
         }
     }
 
@@ -340,13 +337,6 @@ public class MainFragment extends SupportFragment {
         JZVideoPlayer.releaseAllVideos();
         JZVideoPlayer.FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_SENSOR;
         JZVideoPlayer.NORMAL_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
-    }
-
-    private void toGoodsDetailActivity(int goodsId) {
-        Intent intent = new Intent(_mActivity, SingleGoodsDetailActivity.class);
-        intent.putExtra(SingleGoodsDetailActivity.ARG_ID, goodsId);
-        startActivity(intent);
-        _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }
 
 }

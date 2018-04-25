@@ -23,6 +23,7 @@ import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.config.AppConfig;
+import com.quduo.welfareshop.event.ChangeCouponStatusEvent;
 import com.quduo.welfareshop.event.StartBrotherEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.itemDecoration.ShopIndexItemDecoration;
@@ -272,6 +273,9 @@ public class ShopFragment extends BaseMainMvpFragment<IShopView, ShopPresenter> 
             bindCate(data.getCate());
             bindRecyclerView(data.getData().getData());
             bindHot(data.getHot());
+
+            EventBus.getDefault().post(new ChangeCouponStatusEvent(MyApplication.getInstance().getUserInfo().isHas_coupon()));
+
         } catch (Exception e) {
             e.printStackTrace();
         }

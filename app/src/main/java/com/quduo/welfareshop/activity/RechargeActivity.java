@@ -58,13 +58,13 @@ public class RechargeActivity extends BaseMvpActivity<IRechargeView, RechargePre
     @BindView(R.id.status_view)
     StatusViewLayout statusView;
 
-    private int type = 1;
+    private int type = 2;
     private int fromPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recharge_old);
+        setContentView(R.layout.activity_recharge);
         unbinder = ButterKnife.bind(this);
         try {
             fromPosition = getIntent().getIntExtra(ARG_FROM_POSITION, 0);

@@ -265,25 +265,25 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
                 payType = 0;
             }
 
-            if(data.isWx_pay_enable()&&data.isAli_pay_enable()){
+            if (data.isWx_pay_enable() && data.isAli_pay_enable()) {
                 payType = 1;
                 statusPayByWechat.setImageResource(R.drawable.ic_recharge_money_s);
                 statusPayByAlipay.setImageResource(R.drawable.ic_recharge_money_d);
                 statusPayByWechat.setVisibility(View.VISIBLE);
                 statusPayByAlipay.setVisibility(View.VISIBLE);
-            }else if(data.isWx_pay_enable()&&!data.isAli_pay_enable()){
+            } else if (data.isWx_pay_enable() && !data.isAli_pay_enable()) {
                 payType = 1;
                 statusPayByWechat.setImageResource(R.drawable.ic_recharge_money_s);
                 statusPayByAlipay.setImageResource(R.drawable.ic_recharge_money_d);
                 statusPayByWechat.setVisibility(View.VISIBLE);
                 statusPayByAlipay.setVisibility(View.GONE);
-            }else if(!data.isWx_pay_enable()&&data.isAli_pay_enable()){
+            } else if (!data.isWx_pay_enable() && data.isAli_pay_enable()) {
                 payType = 2;
                 statusPayByWechat.setImageResource(R.drawable.ic_recharge_money_d);
                 statusPayByAlipay.setImageResource(R.drawable.ic_recharge_money_s);
                 statusPayByWechat.setVisibility(View.GONE);
                 statusPayByAlipay.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 payType = 0;
                 statusPayByWechat.setImageResource(R.drawable.ic_recharge_money_d);
                 statusPayByAlipay.setImageResource(R.drawable.ic_recharge_money_d);
@@ -353,7 +353,7 @@ public class ConfirmOrderActivity extends BaseMvpActivity<IConfirmOrderView, Con
             startActivityForResult(intent, 40001);
             overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
             MyApplication.getInstance().getUserInfo().setHas_coupon(false);
-            EventBus.getDefault().post(new ChangeCouponStatusEvent());
+            EventBus.getDefault().post(new ChangeCouponStatusEvent(false));
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -32,7 +32,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/bg_recharge_banner_2" />
+                    android:src="@drawable/bg_recharge_banner" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -76,6 +76,7 @@
                     android:textColor="@color/theme_color"
                     android:textSize="14sp"
                     tools:text="4785" />
+
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/layout_money_1"
@@ -135,77 +136,115 @@
                     android:layout_marginTop="@dimen/dp_10"
                     app:cardCornerRadius="5dp">
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_margin="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp">
+                        android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:id="@+id/state_money_2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_recharge_money_s" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_10"
-                            android:text="288积分"
-                            android:textColor="@color/title_text_color"
-                            android:textSize="@dimen/sp_14" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:src="@drawable/ic_czth"
-                            android:layout_marginLeft="@dimen/dp_10"
-                            android:layout_height="wrap_content" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:visibility="gone"
-                            android:src="@drawable/ic_recharge_zeng" />
-
-                        <TextView
-                            android:layout_width="75dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="VR-BOX眼镜"
-                            android:visibility="gone"
-                            android:textColor="@color/title_text_color"
-                            android:textSize="12sp" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:visibility="gone"
-                            android:src="@drawable/ic_goods_vr_box" />
-
-                        <View
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_weight="1" />
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp">
 
-                        <TextView
+                            <ImageView
+                                android:id="@+id/state_money_2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_recharge_money_s" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_10"
+                                android:text="288积分"
+                                android:textColor="@color/title_text_color"
+                                android:textSize="@dimen/sp_14" />
+
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:src="@drawable/ic_recharge_zeng" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_recharge_goods_lsxs" />
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="@dimen/dp_10" />
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_recharge_goods_nsxs" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="男用催情香水"
+                                    android:textColor="@color/title_text_color"
+                                    android:textSize="@dimen/sp_12" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="二选一"
+                                    android:textColor="@color/title_text_color"
+                                    android:textSize="@dimen/sp_12" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="女用催情香水"
+                                    android:textColor="@color/title_text_color"
+                                    android:textSize="@dimen/sp_12" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="￥"
+                                android:textColor="@color/title_text_color"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="68"
+                                android:textColor="@color/title_text_color"
+                                android:textSize="@dimen/sp_16" />
+                        </LinearLayout>
+
+                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="￥"
-                            android:textColor="@color/title_text_color"
-                            android:textSize="@dimen/sp_12" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="68"
-                            android:textColor="@color/title_text_color"
-                            android:textSize="@dimen/sp_16" />
-                    </LinearLayout>
+                            android:src="@drawable/ic_jian" />
+                    </RelativeLayout>
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
@@ -217,72 +256,139 @@
                     android:layout_marginTop="@dimen/dp_10"
                     app:cardCornerRadius="5dp">
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_margin="5dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp">
+                        android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:id="@+id/state_money_3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_recharge_money_d" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_10"
-                            android:text="388积分"
-                            android:textColor="@color/title_text_color"
-                            android:textSize="@dimen/sp_14" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:visibility="gone"
-                            android:src="@drawable/ic_recharge_zeng" />
-
-                        <TextView
-                            android:layout_width="75dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="趣儿飞机杯"
-                            android:visibility="gone"
-                            android:textColor="@color/title_text_color"
-                            android:textSize="12sp" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:visibility="gone"
-                            android:src="@drawable/ic_goods_feijibei" />
-
-                        <View
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_weight="1" />
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp">
 
-                        <TextView
+                            <ImageView
+                                android:id="@+id/state_money_3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_recharge_money_d" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_10"
+                                android:text="388积分"
+                                android:textColor="@color/title_text_color"
+                                android:textSize="@dimen/sp_14" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:src="@drawable/ic_recharge_zeng" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_recharge_goods_fjb" />
+
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="@dimen/dp_10" />
+
+                                <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_recharge_goods_zdb" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="真实肉感飞机杯"
+                                    android:textColor="@color/title_text_color"
+                                    android:textSize="@dimen/sp_12" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="二选一"
+                                    android:textColor="@color/title_text_color"
+                                    android:textSize="@dimen/sp_12" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="G点潮吹棒"
+                                    android:textColor="@color/title_text_color"
+                                    android:textSize="@dimen/sp_12" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="￥"
+                                android:textColor="@color/title_text_color"
+                                android:textSize="@dimen/sp_12" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="98"
+                                android:textColor="@color/title_text_color"
+                                android:textSize="@dimen/sp_16" />
+                        </LinearLayout>
+
+                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="￥"
-                            android:textColor="@color/title_text_color"
-                            android:textSize="@dimen/sp_12" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="98"
-                            android:textColor="@color/title_text_color"
-                            android:textSize="@dimen/sp_16" />
-                    </LinearLayout>
+                            android:src="@drawable/ic_lijian" />
+                    </RelativeLayout>
                 </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_marginTop="15dp"
+                    android:text="充值成功后填写收货信息领取赠送商品"
+                    android:textColor="@color/title_text_color"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_marginTop="5dp"
+                    android:text="赠品会在24小时内发出"
+                    android:textColor="@color/title_text_color"
+                    android:textSize="@dimen/sp_14" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -294,7 +400,6 @@
                         android:id="@+id/pay_wechat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
                         android:layout_weight="1"
                         android:background="@drawable/btn_wechat_recharge_corner_5dp"
                         android:gravity="center"
@@ -323,7 +428,8 @@
                         android:layout_weight="1"
                         android:background="@drawable/btn_alipay_recharge_corner_5dp"
                         android:gravity="center"
-                        android:padding="10dp">
+                        android:padding="10dp"
+                        android:visibility="gone">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -351,11 +457,13 @@
                     android:text="充值任意金额，送38元商城现金券"
                     android:textColor="@color/title_text_color"
                     android:textSize="@dimen/sp_14" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginBottom="30dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
