@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
@@ -31,7 +32,6 @@ import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.http.base.LzyResponse;
 import com.quduo.welfareshop.http.callback.JsonCallback;
 import com.quduo.welfareshop.util.keyboard.OnSoftKeyboardStateChangedListener;
-import com.tencent.smtt.sdk.QbSdk;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -62,8 +62,8 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         LogUtils.e("当前渠道号：" + MyApplication.getInstance().getResourceId());
         init();
         keyBoardHeight = SPUtils.getInstance().getInt("KEYBOARD_HEIGHT", 0);

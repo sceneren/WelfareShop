@@ -2,6 +2,7 @@ package com.quduo.welfareshop.mvp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import com.quduo.welfareshop.R;
 
@@ -18,6 +19,7 @@ public abstract class BaseMvpActivity<V, T extends BasePresenter<V>> extends Swi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         presenter = initPresenter();
     }
 

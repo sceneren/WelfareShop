@@ -2,6 +2,7 @@ package com.quduo.welfareshop.mvp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import com.quduo.welfareshop.R;
 
@@ -17,6 +18,7 @@ public abstract class BaseBackActivity extends SwipeBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
     }
 
     public abstract void initView();

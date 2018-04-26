@@ -1,5 +1,9 @@
 package com.quduo.welfareshop.base;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.WindowManager;
+
 import com.hss01248.dialog.ActivityStackManager;
 import com.umeng.analytics.MobclickAgent;
 
@@ -11,6 +15,12 @@ import me.yokeyword.fragmentation.SupportActivity;
  */
 
 public class BaseActivity extends SupportActivity {
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+    }
+
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
