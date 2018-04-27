@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
 
 import com.hss01248.dialog.StyledDialog;
@@ -43,6 +44,12 @@ public class ShowWebActivity extends BaseBackActivity {
     private void initToolbar() {
         toolbarTitle.setText("图文教程");
         toolbar.setNavigationIcon(R.drawable.ic_toolbar_back_black);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressedSupport();
+            }
+        });
     }
 
     @SuppressLint("SetJavaScriptEnabled")
