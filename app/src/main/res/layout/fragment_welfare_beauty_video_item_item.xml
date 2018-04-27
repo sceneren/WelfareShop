@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:horizontalSpacing="5dp"
+        android:layout_marginTop="5dp"
         tools:listitem="@layout/fragment_welfare_beauty_video_item_heng"
         android:listSelector="@color/transparent1"
         android:verticalSpacing="5dp" />

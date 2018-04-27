@@ -73,7 +73,7 @@ public class WelfareFragment extends BaseMainMvpFragment<IWelfareView, WelfarePr
         super.initView();
         String tabTitle[] = {"午夜影院", "老司机", "成人小说"};
         List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(MidNightVideoFragment.newInstance());
+        fragmentList.add(MidNightVideoNewFragment.newInstance());
         fragmentList.add(LsjFragment.newInstance());
         fragmentList.add(NovelFragment.newInstance());
         tab.addTab(tab.newTab().setText(tabTitle[0]));
