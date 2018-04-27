@@ -130,5 +130,15 @@ public class AppConfig {
     //交友视频详情
     public static final int POSITION_FRIEND_VIDEO_DETAIL = 53;
     //代金券使用前的弹窗
-    public static final int POSITION_MAIN_SHOW_COUPON=54;
+    public static final int POSITION_MAIN_SHOW_COUPON = 54;
+    //老司机未解锁
+    public static final int POSITION_UNTECH = 55;
+    //老司机已解锁
+    public static final int POSITION_TECHED = 56;
+    //android图文详情
+    public static final int POSITION_ANDROID_WEB = 57;
+    //ios图文详情
+    public static final int POSITION_IOS_WEB = 57;
+    //电脑图文详情
+    public static final int POSITION_PC_WEB = 57;
 }

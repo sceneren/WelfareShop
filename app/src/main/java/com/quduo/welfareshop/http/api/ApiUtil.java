@@ -231,6 +231,12 @@ public class ApiUtil {
     //赠送礼品-提交收货信息
     public static final String RECHARGE_GIFT = "order/gift";
     public static final String RECHARGE_GIFT_TAG = "order/gift";
+    //解锁教程
+    public static final String UNLOCK_TECH = "personal/unlock/tech";
+    public static final String UNLOCK_TECH_TAG = "personal/unlock/tech";
+    //教程数据
+    public static final String TECH = "tech";
+    public static final String TECH_TAG = "tech";
 
     /**
      * Case By:创建参数基础信息
