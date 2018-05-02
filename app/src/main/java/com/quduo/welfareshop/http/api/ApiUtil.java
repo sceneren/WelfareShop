@@ -237,6 +237,9 @@ public class ApiUtil {
     //教程数据
     public static final String TECH = "tech";
     public static final String TECH_TAG = "tech";
+    //交友-附近的人V2
+    public static final String NEAR_V2="friend/nearby_v2";
+    public static final String NEAR_V2_TAG="friend/nearby_v2";
 
     /**
      * Case By:创建参数基础信息

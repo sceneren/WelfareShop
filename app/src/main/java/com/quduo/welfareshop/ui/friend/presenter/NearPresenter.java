@@ -27,9 +27,6 @@ public class NearPresenter extends BasePresenter<INearView> {
                 mView.showLoadingPage();
             }
             HttpParams params = new HttpParams();
-            params.put("longitude", mView.getLongitude());
-            params.put("latitude", mView.getLatitude());
-            params.put("sex", mView.getSex());
             params.put("page", page);
             params.put("max_distance", maxDistance);
             model.getData(params, new HttpResultListener<NearResultInfo>() {

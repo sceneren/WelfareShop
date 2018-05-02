@@ -5,16 +5,16 @@ import com.quduo.welfareshop.base.BaseBean;
 import java.util.List;
 
 public class NearResultInfo extends BaseBean {
-    private List<OtherSimpleUserInfo> data;
+    private List<NearInfo> data;
     private int current_page;
     private int last_page;
     private int max_distance;
 
-    public List<OtherSimpleUserInfo> getData() {
+    public List<NearInfo> getData() {
         return data;
     }
 
-    public void setData(List<OtherSimpleUserInfo> data) {
+    public void setData(List<NearInfo> data) {
         this.data = data;
     }
 

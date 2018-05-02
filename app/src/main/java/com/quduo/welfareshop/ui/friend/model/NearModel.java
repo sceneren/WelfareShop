@@ -8,9 +8,6 @@ import com.quduo.welfareshop.http.base.LzyResponse;
 import com.quduo.welfareshop.http.callback.JsonCallback;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.ui.friend.entity.NearResultInfo;
-import com.quduo.welfareshop.ui.friend.entity.OtherSimpleUserInfo;
-
-import java.util.List;
 
 /**
  * Author:scene
@@ -20,8 +17,8 @@ import java.util.List;
 
 public class NearModel {
     public void getData(HttpParams params, final HttpResultListener<NearResultInfo> listener) {
-        OkGo.<LzyResponse<NearResultInfo>>get(ApiUtil.API_PRE + ApiUtil.NEAR_LIST)
-                .tag(ApiUtil.NEAR_LIST_TAG)
+        OkGo.<LzyResponse<NearResultInfo>>get(ApiUtil.API_PRE + ApiUtil.NEAR_V2)
+                .tag(ApiUtil.NEAR_V2_TAG)
                 .params(params)
                 .execute(new JsonCallback<LzyResponse<NearResultInfo>>() {
                     @Override

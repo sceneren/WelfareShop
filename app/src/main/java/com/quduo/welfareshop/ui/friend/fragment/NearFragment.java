@@ -24,6 +24,7 @@ import com.quduo.welfareshop.itemDecoration.NearFragmentItemDecoration;
 import com.quduo.welfareshop.mvp.BaseMvpFragment;
 import com.quduo.welfareshop.ui.friend.adapter.NearAdapter;
 import com.quduo.welfareshop.ui.friend.dialog.FriendChooseDialog;
+import com.quduo.welfareshop.ui.friend.entity.NearInfo;
 import com.quduo.welfareshop.ui.friend.entity.NearResultInfo;
 import com.quduo.welfareshop.ui.friend.entity.OtherSimpleUserInfo;
 import com.quduo.welfareshop.ui.friend.presenter.NearPresenter;
@@ -63,7 +64,7 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
 
     private FriendChooseDialog dialog;
 
-    private List<OtherSimpleUserInfo> list = new ArrayList<>();
+    private List<NearInfo> list = new ArrayList<>();
     private NearAdapter adapter;
 
     private int maxDistance = 0;
@@ -199,7 +200,7 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
 
     @Override
     public void onDestroyView() {
-        OkGo.getInstance().cancelTag(ApiUtil.NEAR_LIST_TAG);
+        OkGo.getInstance().cancelTag(ApiUtil.NEAR_V2_TAG);
         super.onDestroyView();
         unbinder.unbind();
     }
