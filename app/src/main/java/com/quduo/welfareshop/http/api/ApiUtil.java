@@ -240,7 +240,12 @@ public class ApiUtil {
     //交友-附近的人V2
     public static final String NEAR_V2="friend/nearby_v2";
     public static final String NEAR_V2_TAG="friend/nearby_v2";
-
+    //他人的主页
+    public static final String OTHERS_HOME_PAGE="friend/home";
+    public static final String OTHERS_HOME_PAGE_TAG="friend/home";
+    //详细信息
+    public static final String OTHERS_DETAIL_INFO="friend/info";
+    public static final String OTHERS_DETAIL_INFO_TAG="friend/info";
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

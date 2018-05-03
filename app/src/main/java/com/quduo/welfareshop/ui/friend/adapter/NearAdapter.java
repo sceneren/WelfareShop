@@ -41,6 +41,8 @@ public class NearAdapter extends BaseQuickAdapter<NearInfo, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, NearInfo item) {
         helper.setImageResource(R.id.sex, item.getSex() == 1 ? R.drawable.ic_near_sex_male_white : R.drawable.ic_near_sex_female_white);
+        helper.setBackgroundRes(R.id.layout_sex_and_age, item.getSex() == 1 ? R.drawable.bg_sex_male : R.drawable.bg_sex_female);
+
         helper.setText(R.id.age, item.getAge() + "岁");
         helper.setText(R.id.name, item.getNickname());
         helper.setText(R.id.des, item.getSignature());
@@ -75,7 +77,7 @@ public class NearAdapter extends BaseQuickAdapter<NearInfo, BaseViewHolder> {
         helper.setText(R.id.status_text, item.getBusy() == 1 ? "忙碌" : "在线");
         helper.setImageResource(R.id.status_view, item.getBusy() == 1 ? R.drawable.ic_friend_status_1 : R.drawable.ic_friend_status_0);
         helper.setText(R.id.distance, DistanceUtil.formatDistance(item.getDistance()));
-        helper.setText(R.id.total_video_chat_count, item.getVideo_times()+"人和TA视频过");
+        helper.setText(R.id.total_video_chat_count, item.getVideo_times() + "人和TA视频过");
 
         //添加勋章
         LinearLayout medalLayout = helper.getView(R.id.medal_layout);
@@ -98,9 +100,9 @@ public class NearAdapter extends BaseQuickAdapter<NearInfo, BaseViewHolder> {
         }
         //添加视频过得人
         LinearLayout videoChatUserLayout = helper.getView(R.id.video_chat_user_layout);
-         videoChatUserLayout.removeAllViews();
+        videoChatUserLayout.removeAllViews();
         for (int i = 0; i < item.getChat_user().size(); i++) {
-            if(i<3){
+            if (i < 3) {
                 ImageView chatAvatar = new ImageView(mContext);
                 ViewGroup.MarginLayoutParams layoutParams = new LinearLayout.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 layoutParams.width = SizeUtils.dp2px(20);

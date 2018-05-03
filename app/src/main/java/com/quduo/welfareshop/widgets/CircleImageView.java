@@ -17,10 +17,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
-import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 import com.quduo.welfareshop.R;
 
@@ -66,15 +64,18 @@ public class CircleImageView extends AppCompatImageView {
     private boolean mReady;
     private boolean mSetupPending;
     private boolean mBorderOverlay;
+
     //构造函数
     public CircleImageView(Context context) {
         super(context);
         init();
     }
+
     //构造函数
     public CircleImageView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
+
     /**
      * 构造函数
      */
@@ -93,6 +94,7 @@ public class CircleImageView extends AppCompatImageView {
         System.out.println("CircleImageView -- 构造函数");
         init();
     }
+
     /**
      * 作用就是保证第一次执行setup函数里下面代码要在构造函数执行完毕时调用
      */
@@ -111,6 +113,7 @@ public class CircleImageView extends AppCompatImageView {
     public ScaleType getScaleType() {
         return SCALE_TYPE;
     }
+
     /**
      * 这里明确指出 此种imageview 只支持CENTER_CROP 这一种属性
      *
@@ -198,6 +201,7 @@ public class CircleImageView extends AppCompatImageView {
      * 以下四个函数都是
      * 复写ImageView的setImageXxx()方法
      * 注意这个函数先于构造函数调用之前调用
+     *
      * @param bm
      */
     @Override
@@ -239,8 +243,10 @@ public class CircleImageView extends AppCompatImageView {
         mBitmapPaint.setColorFilter(mColorFilter);
         invalidate();
     }
+
     /**
      * Drawable转Bitmap
+     *
      * @param drawable
      * @return
      */
@@ -271,6 +277,7 @@ public class CircleImageView extends AppCompatImageView {
             return null;
         }
     }
+
     /**
      * 这个函数很关键，进行图片画笔边界画笔(Paint)一些重绘参数初始化：
      * 构建渲染器BitmapShader用Bitmap来填充绘制区域,设置样式以及内外圆半径计算等，
@@ -319,6 +326,7 @@ public class CircleImageView extends AppCompatImageView {
         //手动触发ondraw()函数 完成最终的绘制
         invalidate();
     }
+
     /**
      * 这个函数为设置BitmapShader的Matrix参数，设置最小缩放比例，平移参数。
      * 作用：保证图片损失度最小和始终绘制图片正中央的那部分

@@ -26,7 +26,6 @@ import com.quduo.welfareshop.ui.friend.adapter.NearAdapter;
 import com.quduo.welfareshop.ui.friend.dialog.FriendChooseDialog;
 import com.quduo.welfareshop.ui.friend.entity.NearInfo;
 import com.quduo.welfareshop.ui.friend.entity.NearResultInfo;
-import com.quduo.welfareshop.ui.friend.entity.OtherSimpleUserInfo;
 import com.quduo.welfareshop.ui.friend.presenter.NearPresenter;
 import com.quduo.welfareshop.ui.friend.view.INearView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -135,7 +134,7 @@ public class NearFragment extends BaseMvpFragment<INearView, NearPresenter> impl
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                EventBus.getDefault().post(new StartBrotherEvent(OtherInfoFragment.newInstance(String.valueOf(list.get(position).getId()), true)));
+                EventBus.getDefault().post(new StartBrotherEvent(OthersHomePageFragment.newInstance(list.get(position).getId(), list.get(position).getDistance())));
             }
         });
         presenter.getData(true, 1, 0);
