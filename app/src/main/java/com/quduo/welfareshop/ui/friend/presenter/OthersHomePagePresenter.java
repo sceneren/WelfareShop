@@ -100,4 +100,5 @@ public class OthersHomePagePresenter extends BasePresenter<IOthersHomePageView> 
             e.printStackTrace();
         }
     }
+
 }

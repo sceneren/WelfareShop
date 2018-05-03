@@ -26,12 +26,14 @@ import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.event.DynamicCommentSuccessEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.friend.adapter.HomePageAlbumAdapter;
 import com.quduo.welfareshop.ui.friend.adapter.HomePageDynamicAdapter;
 import com.quduo.welfareshop.ui.friend.adapter.HomePageVideoAdapter;
 import com.quduo.welfareshop.ui.friend.adapter.HomePageVideoChatUserAdapter;
+import com.quduo.welfareshop.ui.friend.dialog.CommentDynamicDialog;
 import com.quduo.welfareshop.ui.friend.entity.DynamicInfo;
 import com.quduo.welfareshop.ui.friend.entity.HomePageInfo;
 import com.quduo.welfareshop.ui.friend.entity.UserVideoInfo;
@@ -49,6 +51,9 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -138,6 +143,7 @@ public class OthersHomePageFragment extends BaseBackMvpFragment<IOthersHomePageV
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         if (getArguments() != null) {
             othersUserId = getArguments().getInt(ARG_ID, 0);
             othersUserId = 1864;
@@ -229,7 +235,10 @@ public class OthersHomePageFragment extends BaseBackMvpFragment<IOthersHomePageV
                             presenter.zanDynamic(position, list.get(position).getId());
                         }
                     } else if (view.getId() == R.id.btn_comment) {
-
+                        Intent intent = new Intent(_mActivity, CommentDynamicDialog.class);
+                        intent.putExtra(CommentDynamicDialog.ARG_DYNAMIC_ID, list.get(position).getId());
+                        intent.putExtra(CommentDynamicDialog.ARG_DYNAMIC_POSITION, position);
+                        startActivity(intent);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -490,6 +499,7 @@ public class OthersHomePageFragment extends BaseBackMvpFragment<IOthersHomePageV
     public void zanSuccess(int position) {
         try {
             list.get(position).setIs_good(true);
+            list.get(position).setGood(list.get(position).getGood() + 1);
             adapter.notifyItemChanged(position + 1);
         } catch (Exception e) {
             e.printStackTrace();
@@ -516,6 +526,7 @@ public class OthersHomePageFragment extends BaseBackMvpFragment<IOthersHomePageV
     @Override
     public void onDestroyView() {
         OkGo.getInstance().cancelTag(ApiUtil.OTHERS_HOME_PAGE_TAG);
+        EventBus.getDefault().unregister(this);
         super.onDestroyView();
         unbinder.unbind();
     }
@@ -526,5 +537,13 @@ public class OthersHomePageFragment extends BaseBackMvpFragment<IOthersHomePageV
         View firstVisiableChildView = layoutManager.findViewByPosition(position);
         int itemHeight = firstVisiableChildView.getHeight();
         return (position) * itemHeight - firstVisiableChildView.getTop();
+    }
+
+    @Subscribe
+    public void sendCommentSuccess(DynamicCommentSuccessEvent event) {
+        if (event != null) {
+            list.get(event.getPosition()).getComments().add(0, event.getCommentInfo());
+            adapter.notifyItemChanged(event.getPosition() + 1);
+        }
     }
 }

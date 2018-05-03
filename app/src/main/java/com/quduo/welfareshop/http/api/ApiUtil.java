@@ -246,6 +246,9 @@ public class ApiUtil {
     //详细信息
     public static final String OTHERS_DETAIL_INFO="friend/info";
     public static final String OTHERS_DETAIL_INFO_TAG="friend/info";
+    //发表评论
+    public static final String DYNAMIC_SEND_COMMENT="friend/comment";
+    public static final String DYNAMIC_SEND_COMMENT_TAG="friend/comment";
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

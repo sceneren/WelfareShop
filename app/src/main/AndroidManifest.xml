@@ -147,6 +147,12 @@
             android:name=".ui.friend.dialog.EditUserInfoStep3Dialog"
             android:theme="@style/DialogActivity" />
         <activity
+            android:name=".ui.friend.dialog.CommentDynamicDialog"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/CommentDialogActivity" />
+
+        <activity
             android:name=".ui.shop.fragment.ServiceCenterActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/app_name"

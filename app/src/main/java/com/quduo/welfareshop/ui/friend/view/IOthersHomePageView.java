@@ -1,6 +1,7 @@
 package com.quduo.welfareshop.ui.friend.view;
 
 import com.quduo.welfareshop.mvp.BaseView;
+import com.quduo.welfareshop.ui.friend.entity.DynamicCommentInfo;
 import com.quduo.welfareshop.ui.friend.entity.HomePageInfo;
 
 public interface IOthersHomePageView extends BaseView {
@@ -17,4 +18,5 @@ public interface IOthersHomePageView extends BaseView {
     void hideLoadingDialog();
 
     void zanSuccess(int position);
+
 }
