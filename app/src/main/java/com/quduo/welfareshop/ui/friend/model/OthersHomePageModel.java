@@ -10,6 +10,7 @@ import com.quduo.welfareshop.http.callback.JsonCallback;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.ui.friend.entity.DynamicCommentInfo;
 import com.quduo.welfareshop.ui.friend.entity.HomePageInfo;
+import com.quduo.welfareshop.ui.welfare.entity.FollowSuccessInfo;
 import com.quduo.welfareshop.ui.welfare.model.ZanModel;
 
 import org.greenrobot.eventbus.EventBus;
@@ -49,29 +50,63 @@ public class OthersHomePageModel extends ZanModel {
                 });
     }
 
-    public void sendComment(HttpParams params, final HttpResultListener<DynamicCommentInfo> listener) {
-        OkGo.<LzyResponse<DynamicCommentInfo>>post(ApiUtil.API_PRE + ApiUtil.DYNAMIC_SEND_COMMENT)
-                .tag(ApiUtil.DYNAMIC_SEND_COMMENT_TAG)
+    public void followUser(HttpParams params, final HttpResultListener<FollowSuccessInfo> listener) {
+        OkGo.<LzyResponse<FollowSuccessInfo>>get(ApiUtil.API_PRE + ApiUtil.FOLLOW_USER)
+                .tag(ApiUtil.FOLLOW_USER_TAG)
                 .params(params)
-                .execute(new JsonCallback<LzyResponse<DynamicCommentInfo>>() {
+                .execute(new JsonCallback<LzyResponse<FollowSuccessInfo>>() {
                     @Override
-                    public void onSuccess(Response<LzyResponse<DynamicCommentInfo>> response) {
+                    public void onSuccess(Response<LzyResponse<FollowSuccessInfo>> response) {
                         try {
                             listener.onSuccess(response.body().data);
                         } catch (Exception e) {
                             e.printStackTrace();
-                            listener.onFail("评论失败请重试");
+                            listener.onFail("关注失败请重试");
                         }
                     }
 
                     @Override
-                    public void onError(Response<LzyResponse<DynamicCommentInfo>> response) {
+                    public void onError(Response<LzyResponse<FollowSuccessInfo>> response) {
                         super.onError(response);
                         try {
                             listener.onFail(response.getException().getMessage());
                         } catch (Exception e) {
                             e.printStackTrace();
-                            listener.onFail("评论失败请重试");
+                            listener.onFail("关注失败请重试");
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        listener.onFinish();
+                    }
+                });
+    }
+
+    public void cancelFollowUser(HttpParams params, final HttpResultListener<String> listener) {
+        OkGo.<LzyResponse<String>>get(ApiUtil.API_PRE + ApiUtil.CENCEL_FOLLOW_USER)
+                .tag(ApiUtil.CENCEL_FOLLOW_USER_TAG)
+                .params(params)
+                .execute(new JsonCallback<LzyResponse<String>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<String>> response) {
+                        try {
+                            listener.onSuccess(response.body().data);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            listener.onFail("取消关注失败请重试");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<String>> response) {
+                        super.onError(response);
+                        try {
+                            listener.onFail(response.getException().getMessage());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            listener.onFail("取消关注失败请重试");
                         }
                     }
 

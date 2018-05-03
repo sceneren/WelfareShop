@@ -282,7 +282,15 @@ public class OthersHomePageFragment extends BaseBackMvpFragment<IOthersHomePageV
         btnFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                try {
+                    if (homePageInfo.getSubscribe_id() == 0) {
+                        presenter.followUser(homePageInfo.getId());
+                    } else {
+                        presenter.cancelFollowUser(homePageInfo.getSubscribe_id());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -374,17 +382,7 @@ public class OthersHomePageFragment extends BaseBackMvpFragment<IOthersHomePageV
             popularity.setText(String.valueOf(homePageInfo.getView_times()));
             fans.setText(String.valueOf(homePageInfo.getSubscribe()));
             signature.setText(homePageInfo.getSignature());
-            if (homePageInfo.getSubscribe_id() == 0) {
-                //未关注
-                btnFollow.setBackgroundResource(R.drawable.btn_home_page_follow);
-                btnFollowImage.setVisibility(View.VISIBLE);
-                btnFollowText.setText("关注");
-            } else {
-                //已关注
-                btnFollow.setBackgroundResource(R.drawable.bg_home_page_has_follow);
-                btnFollowImage.setVisibility(View.GONE);
-                btnFollowText.setText("已关注");
-            }
+            bindFollowState();
             if (albumList == null) {
                 albumList = new ArrayList<>();
                 albumAdapter = new HomePageAlbumAdapter(getContext(), albumList);
@@ -506,6 +504,40 @@ public class OthersHomePageFragment extends BaseBackMvpFragment<IOthersHomePageV
         }
     }
 
+    @Override
+    public void followSuccess(int id) {
+        try {
+            homePageInfo.setSubscribe_id(id);
+            bindFollowState();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void cancelFollowSuccess() {
+        try {
+            homePageInfo.setSubscribe_id(0);
+            bindFollowState();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void bindFollowState() {
+        if (homePageInfo.getSubscribe_id() == 0) {
+            //未关注
+            btnFollow.setBackgroundResource(R.drawable.btn_home_page_follow);
+            btnFollowImage.setVisibility(View.VISIBLE);
+            btnFollowText.setText("关注");
+        } else {
+            //已关注
+            btnFollow.setBackgroundResource(R.drawable.bg_home_page_has_follow);
+            btnFollowImage.setVisibility(View.GONE);
+            btnFollowText.setText("已关注");
+        }
+    }
+
     private void toAlbumActivity() {
         Intent intent = new Intent(_mActivity, AlbumActivity.class);
         intent.putExtra(AlbumActivity.ARG_IS_MINE, false);
@@ -546,4 +578,5 @@ public class OthersHomePageFragment extends BaseBackMvpFragment<IOthersHomePageV
             adapter.notifyItemChanged(event.getPosition() + 1);
         }
     }
+
 }

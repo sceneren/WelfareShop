@@ -19,4 +19,8 @@ public interface IOthersHomePageView extends BaseView {
 
     void zanSuccess(int position);
 
+    void followSuccess(int id);
+
+    void cancelFollowSuccess();
+
 }

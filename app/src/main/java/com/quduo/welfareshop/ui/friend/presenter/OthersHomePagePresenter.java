@@ -6,6 +6,7 @@ import com.quduo.welfareshop.mvp.BasePresenter;
 import com.quduo.welfareshop.ui.friend.entity.HomePageInfo;
 import com.quduo.welfareshop.ui.friend.model.OthersHomePageModel;
 import com.quduo.welfareshop.ui.friend.view.IOthersHomePageView;
+import com.quduo.welfareshop.ui.welfare.entity.FollowSuccessInfo;
 
 public class OthersHomePagePresenter extends BasePresenter<IOthersHomePageView> {
     private OthersHomePageModel model;
@@ -100,5 +101,79 @@ public class OthersHomePagePresenter extends BasePresenter<IOthersHomePageView> 
             e.printStackTrace();
         }
     }
+    public void followUser(int targetUserId) {
+        try {
+            mView.showLoadingDialog();
+            HttpParams params = new HttpParams();
+            params.put("target_user_id", targetUserId);
+            model.followUser(params, new HttpResultListener<FollowSuccessInfo>() {
+                @Override
+                public void onSuccess(FollowSuccessInfo data) {
+                    try {
+                        mView.followSuccess(data.getId());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
 
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.showMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void cancelFollowUser(int followId) {
+        try {
+            mView.showLoadingDialog();
+            HttpParams params = new HttpParams();
+            params.put("subscribe_id", followId);
+            model.cancelFollowUser(params, new HttpResultListener<String>() {
+                @Override
+                public void onSuccess(String data) {
+                    try {
+                        mView.cancelFollowSuccess();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.showMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
