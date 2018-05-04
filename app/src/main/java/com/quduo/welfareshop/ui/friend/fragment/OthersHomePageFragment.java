@@ -43,6 +43,7 @@ import com.quduo.welfareshop.ui.friend.view.IOthersHomePageView;
 import com.quduo.welfareshop.ui.mine.activity.AlbumActivity;
 import com.quduo.welfareshop.ui.mine.entity.MyUserDetailInfo;
 import com.quduo.welfareshop.util.DistanceUtil;
+import com.quduo.welfareshop.util.WeakDataHolder;
 import com.quduo.welfareshop.widgets.CustomGridView;
 import com.quduo.welfareshop.widgets.RatioImageView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -403,6 +404,13 @@ public class OthersHomePageFragment extends BaseBackMvpFragment<IOthersHomePageV
                 videoList = new ArrayList<>();
                 videoAdapter = new HomePageVideoAdapter(getContext(), videoList);
                 videoGridview.setAdapter(videoAdapter);
+                videoGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        WeakDataHolder.getInstance().saveData(UserAllVideoFragment.ARG_ALL_VIDEO + homePageInfo.getId(), homePageInfo.getVideos());
+                        start(UserAllVideoFragment.newInstance(homePageInfo.getId()));
+                    }
+                });
             } else {
                 videoList.clear();
             }
