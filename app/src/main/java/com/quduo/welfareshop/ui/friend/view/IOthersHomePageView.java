@@ -23,4 +23,6 @@ public interface IOthersHomePageView extends BaseView {
 
     void cancelFollowSuccess();
 
+    void unlockSuccess(int position, int currentScore);
+
 }

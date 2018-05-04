@@ -7,6 +7,7 @@ import com.quduo.welfareshop.ui.friend.entity.HomePageInfo;
 import com.quduo.welfareshop.ui.friend.model.OthersHomePageModel;
 import com.quduo.welfareshop.ui.friend.view.IOthersHomePageView;
 import com.quduo.welfareshop.ui.welfare.entity.FollowSuccessInfo;
+import com.quduo.welfareshop.ui.welfare.entity.UnlockResultInfo;
 
 public class OthersHomePagePresenter extends BasePresenter<IOthersHomePageView> {
     private OthersHomePageModel model;
@@ -101,6 +102,7 @@ public class OthersHomePagePresenter extends BasePresenter<IOthersHomePageView> 
             e.printStackTrace();
         }
     }
+
     public void followUser(int targetUserId) {
         try {
             mView.showLoadingDialog();
@@ -149,6 +151,46 @@ public class OthersHomePagePresenter extends BasePresenter<IOthersHomePageView> 
                 public void onSuccess(String data) {
                     try {
                         mView.cancelFollowSuccess();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.showMessage(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void unlockVideo(final int position, int dataId) {
+        try {
+            mView.hideLoadingDialog();
+            HttpParams params = new HttpParams();
+            params.put("data_id", dataId);
+            params.put("type", "user_video");
+            model.unlock(params, new HttpResultListener<UnlockResultInfo>() {
+                @Override
+                public void onSuccess(UnlockResultInfo data) {
+                    try {
+                        mView.showMessage("解锁成功");
+                        mView.unlockSuccess(position, data.getScore());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

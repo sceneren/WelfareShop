@@ -70,17 +70,13 @@ public class HomePageDynamicAdapter extends BaseQuickAdapter<DynamicInfo, BaseVi
         } else {
             image.setVisibility(View.GONE);
         }
-//        Intent intent = new Intent(mContext, PreviewImageActivity.class);
-//        intent.putExtra(PreviewImageActivity.ARG_URLS, imageList);
-//        intent.putExtra(PreviewImageActivity.ARG_POSITION, position);
-//        mContext.startActivity(intent);
         if (StringUtils.isTrimEmpty(item.getUrl())) {
             helper.setGone(R.id.video_layout, false);
         } else {
             helper.setGone(R.id.video_layout, true);
             RatioImageView videoThumb = helper.getView(R.id.video_thumb);
             GlideApp.with(mContext)
-                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getAvatar())
+                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getThumb())
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.drawable.ic_default_video)
@@ -125,6 +121,7 @@ public class HomePageDynamicAdapter extends BaseQuickAdapter<DynamicInfo, BaseVi
         helper.addOnClickListener(R.id.video_layout);
         helper.addOnClickListener(R.id.btn_good);
         helper.addOnClickListener(R.id.btn_comment);
+        helper.addOnClickListener(R.id.image);
 
         helper.setImageResource(R.id.btn_good, item.isIs_good() ? R.drawable.ic_dynamic_zan_s : R.drawable.ic_dynamic_zan_d);
     }

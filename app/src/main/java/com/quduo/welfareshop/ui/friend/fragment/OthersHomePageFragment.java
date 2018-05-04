@@ -25,8 +25,12 @@ import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
+import com.quduo.welfareshop.activity.PreviewImageActivity;
 import com.quduo.welfareshop.base.GlideApp;
+import com.quduo.welfareshop.base.UnlockLisenter;
+import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.DynamicCommentSuccessEvent;
+import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
 import com.quduo.welfareshop.ui.friend.adapter.HomePageAlbumAdapter;
@@ -35,6 +39,7 @@ import com.quduo.welfareshop.ui.friend.adapter.HomePageVideoAdapter;
 import com.quduo.welfareshop.ui.friend.adapter.HomePageVideoChatUserAdapter;
 import com.quduo.welfareshop.ui.friend.dialog.CommentDynamicDialog;
 import com.quduo.welfareshop.ui.friend.entity.DynamicInfo;
+import com.quduo.welfareshop.ui.friend.entity.FriendVideoDetailInfo;
 import com.quduo.welfareshop.ui.friend.entity.HomePageInfo;
 import com.quduo.welfareshop.ui.friend.entity.UserVideoInfo;
 import com.quduo.welfareshop.ui.friend.entity.VideoChatUserInfo;
@@ -42,6 +47,7 @@ import com.quduo.welfareshop.ui.friend.presenter.OthersHomePagePresenter;
 import com.quduo.welfareshop.ui.friend.view.IOthersHomePageView;
 import com.quduo.welfareshop.ui.mine.activity.AlbumActivity;
 import com.quduo.welfareshop.ui.mine.entity.MyUserDetailInfo;
+import com.quduo.welfareshop.util.DialogUtils;
 import com.quduo.welfareshop.util.DistanceUtil;
 import com.quduo.welfareshop.util.WeakDataHolder;
 import com.quduo.welfareshop.widgets.CustomGridView;
@@ -230,7 +236,24 @@ public class OthersHomePageFragment extends BaseBackMvpFragment<IOthersHomePageV
                         }
                         adapter.notifyItemChanged(position + adapter.getHeaderLayoutCount());
                     } else if (view.getId() == R.id.video_layout) {
-
+                        if (list.get(position).isPayed()) {
+                            DynamicInfo dynamicInfo = list.get(position);
+                            FriendVideoDetailInfo detailInfo = new FriendVideoDetailInfo();
+                            detailInfo.setId(dynamicInfo.getId());
+                            detailInfo.setAvatar(dynamicInfo.getAvatar());
+                            detailInfo.setContent(dynamicInfo.getContent());
+                            detailInfo.setNickName(dynamicInfo.getNickname());
+                            detailInfo.setPlay_times(dynamicInfo.getPlay_times());
+                            detailInfo.setThumb(dynamicInfo.getThumb());
+                            detailInfo.setUserId(dynamicInfo.getUser_id());
+                            detailInfo.setVideo_url(dynamicInfo.getUrl());
+                            detailInfo.setPrice(dynamicInfo.getPrice());
+                            detailInfo.setPayed(dynamicInfo.isPayed());
+                            detailInfo.setPosition(position);
+                            start(FriendVideoDetailFragment.newInstance(detailInfo, FriendVideoDetailFragment.FROM_INTERACT));
+                        } else {
+                            showNeedUnlockDialog(position);
+                        }
                     } else if (view.getId() == R.id.btn_good) {
                         if (!list.get(position).isIs_good()) {
                             presenter.zanDynamic(position, list.get(position).getId());
@@ -240,6 +263,8 @@ public class OthersHomePageFragment extends BaseBackMvpFragment<IOthersHomePageV
                         intent.putExtra(CommentDynamicDialog.ARG_DYNAMIC_ID, list.get(position).getId());
                         intent.putExtra(CommentDynamicDialog.ARG_DYNAMIC_POSITION, position);
                         startActivity(intent);
+                    } else if (view.getId() == R.id.image) {
+                        toPreviewImageActivity(list.get(position).getImages());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -532,6 +557,18 @@ public class OthersHomePageFragment extends BaseBackMvpFragment<IOthersHomePageV
         }
     }
 
+    @Override
+    public void unlockSuccess(int position, int currentScore) {
+        try {
+            MyApplication.getInstance().getUserInfo().setScore(currentScore);
+            EventBus.getDefault().post(new UpdateScoreAndDiamondEvent());
+            list.get(position).setPayed(true);
+            adapter.notifyItemChanged(position + 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void bindFollowState() {
         if (homePageInfo.getSubscribe_id() == 0) {
             //未关注
@@ -585,6 +622,28 @@ public class OthersHomePageFragment extends BaseBackMvpFragment<IOthersHomePageV
             list.get(event.getPosition()).getComments().add(0, event.getCommentInfo());
             adapter.notifyItemChanged(event.getPosition() + 1);
         }
+    }
+
+    private void showNeedUnlockDialog(final int position) {
+        try {
+            DialogUtils.getInstance().showNeedUnlockDialog(_mActivity, list.get(position).getPrice(), MyApplication.getInstance().getUserInfo().getScore(), AppConfig.POSITION_FRIEND_VIDEO_DETAIL, new UnlockLisenter() {
+                @Override
+                public void unlock() {
+                    presenter.unlockVideo(position, list.get(position).getId());
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void toPreviewImageActivity(String url) {
+        ArrayList<String> previewImageUrls = new ArrayList<>();
+        previewImageUrls.add(MyApplication.getInstance().getConfigInfo().getFile_domain() + url);
+        Intent intent = new Intent(_mActivity, PreviewImageActivity.class);
+        intent.putExtra(PreviewImageActivity.ARG_URLS, previewImageUrls);
+        intent.putExtra(PreviewImageActivity.ARG_POSITION, 0);
+        _mActivity.startActivity(intent);
     }
 
 }
