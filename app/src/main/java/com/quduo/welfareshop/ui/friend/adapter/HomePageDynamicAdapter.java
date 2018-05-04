@@ -1,6 +1,5 @@
 package com.quduo.welfareshop.ui.friend.adapter;
 
-import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +13,14 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.quduo.welfareshop.MyApplication;
 import com.quduo.welfareshop.R;
-import com.quduo.welfareshop.activity.PreviewImageActivity;
 import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.ui.friend.entity.DynamicInfo;
 import com.quduo.welfareshop.widgets.CustomListView;
 import com.quduo.welfareshop.widgets.RatioImageView;
-import com.w4lle.library.NineGridlayout;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import wiki.scene.loadmore.utils.PtrLocalDisplay;
 
 //个人主页的动态
 public class HomePageDynamicAdapter extends BaseQuickAdapter<DynamicInfo, BaseViewHolder> {
@@ -46,23 +44,36 @@ public class HomePageDynamicAdapter extends BaseQuickAdapter<DynamicInfo, BaseVi
         helper.setText(R.id.total_follow_number, item.getFavor_times() + "人关注了TA");
         helper.setText(R.id.content, item.getContent());
 
-        final ArrayList<String> imageList = new ArrayList<>();
-        if (item.getImages() != null && item.getImages().size() > 0) {
-            imageList.add(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getImages().get(0));
-        }
-        NineGridImageAdapter imageAdapter = new NineGridImageAdapter(mContext, imageList);
-        NineGridlayout imageGridLayout = helper.getView(R.id.image_gridLayout);
-        imageGridLayout.setOnItemClickListerner(new NineGridlayout.OnItemClickListerner() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent intent = new Intent(mContext, PreviewImageActivity.class);
-                intent.putExtra(PreviewImageActivity.ARG_URLS, imageList);
-                intent.putExtra(PreviewImageActivity.ARG_POSITION, position);
-                mContext.startActivity(intent);
+        ImageView image = helper.getView(R.id.image);
+        ViewGroup.LayoutParams imageLayoutParams = image.getLayoutParams();
+        int maxSize = (int) (PtrLocalDisplay.SCREEN_WIDTH_PIXELS * 3f / 5f);
+        if (item.getImage_width() == 0) {
+            imageLayoutParams.height = maxSize;
+            imageLayoutParams.width = maxSize;
+        } else {
+            if (item.getImage_height() > item.getImage_width()) {
+                imageLayoutParams.height = maxSize;
+                imageLayoutParams.width = (int) ((float) maxSize * (float) item.getImage_width() / (float) item.getImage_height());
+            } else {
+                imageLayoutParams.width = maxSize;
+                imageLayoutParams.height = (int) ((float) maxSize * (float) item.getImage_height() / (float) item.getImage_width());
             }
-        });
-        imageGridLayout.setAdapter(imageAdapter);
-        imageGridLayout.setVisibility(imageList.size() > 0 ? View.VISIBLE : View.GONE);
+        }
+        image.setLayoutParams(imageLayoutParams);
+        if (item.getImages() != null && !StringUtils.isTrimEmpty(item.getImages())) {
+            image.setVisibility(View.VISIBLE);
+            GlideApp.with(mContext)
+                    .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + item.getImages())
+                    .centerInside()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(image);
+        } else {
+            image.setVisibility(View.GONE);
+        }
+//        Intent intent = new Intent(mContext, PreviewImageActivity.class);
+//        intent.putExtra(PreviewImageActivity.ARG_URLS, imageList);
+//        intent.putExtra(PreviewImageActivity.ARG_POSITION, position);
+//        mContext.startActivity(intent);
         if (StringUtils.isTrimEmpty(item.getUrl())) {
             helper.setGone(R.id.video_layout, false);
         } else {

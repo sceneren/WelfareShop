@@ -31,7 +31,9 @@ public class DynamicInfo extends BaseBean {
     private int price;
     private int favor_times;
     private int play_times;
-    private List<String> images;
+    private String images;
+    private int image_width;
+    private int image_height;
     private List<DynamicCommentInfo> comments;
     private int sex;
     private int age;
@@ -129,12 +131,28 @@ public class DynamicInfo extends BaseBean {
         this.play_times = play_times;
     }
 
-    public List<String> getImages() {
+    public String getImages() {
         return images;
     }
 
-    public void setImages(List<String> images) {
+    public void setImages(String images) {
         this.images = images;
+    }
+
+    public int getImage_width() {
+        return image_width;
+    }
+
+    public void setImage_width(int image_width) {
+        this.image_width = image_width;
+    }
+
+    public int getImage_height() {
+        return image_height;
+    }
+
+    public void setImage_height(int image_height) {
+        this.image_height = image_height;
     }
 
     public String getNickname() {
