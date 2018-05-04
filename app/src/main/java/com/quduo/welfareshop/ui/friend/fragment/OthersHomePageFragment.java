@@ -379,6 +379,7 @@ public class OthersHomePageFragment extends BaseBackMvpFragment<IOthersHomePageV
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + homePageInfo.getCover())
                     .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .error(R.drawable.ic_default_cover)
                     .into(coverImage);
             GlideApp.with(this)
                     .load(MyApplication.getInstance().getConfigInfo().getFile_domain() + homePageInfo.getAvatar())

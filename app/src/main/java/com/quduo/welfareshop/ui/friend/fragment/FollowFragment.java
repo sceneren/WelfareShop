@@ -106,7 +106,7 @@ public class FollowFragment extends BaseMvpFragment<IFollowView, FollowPresenter
                     if (MyApplication.getInstance().getUserInfo().getUnlock_chat() != 0) {
                         toChatMessage(list.get(position));
                     } else {
-                        DialogUtils.getInstance().showUnlockChatDialog(_mActivity,AppConfig.POSITION_FRIEND_FOLLOW, new UnlockLisenter() {
+                        DialogUtils.getInstance().showUnlockChatDialog(_mActivity, AppConfig.POSITION_FRIEND_FOLLOW, new UnlockLisenter() {
                             @Override
                             public void unlock() {
                                 presenter.unlockChat();
@@ -119,7 +119,7 @@ public class FollowFragment extends BaseMvpFragment<IFollowView, FollowPresenter
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                EventBus.getDefault().post(new StartBrotherEvent(OtherInfoFragment.newInstance(String.valueOf(list.get(position).getTarget_user_id()), false)));
+                EventBus.getDefault().post(new StartBrotherEvent(OthersHomePageFragment.newInstance(list.get(position).getTarget_user_id(), 0)));
             }
         });
     }

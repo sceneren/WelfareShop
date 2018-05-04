@@ -219,12 +219,12 @@ public class FriendVideoDetailFragment extends BaseBackMvpFragment<IFriendVideoD
         _mActivity.onBackPressed();
     }
 
-    @OnClick(R.id.layout_to_video_detail)
+    @OnClick(R.id.layout_to_user_detail)
     public void onClickLayoutToVideoDetail() {
         JZVideoPlayer.releaseAllVideos();
         JZVideoPlayer.FULLSCREEN_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_SENSOR;
         JZVideoPlayer.NORMAL_ORIENTATION = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
-        start(OtherInfoFragment.newInstance(String.valueOf(detailInfo.getUserId()), false));
+        start(OthersHomePageFragment.newInstance(detailInfo.getUserId(), 0));
     }
 
     @Override
