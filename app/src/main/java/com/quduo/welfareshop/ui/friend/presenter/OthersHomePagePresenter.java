@@ -218,4 +218,40 @@ public class OthersHomePagePresenter extends BasePresenter<IOthersHomePageView> 
             e.printStackTrace();
         }
     }
+
+    public void unlockChat() {
+        try {
+            mView.showLoadingDialog();
+            model.unlockChat(new HttpResultListener<UnlockResultInfo>() {
+                @Override
+                public void onSuccess(UnlockResultInfo data) {
+                    try {
+                        mView.unlockChatSuccess(data.getScore());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFail(String message) {
+                    try {
+                        mView.alert(message);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFinish() {
+                    try {
+                        mView.hideLoadingDialog();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

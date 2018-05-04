@@ -25,4 +25,6 @@ public interface IOthersHomePageView extends BaseView {
 
     void unlockSuccess(int position, int currentScore);
 
+    void unlockChatSuccess(int currentScore);
+
 }

@@ -11,6 +11,7 @@ import com.quduo.welfareshop.http.listener.HttpResultListener;
 import com.quduo.welfareshop.ui.friend.entity.DynamicCommentInfo;
 import com.quduo.welfareshop.ui.friend.entity.HomePageInfo;
 import com.quduo.welfareshop.ui.welfare.entity.FollowSuccessInfo;
+import com.quduo.welfareshop.ui.welfare.entity.UnlockResultInfo;
 import com.quduo.welfareshop.ui.welfare.model.ZanModel;
 
 import org.greenrobot.eventbus.EventBus;
@@ -107,6 +108,39 @@ public class OthersHomePageModel extends ZanModel {
                         } catch (Exception e) {
                             e.printStackTrace();
                             listener.onFail("取消关注失败请重试");
+                        }
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        listener.onFinish();
+                    }
+                });
+    }
+
+    public void unlockChat(final HttpResultListener<UnlockResultInfo> listener) {
+        OkGo.<LzyResponse<UnlockResultInfo>>get(ApiUtil.API_PRE + ApiUtil.UNLOCK_CHAT)
+                .tag(ApiUtil.UNLOCK_CHAT_TAG)
+                .execute(new JsonCallback<LzyResponse<UnlockResultInfo>>() {
+                    @Override
+                    public void onSuccess(Response<LzyResponse<UnlockResultInfo>> response) {
+                        try {
+                            listener.onSuccess(response.body().data);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            listener.onFail("解锁失败请重试");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<LzyResponse<UnlockResultInfo>> response) {
+                        super.onError(response);
+                        try {
+                            listener.onFail(response.getException().getMessage());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            listener.onFail("解锁失败请重试");
                         }
                     }
 

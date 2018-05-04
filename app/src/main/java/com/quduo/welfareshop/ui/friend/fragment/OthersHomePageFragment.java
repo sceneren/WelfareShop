@@ -33,6 +33,7 @@ import com.quduo.welfareshop.event.DynamicCommentSuccessEvent;
 import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
+import com.quduo.welfareshop.ui.friend.activity.ChatActivity;
 import com.quduo.welfareshop.ui.friend.adapter.HomePageAlbumAdapter;
 import com.quduo.welfareshop.ui.friend.adapter.HomePageDynamicAdapter;
 import com.quduo.welfareshop.ui.friend.adapter.HomePageVideoAdapter;
@@ -69,6 +70,7 @@ import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import wiki.scene.loadmore.StatusViewLayout;
 import wiki.scene.loadmore.utils.PtrLocalDisplay;
@@ -319,6 +321,8 @@ public class OthersHomePageFragment extends BaseBackMvpFragment<IOthersHomePageV
                 }
             }
         });
+
+
     }
 
     @Override
@@ -569,6 +573,17 @@ public class OthersHomePageFragment extends BaseBackMvpFragment<IOthersHomePageV
         }
     }
 
+    @Override
+    public void unlockChatSuccess(int currentScore) {
+        try {
+            MyApplication.getInstance().getUserInfo().setUnlock_chat(1);
+            MyApplication.getInstance().getUserInfo().setScore(currentScore);
+            EventBus.getDefault().post(new UpdateScoreAndDiamondEvent());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void bindFollowState() {
         if (homePageInfo.getSubscribe_id() == 0) {
             //未关注
@@ -645,5 +660,44 @@ public class OthersHomePageFragment extends BaseBackMvpFragment<IOthersHomePageV
         intent.putExtra(PreviewImageActivity.ARG_POSITION, 0);
         _mActivity.startActivity(intent);
     }
+
+    @OnClick(R.id.send_message)
+    public void onClickSendMessage() {
+        if (MyApplication.getInstance().getUserInfo().getUnlock_chat() != 0) {
+            toChatMessage();
+        } else {
+            DialogUtils.getInstance().showUnlockChatDialog(_mActivity, AppConfig.POSITION_FRIEND_OTHERS_INFO, new UnlockLisenter() {
+                @Override
+                public void unlock() {
+                    presenter.unlockChat();
+                }
+            });
+        }
+    }
+
+    @OnClick(R.id.video_chat)
+    public void onClickVideoChat() {
+        try {
+            if (MyApplication.getInstance().getUserInfo().getScore() > MyApplication.getInstance().getUserInfo().getChat_price()) {
+                DialogUtils.getInstance().showVideoChatNoticeDialog(_mActivity, homePageInfo.getAvatar(), homePageInfo.getNickname());
+            } else {
+                DialogUtils.getInstance().showVideoChatScoreNoEnough(_mActivity, AppConfig.POSITION_FRIEND_OTHERS_INFO);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void toChatMessage() {
+        Intent intent = new Intent(_mActivity, ChatActivity.class);
+        intent.putExtra("ID", String.valueOf(homePageInfo.getId()));
+        intent.putExtra("NICKNAME", homePageInfo.getNickname());
+        intent.putExtra("IS_FOLLOW", homePageInfo.getSubscribe_id() != 0);
+        intent.putExtra("NEARBY", false);
+        intent.putExtra("OTHERAVATAR", homePageInfo.getAvatar());
+        startActivity(intent);
+        _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
+    }
+
 
 }

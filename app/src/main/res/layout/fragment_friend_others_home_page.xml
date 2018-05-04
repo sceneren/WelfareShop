@@ -9,6 +9,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
+
         <wiki.scene.loadmore.StatusViewLayout
             android:id="@+id/status_view"
             android:layout_width="match_parent"
