@@ -238,17 +238,21 @@ public class ApiUtil {
     public static final String TECH = "tech";
     public static final String TECH_TAG = "tech";
     //交友-附近的人V2
-    public static final String NEAR_V2="friend/nearby_v2";
-    public static final String NEAR_V2_TAG="friend/nearby_v2";
+    public static final String NEAR_V2 = "friend/nearby_v2";
+    public static final String NEAR_V2_TAG = "friend/nearby_v2";
     //他人的主页
-    public static final String OTHERS_HOME_PAGE="friend/home";
-    public static final String OTHERS_HOME_PAGE_TAG="friend/home";
+    public static final String OTHERS_HOME_PAGE = "friend/home";
+    public static final String OTHERS_HOME_PAGE_TAG = "friend/home";
     //详细信息
-    public static final String OTHERS_DETAIL_INFO="friend/info";
-    public static final String OTHERS_DETAIL_INFO_TAG="friend/info";
+    public static final String OTHERS_DETAIL_INFO = "friend/info";
+    public static final String OTHERS_DETAIL_INFO_TAG = "friend/info";
     //发表评论
-    public static final String DYNAMIC_SEND_COMMENT="friend/comment";
-    public static final String DYNAMIC_SEND_COMMENT_TAG="friend/comment";
+    public static final String DYNAMIC_SEND_COMMENT = "friend/comment";
+    public static final String DYNAMIC_SEND_COMMENT_TAG = "friend/comment";
+    //获取用户所有的视频
+    public static final String USER_ALL_VIDEO = "friend/video";
+    public static final String USER_ALL_VIDEO_TAG = "friend/video";
+
     /**
      * Case By:创建参数基础信息
      * Author: scene on 2017/5/19 13:19

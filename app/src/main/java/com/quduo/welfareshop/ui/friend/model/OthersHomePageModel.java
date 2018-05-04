@@ -3,18 +3,14 @@ package com.quduo.welfareshop.ui.friend.model;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Response;
-import com.quduo.welfareshop.event.DynamicCommentSuccessEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.http.base.LzyResponse;
 import com.quduo.welfareshop.http.callback.JsonCallback;
 import com.quduo.welfareshop.http.listener.HttpResultListener;
-import com.quduo.welfareshop.ui.friend.entity.DynamicCommentInfo;
 import com.quduo.welfareshop.ui.friend.entity.HomePageInfo;
 import com.quduo.welfareshop.ui.welfare.entity.FollowSuccessInfo;
 import com.quduo.welfareshop.ui.welfare.entity.UnlockResultInfo;
 import com.quduo.welfareshop.ui.welfare.model.ZanModel;
-
-import org.greenrobot.eventbus.EventBus;
 
 public class OthersHomePageModel extends ZanModel {
     public void getData(HttpParams params, final HttpResultListener<HomePageInfo> listener) {

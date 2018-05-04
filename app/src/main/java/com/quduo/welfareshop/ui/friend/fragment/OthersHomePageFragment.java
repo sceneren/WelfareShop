@@ -30,6 +30,7 @@ import com.quduo.welfareshop.base.GlideApp;
 import com.quduo.welfareshop.base.UnlockLisenter;
 import com.quduo.welfareshop.config.AppConfig;
 import com.quduo.welfareshop.event.DynamicCommentSuccessEvent;
+import com.quduo.welfareshop.event.UnlockUserVideoEvent;
 import com.quduo.welfareshop.event.UpdateScoreAndDiamondEvent;
 import com.quduo.welfareshop.http.api.ApiUtil;
 import com.quduo.welfareshop.mvp.BaseBackMvpFragment;
@@ -50,7 +51,6 @@ import com.quduo.welfareshop.ui.mine.activity.AlbumActivity;
 import com.quduo.welfareshop.ui.mine.entity.MyUserDetailInfo;
 import com.quduo.welfareshop.util.DialogUtils;
 import com.quduo.welfareshop.util.DistanceUtil;
-import com.quduo.welfareshop.util.WeakDataHolder;
 import com.quduo.welfareshop.widgets.CustomGridView;
 import com.quduo.welfareshop.widgets.RatioImageView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -436,7 +436,6 @@ public class OthersHomePageFragment extends BaseBackMvpFragment<IOthersHomePageV
                 videoGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        WeakDataHolder.getInstance().saveData(UserAllVideoFragment.ARG_ALL_VIDEO + homePageInfo.getId(), homePageInfo.getVideos());
                         start(UserAllVideoFragment.newInstance(homePageInfo.getId()));
                     }
                 });
@@ -699,5 +698,11 @@ public class OthersHomePageFragment extends BaseBackMvpFragment<IOthersHomePageV
         _mActivity.overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit);
     }
 
+    @Subscribe
+    public void unlockVideoSuccessEvent(UnlockUserVideoEvent event) {
+        if (event != null) {
+            presenter.getData(false, othersDistance, othersUserId);
+        }
+    }
 
 }
